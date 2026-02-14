@@ -1,0 +1,79 @@
+{
+	"folders": [
+		{
+			"name": "P31 Root",
+			"path": "."
+		},
+		{
+			"name": "The Centaur",
+			"path": "./SUPER-CENTAUR"
+		},
+		{
+			"name": "The Scope",
+			"path": "./ui"
+		},
+		{
+			"name": "The Buffer",
+			"path": "./cognitive-shield"
+		},
+		{
+			"name": "Node One",
+			"path": "./firmware"
+		},
+		{
+			"name": "Documentation",
+			"path": "./docs"
+		},
+		{
+			"name": "Sovereign Life OS",
+			"path": "../sovereign-life-os/sovereign-life-os"
+		},
+		{
+			"name": "Donation Wallet",
+			"path": "../phenix-donation-wallet-v2/donation-wallet-v2"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/build": true,
+			"**/.vite": true,
+			"**/coverage": true,
+			"**/.next": true,
+			"**/target": true
+		},
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/build": true,
+			"**/coverage": true,
+			"**/.vite": true
+		},
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit"
+		},
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[json]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"esbenp.prettier-vscode",
+			"ms-vscode.vscode-typescript-next"
+		]
+	}
+}
