@@ -60,6 +60,7 @@ export class SuperCentaurServer {
   private backupManager!: BackupManager;
   private monitoringSystem!: MonitoringSystem;
   private quantumBrain!: QuantumBrainBridge;
+  private quantumLab!: QuantumLab;
   private googleDrive!: GoogleDriveManager;
   private sovereignGoogleDrive!: SovereignGoogleDriveManager;
   private sovereigntyValidator!: SovereigntyValidator;
@@ -185,6 +186,7 @@ export class SuperCentaurServer {
     this.backupManager = initSystem('Backup Manager', () => new BackupManager());
     this.monitoringSystem = initSystem('Monitoring System', () => new MonitoringSystem());
     this.quantumBrain = initSystem('Quantum Brain Bridge', () => new QuantumBrainBridge());
+    this.quantumLab = initSystem('Quantum Lab', () => new QuantumLab());
     this.googleDrive = initSystem('Google Drive Manager', () => new GoogleDriveManager());
     this.sovereignGoogleDrive = initSystem('Sovereign Google Drive Manager', () => new SovereignGoogleDriveManager(this.googleDrive));
     this.sovereigntyValidator = initSystem('Sovereignty Validator', () => new SovereigntyValidator());
@@ -302,6 +304,7 @@ export class SuperCentaurServer {
     this.setupFamilyWalletRoutes();
     this.setupGameRoutes();
     this.setupSOPRoutes();
+    this.setupQuantumLabRoutes();
     this.setupBufferRoutes();
 
     // Frontend proxy
