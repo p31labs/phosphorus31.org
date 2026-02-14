@@ -41,6 +41,22 @@ Template for creating new P31 components.
 4. Follow P31 naming conventions
 5. Document your implementation
 
+## Patterns Library
+
+Use the **P31 Patterns Library** (`patterns-library.ts`) for reusable implementations:
+
+- `TetrahedronGroup` - Enforce 4-vertex constraint
+- `EncryptionService` - Type-safe encryption with EncryptedBlob
+- `LocalFirstDataManager` - Local-first data management
+- `MessageBatcher` - Efficient message batching
+- `withRetry` - Exponential backoff retry
+- `CircuitBreaker` - Fault tolerance
+- `PingSystem` - Object permanence tracking
+- `PerformanceTracker` - Performance monitoring
+- `AdminKeys` - Abdication pattern (no backdoors)
+
+See `docs/patterns.md` for complete documentation.
+
 ## P31 Principles
 
 All templates follow:
