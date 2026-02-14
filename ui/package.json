@@ -1,0 +1,60 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The Scope - Dashboard and visualization layer for P31 ecosystem",
+  "author": "P31 Labs, Inc.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p31labs/phenix-navigator-creator67.git",
+    "directory": "ui"
+  },
+  "homepage": "https://phosphorus31.org",
+  "main": "src/main.tsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:spiffs": "tsc && vite build && echo 'Build complete. Copy dist/* to firmware/node-one-esp-idf/spiffs/web/ manually on Windows.'",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "size": "vite build && powershell -Command \"Get-ChildItem -Path dist -Recurse -File | Measure-Object -Property Length -Sum | Select-Object @{Name='Size(MB)';Expression={[math]::Round($_.Sum/1MB,2)}}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.114.0",
+    "@react-three/fiber": "^8.17.10",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "eventemitter3": "^5.0.1",
+    "leva": "^0.10.1",
+    "lucide-react": "^0.344.0",
+    "postcss": "^8.4.32",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-visualizer": "^6.0.5",
+    "tailwindcss": "^3.4.0",
+    "three": "^0.169.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/coverage-v8": "^4.0.18",
+    "esbuild": "^0.21.5",
+    "jsdom": "^26.1.0",
+    "terser": "^5.46.0",
+    "vitest": "^4.0.18"
+  }
+}
