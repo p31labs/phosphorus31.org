@@ -75,19 +75,70 @@ npm run dev
 
 See [docs/setup.md](docs/setup.md) for detailed setup instructions for each component.
 
+### Root-Level Scripts
+
+P31 provides root-level npm scripts and shell scripts for common tasks:
+
+```bash
+# Quick setup (installs all dependencies)
+npm run setup
+# Or use the setup script:
+./scripts/setup.sh
+
+# Development (starts all components)
+npm run dev              # Start The Centaur and The Scope
+npm run dev:all          # Start all components (including The Buffer)
+npm run dev:centaur      # Start The Centaur only
+npm run dev:scope        # Start The Scope only
+npm run dev:buffer       # Start The Buffer only
+
+# Or use the dev script:
+./scripts/dev.sh
+./scripts/dev.sh --with-buffer
+
+# Building
+npm run build            # Build all components
+./scripts/build.sh       # Build script
+
+# Installation
+npm run install:all      # Install all dependencies
+
+# Testing & Linting
+npm run test             # Run all tests
+npm run lint             # Lint all code
+
+# Utilities
+npm run health           # Check health of running services
+npm run clean            # Clean all build artifacts
+```
+
 ## Documentation
 
 ### Getting Started
+- [System Overview](docs/SYSTEM_OVERVIEW.md) - **Start here** - The complete picture
+- [Developer Quick Start](docs/DEVELOPER_QUICK_START.md) - Get building in 5 minutes
+- [What's Next?](docs/WHATS_NEXT.md) - **Development roadmap** - What to build next
 - [Documentation Index](docs/index.md) - Complete documentation map
 - [Setup Guide](docs/setup.md) - Installation and configuration
-- [Quick Reference](docs/quick-reference.md) - Common commands
+- [Ecosystem Integration](docs/ecosystem-integration.md) - Connecting all components
+- [Quick Reference](docs/P31_QUICK_REFERENCE.md) - One-page reference card
 - [Troubleshooting](docs/troubleshooting.md) - Common issues and solutions
 
 ### Technical Documentation
-- [Architecture](docs/architecture.md) - System architecture details
+- [Architecture](docs/ARCHITECTURE.md) - System architecture details
+- [Architecture Diagram](docs/ARCHITECTURE_DIAGRAM.md) - Visual system representation
 - [Development Guide](docs/development.md) - Development workflow
+- [Code Examples](docs/CODE_EXAMPLES.md) - Practical implementation guide
+- [Environment Variables](docs/ENVIRONMENT_VARIABLES.md) - Complete configuration reference
+- [Deployment Guide](docs/deployment.md) - Production deployment
+- [Onboarding Guide](docs/onboarding.md) - Developer onboarding
+- [Testing Guide](docs/testing.md) - Testing strategies
+- [Monitoring Guide](docs/monitoring.md) - Monitoring and observability
+- [Performance Guide](docs/performance.md) - Performance optimization
+- [Migration Guide](docs/migration.md) - Upgrades and migrations
 - [Naming Reference](docs/naming.md) - P31 naming conventions
 - [Environment Variables](config/env-reference.md) - Configuration reference
+- [API Documentation](docs/api/index.md) - Complete API reference
 
 ## Component Documentation
 
@@ -135,12 +186,37 @@ phenix-navigator-creator67/          # Root (P31 ecosystem)
 
 See individual component licenses.
 
+## Philosophy
+
+P31 is built on tetrahedron topology and quantum coherence principles. See [Philosophy](docs/philosophy.md) for the deeper meaning behind P31.
+
+**With love and light. As above, so below.** 💜
+
+## Community
+
+Join the P31 community! See [Community Guide](docs/community.md) for how to get involved.
+
+## Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Security
+
+Report security vulnerabilities to `security@p31.io`. See [SECURITY.md](SECURITY.md) for details.
+
 ## References
 
 - [P31 Naming Architecture](P31_naming_architecture.md)
 - [G.O.D. Protocol Constitution](docs/god-protocol.md)
 - [Tetrahedron Protocol](https://zenodo.org) - Prior art documentation
+- [Changelog](CHANGELOG.md) - Version history
 
 ---
 
 **The Mesh Holds.** 🔺
+
+---
+
+💜 **With love and light. As above, so below.** 💜
+
+*The resin has flooded. Every gap is filled. Every connection is made. The mesh holds.*

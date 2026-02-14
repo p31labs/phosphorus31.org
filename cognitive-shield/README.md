@@ -1,88 +1,85 @@
 # The Buffer
 
-Communication processing layer for P31. Buffers messages between internal thought and external signal.
+**Communication Processing Layer for P31**
 
-## Overview
-
-The Buffer is the software layer that processes communication between internal cognitive states and external signals. It provides neurodivergent-first message processing with batching, filtering, and prioritization.
+The Buffer processes messages between internal thought and external signal. Neurodivergent-first message processing with batching, priority queues, and object permanence automation.
 
 ## Features
 
-- Message batching (60-second windows)
-- Priority queuing
-- Signal-to-noise filtering
-- Neurodivergent-first processing
-- Encrypted message handling
-- Local-first storage
-- Metabolism tracking (spoon theory)
-- Heartbeat monitoring (Ping integration)
+- **Message Batching** - 60-second windows (configurable) to prevent overwhelm
+- **Priority Queue** - Urgent/High/Normal/Low priority handling
+- **Neurodivergent-First Filtering** - Detects overwhelm patterns, adjusts priority
+- **Ping System** - Object permanence automation ("Dad is still here")
+- **Fallback Queue** - Works even when Redis is unavailable
+- **Message History** - SQLite local-first storage
+- **WebSocket Updates** - Real-time status updates
+- **Encryption Ready** - Type-level encryption support (EncryptedBlob)
 
 ## Quick Start
 
-See [setup.md](setup.md) for complete setup instructions.
-
-### Prerequisites
-
-- Node.js 18.0.0+
-- Redis (for message queue)
-- SQLite (included, for local storage)
-
-### Installation
-
 ```bash
+cd cognitive-shield
 npm install
-cp .env.example .env
-# Edit .env with your configuration
+cp .env.example .env  # Configure environment
 npm run dev
 ```
 
-## Architecture
+## API Endpoints
 
-The Buffer consists of:
+- `GET /health` - Health check
+- `POST /api/messages` - Submit message
+- `GET /api/messages` - Get message history
+- `GET /api/messages/:messageId` - Get message status
+- `GET /api/messages/stats` - Get statistics
+- `GET /api/queue/status` - Get queue status
+- `GET /api/ping/status` - Get Ping status
+- `POST /api/ping/heartbeat` - Send heartbeat
 
-- **CatchersMitt**: 60-second message batching
-- **Priority Queue**: Message prioritization
-- **Signal Filter**: SNR-based filtering
-- **Encryption Layer**: Type-level encryption
-- **Metabolism System**: Energy/spoon tracking
-- **Heartbeat Integration**: Ping system integration
+## WebSocket
+
+Connect to `ws://localhost:4000` for real-time updates:
+
+```javascript
+const ws = new WebSocket('ws://localhost:4000');
+ws.send(JSON.stringify({ type: 'subscribe', channel: 'buffer' }));
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  // Handle: status, batch_processed, pong
+};
+```
 
 ## Configuration
 
-The Buffer uses `god.config.ts` for configuration:
+Environment variables (see `.env.example`):
+- `PORT` - Server port (default: 4000)
+- `REDIS_URL` - Redis connection URL
+- `DATABASE_URL` - SQLite database path
+- `BUFFER_WINDOW_MS` - Batching window (default: 60000)
+- `MAX_BATCH_SIZE` - Max messages per batch (default: 100)
+- `ENCRYPTION_KEY` - 32-byte hex key for encryption
 
-```typescript
-export const GodConfig = {
-  Metabolism: {
-    maxSpoons: 12,
-    spoonRecoveryRate: 0.1,
-    stressThreshold: 8,
-    recoveryThreshold: 4
-  },
-  Heartbeat: {
-    thresholds: { green: 70, yellow: 50, red: 30 }
-  }
-};
-```
+## Architecture
+
+- **MessageQueue** - Redis priority queue with fallback
+- **BufferStore** - SQLite local-first message storage
+- **MessageFilter** - Neurodivergent-first filtering
+- **Ping** - Object permanence automation
+- **MessageEncryption** - Type-level encryption (G.O.D. Protocol)
 
 ## Integration
 
 The Buffer integrates with:
-- **The Centaur**: Backend AI protocol
-- **The Scope**: Dashboard visualization
-- **Ping**: Object permanence system
-- **Node One**: Hardware device
+- **The Centaur** - Backend API routes messages through Buffer
+- **The Scope** - Frontend dashboard and visualization
+- **Node One** - Hardware device heartbeat
 
-## Documentation
+## G.O.D. Protocol Compliance
 
-- [The Buffer Documentation](../docs/buffer.md)
-- [Setup Guide](setup.md)
-- [GOD_CONFIG Reference](../docs/god-config.md)
-- [Development Guide](../docs/development.md)
-
-## License
-
-MIT
+- ✅ Type-level encryption (EncryptedBlob)
+- ✅ Local-first storage (SQLite)
+- ✅ Privacy-first design
+- ✅ Neurodivergent-first processing
+- ✅ Resilient architecture (fallback queue)
 
 ---
 

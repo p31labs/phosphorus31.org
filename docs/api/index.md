@@ -35,18 +35,20 @@ Authorization: Bearer <token>
 - [Agents](centaur-agents.md) - Autonomous agent management
 - [Chat](centaur-chat.md) - Chatbot interface
 - [Family Support](centaur-family.md) - Family support systems
-- [Google Drive](centaur-google-drive.md) - Google Drive integration
 - [Sovereignty](centaur-sovereignty.md) - Sovereignty validation
 - [System](centaur-system.md) - System metrics and monitoring
 - [Wallet](centaur-wallet.md) - Wallet management
 - [Spoons](centaur-spoons.md) - Spoon theory tracking
 - [Consciousness](centaur-consciousness.md) - Consciousness monitoring
+- [Quantum SOP Generator](quantum-sop.md) - SOP generation API
+- [Quantum SOP Generator](quantum-sop.md) - SOP generation API
 
 ### The Buffer API
 
 - [Messages](buffer-messages.md) - Message submission and retrieval
 - [Queue](buffer-queue.md) - Message queue management
 - [Health](buffer-health.md) - Buffer health status
+- [Buffer API](buffer-api.md) - Complete Buffer API reference
 
 ### Node One API
 
