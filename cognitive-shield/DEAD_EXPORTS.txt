@@ -1,0 +1,20 @@
+npm warn exec The following package was not found and will be installed: ts-prune@0.10.3
+\src\centaur-client.ts:9 - CentaurMessage (used in module)
+\src\centaur-client.ts:17 - CentaurResponse (used in module)
+\src\encryption.ts:14 - EncryptedBlob (used in module)
+\src\encryption.ts:16 - MessageEncryption
+\src\filter.ts:9 - FilterResult (used in module)
+\src\metabolism.ts:20 - MetabolismState (used in module)
+\src\metabolism.ts:28 - EnergyCost (used in module)
+\src\monitoring.ts:9 - Alert (used in module)
+\src\monitoring.ts:17 - Metrics (used in module)
+\src\ping.ts:9 - HeartbeatRecord (used in module)
+\src\ping.ts:15 - PingStatus (used in module)
+\src\retry.ts:7 - RetryOptions (used in module)
+\src\types.ts:14 - QueueStatus
+\src\types.ts:21 - PingStatus
+\src\types.ts:28 - HeartbeatRecord (used in module)
+\src\types.ts:34 - MessageStats
+\src\types.ts:42 - MonitoringMetrics
+\src\types.ts:50 - Alert
+\src\types.ts:58 - EncryptedBlob

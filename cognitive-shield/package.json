@@ -1,0 +1,43 @@
+{
+  "name": "the-buffer",
+  "version": "1.0.0",
+  "description": "The Buffer - Communication processing layer for P31 (neurodivergent-first message buffering)",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "buffer",
+    "message-processing",
+    "neurodivergent",
+    "p31"
+  ],
+  "author": "P31",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "ioredis": "^5.4.0",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.5",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
