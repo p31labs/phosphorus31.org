@@ -3,157 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentation · P31 Labs</title>
-  <meta name="description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
-  <meta property="og:title" content="Documentation · P31 Labs">
-  <meta property="og:description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
-  <meta name="theme-color" content="#050510">
-  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../styles.css">
-  <!-- Page‑specific styles (extend design system) -->
+  <meta name="description" content="P31 Labs documentation hub — Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
+  <title>Documentation — P³¹ Labs</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/pages.css">
   <style>
-    /* Quick links and search refinement */
-    .quick-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem 0;
-      justify-content: center;
-    }
-    .quick-links a {
-      background: rgba(46, 204, 113, 0.1);
-      border: 1px solid rgba(46, 204, 113, 0.3);
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-    .quick-links a:hover,
-    .quick-links a:focus {
-      background: rgba(46, 204, 113, 0.2);
-      border-color: #2ecc71;
-      outline: none;
-    }
-    .version-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 1rem;
-      font-size: 0.9rem;
-      color: #94a3b8;
-    }
-    .version-info code {
-      background: #0a0a1a;
-      padding: 0.2rem 0.6rem;
-      border-radius: 0.5rem;
-    }
-    .search-container {
-      margin: 2rem 0 1rem;
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    .search-container input {
-      flex: 1;
-      background: #0a0a1a;
-      border: 1px solid #1e293b;
-      border-radius: 2rem;
-      padding: 0.8rem 1.2rem;
-      color: #f1f5f9;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      transition: border-color 0.2s;
-    }
-    .search-container input:focus {
-      outline: none;
-      border-color: #2ecc71;
-      box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
-    }
-    .search-container button {
-      background: #2ecc71;
-      border: none;
-      border-radius: 2rem;
-      padding: 0.8rem 1.5rem;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      color: #050510;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .search-container button:hover,
-    .search-container button:focus {
-      background: #27ae60;
-      outline: none;
-    }
-    .no-results {
+    /* Docs-specific styles */
+    .docs-header {
       text-align: center;
-      padding: 3rem;
-      color: #94a3b8;
+      margin-bottom: var(--space-8);
+    }
+    
+    .docs-version {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--white-muted);
+      margin-bottom: var(--space-4);
+      text-align: center;
+    }
+    
+    .docs-search-container {
+      max-width: 600px;
+      margin: 0 auto var(--space-8);
+      position: relative;
+    }
+    
+    .docs-search {
+      width: 100%;
+      padding: var(--space-4) var(--space-6);
+      background: var(--void-surface);
+      border: 1px solid var(--void-border);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      transition: all var(--duration-base) var(--ease-out-expo);
+    }
+    
+    .docs-search:focus {
+      outline: none;
+      border-color: var(--phosphorus);
+      box-shadow: 0 0 20px var(--phosphorus-glow);
+    }
+    
+    .search-clear {
+      position: absolute;
+      right: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--white-dim);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: var(--space-2);
+      transition: color var(--duration-base);
+    }
+    
+    .search-clear:hover {
+      color: var(--phosphorus);
+    }
+    
+    .docs-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+    
+    .filter-btn {
+      padding: var(--space-2) var(--space-4);
+      background: var(--void-surface);
+      border: 1px solid var(--void-border);
+      border-radius: 6px;
+      color: var(--white-dim);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: all var(--duration-base) var(--ease-out-expo);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--phosphorus);
+      color: var(--phosphorus);
+      background: var(--phosphorus-glow);
+    }
+    
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+    
+    .docs-card {
+      background: var(--void-surface);
+      border: 1px solid var(--void-border);
+      border-radius: 12px;
+      padding: var(--space-6);
+      transition: all var(--duration-base) var(--ease-out-expo);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .docs-card:hover {
+      border-color: var(--phosphorus);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px var(--phosphorus-glow);
+    }
+    
+    .docs-card.hidden {
       display: none;
     }
+    
+    .docs-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: var(--space-4);
+      gap: var(--space-4);
+    }
+    
+    .docs-card-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--phosphorus);
+      background: var(--phosphorus-glow);
+      padding: var(--space-1) var(--space-3);
+      border: 1px solid var(--phosphorus);
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    
+    .docs-card h3 {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--white);
+      margin: 0 0 var(--space-3) 0;
+      line-height: 1.3;
+    }
+    
+    .docs-card p {
+      color: var(--white-dim);
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+      flex-grow: 1;
+    }
+    
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--phosphorus);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-decoration: none;
+      margin-top: auto;
+      transition: gap var(--duration-base);
+    }
+    
+    .card-link:hover {
+      gap: var(--space-4);
+      color: var(--calcium);
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: var(--space-12);
+      color: var(--white-muted);
+      display: none;
+    }
+    
     .no-results.visible {
       display: block;
     }
-    /* Code block styling */
-    pre {
-      background: #0a0a1a;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      overflow-x: auto;
-      border: 1px solid #1e293b;
-    }
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      color: #e2e8f0;
-    }
-    /* Syntax highlight (simple) */
-    .token.keyword { color: #f472b6; }
-    .token.string { color: #a3e635; }
-    .token.comment { color: #64748b; }
-    .token.function { color: #60a5fa; }
-    /* Expandable section */
-    details {
-      background: #0a0a1a;
-      border: 1px solid #1e293b;
-      border-radius: 1rem;
-      margin: 1rem 0;
-      padding: 0.5rem 1rem;
-    }
-    summary {
-      font-weight: 600;
-      cursor: pointer;
-      padding: 0.5rem;
-      color: #f1f5f9;
-    }
-    summary:focus-visible {
-      outline: 2px solid #2ecc71;
-      border-radius: 0.5rem;
-    }
-    details[open] {
-      padding-bottom: 1rem;
-    }
-    /* Card hiding for search */
-    .stack-card.hidden {
-      display: none;
+    
+    @media (max-width: 768px) {
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .docs-filters {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- SKIP TO CONTENT -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -167,152 +212,142 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
-  <main id="main-content">
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Documentation</span>
-          <h1>P31 Labs Documentation</h1>
-          <p>Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.</p>
+  <main>
+    <div class="page-hero">
+      <div class="docs-header">
+        <h1>P31 Labs Documentation</h1>
+        <p>Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.</p>
+        <div class="docs-version">
+          v0.2.1 · Latest release<br>
+          Last updated: February 15, 2026
         </div>
-
-        <!-- Version & last updated -->
-        <div class="version-info">
-          <span><code>v0.2.1</code> · Latest release</span>
-          <span>Last updated: <time datetime="2026-02-15">February 15, 2026</time></span>
-        </div>
-
-        <!-- Search bar (client‑side, offline‑capable) -->
-        <div class="search-container">
-          <label for="doc-search" class="sr-only">Search documentation</label>
-          <input type="search" id="doc-search" placeholder="Search docs... (filter by title, description, tag)" aria-label="Search documentation">
-          <button id="search-clear" aria-label="Clear search">Clear</button>
-        </div>
-
-        <!-- Quick links to GitHub repos -->
-        <div class="quick-links" aria-label="Quick links to GitHub repositories">
-          <a href="https://github.com/p31labs/node-one" target="_blank" rel="noopener">📦 Node One Firmware</a>
-          <a href="https://github.com/p31labs/buffer" target="_blank" rel="noopener">🧪 The Buffer</a>
-          <a href="https://github.com/p31labs/scope" target="_blank" rel="noopener">🔭 The Scope</a>
-          <a href="https://github.com/p31labs/phenix-navigator" target="_blank" rel="noopener">🧭 Phenix Navigator</a>
-          <a href="https://github.com/p31labs/love-economy" target="_blank" rel="noopener">💚 L.O.V.E. Economy</a>
-        </div>
-
-        <!-- Documentation grid (cards) -->
-        <div class="stack-grid" id="docs-grid" role="region" aria-label="Documentation sections">
-          <!-- Node One -->
-          <article class="stack-card" data-tags="hardware node one">
-            <div class="card-header">
-              <span class="card-tag">HARDWARE</span>
-            </div>
-            <h3><a href="/docs/node-one/" class="card-link">Node One</a></h3>
-            <p>ESP32‑S3 firmware, LoRa mesh networking, haptic feedback, and hardware specifications.</p>
-            <a href="/docs/node-one/" class="btn btn-ghost" aria-label="Read Node One documentation">View Docs →</a>
-          </article>
-
-          <!-- The Buffer -->
-          <article class="stack-card" data-tags="software buffer">
-            <div class="card-header">
-              <span class="card-tag">SOFTWARE</span>
-            </div>
-            <h3><a href="/docs/buffer/" class="card-link">The Buffer</a></h3>
-            <p>Real‑time data processing, signal buffering, and mesh synchronization.</p>
-            <a href="/docs/buffer/" class="btn btn-ghost" aria-label="Read The Buffer documentation">View Docs →</a>
-          </article>
-
-          <!-- The Scope -->
-          <article class="stack-card" data-tags="interface scope">
-            <div class="card-header">
-              <span class="card-tag">INTERFACE</span>
-            </div>
-            <h3><a href="/docs/scope/" class="card-link">The Scope</a></h3>
-            <p>Visualization, user interface components, and accessibility layers.</p>
-            <a href="/docs/scope/" class="btn btn-ghost" aria-label="Read The Scope documentation">View Docs →</a>
-          </article>
-
-          <!-- Phenix Navigator -->
-          <article class="stack-card" data-tags="architecture phenix navigator">
-            <div class="card-header">
-              <span class="card-tag">ARCHITECTURE</span>
-            </div>
-            <h3><a href="/docs/phenix-navigator/" class="card-link">Phenix Navigator</a></h3>
-            <p>Mesh topology, routing protocols, and network resilience.</p>
-            <a href="/docs/phenix-navigator/" class="btn btn-ghost" aria-label="Read Phenix Navigator documentation">View Docs →</a>
-          </article>
-
-          <!-- L.O.V.E. Economy -->
-          <article class="stack-card" data-tags="economy love">
-            <div class="card-header">
-              <span class="card-tag">ECONOMY</span>
-            </div>
-            <h3><a href="/docs/love-economy/" class="card-link">L.O.V.E. Economy</a></h3>
-            <p>Token mechanics, pool distribution, Proof of Care, and vesting.</p>
-            <a href="/docs/love-economy/" class="btn btn-ghost" aria-label="Read L.O.V.E. Economy documentation">View Docs →</a>
-          </article>
-
-          <!-- API Reference -->
-          <article class="stack-card" data-tags="api reference">
-            <div class="card-header">
-              <span class="card-tag">API</span>
-            </div>
-            <h3><a href="/docs/api/" class="card-link">API Reference</a></h3>
-            <p>REST & WebSocket endpoints, data formats, and authentication.</p>
-            <a href="/docs/api/" class="btn btn-ghost" aria-label="Read API Reference documentation">View Docs →</a>
-          </article>
-
-          <!-- Development Guides -->
-          <article class="stack-card" data-tags="guides development">
-            <div class="card-header">
-              <span class="card-tag">GUIDES</span>
-            </div>
-            <h3><a href="/docs/guides/" class="card-link">Development Guides</a></h3>
-            <p>Setting up the toolchain, building from source, and contributing.</p>
-            <a href="/docs/guides/" class="btn btn-ghost" aria-label="Read Development Guides">View Docs →</a>
-          </article>
-        </div>
-
-        <!-- No results message -->
-        <div class="no-results" id="no-results-message" aria-live="polite">
-          No matching documentation found. Try different keywords.
-        </div>
-
-        <!-- Code example section (demonstration) -->
-        <section aria-labelledby="code-example-heading">
-          <h2 id="code-example-heading" class="section-header" style="margin-top: 3rem;">Code Example</h2>
-          <p>Initializing the Node One mesh network:</p>
-          <pre><code><span class="token keyword">import</span> { NodeOne } <span class="token keyword">from</span> <span class="token string">'@p31/node-one'</span>;
-
-<span class="token keyword">const</span> node = <span class="token keyword">new</span> <span class="token function">NodeOne</span>({
-  frequency: <span class="token number">915</span>, <span class="token comment">// MHz</span>
-  meshId: <span class="token string">'p31-delta'</span>,
-  haptics: <span class="token boolean">true</span>
-});
-
-<span class="token function">node</span>.<span class="token function">on</span>(<span class="token string">'message'</span>, <span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token operator">=></span> {
-  console.<span class="token function">log</span>(<span class="token string">'Received:'</span>, msg);
-});
-
-<span class="token keyword">await</span> node.<span class="token function">start</span>();</code></pre>
-        </section>
-
-        <!-- Expandable section example -->
-        <section aria-labelledby="expandable-heading">
-          <h2 id="expandable-heading" class="section-header">Detailed Topics</h2>
-          <details>
-            <summary>Mesh Routing Protocol (Phenix)</summary>
-            <p>The Phenix Navigator uses a modified AODV (Ad‑hoc On‑Demand Distance Vector) protocol with topology‑aware metric. Each node maintains a routing table with signal strength and path reliability. For full specification, see <a href="/docs/phenix-navigator/routing/">Routing Protocol</a>.</p>
-          </details>
-          <details>
-            <summary>Haptic Feedback Patterns</summary>
-            <p>Node One supports 123 distinct haptic patterns defined in the <code>DRV2605L</code> library. Patterns are grouped into categories: alerts, confirmations, navigation, and data encoding. Refer to the <a href="/docs/node-one/haptics/">Haptics Reference</a> for waveform tables.</p>
-          </details>
-        </section>
       </div>
-    </section>
+      
+      <div class="docs-search-container">
+        <input 
+          type="text" 
+          id="doc-search" 
+          class="docs-search" 
+          placeholder="Search docs... (filter by title)"
+          aria-label="Search documentation"
+        >
+        <button id="search-clear" class="search-clear" aria-label="Clear search">Clear</button>
+      </div>
+      
+      <div class="docs-filters">
+        <button class="filter-btn active" data-filter="all" aria-label="Show all documentation">
+          <span>All</span>
+        </button>
+        <button class="filter-btn" data-filter="node-one" aria-label="Filter by Node One Firmware">
+          <span>🔲</span>
+          <span>Node One Firmware</span>
+        </button>
+        <button class="filter-btn" data-filter="buffer" aria-label="Filter by The Buffer">
+          <span>✏️</span>
+          <span>The Buffer</span>
+        </button>
+        <button class="filter-btn" data-filter="scope" aria-label="Filter by The Scope">
+          <span>🔭</span>
+          <span>The Scope</span>
+        </button>
+        <button class="filter-btn" data-filter="navigator" aria-label="Filter by Phenix Navigator">
+          <span>🧭</span>
+          <span>Phenix Navigator</span>
+        </button>
+        <button class="filter-btn" data-filter="love" aria-label="Filter by L.O.V.E. Economy">
+          <span>💜</span>
+          <span>L.O.V.E. Economy</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div id="docs-grid" class="docs-grid">
+        <article class="docs-card stack-card" data-tags="node-one hardware firmware esp32 lora" data-filter="node-one">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">HARDWARE</span>
+            </div>
+          </div>
+          <h3>Node One</h3>
+          <p>ESP32-S3 firmware, LoRa mesh networking, haptic feedback, and hardware specifications. Open-source assistive device for sensory regulation and off-grid communication.</p>
+          <a href="https://github.com/p31labs/node-one" class="card-link" target="_blank" rel="noopener">
+            View Docs →
+          </a>
+        </article>
+
+        <article class="docs-card stack-card" data-tags="buffer software communication voltage assessment" data-filter="buffer">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">SOFTWARE</span>
+            </div>
+          </div>
+          <h3>The Buffer</h3>
+          <p>Real-time data processing, signal buffering, and mesh synchronization. Voltage assessment protocol for communication filtering and emotional regulation.</p>
+          <a href="https://github.com/p31labs/cognitive-shield" class="card-link" target="_blank" rel="noopener">
+            View Docs →
+          </a>
+        </article>
+
+        <article class="docs-card stack-card" data-tags="scope interface dashboard visualization" data-filter="scope">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">INTERFACE</span>
+            </div>
+          </div>
+          <h3>The Scope</h3>
+          <p>Visualization, user interface components, and accessibility layers. Unified dashboard for medication tracking, cognitive metrics, and environmental sensing.</p>
+          <a href="https://github.com/p31labs/cognitive-shield" class="card-link" target="_blank" rel="noopener">
+            View Docs →
+          </a>
+        </article>
+
+        <article class="docs-card stack-card" data-tags="navigator architecture sic-povm tetrahedron" data-filter="navigator">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">ARCHITECTURE</span>
+            </div>
+          </div>
+          <h3>Phenix Navigator</h3>
+          <p>Complete system architecture documentation. SIC-POVM quantum geometry foundations, tetrahedron topology, and mesh networking protocols.</p>
+          <a href="https://doi.org/10.5281/zenodo.18627420" class="card-link" target="_blank" rel="noopener">
+            View Publication →
+          </a>
+        </article>
+
+        <article class="docs-card stack-card" data-tags="love economy proof-of-care blockchain base" data-filter="love">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">ECONOMY</span>
+            </div>
+          </div>
+          <h3>L.O.V.E. Economy</h3>
+          <p>Ledger of Ontological Volume and Entropy. Proof of Care protocol, soulbound tokens on Base L2, and vesting schedules for founding nodes.</p>
+          <a href="/wallet/" class="card-link">
+            View Wallet →
+          </a>
+        </article>
+
+        <article class="docs-card stack-card" data-tags="defensive publication zenodo IP prior-art" data-filter="all">
+          <div class="docs-card-header">
+            <div>
+              <span class="docs-card-tag">IP STRATEGY</span>
+            </div>
+          </div>
+          <h3>Defensive Publication</h3>
+          <p>All technical innovations published to Zenodo with timestamped DOIs. Apache 2.0 license establishes prior art to prevent corporate patenting.</p>
+          <a href="https://zenodo.org/communities/p31labs" class="card-link" target="_blank" rel="noopener">
+            View Publications →
+          </a>
+        </article>
+      </div>
+      
+      <div id="no-results-message" class="no-results">
+        <p>No documentation found matching your search.</p>
+      </div>
+    </div>
   </main>
 
-  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -335,51 +370,15 @@
         <a href="/legal/">Legal</a>
         <a href="/accessibility/">A11y</a>
         <a href="/press/">Press</a>
-        <a href="/manifesto/">Manifesto</a>
       </div>
       <p class="footer-formula">
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
-      <p class="footer-sponsor">
-        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
-      </p>
     </div>
   </footer>
 
-  <section class="section section-dark" style="padding: 4rem 0;">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Documentation Philosophy</span>
-        <h2>Why We Document Everything</h2>
-        <p>Documentation is not optional — it's essential. The mesh grows through knowledge, not through code alone.</p>
-      </div>
-      <div class="why-text">
-        <p><strong>Transparency:</strong> All code is documented. All APIs are documented. All architectures are documented. We don't hide anything. The mesh grows through transparency, not through obscurity.</p>
-        <p><strong>Accessibility:</strong> All documentation is accessible. Clear language. Code examples. Diagrams. The mesh holds for everyone, or it doesn't hold at all.</p>
-        <p><strong>Completeness:</strong> Every function documented. Every parameter explained. Every design decision justified. The mesh grows through understanding, not through mystery.</p>
-        <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, code exists in potential until documented. Documentation is the measurement that collapses the wave function into knowledge. The geometry protects the signal — and documentation makes it accessible.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="padding: 4rem 0;">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Documentation Tools</span>
-        <h2>How We Write Docs</h2>
-        <p>Markdown for prose. Code comments for inline documentation. Diagrams for architecture. The mesh grows through multiple formats.</p>
-      </div>
-      <div class="why-text">
-        <p><strong>Markdown:</strong> All documentation is written in Markdown. Easy to read. Easy to write. Easy to maintain. The mesh grows through simplicity, not through complexity.</p>
-        <p><strong>Code Comments:</strong> Inline documentation in code. Every function documented. Every complex algorithm explained. The mesh grows through clarity, not through mystery.</p>
-        <p><strong>Diagrams:</strong> Architecture diagrams. Data flow diagrams. System topology diagrams. The mesh grows through visualization, not through text alone.</p>
-        <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, documentation describes knowledge transmission. Good documentation maximizes channel capacity by providing clear information (high S/N) and multiple formats (high B). The geometry protects the message.</p>
-      </div>
-    </div>
-  </section>
-
-  <script src="../main.js"></script>
-  <script src="docs.js"></script>
+  <script src="/docs/docs.js"></script>
+  <script src="/main.js"></script>
 </body>
 </html>
