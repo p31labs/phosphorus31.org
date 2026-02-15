@@ -707,6 +707,223 @@
 
 
   // ═══════════════════════════════════════════
+  //  9. ENHANCED PARTICLE SYSTEM — Advanced mesh
+  // ═══════════════════════════════════════════
+  function enhanceMeshParticles() {
+    if (!meshCanvas) return;
+    const ctx = meshCanvas.getContext('2d');
+    
+    // Add more particle types
+    particles.forEach(p => {
+      p.size = p.r * (1 + Math.sin(Date.now() * 0.001 + p.phase) * 0.3);
+      p.energy = 0.5 + Math.sin(Date.now() * 0.002 + p.phase) * 0.5;
+    });
+
+    // Enhanced connection rendering with gradient
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONNECTION_DIST) {
+          const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+          const gradient = ctx.createLinearGradient(
+            particles[i].x, particles[i].y,
+            particles[j].x, particles[j].y
+          );
+          gradient.addColorStop(0, `rgba(46, 204, 113, ${alpha})`);
+          gradient.addColorStop(0.5, `rgba(96, 165, 250, ${alpha * 0.8})`);
+          gradient.addColorStop(1, `rgba(46, 204, 113, ${alpha})`);
+          
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 0.5 + (1 - dist / CONNECTION_DIST) * 1;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  10. PARALLAX SCROLLING — Depth effect
+  // ═══════════════════════════════════════════
+  function initParallax() {
+    const sections = document.querySelectorAll('.section');
+    let ticking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollY;
+        const sectionCenter = sectionTop + rect.height / 2;
+        const distance = scrollY + windowHeight / 2 - sectionCenter;
+        const parallaxSpeed = 0.1 + (index % 3) * 0.05;
+
+        // Only apply parallax if section is in viewport
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const translateY = distance * parallaxSpeed;
+          section.style.transform = `translate3d(0, ${translateY}px, 0)`;
+        }
+      });
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════
+  //  11. MOUSE TRAIL EFFECT — Interactive cursor
+  // ═══════════════════════════════════════════
+  function initMouseTrail() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    const trail = [];
+    const TRAIL_LENGTH = 15;
+    let mouseX = 0, mouseY = 0;
+
+    function createTrailDot() {
+      const dot = document.createElement('div');
+      dot.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #2ecc71, transparent);
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      `;
+      document.body.appendChild(dot);
+      return dot;
+    }
+
+    for (let i = 0; i < TRAIL_LENGTH; i++) {
+      trail.push(createTrailDot());
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      trail.forEach((dot, i) => {
+        const delay = i * 0.05;
+        const scale = 1 - (i / TRAIL_LENGTH) * 0.8;
+        const opacity = 1 - (i / TRAIL_LENGTH);
+
+        setTimeout(() => {
+          dot.style.left = `${mouseX}px`;
+          dot.style.top = `${mouseY}px`;
+          dot.style.transform = `scale(${scale})`;
+          dot.style.opacity = opacity;
+        }, delay * 100);
+      });
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════
+  //  12. ENHANCED CARD INTERACTIONS — 3D tilt
+  // ═══════════════════════════════════════════
+  function init3DCards() {
+    const cards = document.querySelectorAll('.stack-card, .economy-card, .math-block');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        card.style.transform = `
+          translateY(-8px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          perspective(1000px)
+        `;
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  //  13. ENHANCED HERO GEOMETRY — More depth
+  // ═══════════════════════════════════════════
+  function enhanceHeroGeometry() {
+    if (!heroCanvas || window.innerWidth <= 768) return;
+    
+    // This enhancement is handled by the existing drawBlochSphere function
+    // Additional visual enhancements are applied via CSS
+  }
+
+  // ═══════════════════════════════════════════
+  //  14. SCROLL PROGRESS INDICATOR
+  // ═══════════════════════════════════════════
+  function initScrollProgress() {
+    const indicator = document.createElement('div');
+    indicator.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #2ecc71, #60a5fa, #2ecc71);
+      background-size: 200% 100%;
+      z-index: 10000;
+      transition: width 0.1s ease;
+      animation: gradientFlow 3s ease infinite;
+      pointer-events: none;
+    `;
+    document.body.appendChild(indicator);
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      indicator.style.width = `${progress}%`;
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════
+  //  15. ENHANCED METRIC COUNTERS — With glow
+  // ═══════════════════════════════════════════
+  function enhanceCounters() {
+    const metricVals = document.querySelectorAll('.metric-val[data-target]');
+    
+    metricVals.forEach(el => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            el.style.animation = 'glowPulse 2s ease infinite';
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      observer.observe(el);
+    });
+  }
+
+  // ═══════════════════════════════════════════
   //  INIT
   // ═══════════════════════════════════════════
   document.addEventListener('DOMContentLoaded', () => {
@@ -715,6 +932,17 @@
     initCounters();
     initNavScroll();
     initWalletCopy();
+    
+    // Enhanced features
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      initParallax();
+      initMouseTrail();
+      init3DCards();
+      enhanceHeroGeometry();
+      initScrollProgress();
+    }
+    
+    enhanceCounters();
   });
 
 })();

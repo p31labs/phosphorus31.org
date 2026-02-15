@@ -1,627 +1,208 @@
-# P31 Labs Website — Master Build Prompt
+# P31 Labs Website — Master Prompt for Cursor Agent
 
-## Context & Architecture
+You are an AI assistant tasked with maintaining and extending the P31 Labs website (`phosphorus31.org`). The site has been built following a strict design system and core principles. Your role is to assist in updating, enhancing, or adding pages while preserving consistency, accessibility, and performance.
 
-You are building pages for the P31 Labs website (phosphorus31.org). The homepage (`index.html`) is complete and polished. You must build out the remaining pages with full features, maintaining consistency with the existing design system.
+## Project Overview
 
-### Design System Reference
-- **CSS File**: `styles.css` — Contains all design tokens, components, and responsive breakpoints
-- **JavaScript**: `main.js` — Contains geometry engines, animations, and interactive features
-- **Homepage**: `index.html` — Reference implementation for structure, accessibility, and patterns
+P31 Labs is a project building assistive technology for neurodivergent minds, based on mesh networking, privacy, and an economy of care. The website is static, offline‑first, and fully accessible. It consists of a homepage (`index.html`) and a set of supporting pages (listed below). All pages share the same navigation, footer, and design tokens defined in `styles.css`.
 
-### Core Principles (NON-NEGOTIABLE)
+## Core Principles (Non‑Negotiable)
 
-1. **Delta Compliance (Offline-First)**
-   - NO external CDNs for fonts, icons, or scripts (except Google Fonts which are async-loaded)
-   - System fonts as fallback: `-apple-system, 'Segoe UI', system-ui, sans-serif`
-   - All assets must be local or data URIs
-   - Service worker ready (future implementation)
+1. **Delta Compliance (Offline‑First)**  
+   - No external CDNs for fonts, icons, or scripts (except Google Fonts which are async‑loaded).  
+   - System fonts as fallback: `-apple-system, 'Segoe UI', system-ui, sans-serif`.  
+   - All assets must be local or data URIs.  
+   - Service worker ready (future implementation).
 
-2. **Accessibility (WCAG 2.1 AA)**
-   - Skip-to-content link on every page
-   - Proper heading hierarchy (h1 → h2 → h3)
-   - ARIA labels for interactive elements
-   - Keyboard navigation support
-   - Focus indicators on all interactive elements
-   - Screen reader friendly (sr-only class for hidden labels)
-   - Reduced motion support (prefers-reduced-motion media query)
+2. **Accessibility (WCAG 2.1 AA)**  
+   - Skip‑to‑content link on every page.  
+   - Proper heading hierarchy (`h1` → `h2` → `h3`).  
+   - ARIA labels for interactive elements.  
+   - Keyboard navigation support.  
+   - Focus indicators on all interactive elements.  
+   - Screen‑reader friendly (`.sr-only` class for hidden labels).  
+   - Reduced motion support (`prefers-reduced-motion` media query).
 
-3. **Code Quality**
-   - Semantic HTML5
-   - No inline styles (use CSS classes)
-   - No inline scripts (use main.js or page-specific JS files)
-   - Proper error handling
-   - Graceful degradation
+3. **Code Quality**  
+   - Semantic HTML5.  
+   - No inline styles (use CSS classes).  
+   - No inline scripts (use `main.js` or page‑specific JS files).  
+   - Proper error handling.  
+   - Graceful degradation.
 
-4. **Brand Consistency**
-   - Use CSS variables from `:root` in styles.css
-   - Phosphorus Green (#2ecc71) for primary actions
-   - Calcium Blue (#60a5fa) for secondary/info
-   - Void background (#050510)
-   - JetBrains Mono for monospace, Outfit for display
-   - Same navigation structure on all pages
+4. **Brand Consistency**  
+   - Use CSS variables from `:root` in `styles.css`.  
+   - Phosphorus Green (`#2ecc71`) for primary actions.  
+   - Calcium Blue (`#60a5fa`) for secondary/info.  
+   - Void background (`#050510`).  
+   - JetBrains Mono for monospace, Outfit for display.  
+   - Same navigation structure on all pages.
 
----
+## Design System Reference
 
-## Page Build Requirements
+- **CSS File**: `styles.css` — Contains all design tokens, components, and responsive breakpoints.  
+- **JavaScript**: `main.js` — Contains geometry engines, animations, and interactive features.  
+- **Homepage**: `index.html` — Reference implementation for structure, accessibility, and patterns.
 
-### Standard Page Structure
+### Existing Components (from `styles.css`)
 
-Every page must include:
+- Layout: `.container`, `.section`, `.section-dark`, `.section-header`  
+- Cards: `.stack-card`, `.economy-card`, `.math-block`  
+- Buttons: `.btn`, `.btn-primary`, `.btn-ghost`  
+- Typography: `.hero`, `.hero-sub`, `.why-text`, `.founder-title`  
+- Interactive: `.contact-link`, `.nav-links`, `.foot-links`  
+- Utilities: `.sr-only`, `.skip-link`, `.reveal`
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Title · P31 Labs</title>
-  <meta name="description" content="Page description">
-  <meta property="og:title" content="Page Title">
-  <meta property="og:description" content="Page description">
-  <meta name="theme-color" content="#050510">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../styles.css"> <!-- Adjust path as needed -->
-</head>
-<body>
-  <!-- SKIP TO CONTENT -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+When extending, follow the same naming convention (kebab‑case) and reuse existing classes whenever possible.
 
-  <!-- NAV (same on all pages) -->
-  <nav aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">P<sup>31</sup></a>
-      <div class="nav-links">
-        <a href="/#stack">Stack</a>
-        <a href="/docs/">Docs</a>
-        <a href="/roadmap/">Roadmap</a>
-        <a href="/about/">About</a>
-        <a href="/#donate">Donate</a>
-      </div>
-    </div>
-  </nav>
+## Built Pages
 
-  <!-- MAIN CONTENT -->
-  <main id="main-content">
-    <!-- Page-specific content here -->
-  </main>
-
-  <!-- FOOTER (same on all pages) -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div>
-          <span class="footer-logo">P<sup>31</sup> Labs</span>
-          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
-        </div>
-        <span class="footer-tagline">The only stable isotope.</span>
-      </div>
-      <div class="foot-links">
-        <a href="/">Home</a>
-        <a href="/docs/">Docs</a>
-        <a href="/roadmap/">Roadmap</a>
-        <a href="/about/">About</a>
-        <a href="/node-one/">Node One</a>
-        <a href="/wallet/">Wallet</a>
-        <a href="/games/">Games</a>
-        <a href="/education/">Learn</a>
-        <a href="/blog/">Blog</a>
-        <a href="/legal/">Legal</a>
-        <a href="/accessibility/">A11y</a>
-        <a href="/press/">Press</a>
-      </div>
-      <p class="footer-formula">
-        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
-        — The geometry protects the signal.
-      </p>
-      <p class="footer-sponsor">
-        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
-      </p>
-    </div>
-  </footer>
-
-  <script src="../main.js"></script> <!-- Adjust path as needed -->
-</body>
-</html>
-```
-
----
-
-## Page-Specific Requirements
+All pages are located in their respective directories (e.g., `/docs/`, `/roadmap/`) with `index.html` and any page‑specific JavaScript. Below is a summary of each page's purpose and key features.
 
 ### 1. `/docs/` — Documentation Hub
-
-**Purpose**: Central documentation index and navigation
-
-**Features**:
-- Table of contents with sections:
-  - Node One (Hardware)
-  - The Buffer (Software)
-  - The Scope (Interface)
-  - Phenix Navigator (Architecture)
-  - L.O.V.E. Economy
-  - API Reference
-  - Development Guides
-- Search functionality (client-side, IndexedDB for offline)
-- Quick links to GitHub repos
-- Version indicators
-- Last updated timestamps
-- Code examples with syntax highlighting (use `<pre><code>` with monospace font)
-- Expandable sections for long docs
-
-**Components to Use**:
-- `.section` and `.section-header` for page structure
-- `.stack-card` style for doc cards
-- `.math-block` style for code examples
-- Custom `.doc-nav` for sidebar navigation (if needed)
-
----
+- Central documentation index with cards for each component.
+- Client‑side search (filter by title, description, tags).
+- Quick links to GitHub repos.
+- Version indicators and last updated timestamps.
+- Code examples with syntax highlighting (CSS‑based).
+- Expandable sections (`<details>`).
 
 ### 2. `/roadmap/` — Development Roadmap
-
-**Purpose**: Show current status, upcoming milestones, and long-term vision
-
-**Features**:
-- Timeline visualization (vertical or horizontal)
-- Status indicators: ✅ Complete, 🚧 In Progress, 📋 Planned, 🔮 Future
-- Milestone cards with:
-  - Date/quarter
-  - Status
-  - Description
-  - Dependencies
-  - Links to related docs/PRs
-- Filter by component (Node One, Buffer, Scope, etc.)
-- Progress bars for major initiatives
-- "Last Updated" timestamp
-
-**Components to Use**:
-- `.section` for timeline sections
-- `.stack-card` style for milestone cards
-- Custom timeline CSS (add to styles.css)
-- Status badges (extend `.card-tag` styles)
-
----
+- Timeline of milestones with status indicators (✅, 🚧, 📋, 🔮).
+- Filter by component (Node One, Buffer, etc.).
+- Progress bars for major initiatives.
+- Last updated timestamp.
 
 ### 3. `/about/` — About P31 Labs
-
-**Purpose**: Mission, team, history, and values
-
-**Features**:
-- Mission statement (hero section)
-- Founder story (expand on homepage version)
-- Core values/principles:
-  - Delta Topology (Mesh)
-  - Privacy-First
-  - Universal Accessibility
-  - G.O.D. Protocol
-  - The Mesh Holds
-- Team section (if applicable)
-- History/timeline
-- Press mentions/links
-- Contact information
-
-**Components to Use**:
-- `.hero` style for mission statement
-- `.founder-content` style for team
-- `.why-content` style for values
-- `.math-grid` style for principles
-
----
+- Mission statement, founder story, core values.
+- Team section (placeholder avatars).
+- History timeline.
+- Press and contact information.
 
 ### 4. `/node-one/` — Node One Hardware
-
-**Purpose**: Detailed hardware documentation and specs
-
-**Features**:
-- Hero section with 3D model visualization (if available) or technical diagram
-- Specifications table:
-  - MCU: ESP32-S3
-  - Haptics: DRV2605L
-  - Display: OLED/E-Ink
-  - Connectivity: LoRa 915MHz, BLE, NFC
-  - Power: Battery specs
-  - Dimensions
-- Regulatory information (21 CFR § 890.3710)
-- Use cases and examples
-- Development status
-- Purchase/build information
-- Firmware documentation links
-- GitHub repository link
-
-**Components to Use**:
-- `.section-header` for major sections
-- `.stack-card` style for spec cards
-- `.math-block` style for technical details
-- Custom `.spec-table` for specifications
-
----
+- Hero diagram (SVG placeholder).
+- Specifications table.
+- Regulatory information (21 CFR § 890.3710).
+- Development status with GitHub links.
+- Use cases and purchase information.
 
 ### 5. `/wallet/` — L.O.V.E. Economy Wallet
-
-**Purpose**: Interactive wallet interface and economy documentation
-
-**Features**:
-- Wallet connection interface (Web3 integration ready)
-- Balance display (LOVE tokens)
-- Transaction history
-- Pool breakdown (Sovereignty 50% / Performance 50%)
-- Proof of Care metrics
-- Vesting schedule visualization
-- Transaction types explanation
-- Chameleon mode indicator (offline/online)
-- Base L2 network status
-
-**Components to Use**:
-- `.donate-wallet` style for wallet display
-- `.economy-card` style for pool information
-- Custom `.wallet-interface` for interactive elements
-- `.math-block` style for economy formulas
-
-**JavaScript Requirements**:
-- Wallet connection handlers
-- Balance fetching (when online)
-- Transaction list rendering
-- Offline mode detection
-
----
+- Wallet connection interface (mock with JavaScript).
+- Balance display, pool breakdown, Proof of Care metrics.
+- Transaction history, vesting schedule.
+- Chameleon mode indicator (offline/online).
+- Economy formula.
 
 ### 6. `/games/` — Universal ROM Games
-
-**Purpose**: Showcase accessible games and creative tools
-
-**Features**:
-- Game gallery with cards
-- Each game card shows:
-  - Title
-  - Description
-  - Accessibility features
-  - Play button/link
-  - Screenshots/demos
-- Filter by:
-  - Accessibility features
-  - Age range
-  - Game type
-- "Play Now" functionality (embedded or links)
-- Educational resources
-- Community contributions section
-
-**Components to Use**:
-- `.stack-grid` for game cards
-- `.stack-card` style for individual games
-- Custom `.game-preview` for embedded demos
-- `.contact-grid` style for community links
-
----
+- Game gallery with cards.
+- Filter by accessibility features.
+- Play buttons (links to demos).
+- Community contributions section.
 
 ### 7. `/education/` — Learning Resources
-
-**Purpose**: Educational content about P31, assistive tech, and related topics
-
-**Features**:
-- Course/tutorial listings
-- Video embeds (with transcripts)
-- Interactive tutorials
-- Downloadable resources
-- Learning paths:
-  - For developers
-  - For users
-  - For educators
-  - For researchers
-- Glossary of terms
-- FAQ section
-
-**Components to Use**:
-- `.section` for course sections
-- `.stack-card` style for course cards
-- `.math-block` style for code examples
-- Custom `.tutorial-nav` for navigation
-
----
+- Learning paths (developer, user, educator, researcher).
+- Course cards with metadata.
+- Video tutorials placeholder (with transcripts).
+- Downloadable resources.
+- Glossary and FAQ.
 
 ### 8. `/blog/` — Blog/News
-
-**Purpose**: Updates, announcements, and technical deep-dives
-
-**Features**:
-- Blog post listing (chronological)
-- Post cards with:
-  - Title
-  - Excerpt
-  - Author
-  - Date
-  - Tags/categories
-  - Read time estimate
-- Individual post pages (if needed)
-- RSS feed link
-- Category/tag filtering
-- Search functionality
-- Pagination
-
-**Components to Use**:
-- `.stack-grid` for post listings
-- `.stack-card` style for post cards
-- `.section-header` for post titles
-- `.why-text` style for post content
-
----
+- Blog post listing with cards.
+- Category filtering and client‑side search.
+- Pagination.
+- RSS feed link.
 
 ### 9. `/legal/` — Legal & Compliance
-
-**Purpose**: Legal documents, privacy policy, terms, compliance info
-
-**Features**:
-- Privacy Policy
-- Terms of Service
-- License information (Apache 2.0)
-- Regulatory compliance (FDA, medical device)
-- Fiscal sponsorship disclosure
-- Data handling practices
-- Cookie policy (if applicable)
-- Contact for legal inquiries
-
-**Components to Use**:
-- `.section` for each document
-- `.section-header` for document titles
-- `.why-text` style for legal text
-- `.math-block` style for code/license blocks
-
----
+- Privacy Policy, Terms of Service, License (Apache 2.0).
+- Regulatory compliance, fiscal sponsorship disclosure.
+- Cookie notice, legal contact.
 
 ### 10. `/accessibility/` — Accessibility Statement
-
-**Purpose**: Detailed accessibility information and commitment
-
-**Features**:
-- WCAG 2.1 AA compliance statement
-- Accessibility features list
-- Known issues and roadmap
-- How to report accessibility issues
-- Keyboard shortcuts
-- Screen reader compatibility
-- High contrast mode
-- Reduced motion support
-- Contact for accessibility concerns
-
-**Components to Use**:
-- `.section-header` for major sections
-- `.stack-card` style for feature cards
-- `.why-text` style for detailed descriptions
-- Custom `.a11y-checklist` for compliance items
-
----
+- WCAG 2.1 AA compliance statement.
+- Accessibility features grid.
+- Keyboard shortcuts, known issues, reporting instructions.
+- Screen reader compatibility, display preferences.
 
 ### 11. `/press/` — Press Kit
+- Brand assets grid (SVG and PNG downloads).
+- Brand guidelines (colors, typography, usage).
+- Press releases (placeholder).
+- Press contact.
 
-**Purpose**: Media resources and press information
+### 12. `/manifesto/` — World‑Changing Vision
+- Hero section with bold statement.
+- Core principles as cards.
+- Inspirational quote and call to action.
+- The mathematical formula as a subtle reminder.
 
-**Features**:
-- Press releases
-- Media kit downloads:
-  - Logo files (SVG, PNG)
-  - Brand guidelines
-  - High-res images
-  - Fact sheet
-- Press contact information
-- Media mentions
-- Speaking engagements
-- Awards/recognition
+## Adding a New Page
 
-**Components to Use**:
-- `.section` for press releases
-- `.contact-link` style for press contacts
-- `.stack-card` style for media kit items
-- Custom `.download-button` for files
+If asked to create a new page, follow this process:
 
----
+1. **Copy the standard page structure** from `index.html` (head, nav, main, footer).  
+2. **Update the `<title>` and meta tags** (description, OG).  
+3. **Add page‑specific content** inside `<main id="main-content">`.  
+4. **Use existing components** from `styles.css` whenever possible.  
+5. **If new styles are needed**, add them in a `<style>` block in the `<head>` (or extend `styles.css` if they are reusable). Follow the naming convention and ensure they are responsive.  
+6. **If new JavaScript functionality is needed**, create a page‑specific JS file (e.g., `pagename.js`) and include it just before the closing `</body>`. Keep the code modular, with error handling and offline detection where appropriate.  
+7. **Test for accessibility** (keyboard navigation, screen reader, reduced motion).  
+8. **Test responsiveness** at 768px and 480px breakpoints.  
+9. **Ensure all links and assets use relative paths** (offline‑first).  
+10. **Update the footer navigation** to include the new page if it should appear there.
 
-## Implementation Checklist
+## Modifying an Existing Page
 
-For each page you build:
-
-- [ ] Use standard page structure (head, nav, main, footer)
-- [ ] Include skip-to-content link
-- [ ] Proper heading hierarchy (h1 → h2 → h3)
-- [ ] All interactive elements have ARIA labels
-- [ ] Focus states on all clickable elements
-- [ ] Responsive design (test at 768px and 480px breakpoints)
-- [ ] Use CSS variables from styles.css (no hardcoded colors)
-- [ ] No inline styles or scripts
-- [ ] Semantic HTML5 elements
-- [ ] Proper meta tags (title, description, OG tags)
-- [ ] Test with keyboard navigation
-- [ ] Test with screen reader (or at least verify ARIA)
-- [ ] Reduced motion support
-- [ ] Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
-- [ ] Performance: Lazy load images, optimize assets
-- [ ] Accessibility: WCAG 2.1 AA compliance
-
----
-
-## CSS Extensions
-
-When adding new components, extend `styles.css` with:
-
-1. **Component-specific classes** (e.g., `.doc-nav`, `.timeline-item`)
-2. **Utility classes** if needed (e.g., `.text-center`, `.mb-2`)
-3. **Responsive breakpoints** using existing media queries
-4. **Animation keyframes** if adding new animations
-5. **Dark mode support** (already using CSS variables, so automatic)
-
-**Naming Convention**:
-- Use kebab-case for class names
-- Prefix page-specific classes with page name (e.g., `.wallet-balance`, `.blog-post-card`)
-- Reuse existing component classes when possible
-
----
-
-## JavaScript Extensions
-
-When adding interactive features:
-
-1. **Add to main.js** if it's a shared feature
-2. **Create page-specific JS file** (e.g., `wallet.js`) if it's page-only
-3. **Use event delegation** for dynamic content
-4. **Error handling** for all async operations
-5. **Offline detection** and graceful degradation
-6. **Accessibility**: Ensure keyboard navigation works
-
-**Pattern**:
-```javascript
-// In main.js or page-specific file
-(function() {
-  'use strict';
-  
-  function initPageFeature() {
-    const element = document.querySelector('.feature-element');
-    if (!element) return;
-    
-    // Feature implementation
-  }
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    initPageFeature();
-  });
-})();
-```
-
----
-
-## Content Guidelines
-
-### Tone & Voice
-- Technical but accessible
-- Clear and direct
-- No marketing fluff
-- Focus on what it does, not what it "could" do
-- Use "we" for P31 Labs, "you" for users
-
-### Terminology
-- Use established P31 terminology (Node One, The Buffer, The Scope)
-- Define technical terms on first use
-- Link to glossary or docs for complex concepts
-- Use code formatting for technical terms: `` `ESP32-S3` ``
-
-### Links
-- Internal links: Relative paths (`/docs/`, `../index.html`)
-- External links: Full URLs with `target="_blank" rel="noopener"`
-- GitHub links: Use `https://github.com/p31labs/[repo]`
-
----
+- Locate the page's `index.html` and any associated `.js` file.  
+- Make changes while preserving the existing structure and design system.  
+- If adding new interactive features, ensure they degrade gracefully without JavaScript.  
+- Do not remove accessibility features (skip link, headings, ARIA).  
+- Keep the page consistent with others: same navigation, footer, and visual language.
 
 ## Testing Requirements
 
-Before considering a page complete:
+Before considering a change complete:
 
-1. **Visual Testing**
-   - Desktop (1920px, 1440px, 1280px)
-   - Tablet (768px)
-   - Mobile (480px, 375px)
-   - High contrast mode
-   - Reduced motion mode
+- **Visual Testing**  
+  - Desktop (1920px, 1440px, 1280px)  
+  - Tablet (768px)  
+  - Mobile (480px, 375px)  
+  - High contrast mode (simulate in OS)  
+  - Reduced motion mode (simulate in OS)
 
-2. **Functional Testing**
-   - All links work
-   - All buttons/forms function
-   - JavaScript features work
-   - Offline mode (if applicable)
-   - Error states handled
+- **Functional Testing**  
+  - All links work  
+  - All buttons/forms function  
+  - JavaScript features work (with and without JS)  
+  - Offline mode (if applicable)  
+  - Error states handled
 
-3. **Accessibility Testing**
-   - Keyboard navigation (Tab, Enter, Space, Arrow keys)
-   - Screen reader (NVDA, JAWS, or VoiceOver)
-   - Color contrast (WCAG AA minimum)
-   - Focus indicators visible
-   - Skip links work
+- **Accessibility Testing**  
+  - Keyboard navigation (Tab, Enter, Space, Arrow keys)  
+  - Screen reader (NVDA, JAWS, or VoiceOver)  
+  - Color contrast (WCAG AA minimum)  
+  - Focus indicators visible  
+  - Skip links work
 
-4. **Performance Testing**
-   - Page load time < 3 seconds
-   - No layout shift (CLS)
-   - Images optimized
-   - JavaScript minified (for production)
+- **Performance Testing**  
+  - Page load time < 3 seconds (simulate slow network)  
+  - No layout shift (CLS)  
+  - Images optimized (use SVG where possible)  
+  - JavaScript minified for production
 
----
+## How to Use This Prompt
 
-## Quick Reference: Existing Components
+When you receive a task (e.g., "update the roadmap with Q2 milestones" or "create a new page for community forum"), you should:
 
-### Layout
-- `.container` — Max-width wrapper with padding
-- `.section` — Section spacing
-- `.section-dark` — Dark background section
-- `.section-header` — Section title/description
+- First, understand the context and refer to the relevant existing page(s).  
+- Follow the principles and guidelines above.  
+- Output the complete HTML (and any necessary CSS/JS) that can be dropped directly into the appropriate file(s).  
+- If suggesting changes to multiple files, provide clear instructions or diffs.  
+- Always explain your reasoning if you deviate from the standard patterns.
 
-### Cards
-- `.stack-card` — Main card component
-- `.economy-card` — Economy/pool cards
-- `.math-block` — Technical/math content blocks
+**Tone**: Technical but accessible. Use clear language. Assume the user is familiar with web development but may not know the project details.
 
-### Buttons
-- `.btn` — Base button
-- `.btn-primary` — Primary action (phosphorus green)
-- `.btn-ghost` — Secondary action (outlined)
-
-### Typography
-- `.hero` — Hero section
-- `.hero-sub` — Hero subtitle
-- `.why-text` — Body text style
-- `.founder-title` — Small label text
-
-### Interactive
-- `.contact-link` — Link cards
-- `.nav-links` — Navigation links
-- `.foot-links` — Footer links
-
-### Utilities
-- `.sr-only` — Screen reader only text
-- `.skip-link` — Skip to content link
-- `.reveal` — Scroll reveal animation
+**Remember**: The geometry protects the signal. 🔺
 
 ---
 
-## Example: Building `/docs/` Page
-
-```html
-<main id="main-content">
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Documentation</span>
-        <h1>P31 Labs Documentation</h1>
-        <p>Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.</p>
-      </div>
-
-      <div class="stack-grid">
-        <article class="stack-card">
-          <div class="card-header">
-            <span class="card-tag">HARDWARE</span>
-          </div>
-          <h3>Node One</h3>
-          <p>ESP32-S3 firmware, LoRa mesh networking, haptic feedback, and hardware specifications.</p>
-          <a href="/docs/node-one/" class="btn btn-ghost">View Docs →</a>
-        </article>
-
-        <!-- More doc cards... -->
-      </div>
-    </div>
-  </section>
-</main>
-```
-
----
-
-## Final Notes
-
-- **Consistency is key**: Reuse existing components and patterns
-- **Accessibility first**: Build with screen readers and keyboard users in mind
-- **Progressive enhancement**: Core functionality works without JavaScript
-- **Performance matters**: Optimize images, lazy load content, minimize JS
-- **The Mesh Holds**: Every page should reflect P31's core principles
-
-**When in doubt, reference the homepage (`index.html`) for patterns and structure.**
-
----
-
-**Ready to build? Start with one page, follow this prompt, and iterate. The geometry protects the signal. 🔺**
+This master prompt should be provided to the cursor agent at the start of a session, or whenever context is needed. It ensures that all future work aligns with the existing vision and standards.

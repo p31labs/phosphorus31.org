@@ -4,71 +4,367 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog · P31 Labs</title>
-  <meta name="description" content="Updates, announcements, and build logs from P31 Labs.">
+  <meta name="description" content="Updates, announcements, and technical deep‑dives from P31 Labs.">
+  <meta property="og:title" content="Blog · P31 Labs">
+  <meta property="og:description" content="Updates, announcements, and technical deep‑dives from P31 Labs.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/blog/feed.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    .page-hero {
-      padding: 8rem 0 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--void-border);
+    /* ── QUANTUM CANVAS ── */
+    #quantum-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
     }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
+    
+    /* ── QUANTUM DECORATIVE EQUATIONS ── */
+    .quantum-equation {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(46, 204, 113, 0.15);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
     }
-    .page-content {
-      padding: 4rem 0;
+    
+    /* Page‑specific blog styles */
+    .blog-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
     }
-    .post-list {
-      display: grid;
-      gap: 2rem;
-      margin: 3rem 0;
+    .rss-link {
+      background: rgba(255, 165, 0, 0.1);
+      border: 1px solid rgba(255, 165, 0, 0.3);
+      border-radius: 2rem;
+      padding: 0.4rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #ffaa33;
+      text-decoration: none;
+      transition: all 0.2s;
     }
-    .post-card {
-      padding: 2rem;
-      background: var(--void-up);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
-      transition: all 0.3s ease;
+    .rss-link:hover,
+    .rss-link:focus {
+      background: rgba(255, 165, 0, 0.2);
+      border-color: #ffaa33;
     }
-    .post-card:hover {
-      border-color: var(--phosphorus-dim);
-      box-shadow: 0 0 30px var(--phosphorus-glow);
-      transform: translateY(-2px);
+    .blog-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+      align-items: center;
     }
-    .post-meta {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--white-muted);
-      margin-bottom: 0.75rem;
+    .blog-search {
+      flex: 1 1 300px;
+      display: flex;
+      gap: 0.5rem;
     }
-    .post-title {
-      font-size: 1.5rem;
+    .blog-search input {
+      flex: 1;
+      background: #0a0a1a;
+      border: 1px solid #1e293b;
+      border-radius: 2rem;
+      padding: 0.6rem 1.2rem;
+      color: #f1f5f9;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+    .blog-search input:focus {
+      outline: none;
+      border-color: #2ecc71;
+    }
+    .blog-search button {
+      background: #2ecc71;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.6rem 1.2rem;
+      font-family: 'Outfit', sans-serif;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      color: #050510;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-    .post-tags {
+    .blog-search button:hover {
+      background: #27ae60;
+    }
+    .category-filters {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1rem;
     }
-    .post-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      padding: 0.25rem 0.6rem;
-      background: var(--calcium-glow);
-      border: 1px solid rgba(96, 165, 250, 0.2);
-      border-radius: 2px;
-      color: var(--calcium);
+    .category-tag {
+      background: rgba(96, 165, 250, 0.1);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 2rem;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Quantum state indicator */
+    .category-tag::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.4s, height 0.4s;
+    }
+    .category-tag:hover::before,
+    .category-tag:focus::before {
+      width: 200%;
+      height: 200%;
+    }
+    .category-tag:hover,
+    .category-tag:focus {
+      background: rgba(96, 165, 250, 0.2);
+      border-color: #60a5fa;
+      transform: scale(1.05);
+    }
+    .category-tag.active {
+      background: #60a5fa;
+      border-color: #60a5fa;
+      color: #050510;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .post-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      /* Quantum superposition state */
+      opacity: 0.85;
+      transform: translateY(0) scale(1);
+      box-shadow: 0 0 0 rgba(46, 204, 113, 0);
+    }
+    /* Quantum collapse on interaction */
+    .post-card:focus-within,
+    .post-card:hover {
+      border-color: #2ecc71;
+      opacity: 1;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(46, 204, 113, 0.2), 0 0 40px rgba(46, 204, 113, 0.1);
+    }
+    /* Quantum wave effect */
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+    .post-card:hover::before {
+      left: 100%;
+    }
+    .post-image {
+      background: #0a0a1a;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      border-bottom: 1px solid #1e293b;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Quantum particle field */
+    .post-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .post-card:hover .post-image::after {
+      opacity: 1;
+      animation: quantum-pulse 2s ease-in-out infinite;
+    }
+    @keyframes quantum-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+    .post-content {
+      padding: 1.5rem;
+    }
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+    .post-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .post-excerpt {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .post-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    .post-category {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+    .read-more {
+      color: #2ecc71;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    .read-more:hover {
+      text-decoration: underline;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: transparent;
+      border: 1px solid #1e293b;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .page-btn:hover,
+    .page-btn:focus {
+      border-color: #2ecc71;
+      color: #2ecc71;
+    }
+    .page-btn.active {
+      background: #2ecc71;
+      border-color: #2ecc71;
+      color: #050510;
+    }
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .no-posts {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      display: none;
+    }
+    .no-posts.visible { display: block; }
+    
+    /* ── QUANTUM TRANSITION EFFECTS ── */
+    .posts-grid {
+      position: relative;
+    }
+    .post-card.quantum-enter {
+      animation: quantum-collapse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes quantum-collapse {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+    
+    /* ── QUANTUM SEARCH GLOW ── */
+    .blog-search input:focus {
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+    }
+    
+    /* ── QUANTUM PAGINATION ── */
+    .page-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .page-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(46, 204, 113, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    .page-btn:hover::after,
+    .page-btn:focus::after {
+      width: 300%;
+      height: 300%;
     }
   </style>
 </head>
 <body>
+  <!-- QUANTUM BACKGROUND CANVAS -->
+  <canvas id="quantum-bg" aria-hidden="true"></canvas>
+  
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -76,300 +372,59 @@
         <a href="/#stack">Stack</a>
         <a href="/docs/">Docs</a>
         <a href="/roadmap/">Roadmap</a>
-        <a href="/blog/" aria-current="page">Blog</a>
         <a href="/about/">About</a>
         <a href="/#donate">Donate</a>
       </div>
     </div>
   </nav>
 
-  <header class="page-hero">
-    <div class="container">
-      <h1>Blog</h1>
-      <p class="hero-sub">Updates, announcements, and build logs. The mesh grows.</p>
-    </div>
-  </header>
-
-  <main class="page-content">
-    <div class="container">
-      <section>
-        <div class="post-list">
-          <article class="post-card">
-            <div class="post-meta">2026-02-15 · Announcement</div>
-            <h2 class="post-title">phosphorus31.org Launched</h2>
-            <p>The P31 Labs website is now live. 12 full-featured pages. Pure HTML/CSS/JS. Zero frameworks. Zero build tools. The geometry protects the signal.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>What's included:</strong> Complete documentation, technical specifications, roadmap with progress tracking, full media kit, accessibility statement, and comprehensive about page. All pages validated with swarm.sh (114 passes, 3 non-blocking warnings).<br>
-              <strong>Deployment:</strong> Cloudflare Pages. Custom domain: phosphorus31.org. SSL auto-provisioned. CDN enabled.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Website</span>
-              <span class="post-tag">Launch</span>
-              <span class="post-tag">Deployment</span>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="blog-header">
+          <div class="section-header" style="margin-bottom: 0;">
+            <span class="section-label">Updates</span>
+            <h1>Blog</h1>
+            <div class="quantum-equation" style="top: 100%; left: 0; margin-top: 1rem; font-size: 0.6rem;">
+              |ψ⟩ = α|0⟩ + β|1⟩
             </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2026-02-14 · Technical</div>
-            <h2 class="post-title">Node One Firmware Progress: 65% Complete</h2>
-            <p>ESP32-S3 firmware development continues. DRV2605L haptic engine integration complete. LoRa mesh networking in progress.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Completed:</strong> ESP-IDF v5.1 integration, FreeRTOS task structure, DRV2605L driver with "The Thick Click" waveform library, SSD1306 OLED display driver, USB-C charging detection, battery monitoring, deep sleep modes.<br>
-              <strong>In Progress:</strong> Meshtastic protocol integration, LoRa mesh networking, haptic pattern library expansion, power management optimization.<br>
-              <strong>Next Steps:</strong> Hardware assembly, field testing, range testing, user feedback integration.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Hardware</span>
-              <span class="post-tag">Firmware</span>
-              <span class="post-tag">ESP32-S3</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2026-02-10 · Publication</div>
-            <h2 class="post-title">Zenodo DOI Published: Node One Specification</h2>
-            <p>Node One hardware specification published to Zenodo. DOI: 10.5281/zenodo.18627420. Defensive publication strategy in action.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>What's published:</strong> Complete BOM, schematic diagrams, firmware architecture, regulatory pathway (21 CFR § 890.3710), test results, and design rationale.<br>
-              <strong>License:</strong> CC-BY-4.0. Attribution required. Commercial use permitted. Establishes prior art to prevent corporate patenting.<br>
-              <strong>Impact:</strong> First open-source assistive device specification published to Zenodo. Sets precedent for defensive publication in assistive tech.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Research</span>
-              <span class="post-tag">IP</span>
-              <span class="post-tag">Zenodo</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2026-01-20 · Technical</div>
-            <h2 class="post-title">The Buffer: Voltage Assessment Algorithms</h2>
-            <p>Communication processing layer now detects six coercive patterns: URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>How it works:</strong> Local LLM (Ollama) analyzes incoming messages for emotional voltage. Scale: 0–10. ≥6 auto-held for review. ≥8 critical alert. Zero-knowledge verification — message content never stored.<br>
-              <strong>Use case:</strong> Protects vulnerable individuals from coercive communication. Generates accommodation documentation for SSA/legal proceedings. Gives time to think — time that was never given before.<br>
-              <strong>Status:</strong> Backend 85% complete. Frontend integration in progress. Production deployment planned Q2 2026.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Software</span>
-              <span class="post-tag">The Buffer</span>
-              <span class="post-tag">AI</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-12-15 · Milestone</div>
-            <h2 class="post-title">501(c)(3) Formation Initiated</h2>
-            <p>Articles of Incorporation drafted for Georgia nonprofit. Fiscal sponsorship secured through Hack Club HCB. IRS Form 1023-EZ ready for filing.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Structure:</strong> Georgia nonprofit corporation. Articles of Incorporation complete. Bylaws drafted. Board recruitment in progress.<br>
-              <strong>Fiscal Sponsor:</strong> Hack Club HCB (The Hack Foundation, EIN 81-2908499). 7% revenue fee. Enables tax-deductible donations while 501(c)(3) determination is pending.<br>
-              <strong>Timeline:</strong> EIN application in progress. Form 1023-EZ will be filed immediately after EIN issuance. Determination expected Q2 2026.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Legal</span>
-              <span class="post-tag">501(c)(3)</span>
-              <span class="post-tag">Nonprofit</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-11-01 · Philosophy</div>
-            <h2 class="post-title">Why "Phosphorus-31"?</h2>
-            <p>The name comes from the phosphorus-31 isotope — the only stable isotope of phosphorus, and a key component of hydroxyapatite (Ca₁₀(PO₄)₆(OH)₂), the mineral matrix of bone and teeth.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>The connection:</strong> The founder's body cannot regulate calcium-phosphate balance due to hypoparathyroidism (since 2003). P31 builds technology that restores balance — starting with the mind.<br>
-              <strong>The metaphor:</strong> Just as P-31 is the only stable isotope of phosphorus, P31 Labs builds the only stable systems — mesh-resilient, offline-first, privacy-protected. The mesh holds.<br>
-              <strong>The mission:</strong> Restore balance. Build stability. Create systems that don't fail when the neutral is severed.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Philosophy</span>
-              <span class="post-tag">Mission</span>
-              <span class="post-tag">Story</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-10-15 · Philosophy</div>
-            <h2 class="post-title">The Beauty of Physics: Why Geometry Matters</h2>
-            <p>Just as the tetrahedron is the minimum stable volume in geometry, certain systems are the minimum stable form in technology. The mesh holds because the structure is correct.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>The Mathematics:</strong> Fuller's synergetic constant: V_tet = 1 (unit volume). Nature doesn't use cubic coordinates. The tetrahedron is the minimum structural system. Everything else is a frequency of it.<br>
-              <strong>The Application:</strong> Four nodes form the atomic unit of resilience. Six edges connect them. Four faces bound the volume. This is why the mesh holds — it's the geometry nature uses.<br>
-              <strong>The Beauty:</strong> The same math that makes geodesic domes strong makes mesh networks resilient. The same physics that makes P-31 stable makes P31 Labs stable. The geometry protects the signal.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Philosophy</span>
-              <span class="post-tag">Physics</span>
-              <span class="post-tag">Geometry</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-09-20 · Technical</div>
-            <h2 class="post-title">SIC-POVM: Background-Independent Security</h2>
-            <p>Traditional encryption assumes computational difficulty. We assume physics. SIC-POVM measurement geometry detects eavesdropping through system tomography — not error rates.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>The Geometry:</strong> Four quantum states forming a regular tetrahedron inscribed in the Bloch sphere. Maximum information extraction with minimum disturbance. |⟨ψᵢ|ψⱼ⟩|² = 1/(d+1) for i ≠ j.<br>
-              <strong>The Security:</strong> Background-independent. Doesn't rely on computational assumptions. Detects eavesdropping through quantum state tomography. The geometry itself is the security.<br>
-              <strong>The Implementation:</strong> Planned for Node One firmware. Quantum random number generation. SIC-POVM state preparation. Background-independent key exchange.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Security</span>
-              <span class="post-tag">Quantum</span>
-              <span class="post-tag">SIC-POVM</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-08-10 · Technical</div>
-            <h2 class="post-title">The Scope: Production System Architecture</h2>
-            <p>The Scope has been in production use for years. 1,888 lines of Google Apps Script. Spoon economy, medication tracking, coherence monitoring — all working, all local-first.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Systems:</strong> Spoon economy tracker (energy management), medication tracker with 4-hour Ca²⁺↔Vyvanse gap enforcement, coherence monitoring (cognitive state tracking), ping grid (mesh network status), alert system (threshold-based notifications).<br>
-              <strong>Medications Tracked:</strong> Calcitriol, Calcium Carbonate, Vyvanse, Magnesium. All with timing constraints, interaction warnings, and dosage tracking.<br>
-              <strong>Why Google Apps Script:</strong> Runs entirely in the cloud (Google's infrastructure) but processes data locally. No server to maintain. No database to manage. Just code that works. The beauty of ephemeralization — doing more with less.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">The Scope</span>
-              <span class="post-tag">Production</span>
-              <span class="post-tag">Architecture</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <div class="post-meta">2025-07-05 · Philosophy</div>
-            <h2 class="post-title">Wye → Delta: The Phase Transition</h2>
-            <p>Every centralized topology (Wye) can be transformed into a mesh (Delta). The same math that rewires three-phase power systems rewires governance structures.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>The Math:</strong> Z_Δ = (Z₁Z₂ + Z₂Z₃ + Z₃Z₁) / Z_opp. When the neutral fails in a Wye system, voltage becomes erratic. One phase spikes (stress), another collapses (neglect). This is the diagnosis of the current social/legal/financial situation.<br>
-              <strong>The Solution:</strong> Transform to Delta topology. Every node is a peer. No neutral required. No single point of failure. The mesh holds because the geometry is correct.<br>
-              <strong>The Application:</strong> Node One devices form LoRa mesh networks. The Buffer processes locally before any network transmission. The Scope runs entirely in Google Apps Script. Every system is Delta — no Wye dependencies.
-            </p>
-            <div class="post-tags">
-              <span class="post-tag">Topology</span>
-              <span class="post-tag">Philosophy</span>
-              <span class="post-tag">Mesh</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Archive</span>
-          <h2>All Posts</h2>
-          <p>Every post, every update, every milestone. The mesh grows through documentation.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Blog Philosophy:</strong> We document everything. Every technical decision, every philosophical insight, every milestone. The blog is not marketing — it's a build log. It's the record of how the mesh grows.</p>
-          <p><strong>Categories:</strong> Announcements, Technical, Publication, Milestone, Philosophy. Each post is tagged and categorized. Searchable. Archivable. The geometry of information.</p>
-          <p><strong>Frequency:</strong> Posts published as milestones are reached, insights are gained, or systems are completed. No artificial schedule. No content for content's sake. Just the signal, no noise.</p>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Blog Philosophy</span>
-          <h2>Why We Write</h2>
-          <p>The blog is not marketing — it's a build log. It's the record of how the mesh grows. Every post is a milestone. Every update is a measurement.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Documentation as Resistance:</strong> We document everything. Every technical decision, every philosophical insight, every milestone. The blog is the public record. It's how we protect freedom to operate — through transparency, not secrecy.</p>
-          <p><strong>The Build Log:</strong> Traditional blogs are marketing. Ours is a build log. It's the record of how the mesh grows. Every post is a milestone. Every update is a measurement. The geometry protects the signal — and the blog protects the geometry.</p>
-          <p><strong>Frequency:</strong> Posts published as milestones are reached, insights are gained, or systems are completed. No artificial schedule. No content for content's sake. Just the signal, no noise.</p>
-          <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, development exists in potential until documented. The blog is the measurement that collapses the wave function into knowledge. The geometry protects the signal — and the blog makes it visible.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Categories</span>
-          <h2>Post Types</h2>
-          <p>Every post is categorized. Every post is tagged. Searchable. Archivable. The geometry of information.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <h3>Announcements</h3>
-            <p>Major milestones, launches, partnerships. The big moments. The public record of progress.</p>
           </div>
-          <div class="mission-card">
-            <h3>Technical</h3>
-            <p>Deep dives into architecture, algorithms, implementation details. The how and why of the mesh.</p>
+          <a href="/blog/feed.xml" class="rss-link" aria-label="RSS feed">📡 RSS Feed</a>
+        </div>
+
+        <!-- Search and category filters -->
+        <div class="blog-controls">
+          <div class="blog-search">
+            <label for="blog-search" class="sr-only">Search posts</label>
+            <input type="search" id="blog-search" placeholder="Search posts...">
+            <button id="search-btn">Search</button>
           </div>
-          <div class="mission-card">
-            <h3>Publication</h3>
-            <p>Zenodo publications, defensive publication strategy, IP protection. The public record of innovation.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Milestone</h3>
-            <p>Progress updates, completion markers, phase transitions. The measurement of growth.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Philosophy</h3>
-            <p>Why we build. Why physics matters. Why geometry protects. The deeper questions.</p>
+          <div class="category-filters" id="category-filters" role="group" aria-label="Filter by category">
+            <button class="category-tag active" data-category="all">All</button>
+            <button class="category-tag" data-category="Announcement">Announcement</button>
+            <button class="category-tag" data-category="Technical">Technical</button>
+            <button class="category-tag" data-category="Community">Community</button>
+            <button class="category-tag" data-category="Hardware">Hardware</button>
+            <button class="category-tag" data-category="Economy">Economy</button>
           </div>
         </div>
-      </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">RSS Feed</span>
-          <h2>Stay Updated</h2>
-          <p>Subscribe to the blog RSS feed for automatic updates. The mesh grows through information.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>RSS Feed:</strong> Coming soon. RSS feed will be available at /blog/rss.xml. Subscribe in your favorite RSS reader for automatic updates.</p>
-          <p><strong>Email Notifications:</strong> Coming soon. Email notifications for new posts. Sign up at will@phosphorus31.org (subject: "Subscribe to blog").</p>
-          <p><strong>Social Media:</strong> We don't use social media. The blog is the primary communication channel. The mesh grows through direct connection, not through algorithms.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, RSS feeds describe idea transmission. Good feeds maximize channel capacity by providing clear information (high S/N) and regular updates (high B). The geometry protects the message.</p>
-        </div>
-      </section>
+        <!-- Posts container (dynamically filled) -->
+        <div class="posts-grid" id="posts-grid" role="list" aria-label="Blog posts"></div>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Archive</span>
-          <h2>All Posts</h2>
-          <p>Every post, every update, every milestone. The mesh grows through documentation. Searchable. Archivable. The geometry of information.</p>
+        <!-- No posts message -->
+        <div class="no-posts" id="no-posts-message" aria-live="polite">
+          No posts match your criteria.
         </div>
-        <div class="why-text">
-          <p><strong>Complete Archive:</strong> All posts are archived. All updates are documented. All milestones are recorded. The blog is the public record of how the mesh grows.</p>
-          <p><strong>Search:</strong> Coming soon. Full-text search across all posts. Find what you need. The mesh grows through information, not through obscurity.</p>
-          <p><strong>Tags:</strong> All posts are tagged. All posts are categorized. Filter by topic. Find related content. The geometry of information makes knowledge accessible.</p>
-          <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, knowledge exists in potential until documented. The blog is the measurement that collapses the wave function into information. The geometry protects the signal — and the archive makes it permanent.</p>
-        </div>
-      </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Writing Style</span>
-          <h2>How We Write</h2>
-          <p>Clear. Direct. Technical when needed. Accessible always. The mesh grows through communication, not through complexity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Clarity First:</strong> Every post is written for clarity. Technical concepts explained. Jargon avoided. Complex ideas simplified. The mesh grows through understanding, not through confusion.</p>
-          <p><strong>Technical Depth:</strong> When technical detail is needed, we provide it. Architecture diagrams. Code examples. Mathematical equations. The mesh grows through knowledge, not through oversimplification.</p>
-          <p><strong>Accessibility:</strong> All posts are accessible. Clear headings. Descriptive links. Alt text on images. Screen reader friendly. The mesh holds for everyone, or it doesn't hold at all.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, writing describes idea transmission. Good writing maximizes channel capacity by providing clear information (high S/N) and engaging content (high B). The geometry protects the message.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Subscribe</span>
-          <h2>Stay Updated</h2>
-          <p>Get notified when new posts are published. The mesh grows through information, not through obscurity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>RSS Feed:</strong> Coming soon. RSS feed will be available at /blog/rss.xml. Subscribe in your favorite RSS reader for automatic updates. The mesh grows through information, not through algorithms.</p>
-          <p><strong>Email Notifications:</strong> Coming soon. Email notifications for new posts. Sign up at will@phosphorus31.org (subject: "Subscribe to blog"). The mesh grows through connection, not through isolation.</p>
-          <p><strong>No Social Media:</strong> We don't use social media. The blog is the primary communication channel. The mesh grows through direct connection, not through algorithms. The geometry protects the signal — and direct connection ensures it's received.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, subscriptions describe idea transmission. Good subscriptions maximize channel capacity by providing clear information (high S/N) and regular updates (high B). The geometry protects the message.</p>
-        </div>
-      </section>
-    </div>
+        <!-- Pagination -->
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -388,17 +443,23 @@
         <a href="/wallet/">Wallet</a>
         <a href="/games/">Games</a>
         <a href="/education/">Learn</a>
-        <a href="/blog/">Blog</a>
+        <a href="/blog/" aria-current="page">Blog</a>
         <a href="/legal/">Legal</a>
         <a href="/accessibility/">A11y</a>
         <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
       </div>
       <p class="footer-formula">
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
     </div>
   </footer>
-  <script src="/main.js"></script>
+
+  <script src="../main.js"></script>
+  <script src="blog.js"></script>
 </body>
 </html>

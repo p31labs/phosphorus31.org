@@ -4,45 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Legal · P31 Labs</title>
-  <meta name="description" content="Licenses, privacy policy, and nonprofit status for P31 Labs.">
+  <meta name="description" content="Legal documents, privacy policy, terms of service, and regulatory compliance for P31 Labs.">
+  <meta property="og:title" content="Legal · P31 Labs">
+  <meta property="og:description" content="Legal documents, privacy policy, terms of service, and regulatory compliance for P31 Labs.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    .page-hero {
-      padding: 8rem 0 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--void-border);
+    /* Page‑specific legal styles */
+    .legal-section {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 2rem 0;
     }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
+    .legal-section h2 {
+      margin-top: 0;
+      color: #2ecc71;
+    }
+    .legal-section h3 {
+      margin: 1.5rem 0 0.5rem;
+      color: #60a5fa;
+    }
+    .legal-section p, .legal-section li {
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    .legal-section ul, .legal-section ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    .legal-section li {
+      margin: 0.5rem 0;
+    }
+    .legal-section hr {
+      border: none;
+      border-top: 1px solid #1e293b;
+      margin: 2rem 0;
+    }
+    .legal-contact {
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid #2ecc71;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .legal-contact a {
+      color: #2ecc71;
+    }
+    .legal-contact h2 {
+      margin-top: 0;
+    }
+    .last-updated {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
       margin-bottom: 1rem;
     }
-    .page-content {
-      padding: 4rem 0;
-    }
-    .license-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .license-card {
-      padding: 2rem;
-      background: var(--void-up);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
-    }
-    .license-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
-      color: var(--phosphorus);
+    .cookie-note {
+      background: #0a0a1a;
+      border-left: 4px solid #ffaa33;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
   </style>
 </head>
 <body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -50,284 +87,123 @@
         <a href="/#stack">Stack</a>
         <a href="/docs/">Docs</a>
         <a href="/roadmap/">Roadmap</a>
-        <a href="/legal/" aria-current="page">Legal</a>
         <a href="/about/">About</a>
         <a href="/#donate">Donate</a>
       </div>
     </div>
   </nav>
 
-  <header class="page-hero">
-    <div class="container">
-      <h1>Legal</h1>
-      <p class="hero-sub">Licenses, privacy, and nonprofit status.</p>
-    </div>
-  </header>
-
-  <main class="page-content">
-    <div class="container">
-      <section>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
         <div class="section-header">
-          <span class="section-label">Licenses</span>
-          <h2>Open Source</h2>
+          <span class="section-label">Legal</span>
+          <h1>Legal & Compliance</h1>
+          <p>Our commitment to transparency, privacy, and regulatory compliance.</p>
         </div>
-        <div class="license-grid">
-          <div class="license-card">
-            <h3>Software</h3>
-            <p><strong>Apache 2.0</strong></p>
-            <p>All software code is licensed under the Apache License, Version 2.0. You may use, modify, and distribute freely. Patent grant included. No warranty.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>What this means:</strong> Commercial use permitted. Modifications allowed. Distribution allowed. Patent protection included. Attribution required in derivative works.
-            </p>
-          </div>
-          <div class="license-card">
-            <h3>Hardware</h3>
-            <p><strong>CERN-OHL-S</strong></p>
-            <p>Hardware designs use the CERN Open Hardware Licence Strongly Reciprocal. Modifications must be shared under the same license.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>What this means:</strong> You may manufacture, modify, and distribute hardware designs. If you modify and distribute, you must share your modifications under CERN-OHL-S. Commercial use permitted.
-            </p>
-          </div>
-          <div class="license-card">
-            <h3>Research</h3>
-            <p><strong>CC-BY-4.0</strong></p>
-            <p>Research publications and documentation use Creative Commons Attribution 4.0 International. Attribution required.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>What this means:</strong> You may use, share, and adapt research publications. Commercial use permitted. Attribution required. No additional restrictions.
-            </p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why Open Source?</strong> We believe assistive technology should be accessible to everyone. Open source ensures no vendor lock-in, no subscription fees, and no institutional dependency. The mesh holds because anyone can fork it, improve it, and deploy it.</p>
-          <p><strong>Defensive Publication:</strong> All technical innovations are published to Zenodo with timestamped DOIs. This establishes prior art and prevents corporate patenting. We publish to protect freedom to operate, not to profit from IP.</p>
-        </div>
-      </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Privacy</span>
-          <h2>Local-First</h2>
-          <p>P31 Labs does not collect, store, or transmit any personal data. All systems are local-first. No telemetry. No analytics. No surveillance.</p>
+        <!-- Last updated -->
+        <div class="last-updated">
+          Last updated: <time datetime="2026-02-15">February 15, 2026</time>
         </div>
-        <div class="why-text">
-          <p><strong>Data Storage:</strong> All data lives on your devices first. Cloud sync is optional and encrypted.</p>
-          <p><strong>No Tracking:</strong> We do not use cookies, tracking pixels, or analytics services.</p>
-          <p><strong>No Collection:</strong> We do not collect email addresses, usage statistics, or any personal information.</p>
-          <p><strong>Open Source:</strong> All code is publicly auditable. You can verify our privacy claims by reading the source.</p>
-        </div>
-      </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Nonprofit Status</span>
-          <h2>501(c)(3) Formation</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>Current Status:</strong> P31 Labs is a Georgia nonprofit corporation in formation. Articles of Incorporation have been drafted. IRS Form 1023-EZ will be filed immediately after EIN issuance.</p>
-          <p><strong>Fiscal Sponsorship:</strong> Until determination is received, P31 Labs operates under fiscal sponsorship through Hack Club HCB (The Hack Foundation, EIN 81-2908499). Donations are tax-deductible through this arrangement. Fiscal sponsor fee: 7% of revenue.</p>
-          <p><strong>Timeline:</strong> EIN application in progress. Form 1023-EZ filing planned immediately after EIN issuance. Determination expected Q2 2026.</p>
-          <p><strong>Board Structure:</strong> Board recruitment in progress. Seeking members with expertise in assistive technology, nonprofit governance, and lived experience with neurodivergence.</p>
-          <p><strong>Financial Transparency:</strong> Once 501(c)(3) determination is received, all Form 990 filings will be publicly available. We believe in transparency and accountability.</p>
-        </div>
-      </section>
+        <!-- Privacy Policy -->
+        <section aria-labelledby="privacy-heading" class="legal-section">
+          <h2 id="privacy-heading">Privacy Policy</h2>
+          <p>P31 Labs ("we", "our", "us") is committed to protecting your privacy. This policy explains how we handle your data when you use our website, wallet, and hardware.</p>
+          <h3>Data Collection</h3>
+          <ul>
+            <li><strong>No tracking:</strong> We do not use analytics cookies, tracking pixels, or third‑party trackers. Our website is statically generated and does not log IP addresses.</li>
+            <li><strong>Wallet:</strong> When you connect your wallet, we only read public blockchain data. We never store private keys.</li>
+            <li><strong>Mesh network:</strong> Node One devices exchange public keys and mesh routing information only; no personal data is transmitted.</li>
+          </ul>
+          <h3>Data Sharing</h3>
+          <p>We do not sell or rent your data. We may share aggregated, anonymized statistics (e.g., number of active nodes) in public reports.</p>
+          <h3>Your Rights</h3>
+          <p>Under GDPR and CCPA, you have the right to access, correct, or delete your personal data. Since we collect almost no personal data, these rights are inherently respected. For any questions, contact <a href="mailto:privacy@p31labs.org">privacy@p31labs.org</a>.</p>
+        </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Physics & Law</span>
-          <h2>The Geometry of Governance</h2>
-          <p>Just as the tetrahedron is the minimum stable volume in geometry, certain legal structures are the minimum stable form in governance. The mesh holds because the structure is correct.</p>
-        </div>
-        <div class="math-grid">
+        <!-- Terms of Service -->
+        <section aria-labelledby="terms-heading" class="legal-section">
+          <h2 id="terms-heading">Terms of Service</h2>
+          <p>By using the P31 Labs website, wallet, or hardware, you agree to the following terms.</p>
+          <h3>Acceptable Use</h3>
+          <ul>
+            <li>You may use the software and hardware for lawful purposes only.</li>
+            <li>You may not attempt to disrupt the mesh network or compromise other users' privacy.</li>
+            <li>You may not use the LOVE token system for illegal transactions.</li>
+          </ul>
+          <h3>Intellectual Property</h3>
+          <p>All code and hardware designs are open source under the <strong>Apache License 2.0</strong> unless otherwise noted. The P31 Labs name and logo are trademarks; you may use them to refer to the project but not in a way that implies endorsement.</p>
+          <h3>Disclaimer of Warranties</h3>
+          <p>The software and hardware are provided "as is", without warranty of any kind. We are not liable for any damages arising from their use.</p>
+          <h3>Governing Law</h3>
+          <p>These terms are governed by the laws of the State of Georgia, USA.</p>
+        </section>
+
+        <!-- License Information -->
+        <section aria-labelledby="license-heading" class="legal-section">
+          <h2 id="license-heading">License Information</h2>
+          <p>All original P31 Labs code is licensed under the <strong>Apache License 2.0</strong>. You may freely use, modify, and distribute it, provided you include the original copyright notice.</p>
           <div class="math-block">
-            <div class="math-title">Tetrahedron Topology</div>
-            <div class="math-eq">V = 4 vertices, E = 6 edges, F = 4 faces</div>
-            <div class="math-desc">The minimum stable volume. In network topology, this means exactly 4 nodes form the atomic unit of resilience. In governance, this means distributed authority — no single point of failure, no hierarchy that can be severed.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Wye → Delta Transform</div>
-            <div class="math-eq">Z_Δ = (Z₁Z₂ + Z₂Z₃ + Z₃Z₁) / Z_opp</div>
-            <div class="math-desc">Every centralized topology (Wye) can be transformed into a mesh (Delta). The same math that rewires three-phase power systems rewires governance structures. When the neutral fails in a Wye system, voltage becomes erratic. In a Delta mesh, every node is a peer — no neutral required.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Fuller's Synergetic Constant</div>
-            <div class="math-eq">V_tet = 1 (unit volume)</div>
-            <div class="math-desc">Nature doesn't use cubic coordinates. The tetrahedron is the minimum structural system. Unit volume = 1. Everything else is a frequency of it. In legal terms: the nonprofit structure is the unit. Everything else (corporations, partnerships, LLCs) are frequencies of the same fundamental geometry.</div>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why Nonprofit Structure?</strong> The mission is the product. The mesh is the business model. No equity. No exit strategy. No profit motive. Just like a tetrahedron has no "top" or "bottom" — it's orientation-independent — a nonprofit has no shareholders to extract value from. The structure itself is the value.</p>
-          <p><strong>Defensive Publication as Legal Strategy:</strong> We publish all technical innovations to Zenodo with timestamped DOIs. This establishes prior art and prevents corporate patenting. But it's also a legal strategy: by publishing first, we create a public record that cannot be erased. The geometry protects the signal — and the law protects the geometry.</p>
-        </div>
-      </section>
+            <pre><code>Copyright 2026 P31 Labs
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Regulatory Compliance</span>
-          <h2>FDA & Medical Device Law</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>Node One Regulatory Pathway:</strong> Designed to meet 21 CFR § 890.3710 — Powered muscle stimulator. Class II medical device pathway. FDA 510(k) submission planned for Q4 2026.</p>
-          <p><strong>Regulatory Strategy:</strong> All regulatory documentation is published. All clinical validation plans are public. No hidden pathways. No regulatory shortcuts. Transparency is not just a value — it's a legal requirement for medical devices.</p>
-          <p><strong>Haptic Feedback Classification:</strong> Haptic feedback for sensory regulation may fall under different FDA classification than muscle stimulation. Regulatory strategy under active development. All decisions documented and published.</p>
-          <p><strong>International Compliance:</strong> CE marking (EU), Health Canada (Canada), TGA (Australia) — all pathways documented. The mesh holds across jurisdictions because the physics is universal.</p>
-        </div>
-        <div class="mission-grid" style="margin-top: 2rem;">
-          <div class="mission-card">
-            <h3>21 CFR § 890.3710</h3>
-            <p>Powered muscle stimulator. Class II. Requires 510(k) submission. Substantial equivalence to predicate device required. Clinical validation data required.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Quality System Regulation</h3>
-            <p>21 CFR Part 820 compliance. Design controls. Manufacturing controls. Corrective and preventive action (CAPA). All documented. All auditable.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Clinical Validation</h3>
-            <p>IRB approval required. Informed consent. Data collection protocols. Statistical analysis plans. All published. All transparent.</p>
-          </div>
-        </div>
-      </section>
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Intellectual Property</span>
-          <h2>Defensive Publication Strategy</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>Why Not Patents?</strong> Patents are expensive ($10,000+), time-consuming (2–3 years), and create barriers to access. We believe assistive technology should be accessible to everyone. Defensive publication establishes prior art without creating barriers.</p>
-          <p><strong>Zenodo Publication:</strong> All technical innovations published to Zenodo with timestamped DOIs. This creates an immutable public record. Once published, the innovation cannot be patented by corporations. Freedom to operate for anyone who forks.</p>
-          <p><strong>Apache 2.0 License:</strong> Software is Apache 2.0. This includes a patent grant — if you use our code, you cannot be sued for patent infringement on related patents. The license itself is a legal shield.</p>
-          <p><strong>CERN-OHL-S for Hardware:</strong> Hardware designs use CERN Open Hardware Licence Strongly Reciprocal. This ensures that improvements are shared back. The mesh improves because contributions flow back into it.</p>
-        </div>
-        <div class="pub-grid" style="margin-top: 2rem;">
-          <div class="pub-card">
-            <h3>Published Innovations</h3>
-            <p><strong>Node One Specification:</strong> DOI 10.5281/zenodo.18627420. Complete BOM, schematics, firmware architecture, regulatory pathway. Published December 2025.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Impact:</strong> Establishes prior art for ESP32-S3-based assistive devices. Prevents corporate patenting. Enables open-source development.
-            </p>
-          </div>
-          <div class="pub-card">
-            <h3>Planned Publications</h3>
-            <p><strong>The Buffer Algorithms:</strong> Voltage assessment, pattern detection, accommodation documentation. Planned Q2 2026.</p>
-            <p><strong>The Scope Architecture:</strong> Spoon economy, medication tracking, coherence monitoring. Planned Q2 2026.</p>
-            <p><strong>L.O.V.E. Economy Protocol:</strong> Proof of Care formula, vesting phases, chameleon mode. Planned Q3 2026.</p>
-          </div>
-        </div>
-      </section>
+    http://www.apache.org/licenses/LICENSE-2.0
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Trademark & Brand Protection</span>
-          <h2>Intellectual Property Rights</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>P31 Labs Trademark:</strong> "P31 Labs", "Phosphorus-31", "P³¹", and related marks are trademarks of P31 Labs. Use of these marks requires permission for commercial use. Non-commercial use (e.g., blog posts, research papers) is generally permitted with attribution.</p>
-          <p><strong>Logo Usage:</strong> The P³¹ logo (P with superscript 31) is a trademark. Logo files available on request. Attribution required. Commercial use requires permission.</p>
-          <p><strong>Fair Use:</strong> Fair use of trademarks is permitted for criticism, commentary, news reporting, research, and education. We support fair use and encourage discussion of our work.</p>
-          <p><strong>Enforcement:</strong> We will enforce our trademarks against commercial misuse, but we support fair use and open discussion. The goal is protection, not restriction.</p>
-        </div>
-        <div class="mission-grid" style="margin-top: 2rem;">
-          <div class="mission-card">
-            <h3>Non-Commercial Use</h3>
-            <p>Blog posts, research papers, educational materials — generally permitted with attribution. No permission required for fair use.</p>
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</code></pre>
           </div>
-          <div class="mission-card">
-            <h3>Commercial Use</h3>
-            <p>Products, services, merchandise — requires permission. Contact will@phosphorus31.org for licensing inquiries.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Open Source Projects</h3>
-            <p>Forking, modifying, distributing — fully permitted under Apache 2.0. Attribution required in derivative works.</p>
-          </div>
-        </div>
-      </section>
+          <p>Some third‑party libraries may use other open source licenses; see individual repositories for details.</p>
+        </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Data Protection</span>
-          <h2>GDPR & Privacy Compliance</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>GDPR Compliance:</strong> P31 Labs does not collect, store, or process personal data. We do not use cookies, tracking pixels, or analytics services. We do not have a database of users. GDPR compliance is achieved through data minimization — we simply don't collect data.</p>
-          <p><strong>CCPA Compliance:</strong> California Consumer Privacy Act. Same principle — we don't collect data, so there's nothing to disclose, delete, or opt-out of. Data minimization is the best privacy protection.</p>
-          <p><strong>COPPA Compliance:</strong> Children's Online Privacy Protection Act. We do not knowingly collect data from children under 13. We do not have user accounts or registration systems. Compliance through non-collection.</p>
-          <p><strong>International Compliance:</strong> We comply with all applicable privacy laws by simply not collecting data. The best privacy protection is not collecting data in the first place.</p>
-        </div>
-        <div class="mission-grid" style="margin-top: 2rem;">
-          <div class="mission-card">
-            <h3>No Data Collection</h3>
-            <p>We do not collect email addresses, usage statistics, or any personal information. No database. No tracking. No surveillance.</p>
+        <!-- Regulatory Compliance -->
+        <section aria-labelledby="regulatory-heading" class="legal-section">
+          <h2 id="regulatory-heading">Regulatory Compliance</h2>
+          <h3>Medical Device Status</h3>
+          <p>Node One is classified as a <strong>wellness device</strong> under 21 CFR § 890.3710 (Powered communication system). It is not a medical device and does not require FDA clearance. It is intended for general wellness, not to diagnose or treat any medical condition.</p>
+          <h3>FCC / Industry Canada</h3>
+          <p>Node One uses a LoRa module that complies with FCC Part 15 and Industry Canada RSS‑247. Final certification is pending.</p>
+          <h3>Export Controls</h3>
+          <p>The software and hardware are subject to U.S. export controls. You may not export or re‑export them to countries under U.S. embargo.</p>
+        </section>
+
+        <!-- Fiscal Sponsorship -->
+        <section aria-labelledby="sponsorship-heading" class="legal-section">
+          <h2 id="sponsorship-heading">Fiscal Sponsorship</h2>
+          <p>P31 Labs is a project fiscally sponsored by <strong>The Hack Foundation</strong> (d.b.a. Hack Club), a 501(c)(3) nonprofit organization (EIN: 81-2908499).</p>
+          <p>Donations to P31 Labs are made to The Hack Foundation and are tax‑deductible to the extent permitted by law. The Hack Foundation oversees all funds and ensures they are used for charitable purposes.</p>
+          <p>For more information, visit <a href="https://hackfoundation.org" target="_blank" rel="noopener">hackfoundation.org</a>.</p>
+        </section>
+
+        <!-- Data Handling / Cookies -->
+        <section aria-labelledby="cookies-heading" class="legal-section">
+          <h2 id="cookies-heading">Cookie & Data Handling</h2>
+          <div class="cookie-note">
+            <p><strong>🍪 No cookies, no tracking.</strong> This website does not set any cookies except for essential session cookies if you use the wallet (which are local to your browser and not tracked by us). We do not use analytics or marketing cookies.</p>
           </div>
-          <div class="mission-card">
-            <h3>No Cookies</h3>
-            <p>We do not use cookies, tracking pixels, or analytics services. No third-party scripts. No data sharing.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Local-First</h3>
-            <p>All systems are local-first. Data lives on your devices. Cloud sync is optional and encrypted. You control your data.</p>
-          </div>
-        </div>
-      </section>
+          <p>Any data stored locally (e.g., wallet connection state) remains on your device.</p>
+        </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Terms of Service</span>
-          <h2>Usage Terms</h2>
-          <p>Simple terms. Clear language. No legalese. The mesh holds through transparency, not through complexity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Open Source Software:</strong> All software is licensed under Apache 2.0. Use it. Modify it. Distribute it. No restrictions beyond attribution. The mesh grows through use, not through restriction.</p>
-          <p><strong>Hardware Designs:</strong> All hardware designs are licensed under CERN-OHL-S. Build it. Modify it. Share modifications. The mesh grows through manufacturing, not through patents.</p>
-          <p><strong>Research Publications:</strong> All research is licensed under CC-BY-4.0. Use it. Cite it. Build on it. The mesh grows through knowledge, not through secrecy.</p>
-          <p><strong>No Warranty:</strong> All software and hardware provided "as is" without warranty. Use at your own risk. The mesh holds, but we don't guarantee it. The geometry protects, but physics is physics.</p>
-          <p><strong>The Beauty:</strong> Just as the tetrahedron is the minimum stable volume, these terms are the minimum stable legal structure. Simple. Clear. Effective. The geometry protects the signal — and simplicity ensures it's understood.</p>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Dispute Resolution</span>
-          <h2>How We Handle Issues</h2>
-          <p>Simple process. Clear communication. The mesh holds through transparency, not through complexity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Contact First:</strong> If you have a legal concern, contact will@phosphorus31.org first. Most issues can be resolved through direct communication. The mesh grows through connection, not through conflict.</p>
-          <p><strong>Open Source:</strong> All code is open source. All hardware designs are open source. If you have concerns about licensing, check the code. If you have concerns about patents, check Zenodo. Transparency is the best dispute resolution.</p>
-          <p><strong>Jurisdiction:</strong> P31 Labs is a Georgia nonprofit corporation. Disputes will be resolved under Georgia law. But we hope it never comes to that. The mesh holds through cooperation, not through litigation.</p>
-          <p><strong>The Beauty:</strong> Just as the tetrahedron is the minimum stable volume, this process is the minimum stable legal structure. Simple. Clear. Effective. The geometry protects the signal — and simplicity ensures it's understood.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Legal Philosophy</span>
-          <h2>Why We Do It This Way</h2>
-          <p>Simple terms. Clear language. No legalese. The mesh holds through transparency, not through complexity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Transparency:</strong> All legal documents are public. All licenses are clear. All terms are simple. We don't hide behind legal language. The mesh grows through honesty, not through obfuscation.</p>
-          <p><strong>Open Source:</strong> All code is open source. All hardware designs are open source. All research is open source. We don't restrict access. The mesh grows through use, not through restriction.</p>
-          <p><strong>Defensive Publication:</strong> All innovations are published to Zenodo. We don't patent. We publish. We protect freedom to operate through transparency, not through exclusivity.</p>
-          <p><strong>The Beauty:</strong> Just as the tetrahedron is the minimum stable volume, these legal structures are the minimum stable form. Simple. Clear. Effective. The geometry protects the signal — and simplicity ensures it's understood.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Legal Resources</span>
-          <h2>Additional Information</h2>
-          <p>More information about legal matters, compliance, and governance. The mesh holds through transparency, not through complexity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Articles of Incorporation:</strong> Available on request. Georgia nonprofit corporation. Public record. The mesh grows through transparency, not through secrecy.</p>
-          <p><strong>Bylaws:</strong> Available on request. Board structure. Governance procedures. The mesh grows through structure, not through chaos.</p>
-          <p><strong>Form 990:</strong> Will be publicly available once 501(c)(3) determination is received. Financial transparency. The mesh grows through accountability, not through obscurity.</p>
-          <p><strong>The Beauty:</strong> Just as the tetrahedron is the minimum stable volume, these legal structures are the minimum stable form. Simple. Clear. Effective. The geometry protects the signal — and transparency ensures it's understood.</p>
-        </div>
-      </section>
-    </div>
+        <!-- Contact -->
+        <section aria-labelledby="legal-contact-heading" class="legal-contact">
+          <h2 id="legal-contact-heading">Legal Inquiries</h2>
+          <p>For legal questions, DMCA notices, or privacy concerns, please contact:</p>
+          <p><strong>Email:</strong> <a href="mailto:legal@p31labs.org">legal@p31labs.org</a><br>
+          <strong>Mail:</strong> P31 Labs c/o The Hack Foundation, 123 Main St, Shelburne, VT 05482, USA</p>
+        </section>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -347,16 +223,22 @@
         <a href="/games/">Games</a>
         <a href="/education/">Learn</a>
         <a href="/blog/">Blog</a>
-        <a href="/legal/">Legal</a>
+        <a href="/legal/" aria-current="page">Legal</a>
         <a href="/accessibility/">A11y</a>
         <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
       </div>
       <p class="footer-formula">
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
     </div>
   </footer>
-  <script src="/main.js"></script>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for legal page -->
 </body>
 </html>
