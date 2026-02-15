@@ -115,9 +115,14 @@
               <h3>Node One: ESP32-S3 Assistive Device</h3>
               <span class="pub-status published">Published</span>
             </div>
-            <p>Complete hardware specification, firmware architecture, and regulatory pathway (21 CFR § 890.3710) for the ESP32-S3-based sensory regulation device.</p>
+            <p><strong>Complete hardware specification, firmware architecture, and regulatory pathway (21 CFR § 890.3710)</strong> for the ESP32-S3-based sensory regulation device.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Components:</strong> ESP32-S3 (dual-core Xtensa LX7), SX1262 LoRa transceiver (915MHz), DRV2605L haptic driver, SSD1306 OLED display, 18650 Li-ion battery, 3D-printed enclosure.<br>
+              <strong>Firmware:</strong> ESP-IDF (FreeRTOS), Meshtastic protocol, custom haptic waveforms ("The Thick Click"), power management, deep sleep modes.<br>
+              <strong>Regulatory:</strong> Class II medical device pathway. FDA 510(k) submission planned for Q3 2026.
+            </p>
             <div class="pub-doi">
-              <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">DOI: 10.5281/zenodo.18627420</a>
+              <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">DOI: 10.5281/zenodo.18627420</a> · <a href="https://zenodo.org/record/18627420" target="_blank" rel="noopener">View on Zenodo →</a>
             </div>
           </div>
 
@@ -126,7 +131,15 @@
               <h3>The Buffer: Communication Processing Layer</h3>
               <span class="pub-status in-progress">In Progress</span>
             </div>
-            <p>Voltage assessment algorithms, pattern detection (URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER), and accommodation documentation system.</p>
+            <p><strong>Voltage assessment algorithms and pattern detection system</strong> for processing incoming messages before they reach vulnerable recipients.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Detection Patterns:</strong> URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER. Voltage scale: 0–10. ≥6 auto-held. ≥8 critical alert.<br>
+              <strong>Output:</strong> HELD / RELEASED / PASSED status with accommodation documentation. Feeds into accommodation log for SSA/legal evidence.<br>
+              <strong>Tech Stack:</strong> FastAPI, Redis, Local LLM (Ollama), WebSocket, Python. Type-level encryption. Zero-knowledge verification.
+            </p>
+            <div class="pub-doi" style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs/cognitive-shield" target="_blank" rel="noopener">View on GitHub →</a>
+            </div>
           </div>
 
           <div class="pub-card">
@@ -134,7 +147,15 @@
               <h3>The Scope: Unified Dashboard</h3>
               <span class="pub-status in-progress">In Progress</span>
             </div>
-            <p>Production system documentation (1,888 lines, Google Apps Script). Spoon economy, medication tracker, coherence monitoring, ping grid architecture.</p>
+            <p><strong>Production system documentation</strong> for the unified executive function dashboard (1,888 lines, Google Apps Script).</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Systems:</strong> Spoon economy tracker, medication tracker (4-hour Ca²⁺↔Vyvanse gap enforcement), coherence monitoring, ping grid, alert system.<br>
+              <strong>Medications Tracked:</strong> Calcitriol, Calcium Carbonate, Vyvanse, Magnesium. All with timing constraints and interaction warnings.<br>
+              <strong>Status:</strong> Production — actively used daily. Documentation in progress for defensive publication.
+            </p>
+            <div class="pub-doi" style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/sovereign-agents" target="_blank" rel="noopener">View on GitHub →</a>
+            </div>
           </div>
 
           <div class="pub-card">
@@ -142,7 +163,133 @@
               <h3>L.O.V.E. Economy: Proof of Care Protocol</h3>
               <span class="pub-status planned">Planned</span>
             </div>
-            <p>Ledger of Ontological Volume and Entropy. Soulbound ERC-20 token on Base L2. Vesting phases, Proof of Care formula, chameleon mode (offline/online).</p>
+            <p><strong>Ledger of Ontological Volume and Entropy</strong> — game engine and wallet unified. Proof of Care, not Proof of Work.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Token:</strong> Soulbound ERC-20 on Base L2. Non-transferable, non-monetary, earned only. 50% Sovereignty Pool (founding nodes), 50% Performance Pool (Proof of Care).<br>
+              <strong>Proof of Care Formula:</strong> Care_Score = Σ(T_prox × Q_res) + Tasks_verified. T_prox = BLE/UWB proximity. Q_res = HRV sync at 0.1 Hz.<br>
+              <strong>Chameleon Mode:</strong> Offline = IndexedDB ledger. Online = Base L2 settlement. Same wallet, two modes.
+            </p>
+            <div class="pub-doi" style="margin-top: 1rem; color: var(--white-muted);">
+              Documentation planned for Q2 2026
+            </div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>G.O.D. Protocol: Constitutional Architecture</h3>
+              <span class="pub-status in-progress">In Progress</span>
+            </div>
+            <p><strong>Geodesic Operations Daemon</strong> — constitutional compliance system for all P31 software.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Principles:</strong> Tetrahedron topology (exactly 4 vertices), type-level encryption, local-first architecture, zero-knowledge verification, no backdoors, code for departure.<br>
+              <strong>Enforcement:</strong> ConstitutionalViolationError for state breaches. Immutable by default. No infinite scroll. No vanity metrics. No centralized analytics.<br>
+              <strong>Status:</strong> Protocol defined. Implementation in progress across all components.
+            </p>
+            <div class="pub-doi" style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs" target="_blank" rel="noopener">View on GitHub →</a>
+            </div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>Phenix Navigator: 3D Visualization</h3>
+              <span class="pub-status in-progress">In Progress</span>
+            </div>
+            <p><strong>Three.js-based 3D interface</strong> for visualizing mesh topology, quantum states, and system coherence.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Features:</strong> Interactive tetrahedron visualization, SIC-POVM state rendering, Jitterbug transformation (cuboctahedron → octahedron), mesh network topology display.<br>
+              <strong>Tech Stack:</strong> React, Three.js, Vite, TypeScript. WCAG 2.1 AA compliant. Keyboard navigation. Reduced motion support.<br>
+              <strong>Status:</strong> Core visualization complete. Integration with The Scope in progress.
+            </p>
+            <div class="pub-doi" style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/ui" target="_blank" rel="noopener">View on GitHub →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">Architecture</span>
+          <h2>System Design</h2>
+          <p>Three-layer stack. Each layer works independently. Together they form a mesh — no single point of failure.</p>
+        </div>
+        <div class="pub-grid">
+          <div class="pub-card">
+            <h3>Layer 1: Node One (Hardware)</h3>
+            <p><strong>ESP32-S3 microcontroller</strong> running ESP-IDF (FreeRTOS). LoRa mesh networking via Meshtastic. DRV2605L haptic engine. SSD1306 OLED display.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Communication:</strong> LoRa 915MHz ISM band. Range: 1–10km line-of-sight. Mesh protocol: Meshtastic. No internet required.<br>
+              <strong>Haptics:</strong> "The Thick Click" pattern for sensory regulation. 8-bit waveform library. I2C interface to DRV2605L.<br>
+              <strong>Power:</strong> 18650 Li-ion (2500mAh). USB-C charging. Deep sleep modes. Battery monitoring.
+            </p>
+          </div>
+          <div class="pub-card">
+            <h3>Layer 2: The Buffer (Software)</h3>
+            <p><strong>FastAPI backend</strong> with Redis cache. Local LLM (Ollama) for pattern detection. WebSocket for real-time updates.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>API Endpoints:</strong> POST /api/v1/assess (voltage assessment), GET /api/v1/history (accommodation log), WebSocket /ws (real-time updates).<br>
+              <strong>Pattern Detection:</strong> URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER. Voltage scale: 0–10.<br>
+              <strong>Storage:</strong> SQLite for local-first operation. Redis for caching. Optional encrypted cloud sync.
+            </p>
+          </div>
+          <div class="pub-card">
+            <h3>Layer 3: The Scope (Interface)</h3>
+            <p><strong>React + Three.js frontend</strong> with Tauri desktop wrapper. Capacitor for mobile. Vite build system.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Components:</strong> Medication tracker, spoon economy, coherence monitoring, ping grid, 3D mesh visualization.<br>
+              <strong>Data Sources:</strong> The Buffer (WebSocket), Node One (LoRa/USB), local storage (IndexedDB).<br>
+              <strong>Accessibility:</strong> WCAG 2.1 AA. Keyboard navigation. Screen reader support. High contrast mode.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-label">API Reference</span>
+          <h2>Developer Documentation</h2>
+          <p>RESTful API endpoints, WebSocket protocols, and integration guides for all P31 Labs systems.</p>
+        </div>
+        <div class="pub-grid">
+          <div class="pub-card">
+            <h3>The Buffer API</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
+              POST /api/v1/assess<br>
+              GET /api/v1/history<br>
+              WebSocket /ws
+            </p>
+            <p style="font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Authentication:</strong> API key or OAuth2. Rate limiting: 100 requests/minute.<br>
+              <strong>Response Format:</strong> JSON. Error codes: 400 (bad request), 401 (unauthorized), 429 (rate limit).<br>
+              <a href="https://github.com/p31labs/cognitive-shield" target="_blank" rel="noopener" style="color: var(--phosphorus);">Full API docs →</a>
+            </p>
+          </div>
+          <div class="pub-card">
+            <h3>Node One Firmware</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
+              ESP-IDF v5.1+<br>
+              Meshtastic v2.0+<br>
+              Custom haptic library
+            </p>
+            <p style="font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Build System:</strong> ESP-IDF build system. CMake configuration. FreeRTOS tasks.<br>
+              <strong>Communication:</strong> LoRa (Meshtastic), USB/Serial (debugging), I2C (peripherals).<br>
+              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/firmware" target="_blank" rel="noopener" style="color: var(--phosphorus);">Firmware docs →</a>
+            </p>
+          </div>
+          <div class="pub-card">
+            <h3>L.O.V.E. Economy Smart Contracts</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
+              Base L2 (OP Stack)<br>
+              ERC-20 (Soulbound)<br>
+              Solidity 0.8.20+
+            </p>
+            <p style="font-size: 0.9rem; color: var(--white-dim);">
+              <strong>Contract Address:</strong> TBD (deployment planned Q2 2026)<br>
+              <strong>Token Standard:</strong> ERC-20 with soulbound extension (non-transferable).<br>
+              <strong>Vesting:</strong> Smart contract-based. Trust phase (0–12): locked. Apprenticeship (13–17): yield access. Sovereignty (18+): full access.
+            </p>
           </div>
         </div>
       </section>
@@ -152,6 +299,12 @@
           <span class="section-label">License</span>
           <h2>Apache 2.0</h2>
           <p>All software is licensed under Apache 2.0. Hardware designs use CERN-OHL-S. Research publications use CC-BY-4.0. Fork freely. Build on it. The mesh holds.</p>
+        </div>
+        <div class="why-text">
+          <p><strong>Software License:</strong> Apache License, Version 2.0. You may use, modify, and distribute freely. Patent grant included. No warranty.</p>
+          <p><strong>Hardware License:</strong> CERN Open Hardware Licence Strongly Reciprocal (CERN-OHL-S). Modifications must be shared under the same license.</p>
+          <p><strong>Research License:</strong> Creative Commons Attribution 4.0 International (CC-BY-4.0). Attribution required. Commercial use permitted.</p>
+          <p><strong>Defensive Publication:</strong> All technical innovations published to Zenodo with timestamped DOIs. Establishes prior art. Prevents corporate patenting.</p>
         </div>
       </section>
     </div>
