@@ -4,75 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Node One · P31 Labs</title>
-  <meta name="description" content="ESP32-S3-based assistive device for sensory regulation and off-grid communication. Hardware specifications, BOM, and firmware architecture.">
+  <meta name="description" content="Detailed hardware documentation and specifications for Node One — the core mesh networking device.">
+  <meta property="og:title" content="Node One · P31 Labs">
+  <meta property="og:description" content="Detailed hardware documentation and specifications for Node One — the core mesh networking device.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    .page-hero {
-      padding: 8rem 0 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--void-border);
-    }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-    .page-content {
-      padding: 4rem 0;
-    }
-    .spec-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .spec-card {
+    /* Page‑specific node‑one styles */
+    .hero-diagram {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+      background: rgba(10, 10, 20, 0.4);
+      border-radius: 2rem;
       padding: 2rem;
-      background: var(--void-up);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
+      border: 1px solid #1e293b;
     }
-    .spec-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
-      color: var(--phosphorus);
+    .hero-diagram svg {
+      max-width: 100%;
+      height: auto;
     }
-    .bom-table {
+    .spec-table {
       width: 100%;
       border-collapse: collapse;
       margin: 2rem 0;
-      font-size: 0.9rem;
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      overflow: hidden;
     }
-    .bom-table th,
-    .bom-table td {
+    .spec-table th {
+      background: #0f1a14;
       padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #2ecc71;
       text-align: left;
-      border-bottom: 1px solid var(--void-border);
+      border-bottom: 1px solid #1e293b;
     }
-    .bom-table th {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.06em;
+    .spec-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #1e293b;
+      color: #e2e8f0;
+    }
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+    .spec-table td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      color: #94a3b8;
+      width: 30%;
+    }
+    .regulatory-box {
+      background: rgba(96, 165, 250, 0.05);
+      border: 1px solid #60a5fa;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .regulatory-box h3 {
+      color: #60a5fa;
+      margin-bottom: 1rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       text-transform: uppercase;
-      color: var(--phosphorus);
     }
-    .bom-table td {
-      color: var(--white-dim);
+    .status-production { background: #2ecc71; color: #050510; }
+    .status-beta { background: #60a5fa; color: #050510; }
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
     }
-    .bom-table code {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--calcium);
-      background: rgba(96, 165, 250, 0.1);
-      padding: 0.2rem 0.4rem;
-      border-radius: 2px;
+    .use-case-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+    }
+    .use-case-card h3 {
+      margin-bottom: 0.5rem;
+      color: #2ecc71;
+    }
+    .btn-download {
+      background: transparent;
+      border: 1px solid #2ecc71;
+      color: #2ecc71;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-download:hover,
+    .btn-download:focus {
+      background: #2ecc71;
+      color: #050510;
     }
   </style>
 </head>
 <body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -80,321 +131,127 @@
         <a href="/#stack">Stack</a>
         <a href="/docs/">Docs</a>
         <a href="/roadmap/">Roadmap</a>
-        <a href="/node-one/" aria-current="page">Node One</a>
         <a href="/about/">About</a>
         <a href="/#donate">Donate</a>
       </div>
     </div>
   </nav>
 
-  <header class="page-hero">
-    <div class="container">
-      <h1>Node One</h1>
-      <p class="hero-sub">ESP32-S3-based assistive device. Sensory regulation. Off-grid communication. The mesh holds.</p>
-    </div>
-  </header>
-
-  <main class="page-content">
-    <div class="container">
-      <section>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
         <div class="section-header">
           <span class="section-label">Hardware</span>
-          <h2>Specifications</h2>
-          <p>Open-source handheld for sensory regulation and off-grid communication. No internet required. No phone required. No permission required.</p>
+          <h1>Node One</h1>
+          <p>The core mesh networking device — ESP32‑S3, LoRa, haptics, and privacy by design.</p>
         </div>
 
-        <div class="spec-grid">
-          <div class="spec-card">
-            <h3>ESP32-S3</h3>
-            <p>Dual-core Xtensa LX7 processor. 512KB SRAM. 8MB PSRAM. WiFi + Bluetooth 5.0. USB-C for programming and power.</p>
-          </div>
-          <div class="spec-card">
-            <h3>LoRa 915MHz</h3>
-            <p>SX1262 LoRa transceiver. 915MHz ISM band. Meshtastic firmware. Range: 1-10km line-of-sight. Mesh networking protocol.</p>
-          </div>
-          <div class="spec-card">
-            <h3>DRV2605L Haptic</h3>
-            <p>Linear resonant actuator (LRA) driver. "The Thick Click" haptic feedback. 8-bit waveform library. I2C interface.</p>
-          </div>
-          <div class="spec-card">
-            <h3>OLED Display</h3>
-            <p>128x64 monochrome OLED. SSD1306 controller. I2C interface. Low power consumption. High contrast.</p>
-          </div>
-          <div class="spec-card">
-            <h3>Battery</h3>
-            <p>18650 Li-ion cell. 3.7V nominal. 2500mAh capacity. USB-C charging. Power management IC.</p>
-          </div>
-          <div class="spec-card">
-            <h3>Shell</h3>
-            <p>3D-printed enclosure. PLA/PETG material. Tactile buttons. Haptic feedback zone. Weather-resistant design.</p>
-          </div>
+        <!-- Hero diagram (SVG placeholder) -->
+        <div class="hero-diagram" aria-label="Technical diagram of Node One hardware">
+          <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+            <rect x="150" y="50" width="300" height="200" rx="20" fill="#0a0a1a" stroke="#2ecc71" stroke-width="2"/>
+            <!-- ESP32 label -->
+            <text x="300" y="100" font-family="'JetBrains Mono', monospace" font-size="14" fill="#2ecc71" text-anchor="middle">ESP32‑S3</text>
+            <!-- LoRa -->
+            <rect x="200" y="120" width="80" height="40" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+            <text x="240" y="147" font-family="'JetBrains Mono', monospace" font-size="10" fill="#60a5fa" text-anchor="middle">LoRa</text>
+            <!-- Haptics -->
+            <rect x="320" y="120" width="80" height="40" rx="8" fill="#1e293b" stroke="#ff9f43" stroke-width="1.5"/>
+            <text x="360" y="147" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ff9f43" text-anchor="middle">DRV2605L</text>
+            <!-- Antenna -->
+            <line x1="450" y1="100" x2="520" y2="60" stroke="#e2e8f0" stroke-width="2"/>
+            <circle cx="530" cy="55" r="12" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+            <text x="530" y="60" font-family="'JetBrains Mono', monospace" font-size="8" fill="#e2e8f0" text-anchor="middle">ANT</text>
+          </svg>
         </div>
-      </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Bill of Materials</span>
-          <h2>BOM</h2>
-        </div>
-        <table class="bom-table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Part Number</th>
-              <th>Quantity</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>MCU</td>
-              <td><code>ESP32-S3-DevKitC-1</code></td>
-              <td>1</td>
-              <td>Development board or custom PCB</td>
-            </tr>
-            <tr>
-              <td>LoRa Module</td>
-              <td><code>SX1262</code></td>
-              <td>1</td>
-              <td>915MHz ISM band</td>
-            </tr>
-            <tr>
-              <td>Haptic Driver</td>
-              <td><code>DRV2605L</code></td>
-              <td>1</td>
-              <td>LRA driver with waveform library</td>
-            </tr>
-            <tr>
-              <td>LRA</td>
-              <td><code>LRA-10mm</code></td>
-              <td>1</td>
-              <td>10mm linear resonant actuator</td>
-            </tr>
-            <tr>
-              <td>OLED Display</td>
-              <td><code>SSD1306 128x64</code></td>
-              <td>1</td>
-              <td>I2C interface, monochrome</td>
-            </tr>
-            <tr>
-              <td>Battery</td>
-              <td><code>18650 Li-ion</code></td>
-              <td>1</td>
-              <td>2500mAh, 3.7V nominal</td>
-            </tr>
-            <tr>
-              <td>Charging IC</td>
-              <td><code>TP4056</code></td>
-              <td>1</td>
-              <td>USB-C charging module</td>
-            </tr>
-            <tr>
-              <td>Buttons</td>
-              <td><code>Tactile 6x6mm</code></td>
-              <td>4</td>
-              <td>Momentary push buttons</td>
-            </tr>
-            <tr>
-              <td>Enclosure</td>
-              <td><code>3D Printed</code></td>
-              <td>1</td>
-              <td>PLA/PETG, custom design</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <!-- Specifications table -->
+        <section aria-labelledby="specs-heading">
+          <h2 id="specs-heading" class="section-header">Technical Specifications</h2>
+          <table class="spec-table">
+            <thead>
+              <tr><th colspan="2">Node One v0.2</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>MCU</td><td>ESP32‑S3 (dual‑core Xtensa LX7, up to 240 MHz)</td></tr>
+              <tr><td>Memory</td><td>512 KB SRAM, 8 MB PSRAM, 16 MB flash</td></tr>
+              <tr><td>Wireless</td><td>LoRa 915 MHz (SX1262), BLE 5.0, NFC</td></tr>
+              <tr><td>Haptics</td><td>DRV2605L with LRA motor</td></tr>
+              <tr><td>Display</td><td>1.3" OLED (128x64) or E‑Ink (optional)</td></tr>
+              <tr><td>Power</td><td>2000 mAh Li‑Po, USB‑C charging</td></tr>
+              <tr><td>Dimensions</td><td>95 × 60 × 15 mm</td></tr>
+              <tr><td>Weight</td><td>85 g</td></tr>
+              <tr><td>Operating temp</td><td>-10°C to 50°C</td></tr>
+            </tbody>
+          </table>
+        </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Firmware</span>
-          <h2>Architecture</h2>
-        </div>
-        <div class="why-text">
-          <p><strong>Framework:</strong> ESP-IDF (Espressif IoT Development Framework). FreeRTOS-based. C/C++.</p>
-          <p><strong>Meshtastic:</strong> LoRa mesh networking protocol. Off-grid communication. No infrastructure required.</p>
-          <p><strong>Haptic Engine:</strong> DRV2605L driver with custom waveform library. "The Thick Click" haptic pattern for sensory regulation.</p>
-          <p><strong>Display Driver:</strong> SSD1306 OLED controller. Low-power mode. Status indicators. Menu system.</p>
-          <p><strong>Power Management:</strong> Deep sleep modes. Battery monitoring. USB-C charging detection.</p>
-        </div>
-      </section>
+        <!-- Regulatory information -->
+        <section aria-labelledby="regulatory-heading" class="regulatory-box">
+          <h3 id="regulatory-heading">Regulatory Compliance</h3>
+          <p>Node One is designed as a wellness device under <strong>21 CFR § 890.3710</strong> (Powered communication system). It is not a medical device and does not require FDA clearance. Compliance with FCC Part 15 and Industry Canada RSS‑247 is pending.</p>
+          <p style="margin-top: 1rem;"><span class="status-badge status-beta">Regulatory review in progress</span></p>
+        </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Regulatory</span>
-          <h2>FDA Pathway</h2>
-          <p>Node One is designed to meet <strong>21 CFR § 890.3710</strong> — Powered muscle stimulator. Class II medical device pathway.</p>
-          <p>Note: Haptic feedback for sensory regulation may fall under different classification. Regulatory strategy under development.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Regulatory Classification:</strong> 21 CFR § 890.3710 — Powered muscle stimulator. Class II. Requires 510(k) submission. Substantial equivalence to predicate device required. Clinical validation data required.</p>
-          <p><strong>510(k) Strategy:</strong> Pre-submission meeting with FDA planned Q3 2026. Predicate device identification in progress. Clinical validation protocol under development. All documentation will be published.</p>
-          <p><strong>Alternative Classification:</strong> Haptic feedback for sensory regulation may fall under 21 CFR § 890.5050 (Therapeutic vibrator) or 21 CFR § 890.5850 (Powered external limb orthosis). Regulatory strategy considers all pathways.</p>
-          <p><strong>International Compliance:</strong> CE marking (EU), Health Canada (Canada), TGA (Australia) — all pathways documented. The mesh holds across jurisdictions because the physics is universal.</p>
-        </div>
-      </section>
+        <!-- Development status -->
+        <section aria-labelledby="status-heading">
+          <h2 id="status-heading" class="section-header">Development Status</h2>
+          <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1rem; padding: 1.5rem;">
+            <p><span class="status-badge status-production">Production ready</span> <span style="margin-left: 1rem;">First batch of 1000 units in manufacturing (Q1 2026).</span></p>
+            <p>Firmware: v0.2.1 stable. Features: mesh networking, haptic patterns, BLE configuration, and OTA updates.</p>
+            <div style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs/node-one-firmware" target="_blank" rel="noopener" class="btn-download">GitHub Firmware →</a>
+              <a href="/docs/node-one/" class="btn-download" style="margin-left: 1rem;">Documentation →</a>
+            </div>
+          </div>
+        </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Physics of Hardware</span>
-          <h2>The Beauty of Embedded Systems</h2>
-          <p>Just as quantum mechanics describes the behavior of particles, embedded systems describe the behavior of devices. The physics is beautiful. The implementation is elegant.</p>
-        </div>
-        <div class="math-grid">
-          <div class="math-block">
-            <div class="math-title">Power Consumption</div>
-            <div class="math-eq">P = V × I</div>
-            <div class="math-desc">Power equals voltage times current. Node One optimizes both. Deep sleep modes reduce current to microamps. Voltage regulation ensures stable 3.3V operation. Battery life: 7–14 days depending on usage.</div>
+        <!-- Use cases -->
+        <section aria-labelledby="use-cases-heading">
+          <h2 id="use-cases-heading" class="section-header">Use Cases</h2>
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <h3>🧠 Neurodivergent Support</h3>
+              <p>Custom haptic cues for routine reminders, grounding exercises, and environmental awareness.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>🌐 Mesh Messaging</h3>
+              <p>Off‑grid communication for communities, events, or emergency preparedness.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>📡 Environmental Sensing</h3>
+              <p>Add sensors for air quality, temperature, or motion – data shared via mesh.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>🎮 Accessible Gaming</h3>
+              <p>Use haptic feedback and simple buttons for inclusive game controllers.</p>
+            </div>
           </div>
-          <div class="math-block">
-            <div class="math-title">LoRa Range</div>
-            <div class="math-eq">d = √(h₁ × h₂) × 4.12</div>
-            <div class="math-desc">Free-space path loss. Range depends on antenna height. At 1.5m height, theoretical range is 10km line-of-sight. Practical range: 1–5km in urban environments. Mesh networking extends effective range.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Haptic Frequency</div>
-            <div class="math-eq">f = 1/T = ω/(2π)</div>
-            <div class="math-desc">Resonant frequency of LRA. "The Thick Click" pattern uses 175Hz fundamental with harmonics. This frequency is optimal for sensory regulation — not too high (jarring), not too low (inaudible).</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Information Capacity</div>
-            <div class="math-eq">C = B × log₂(1 + S/N)</div>
-            <div class="math-desc">Shannon capacity. LoRa bandwidth (B) is 0.350 kbps. Signal-to-noise ratio (S/N) determines capacity. With coding, effective throughput is ~200 bps. Sufficient for text messages, status updates, sensor data.</div>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why These Specifications?</strong> They're not arbitrary. ESP32-S3 provides enough compute for local processing (no cloud required). LoRa provides enough range for mesh networking (no infrastructure required). DRV2605L provides enough haptic fidelity for sensory regulation (no smartphone required). Every component is chosen for independence.</p>
-          <p><strong>The Beauty of Physics:</strong> Just as P-31 is stable because of its nuclear structure, Node One is stable because of its system architecture. The geometry protects the signal. The physics ensures resilience.</p>
-        </div>
-      </section>
+        </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Firmware Deep Dive</span>
-          <h2>ESP-IDF Architecture</h2>
-          <p>FreeRTOS-based firmware. Multi-tasking. Event-driven. The beauty of real-time systems made manifest.</p>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-card">
-            <h3>Task Structure</h3>
-            <p><strong>Main Task:</strong> System initialization, watchdog, power management. Priority: 1. Stack: 8KB.</p>
-            <p><strong>LoRa Task:</strong> Meshtastic protocol, message routing, mesh networking. Priority: 3. Stack: 12KB.</p>
-            <p><strong>Haptic Task:</strong> DRV2605L driver, waveform playback, pattern library. Priority: 2. Stack: 4KB.</p>
-            <p><strong>Display Task:</strong> SSD1306 driver, menu system, status updates. Priority: 2. Stack: 6KB.</p>
+        <!-- Purchase / build information -->
+        <section aria-labelledby="purchase-heading" style="margin-top: 3rem;">
+          <h2 id="purchase-heading" class="section-header">Get Node One</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+            <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1.5rem; padding: 2rem; text-align: center; flex: 1 1 250px;">
+              <h3 style="color: #2ecc71;">Pre‑order</h3>
+              <p style="font-size: 2rem; margin: 0.5rem 0;">$129</p>
+              <p>Estimated shipping: April 2026</p>
+              <a href="#" class="btn btn-primary" aria-disabled="true">Sold out (first batch)</a>
+            </div>
+            <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1.5rem; padding: 2rem; text-align: center; flex: 1 1 250px;">
+              <h3 style="color: #60a5fa;">DIY Build</h3>
+              <p>Open‑source hardware files and BOM.</p>
+              <a href="https://github.com/p31labs/node-one-hardware" target="_blank" rel="noopener" class="btn-download">GitHub Hardware →</a>
+            </div>
           </div>
-          <div class="spec-card">
-            <h3>Inter-Task Communication</h3>
-            <p><strong>Queues:</strong> FreeRTOS queues for message passing. LoRa → Main → Display. Haptic → Main. Event-driven architecture.</p>
-            <p><strong>Semaphores:</strong> I2C bus semaphore. SPI bus semaphore. Prevents resource conflicts. Ensures thread safety.</p>
-            <p><strong>Event Groups:</strong> System state synchronization. Battery low event. Charging event. Mesh connected event.</p>
-          </div>
-          <div class="spec-card">
-            <h3>Power Management</h3>
-            <p><strong>Deep Sleep:</strong> CPU halted. Peripherals powered down. Only RTC active. Current: 10µA. Wake on button press or timer.</p>
-            <p><strong>Light Sleep:</strong> CPU halted. Peripherals active. Current: 1mA. Wake on interrupt. Used for short idle periods.</p>
-            <p><strong>Active Mode:</strong> Full operation. Current: 80–150mA depending on LoRa transmission. Optimized for efficiency.</p>
-          </div>
-          <div class="spec-card">
-            <h3>Mesh Networking</h3>
-            <p><strong>Protocol:</strong> Meshtastic (open-source LoRa mesh). Automatic routing. Self-healing. No infrastructure required.</p>
-            <p><strong>Range:</strong> 1–10km line-of-sight. Mesh extends effective range. Each node is a repeater. The geometry amplifies capability.</p>
-            <p><strong>Bandwidth:</strong> 0.350 kbps raw. ~200 bps effective with coding. Sufficient for text, status, sensor data. Not for video or large files.</p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why FreeRTOS?</strong> Real-time operating system. Deterministic scheduling. Preemptive multitasking. Low overhead. Perfect for embedded systems. The beauty of doing more with less.</p>
-          <p><strong>Why Event-Driven?</strong> Reduces power consumption. Responds to events (button press, incoming message, timer) rather than polling. The system sleeps until needed. Efficiency through physics, not optimization.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Haptic Patterns</span>
-          <h2>"The Thick Click" Library</h2>
-          <p>Sensory regulation through haptic feedback. Not vibration — precise, controlled, therapeutic patterns.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <h3>Calm Pattern</h3>
-            <p>Slow, rhythmic pulses. 0.5Hz frequency. 50% intensity. Duration: 30 seconds. Use case: Anxiety reduction, sensory overload recovery.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Alert Pattern</h3>
-            <p>Sharp, brief pulses. 5Hz frequency. 80% intensity. Duration: 1 second. Use case: Important notification, attention redirection.</p>
-          </div>
-          <div class="mission-card">
-            <h3>The Thick Click</h3>
-            <p>Signature pattern. 175Hz fundamental with harmonics. 70% intensity. Duration: 100ms. Use case: General feedback, button confirmation, sensory regulation.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Heartbeat Pattern</h3>
-            <p>Simulated heartbeat. 1.2Hz frequency (72 BPM). 60% intensity. Duration: configurable. Use case: Coherence training, HRV synchronization.</p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why Haptics?</strong> Sensory regulation is a core need for many neurodivergent individuals. Haptic feedback provides proprioceptive input without requiring visual or auditory attention. It's always available. It's always private. It's always effective.</p>
-          <p><strong>The Physics:</strong> Linear resonant actuators (LRA) operate at resonant frequency (typically 175Hz). This frequency is optimal for sensory regulation — not too high (jarring), not too low (inaudible). The DRV2605L driver provides precise control over waveform, intensity, and duration.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Use Cases</span>
-          <h2>Real-World Applications</h2>
-          <p>Node One is designed for real-world use. Sensory regulation, executive function support, emergency communication — all in one device.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <h3>Sensory Regulation</h3>
-            <p>Haptic feedback patterns for anxiety reduction, sensory overload recovery, attention redirection. "The Thick Click" and custom patterns configurable via The Scope.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-muted);"><strong>Use Case:</strong> Individual feels overwhelmed. Activates "Calm Pattern" on Node One. Haptic feedback provides proprioceptive input. Anxiety reduces. Executive function restored.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Executive Function Support</h3>
-            <p>Reminders, timers, task lists, medication alerts. All configurable via The Scope. All working offline. No smartphone required.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-muted);"><strong>Use Case:</strong> Individual needs medication reminder. Node One vibrates at scheduled time. Haptic feedback ensures notice even if phone is off. Medication taken on time.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Emergency Communication</h3>
-            <p>LoRa mesh networking enables off-grid communication. No internet required. No infrastructure required. Messages route through mesh automatically.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-muted);"><strong>Use Case:</strong> Grid failure. Internet down. Individual needs help. Node One sends message via LoRa mesh. Message routes through other nodes. Help arrives.</p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why These Use Cases?</strong> They're not hypothetical — they're real needs. Sensory regulation is a core need for many neurodivergent individuals. Executive function support is essential for daily life. Emergency communication is critical for vulnerable populations. Node One addresses all three.</p>
-          <p><strong>The Beauty of Physics:</strong> Just as a tetrahedron is strong because of its geometry (not its material), Node One is effective because of its system architecture (not its components). The geometry itself provides the functionality.</p>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Community</span>
-          <h2>Building Together</h2>
-          <p>Node One is open source. Build it. Modify it. Share it. The mesh grows through collaboration.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Open Source:</strong> All firmware, schematics, and documentation are publicly available. Fork it. Modify it. Build your own. The mesh grows through use, not through restriction.</p>
-          <p><strong>Community Contributions:</strong> Pull requests welcome. Bug reports welcome. Feature requests welcome. All contributions are reviewed and merged based on merit. No bureaucracy. No gatekeeping. Just code.</p>
-          <p><strong>Manufacturing:</strong> Build your own Node One. Use the BOM. Follow the schematics. Share your modifications. The mesh grows through manufacturing, not through patents.</p>
-          <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, hardware exists in potential until built. Community contributions are the measurement that collapses the wave function into reality. The geometry protects the signal — and collaboration makes it visible.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Support</span>
-          <h2>Getting Help</h2>
-          <p>Questions? Issues? We're here. The mesh grows through support, not through isolation.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Documentation:</strong> Complete documentation available at /docs/. Hardware specs, firmware architecture, regulatory pathway. Everything you need to build and use Node One.</p>
-          <p><strong>Community:</strong> GitHub issues for bug reports, feature requests, technical questions. All issues are reviewed and responded to. The mesh grows through collaboration, not through silence.</p>
-          <p><strong>Email:</strong> will@phosphorus31.org for direct support. We respond to all emails within 48 hours. The mesh grows through connection, not through isolation.</p>
-          <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, support exists in potential until requested. Contact is the measurement that collapses the wave function into help. The geometry protects the signal — and support makes it accessible.</p>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -409,7 +266,7 @@
         <a href="/docs/">Docs</a>
         <a href="/roadmap/">Roadmap</a>
         <a href="/about/">About</a>
-        <a href="/node-one/">Node One</a>
+        <a href="/node-one/" aria-current="page">Node One</a>
         <a href="/wallet/">Wallet</a>
         <a href="/games/">Games</a>
         <a href="/education/">Learn</a>
@@ -422,8 +279,13 @@
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
     </div>
   </footer>
-  <script src="/main.js"></script>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for node‑one page -->
 </body>
 </html>

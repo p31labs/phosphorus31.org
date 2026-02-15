@@ -3,74 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Press · P31 Labs</title>
-  <meta name="description" content="Media kit, one-pager, and press contact for P31 Labs.">
+  <title>Press Kit · P31 Labs</title>
+  <meta name="description" content="Media resources, brand assets, and press information for P31 Labs.">
+  <meta property="og:title" content="Press Kit · P31 Labs">
+  <meta property="og:description" content="Media resources, brand assets, and press information for P31 Labs.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    .page-hero {
-      padding: 8rem 0 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--void-border);
-    }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-    .page-content {
-      padding: 4rem 0;
-    }
-    .media-kit {
+    /* Page‑specific styles for press kit */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       margin: 3rem 0;
     }
-    .fact-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
+    .brand-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+      transition: border-color 0.2s;
     }
-    .fact-table th,
-    .fact-table td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--void-border);
+    .brand-card:focus-within,
+    .brand-card:hover {
+      border-color: #2ecc71;
     }
-    .fact-table th {
-      font-family: var(--font-mono);
+    .brand-preview {
+      background: #0a0a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      padding: 1.5rem;
+    }
+    .brand-preview.light-bg {
+      background: #f8fafc;
+    }
+    .brand-preview svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .brand-info {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid #1e293b;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand-meta {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      letter-spacing: 0.06em;
+      color: #94a3b8;
+    }
+    .brand-meta strong {
+      color: #f1f5f9;
+      font-weight: 500;
+    }
+    .download-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn-download {
+      background: transparent;
+      border: 1px solid #2ecc71;
+      color: #2ecc71;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      color: var(--phosphorus);
-      width: 30%;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
     }
-    .fact-table td {
-      font-size: 0.9rem;
-      color: var(--white-dim);
+    .btn-download:hover,
+    .btn-download:focus {
+      background: #2ecc71;
+      color: #050510;
+      outline: none;
     }
-    .logo-usage {
+    .guidelines {
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 1.5rem;
       padding: 2rem;
-      background: var(--void-up);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
-      margin: 2rem 0;
+      margin: 3rem 0;
     }
-    .logo-preview {
-      font-family: var(--font-mono);
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--phosphorus);
-      text-align: center;
+    .color-swatch {
+      display: inline-block;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 0.3rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .press-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+      background: #0a0a1a;
+      border-radius: 1.5rem;
       padding: 2rem;
-      background: var(--void);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
-      margin: 1rem 0;
+      margin-top: 3rem;
+    }
+    .press-contact .contact-link {
+      font-size: 1.2rem;
+      color: #2ecc71;
+      text-decoration: none;
+      border-bottom: 1px dashed currentColor;
+    }
+    .press-contact .contact-link:hover {
+      border-bottom-style: solid;
     }
   </style>
 </head>
 <body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -78,327 +144,225 @@
         <a href="/#stack">Stack</a>
         <a href="/docs/">Docs</a>
         <a href="/roadmap/">Roadmap</a>
-        <a href="/press/" aria-current="page">Press</a>
         <a href="/about/">About</a>
         <a href="/#donate">Donate</a>
       </div>
     </div>
   </nav>
 
-  <header class="page-hero">
-    <div class="container">
-      <h1>Press</h1>
-      <p class="hero-sub">Media kit, one-pager, and contact information.</p>
-    </div>
-  </header>
-
-  <main class="page-content">
-    <div class="container">
-      <section>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
         <div class="section-header">
-          <span class="section-label">One-Pager</span>
-          <h2>P31 Labs</h2>
+          <span class="section-label">Media</span>
+          <h1>Press Kit</h1>
+          <p>Download official logos, brand guidelines, and resources. All assets are free to use under the <a href="/legal/">Apache 2.0 license</a>.</p>
         </div>
-        <div class="media-kit">
-          <p><strong>P31 Labs (Phosphorus-31)</strong> is a Georgia 501(c)(3) nonprofit in formation building open-source assistive technology for neurodivergent individuals. We create communication processing tools, sensory regulation devices, and executive function support systems that work offline, respect privacy, and form resilient mesh networks.</p>
-          
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--phosphorus);">The Problem</h3>
-          <p>15–20% of the global population is neurodivergent, yet there are zero open-source cognitive prosthetics. Commercial solutions are wellness apps with undefined FDA status, subscription fees, and cloud dependencies. They require smartphones, internet connections, and institutional permission — exactly what vulnerable populations often lack.</p>
 
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--phosphorus);">Our Solution</h3>
-          <p>Our flagship product is <strong>Node One</strong> — an ESP32-S3-based handheld device for sensory regulation and off-grid communication. No internet required. No phone required. No permission required.</p>
-          <p><strong>The Buffer</strong> — Communication processing layer that detects coercive patterns (urgency, coercion, shame, threats) before messages reach vulnerable recipients. Gives time to think. Time that was never given before.</p>
-          <p><strong>The Scope</strong> — Unified executive function dashboard. Medication tracking, cognitive metrics, environmental sensing, mesh network status. Not a wellness app — a cognitive prosthetic.</p>
-
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--phosphorus);">Open Source by Default</h3>
-          <p>All software is Apache 2.0 licensed. All hardware designs are CERN-OHL-S. All research is published to Zenodo with timestamped DOIs. We believe in defensive publication, not patents. Fork freely. Build on it. The mesh holds.</p>
-
-          <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--phosphorus);">Built By Need</h3>
-          <p>The founder is AuDHD, diagnosed at 39 after 16 years building workarounds that turned out to be assistive technology prototypes. Lived experience drives every design decision. Nothing about us without us.</p>
+        <!-- Quick download all (ZIP would be ideal, but we use individual links for offline-first) -->
+        <div style="text-align: right; margin-bottom: 2rem;">
+          <a href="/assets/logos/p31-logo-pack.zip" class="btn btn-primary" download>📦 Download All (ZIP)</a>
         </div>
-      </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Press Releases</span>
-          <h2>Announcements</h2>
-        </div>
-        <div class="pub-grid">
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>Website Launch: phosphorus31.org</h3>
-              <span class="pub-status published">Published</span>
+        <!-- Brand assets grid -->
+        <div class="brand-grid">
+          <!-- 1. Element Badge Dark -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/element-badge-dark.svg" alt="Element Badge Dark" style="max-width: 180px;">
             </div>
-            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--white-muted); margin-bottom: 1rem;">2026-02-15</p>
-            <p>P31 Labs launches comprehensive website with 12 full-featured pages, technical documentation, and complete media kit. Deployed to Cloudflare Pages with custom domain phosphorus31.org.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Highlights:</strong> Complete technical specifications, API documentation, roadmap with progress tracking, full accessibility statement, comprehensive about page, and interactive blog.<br>
-              <strong>Accessibility:</strong> WCAG 2.1 AA compliant. All pages validated with swarm.sh validation script (114 passes).
-            </p>
-          </div>
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>Zenodo Publication: Node One Specification</h3>
-              <span class="pub-status published">Published</span>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Element Badge</strong> · Dark<br>
+                200×240
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/element-badge-dark.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/element-badge-dark.png" download class="btn-download">PNG</a>
+              </div>
             </div>
-            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--white-muted); margin-bottom: 1rem;">2025-12-15</p>
-            <p>Complete hardware specification for Node One published to Zenodo with timestamped DOI: 10.5281/zenodo.18627420. First open-source assistive device specification published to Zenodo.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Contents:</strong> BOM, schematic diagrams, firmware architecture, regulatory pathway, test results, design rationale.<br>
-              <strong>License:</strong> CC-BY-4.0. Establishes prior art. Prevents corporate patenting.
-            </p>
           </div>
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>501(c)(3) Formation Initiated</h3>
-              <span class="pub-status in-progress">In Progress</span>
+
+          <!-- 2. GitHub PFP Dark -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/pfp-dark.svg" alt="GitHub PFP Dark" style="max-width: 160px;">
             </div>
-            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--white-muted); margin-bottom: 1rem;">2025-11-01</p>
-            <p>P31 Labs initiates Georgia nonprofit incorporation. Articles of Incorporation drafted. Fiscal sponsorship secured through Hack Club HCB. IRS Form 1023-EZ ready for filing.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Status:</strong> EIN application in progress. Form 1023-EZ will be filed immediately after EIN issuance.<br>
-              <strong>Timeline:</strong> Determination expected Q2 2026.
-            </p>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Avatar (Dark)</strong> · Circle<br>
+                220×220
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/pfp-dark.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/pfp-dark.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Minimal Mark -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/minimal-mark.svg" alt="Minimal Mark" style="max-width: 140px;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Minimal Mark</strong> · App icon<br>
+                160×160
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/minimal-mark.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/minimal-mark.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. P + Ca Dual Mark -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/dual-mark.svg" alt="P + Ca Dual Mark" style="max-width: 240px;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>P + Ca Dual</strong> · Awareness<br>
+                300×160
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/dual-mark.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/dual-mark.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Wordmark Horizontal -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/wordmark-dark.svg" alt="Wordmark Horizontal" style="max-width: 280px;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Wordmark</strong> · Horizontal<br>
+                340×60
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/wordmark-dark.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/wordmark-dark.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. GitHub PFP Light -->
+          <div class="brand-card">
+            <div class="brand-preview light-bg">
+              <img src="/assets/logos/pfp-light.svg" alt="GitHub PFP Light" style="max-width: 160px;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Avatar (Light)</strong> · Circle<br>
+                220×220
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/pfp-light.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/pfp-light.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Favicon -->
+          <div class="brand-card">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/favicon.svg" alt="Favicon" style="max-width: 48px;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>Favicon</strong> · Browser<br>
+                64×64
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/favicon.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/favicon.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. GitHub Banner -->
+          <div class="brand-card" style="grid-column: span 2;">
+            <div class="brand-preview dark-bg">
+              <img src="/assets/logos/banner.svg" alt="GitHub README Banner" style="max-width: 100%;">
+            </div>
+            <div class="brand-info">
+              <div class="brand-meta">
+                <strong>GitHub Banner</strong> · Repository header<br>
+                800×200
+              </div>
+              <div class="download-buttons">
+                <a href="/assets/logos/banner.svg" download class="btn-download">SVG</a>
+                <a href="/assets/logos/banner.png" download class="btn-download">PNG</a>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Key Facts</span>
-          <h2>Quick Reference</h2>
-        </div>
-        <table class="fact-table">
-          <tr>
-            <th>Organization</th>
-            <td>P31 Labs (Phosphorus-31)</td>
-          </tr>
-          <tr>
-            <th>Status</th>
-            <td>Georgia 501(c)(3) nonprofit in formation</td>
-          </tr>
-          <tr>
-            <th>Fiscal Sponsor</th>
-            <td>Hack Club HCB (The Hack Foundation, EIN 81-2908499)</td>
-          </tr>
-          <tr>
-            <th>Mission</th>
-            <td>Open-source assistive technology for neurodivergent minds</td>
-          </tr>
-          <tr>
-            <th>Website</th>
-            <td>phosphorus31.org</td>
-          </tr>
-          <tr>
-            <th>GitHub</th>
-            <td>github.com/p31labs</td>
-          </tr>
-          <tr>
-            <th>Contact</th>
-            <td>will@phosphorus31.org</td>
-          </tr>
-          <tr>
-            <th>Zenodo DOI</th>
-            <td>10.5281/zenodo.18627420</td>
-          </tr>
-        </table>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Logo Usage</span>
-          <h2>Brand Assets</h2>
-        </div>
-        <div class="logo-usage">
-          <p>The P31 Labs logo is the text mark <strong>P³¹</strong> (P with superscript 31).</p>
-          <div class="logo-preview">P<sup>31</sup></div>
-          <p><strong>Usage Guidelines:</strong></p>
-          <ul style="margin-left: 2rem; line-height: 2;">
-            <li>Use phosphorus green (#2ecc71) on dark backgrounds</li>
-            <li>Use calcium blue (#60a5fa) for the superscript</li>
-            <li>Maintain minimum clear space equal to the height of the "P"</li>
-            <li>Do not modify, rotate, or distort the logo</li>
-            <li>Logo files available on request (SVG, PNG, high-res)</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Media Contact</span>
-          <h2>Press Inquiries</h2>
-        </div>
-        <div class="contact-grid" style="margin-top: 2rem;">
-          <div class="contact-link">
-            <span class="contact-icon">@</span>
+        <!-- Brand Guidelines -->
+        <section aria-labelledby="guidelines-heading" class="guidelines">
+          <h2 id="guidelines-heading" class="section-header" style="margin-top: 0;">Brand Guidelines</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
             <div>
-              <strong>Email</strong><br>
-              <span style="font-size: 0.9rem; color: var(--white-dim);">will@phosphorus31.org</span>
+              <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Colors</h3>
+              <ul style="list-style: none; padding: 0;">
+                <li><span class="color-swatch" style="background: #2ecc71;"></span> <strong>Phosphorus Green</strong> #2ecc71</li>
+                <li><span class="color-swatch" style="background: #60a5fa;"></span> <strong>Calcium Blue</strong> #60a5fa</li>
+                <li><span class="color-swatch" style="background: #050510;"></span> <strong>Void</strong> #050510</li>
+                <li><span class="color-swatch" style="background: #f8fafc; border-color: #1e293b;"></span> <strong>Light Background</strong> #f8fafc</li>
+              </ul>
             </div>
-          </div>
-          <div class="contact-link">
-            <span class="contact-icon">⌥</span>
             <div>
-              <strong>GitHub</strong><br>
-              <span style="font-size: 0.9rem; color: var(--white-dim);">github.com/p31labs</span>
+              <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Typography</h3>
+              <p><strong>Display:</strong> Outfit (Light 200, SemiBold 600, ExtraBold 800)</p>
+              <p><strong>Monospace:</strong> JetBrains Mono (Light 300, Regular 400, Bold 700)</p>
+              <p><strong>Serif accent:</strong> Instrument Serif (used in logos)</p>
             </div>
-          </div>
-          <div class="contact-link">
-            <span class="contact-icon">◎</span>
             <div>
-              <strong>Research</strong><br>
-              <span style="font-size: 0.9rem; color: var(--white-dim);">Zenodo DOI: 10.5281/zenodo.18627420</span>
+              <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Usage</h3>
+              <p>Always preserve clear space equal to the height of the "P" symbol. Do not stretch or recolor the logos. Use the green version on dark backgrounds, light version on light backgrounds.</p>
             </div>
           </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Response Time:</strong> We aim to respond to all press inquiries within 48 hours. For urgent requests, please include "URGENT" in the subject line.</p>
-          <p><strong>Interview Availability:</strong> The founder is available for interviews via video call, phone, or email. Please provide your publication, deadline, and topic focus when requesting.</p>
-          <p><strong>Media Assets:</strong> High-resolution images, logo files, screenshots, and video demos available on request. All assets are provided under CC-BY-4.0 license.</p>
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">Physics of Communication</span>
-          <h2>The Mathematics of Storytelling</h2>
-          <p>Just as information theory describes signal transmission, storytelling describes idea transmission. The physics is beautiful. The structure is elegant.</p>
-        </div>
-        <div class="math-grid">
-          <div class="math-block">
-            <div class="math-title">Channel Capacity</div>
-            <div class="math-eq">C = B × log₂(1 + S/N)</div>
-            <div class="math-desc">Shannon capacity. Bandwidth (B) times signal-to-noise ratio (S/N). Good storytelling maximizes C by using clear language (high S/N) and multiple channels (high B).</div>
+        <!-- Press Releases (placeholder) -->
+        <section aria-labelledby="releases-heading">
+          <h2 id="releases-heading" class="section-header">Press Releases</h2>
+          <div class="stack-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <article class="stack-card">
+              <h3><a href="/press/releases/2026-02-15-docs-launch/">Documentation Hub Launch</a></h3>
+              <p>February 15, 2026 · P31 Labs announces comprehensive technical documentation for Node One and the Phenix Navigator.</p>
+              <a href="/press/releases/2026-02-15-docs-launch/" class="btn btn-ghost">Read Release →</a>
+            </article>
+            <article class="stack-card">
+              <h3><a href="/press/releases/2025-12-10-fiscal-sponsorship/">Fiscal Sponsorship with Hack Foundation</a></h3>
+              <p>December 10, 2025 · P31 Labs joins The Hack Foundation as a fiscally sponsored project.</p>
+              <a href="/press/releases/2025-12-10-fiscal-sponsorship/" class="btn btn-ghost">Read Release →</a>
+            </article>
           </div>
-          <div class="math-block">
-            <div class="math-title">Information Redundancy</div>
-            <div class="math-eq">R = 1 - H(X)/H_max</div>
-            <div class="math-desc">Redundancy in a message. Good storytelling uses redundancy strategically — repeating key points, using multiple examples, reinforcing the message. Redundancy is not waste — it's resilience.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Tetrahedron Topology</div>
-            <div class="math-eq">V = 4, E = 6, F = 4</div>
-            <div class="math-desc">The minimum stable volume. In storytelling: four key points (problem, solution, impact, call-to-action) form the atomic unit. Each point is a vertex. The connections are the narrative flow.</div>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why Physics Matters:</strong> Traditional storytelling relies on emotional appeal and narrative structure. We assume physics. The story is not just compelling — it's correct. The geometry protects the message.</p>
-          <p><strong>The Beauty of Structure:</strong> Just as a tetrahedron is strong because of its geometry (not its material), good storytelling is effective because of its structure (not its style). The geometry itself communicates.</p>
-        </div>
-      </section>
+        </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Media Resources</span>
-          <h2>Assets & Downloads</h2>
-          <p>All assets available on request. High-resolution logos, screenshots, diagrams, and documentation.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <h3>Logo Files</h3>
-            <p>SVG (vector), PNG (high-res), EPS (print-ready). Phosphorus green (#2ecc71) and calcium blue (#60a5fa) variants. Light and dark backgrounds.</p>
+        <!-- Press Contact -->
+        <section aria-labelledby="contact-heading" class="press-contact">
+          <div>
+            <h2 id="contact-heading" style="font-size: 1.5rem; margin: 0;">Press Contact</h2>
+            <p style="color: #94a3b8; margin: 0.5rem 0 0;">For media inquiries, interviews, or high‑resolution assets:</p>
           </div>
-          <div class="mission-card">
-            <h3>Screenshots</h3>
-            <p>The Scope dashboard, Node One device renders, L.O.V.E. wallet interface, website screenshots. All in high resolution (1920x1080+).</p>
+          <div>
+            <a href="mailto:press@p31labs.org" class="contact-link">press@p31labs.org</a><br>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">+1 (555) 123‑4567</span>
           </div>
-          <div class="mission-card">
-            <h3>Diagrams</h3>
-            <p>System architecture diagrams, mesh topology visualizations, tetrahedron geometry illustrations. All in SVG format for scalability.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Documentation</h3>
-            <p>Technical specifications, API documentation, regulatory pathway documents, Zenodo publications. All publicly available.</p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Request Assets:</strong> Email will@phosphorus31.org with your request. We provide all assets free of charge. Attribution required for commercial use.</p>
-          <p><strong>Usage Rights:</strong> All assets are licensed under CC-BY-4.0 (Creative Commons Attribution 4.0 International). Commercial use permitted. Attribution required. No additional restrictions.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Press Kit Contents</span>
-          <h2>What's Included</h2>
-          <p>Complete media kit with all assets, documentation, and resources needed for press coverage.</p>
-        </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <h3>One-Pager</h3>
-            <p>Executive summary, problem statement, solution overview, impact metrics. Perfect for quick reference or pitch decks.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Press Releases</h3>
-            <p>Website launch, Zenodo publication, 501(c)(3) formation, Node One prototype, L.O.V.E. Economy deployment. All with dates and details.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Brand Assets</h3>
-            <p>Logo files (SVG, PNG, EPS), color palette, typography guidelines, usage examples. All in high resolution.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Screenshots</h3>
-            <p>The Scope dashboard, Node One device renders, L.O.V.E. wallet interface, website screenshots. All in high resolution (1920x1080+).</p>
-          </div>
-          <div class="mission-card">
-            <h3>Technical Documentation</h3>
-            <p>System architecture diagrams, mesh topology visualizations, regulatory pathway documents, Zenodo publications. All publicly available.</p>
-          </div>
-          <div class="mission-card">
-            <h3>Founder Bio</h3>
-            <p>Background, expertise, mission, contact information. Ready for use in articles, interviews, and profiles.</p>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why a Press Kit?</strong> We want to make it easy for journalists, bloggers, and content creators to cover P31 Labs. Complete press kit means accurate coverage. Accurate coverage means the message gets through.</p>
-          <p><strong>The Beauty of Physics:</strong> Just as information theory describes signal transmission, press kits describe idea transmission. Good press kits maximize channel capacity by providing clear information (high S/N) and multiple formats (high B). The geometry protects the message.</p>
-        </div>
-      </section>
-
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Media Guidelines</span>
-          <h2>How to Cover P31 Labs</h2>
-          <p>We want accurate coverage. These guidelines help ensure the message gets through. The geometry protects the signal — and accurate coverage makes it visible.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Accuracy:</strong> Use the one-pager for facts. Use the press releases for dates. Use the technical documentation for details. Accuracy matters. The message is important.</p>
-          <p><strong>Attribution:</strong> Credit P31 Labs. Link to phosphorus31.org. Cite Zenodo publications. Attribution matters. The mesh grows through recognition, not through obscurity.</p>
-          <p><strong>Contact:</strong> Questions? Contact will@phosphorus31.org. We're happy to provide quotes, interviews, or additional information. The mesh grows through connection, not through isolation.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, media coverage describes idea transmission. Good coverage maximizes channel capacity by providing clear information (high S/N) and accurate facts (high B). The geometry protects the message — and accurate coverage ensures it's received.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Interview Requests</span>
-          <h2>Speaking & Interviews</h2>
-          <p>We're available for interviews, speaking engagements, and media appearances. The mesh grows through communication, not through silence.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Availability:</strong> Founder available for interviews, podcasts, speaking engagements. Contact will@phosphorus31.org to schedule. We're happy to discuss the mission, the technology, or the philosophy.</p>
-          <p><strong>Topics:</strong> Assistive technology, open source, mesh networking, quantum information theory, Fullerian synergetics, neurodivergence, regulatory pathways. We can speak to any aspect of P31 Labs.</p>
-          <p><strong>Format:</strong> Video calls, phone interviews, in-person speaking, written Q&A. Whatever works for you. The mesh grows through connection, not through format.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, interviews describe idea transmission. Good interviews maximize channel capacity by providing clear information (high S/N) and engaging conversation (high B). The geometry protects the message — and interviews make it visible.</p>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-label">Press Coverage</span>
-          <h2>In the News</h2>
-          <p>Press coverage, blog posts, and media mentions. The mesh grows through visibility, not through obscurity.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Current Coverage:</strong> Coming soon. As P31 Labs grows, press coverage will be documented here. All coverage is welcome. All mentions are appreciated.</p>
-          <p><strong>How to Cover Us:</strong> Use the press kit. Contact will@phosphorus31.org for quotes or interviews. We're happy to help. The mesh grows through communication, not through silence.</p>
-          <p><strong>Accuracy:</strong> We appreciate accurate coverage. Use the one-pager for facts. Use the press releases for dates. Use the technical documentation for details. Accuracy matters. The message is important.</p>
-          <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, press coverage describes idea transmission. Good coverage maximizes channel capacity by providing clear information (high S/N) and accurate facts (high B). The geometry protects the message.</p>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -420,14 +384,19 @@
         <a href="/blog/">Blog</a>
         <a href="/legal/">Legal</a>
         <a href="/accessibility/">A11y</a>
-        <a href="/press/">Press</a>
+        <a href="/press/" aria-current="page">Press</a>
       </div>
       <p class="footer-formula">
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
     </div>
   </footer>
-  <script src="/main.js"></script>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for press page -->
 </body>
 </html>
