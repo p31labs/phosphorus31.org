@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive sine wave visualization for performance and accessibility testing. P31 Labs user optesting tool.">
+    <meta name="theme-color" content="#050510">
+    <title>P31 Labs — Sine Wave User Optesting</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .optest-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+        }
+
+        .optest-header {
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+        }
+
+        .optest-header h1 {
+            color: var(--phosphorus-green);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .optest-subtitle {
+            color: var(--calcium-blue);
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--calcium-blue);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover,
+        .back-link:focus {
+            color: var(--phosphorus-green);
+            text-decoration: underline;
+        }
+
+        .back-link:focus {
+            outline: 2px solid var(--phosphorus-green);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .test-section {
+            background: var(--dark-gray);
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            border-radius: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: border-color var(--transition-base), 
+                       box-shadow var(--transition-base),
+                       transform var(--transition-base);
+        }
+
+        .test-section:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(46, 204, 113, 0.1);
+        }
+
+        .test-section h2 {
+            color: var(--calcium-blue);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.5rem;
+        }
+
+        .canvas-container {
+            background: var(--near-black);
+            border: 1px solid var(--medium-gray);
+            border-radius: 0.5rem;
+            padding: var(--spacing-sm);
+            margin: var(--spacing-sm) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 
+                        0 0 20px rgba(46, 204, 113, 0.1);
+            transition: border-color var(--transition-fast), 
+                       box-shadow var(--transition-base);
+            background: linear-gradient(135deg, 
+                rgba(5, 5, 16, 0.95) 0%, 
+                rgba(26, 26, 46, 0.95) 100%);
+        }
+
+        canvas:focus {
+            outline: 2px solid var(--phosphorus-green);
+            outline-offset: 2px;
+            border-color: var(--phosphorus-green);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 
+                        0 0 30px rgba(46, 204, 113, 0.3);
+        }
+
+        canvas:hover {
+            border-color: rgba(46, 204, 113, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 
+                        0 0 25px rgba(46, 204, 113, 0.15);
+        }
+
+        .controls {
+            margin-top: var(--spacing-sm);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        label {
+            color: var(--light-gray);
+            font-size: 0.875rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--medium-gray);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--phosphorus-green);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #27ae60;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--phosphorus-green);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            transition: background var(--transition-fast);
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            background: #27ae60;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            padding: 0.625rem 1.25rem;
+            background: var(--phosphorus-green);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            min-width: 120px;
+        }
+
+        button:hover {
+            background: #27ae60;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        button:focus {
+            outline: 2px solid var(--phosphorus-green);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            opacity: 0.5;
+            transform: none;
+        }
+
+        button.play-state {
+            background: #ef4444;
+        }
+
+        button.play-state:hover {
+            background: #dc2626;
+        }
+
+        .metrics {
+            margin-top: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: border-color var(--transition-base);
+        }
+
+        .metrics:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .metrics span {
+            color: var(--light-gray);
+            padding: 0.375rem 0.75rem;
+            background: rgba(26, 26, 46, 0.6);
+            border-radius: 6px;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            transition: all var(--transition-fast);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metrics span:hover {
+            background: rgba(46, 204, 113, 0.1);
+            border-color: rgba(46, 204, 113, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .metrics strong {
+            color: var(--phosphorus-green);
+            font-weight: 600;
+        }
+
+        .metrics .warning {
+            color: #ffd93d;
+            animation: pulse-warning 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .test-checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .test-checklist li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .test-checklist li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--phosphorus-green);
+        }
+
+        .test-checklist li {
+            transition: padding-left var(--transition-fast);
+        }
+
+        .test-checklist li:hover {
+            padding-left: 1.75rem;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .reduced-motion-badge {
+            display: none;
+        }
+
+        .reduced-motion-notice {
+            display: none;
+            color: var(--calcium-blue);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .optest-footer {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--medium-gray);
+            text-align: center;
+            color: var(--light-gray);
+            font-size: 0.875rem;
+        }
+
+        .optest-footer strong {
+            color: var(--phosphorus-green);
+        }
+
+        .optest-footer .isotope-text {
+            color: var(--calcium-blue);
+        }
+
+        .optest-footer p {
+            margin-top: 0.5rem;
+        }
+
+        .optest-footer a {
+            color: var(--calcium-blue);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .optest-footer a:hover {
+            color: var(--phosphorus-green);
+            text-decoration: underline;
+        }
+
+        .optest-footer .footer-note {
+            opacity: 0.7;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .optest-container {
+                padding: var(--spacing-sm);
+            }
+
+            .test-section {
+                padding: var(--spacing-sm);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .metrics {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        .loading-indicator {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--phosphorus-green);
+            font-size: 0.875rem;
+        }
+
+        .loading-indicator.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="optest-container">
+        <div class="optest-header">
+            <a href="index.html" class="back-link" aria-label="Back to P31 Labs homepage">
+                ← Back to P31 Labs
+            </a>
+            <h1>Sine Wave User Optesting</h1>
+            <p class="optest-subtitle">Interactive sine wave visualization for performance and accessibility testing</p>
+        </div>
+
+        <main id="main-content">
+
+        <div class="test-section">
+            <h2>Visualization</h2>
+            <div class="canvas-container">
+                <div class="loading-indicator" id="loading-indicator">Initializing canvas...</div>
+                <canvas id="waveCanvas" width="800" height="400" 
+                        aria-label="Sine wave visualization showing frequency, amplitude, and animation speed controls"
+                        role="img"
+                        tabindex="0"></canvas>
+                <div id="canvas-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="frequency-slider">Frequency: <span id="frequency-value">1.00</span> Hz</label>
+                    <input type="range" id="frequency-slider" min="0.1" max="5" step="0.1" value="1">
+                </div>
+
+                <div class="control-group">
+                    <label for="amplitude-slider">Amplitude: <span id="amplitude-value">100</span> px</label>
+                    <input type="range" id="amplitude-slider" min="10" max="150" step="5" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label for="speed-slider">Speed: <span id="speed-value">1.00</span>x <span id="reduced-motion-notice" class="reduced-motion-notice">(reduced motion active)</span></label>
+                    <input type="range" id="speed-slider" min="0" max="3" step="0.1" value="1">
+                </div>
+
+                <div class="button-group" role="group" aria-label="Animation controls">
+                    <button id="play-pause-btn" type="button">⏸️ Pause</button>
+                    <button id="reset-btn" type="button">🔄 Reset</button>
+                </div>
+            </div>
+
+            <div class="metrics">
+                <span><strong>FPS:</strong> <span id="fps-value">0</span></span>
+                <span><strong>Frames:</strong> <span id="frame-count">0</span></span>
+                <span><strong>Frequency:</strong> <span id="freq-display">1.00</span> Hz</span>
+                <span><strong>Amplitude:</strong> <span id="amp-display">100</span> px</span>
+                <span id="reduced-motion-badge" class="reduced-motion-badge"><strong>⚠️ Reduced Motion Active</strong></span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Testing Checklist</h2>
+            <ul class="test-checklist">
+                <li>Check FPS stays above 30 (ideally 60) during animation</li>
+                <li>Test with reduced motion preference (Settings → Accessibility)</li>
+                <li>Verify controls are keyboard accessible (Tab, Arrow keys, Enter)</li>
+                <li>Test color contrast in high contrast mode</li>
+                <li>Check canvas renders correctly on mobile devices</li>
+                <li>Verify smooth animation without jank or stuttering</li>
+                <li>Test with screen reader (canvas has aria-label)</li>
+                <li>Check performance with DevTools Performance tab</li>
+            </ul>
+        </div>
+        </main>
+
+        <footer class="optest-footer">
+            <p>
+                <strong>PHOSPHORUS-31</strong> · 
+                <span class="isotope-text">THE ONLY STABLE ISOTOPE</span>
+            </p>
+            <p>The Mesh Holds. 🔺</p>
+            <p class="footer-note">
+                <a href="index.html">← Back to P31 Labs</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Handle high DPI displays
+        const dpr = window.devicePixelRatio || 1;
+        const width = canvas.width;
+        const height = canvas.height;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+
+        let frequency = 1;
+        let amplitude = 100;
+        let speed = 1;
+        let isPlaying = true;
+        let time = 0;
+        let frameCount = 0;
+        let lastFpsUpdate = Date.now();
+        let lastFrameTime = performance.now();
+        let fpsCounter = 0;
+        let fps = 0;
+        let animationFrameId = null;
+
+        // Check for reduced motion preference (with listener for changes)
+        let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        function updateReducedMotion() {
+            prefersReducedMotion = motionMediaQuery.matches;
+            const notice = document.getElementById('reduced-motion-notice');
+            const badge = document.getElementById('reduced-motion-badge');
+            const speedSlider = document.getElementById('speed-slider');
+            
+            if (prefersReducedMotion) {
+                notice.style.display = 'inline';
+                badge.style.display = 'inline';
+                speedSlider.disabled = true;
+                speedSlider.setAttribute('aria-disabled', 'true');
+            } else {
+                notice.style.display = 'none';
+                badge.style.display = 'none';
+                speedSlider.disabled = false;
+                speedSlider.removeAttribute('aria-disabled');
+            }
+        }
+        
+        motionMediaQuery.addEventListener('change', updateReducedMotion);
+        updateReducedMotion();
+
+        function drawWave() {
+            // Clear canvas with subtle gradient background
+            const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+            bgGradient.addColorStop(0, '#050510');
+            bgGradient.addColorStop(1, '#1a1a2e');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw grid
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            
+            // Horizontal center line
+            ctx.beginPath();
+            ctx.moveTo(0, height / 2);
+            ctx.lineTo(width, height / 2);
+            ctx.stroke();
+
+            // Vertical grid lines
+            for (let i = 0; i <= 10; i++) {
+                const x = (width / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+
+            // Draw sine wave with gradient and glow effect
+            const centerY = height / 2;
+            const points = Math.min(width, 400); // Optimize point count
+            
+            // Create gradient for wave
+            const gradient = ctx.createLinearGradient(0, centerY - amplitude, 0, centerY + amplitude);
+            gradient.addColorStop(0, '#60a5fa'); // Calcium blue at top
+            gradient.addColorStop(0.5, '#2ecc71'); // Phosphorus green at center
+            gradient.addColorStop(1, '#60a5fa'); // Calcium blue at bottom
+            
+            // Main wave with gradient
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(46, 204, 113, 0.5)';
+            ctx.beginPath();
+            
+            for (let i = 0; i <= points; i++) {
+                const x = (i / points) * width;
+                const y = centerY + Math.sin((x / width) * Math.PI * 2 * frequency + time) * amplitude;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+            
+            // Reset shadow for other drawing
+            ctx.shadowBlur = 0;
+            
+            // Add subtle glow trail
+            ctx.strokeStyle = 'rgba(46, 204, 113, 0.2)';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            for (let i = 0; i <= points; i += 2) {
+                const x = (i / points) * width;
+                const y = centerY + Math.sin((x / width) * Math.PI * 2 * frequency + time) * amplitude;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+
+            // Draw amplitude indicators with pulsing effect
+            const pulsePhase = Math.sin(time * 2) * 0.2 + 0.8;
+            ctx.strokeStyle = `rgba(96, 165, 250, ${0.3 * pulsePhase})`;
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(0, centerY - amplitude);
+            ctx.lineTo(width, centerY - amplitude);
+            ctx.moveTo(0, centerY + amplitude);
+            ctx.lineTo(width, centerY + amplitude);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Draw center point indicator
+            ctx.fillStyle = 'rgba(46, 204, 113, 0.6)';
+            ctx.beginPath();
+            ctx.arc(width / 2, centerY, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw frequency markers
+            ctx.strokeStyle = 'rgba(46, 204, 113, 0.2)';
+            ctx.lineWidth = 1;
+            const wavelength = width / frequency;
+            for (let i = 0; i < width; i += wavelength) {
+                ctx.beginPath();
+                ctx.moveTo(i, centerY - 10);
+                ctx.lineTo(i, centerY + 10);
+                ctx.stroke();
+            }
+
+            // Update FPS with color coding
+            fpsCounter++;
+            const now = Date.now();
+            if (now - lastFpsUpdate >= 1000) {
+                fps = fpsCounter;
+                fpsCounter = 0;
+                lastFpsUpdate = now;
+                const fpsElement = document.getElementById('fps-value');
+                fpsElement.textContent = fps;
+                
+                // Color code FPS: green > 55, yellow 30-55, red < 30
+                const fpsSpan = fpsElement.closest('span');
+                if (fps >= 55) {
+                    fpsSpan.style.borderColor = 'rgba(46, 204, 113, 0.6)';
+                } else if (fps >= 30) {
+                    fpsSpan.style.borderColor = 'rgba(255, 217, 61, 0.6)';
+                } else {
+                    fpsSpan.style.borderColor = 'rgba(239, 68, 68, 0.6)';
+                }
+            }
+
+            frameCount++;
+            document.getElementById('frame-count').textContent = frameCount.toLocaleString();
+        }
+
+        function animate() {
+            const now = performance.now();
+            const deltaTime = (now - lastFrameTime) / 1000;
+            lastFrameTime = now;
+            
+            if (!prefersReducedMotion) {
+                time += deltaTime * speed;
+            }
+            
+            drawWave();
+
+            if (isPlaying) {
+                animationFrameId = requestAnimationFrame(animate);
+            }
+        }
+
+        // Screen reader announcements
+        const liveRegion = document.getElementById('canvas-live-region');
+        function announceToScreenReader(message) {
+            liveRegion.textContent = message;
+            setTimeout(() => { liveRegion.textContent = ''; }, 1000);
+        }
+
+        // Control handlers
+        const frequencySlider = document.getElementById('frequency-slider');
+        frequencySlider.addEventListener('input', (e) => {
+            frequency = parseFloat(e.target.value);
+            const freqText = frequency.toFixed(2);
+            document.getElementById('frequency-value').textContent = freqText;
+            document.getElementById('freq-display').textContent = freqText;
+            announceToScreenReader(`Frequency set to ${freqText} hertz`);
+        });
+
+        const amplitudeSlider = document.getElementById('amplitude-slider');
+        amplitudeSlider.addEventListener('input', (e) => {
+            amplitude = parseInt(e.target.value);
+            document.getElementById('amplitude-value').textContent = amplitude;
+            document.getElementById('amp-display').textContent = amplitude;
+            announceToScreenReader(`Amplitude set to ${amplitude} pixels`);
+        });
+
+        const speedSlider = document.getElementById('speed-slider');
+        speedSlider.addEventListener('input', (e) => {
+            speed = parseFloat(e.target.value);
+            const speedText = speed.toFixed(2);
+            document.getElementById('speed-value').textContent = speedText;
+            announceToScreenReader(`Speed set to ${speedText} times`);
+        });
+
+        // Keyboard navigation for sliders
+        function handleSliderKeydown(slider, step, min, max) {
+            return (e) => {
+                if (document.activeElement !== slider) return;
+                
+                let newValue = parseFloat(slider.value);
+                const stepSize = parseFloat(step);
+                
+                if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    newValue = Math.min(max, newValue + stepSize);
+                    slider.value = newValue;
+                    slider.dispatchEvent(new Event('input'));
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    newValue = Math.max(min, newValue - stepSize);
+                    slider.value = newValue;
+                    slider.dispatchEvent(new Event('input'));
+                }
+            };
+        }
+
+        document.addEventListener('keydown', handleSliderKeydown(frequencySlider, '0.1', 0.1, 5));
+        document.addEventListener('keydown', handleSliderKeydown(amplitudeSlider, '5', 10, 150));
+        document.addEventListener('keydown', handleSliderKeydown(speedSlider, '0.1', 0, 3));
+
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        playPauseBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playPauseBtn.textContent = isPlaying ? '⏸️ Pause' : '▶️ Play';
+            const label = isPlaying ? 'Pause animation' : 'Play animation';
+            playPauseBtn.setAttribute('aria-label', label);
+            playPauseBtn.className = isPlaying ? 'play-state' : '';
+            announceToScreenReader(label);
+            if (isPlaying) {
+                lastFrameTime = performance.now();
+                animate();
+            } else if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        });
+
+        const resetBtn = document.getElementById('reset-btn');
+        resetBtn.addEventListener('click', () => {
+            time = 0;
+            frameCount = 0;
+            fpsCounter = 0;
+            lastFrameTime = performance.now();
+            document.getElementById('fps-value').textContent = '0';
+            document.getElementById('frame-count').textContent = '0';
+            announceToScreenReader('Animation reset');
+            drawWave();
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            // Spacebar to play/pause (only if not focused on an input)
+            if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                playPauseBtn.click();
+            }
+            // R key to reset
+            if (e.key === 'r' || e.key === 'R') {
+                if (e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    resetBtn.click();
+                }
+            }
+        });
+
+        // Add ARIA labels for accessibility
+        playPauseBtn.setAttribute('aria-label', 'Pause animation');
+        resetBtn.setAttribute('aria-label', 'Reset animation');
+        frequencySlider.setAttribute('aria-label', 'Frequency control');
+        amplitudeSlider.setAttribute('aria-label', 'Amplitude control');
+        speedSlider.setAttribute('aria-label', 'Animation speed control');
+
+        // Hide loading indicator once canvas is ready
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.classList.remove('active');
+        }
+
+        // Start animation
+        lastFrameTime = performance.now();
+        animate();
+    </script>
+</body>
+</html>
