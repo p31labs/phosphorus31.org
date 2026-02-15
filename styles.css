@@ -831,6 +831,19 @@ footer {
   letter-spacing: 0.04em;
 }
 
+.footer-sponsor {
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--void-border);
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ── ELEMENT CARD ── */
 .element-card-wrapper {
   display: flex;

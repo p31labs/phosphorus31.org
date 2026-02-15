@@ -4,82 +4,155 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documentation · P31 Labs</title>
-  <meta name="description" content="Publications, defensive IP strategy, and Zenodo DOIs for P31 Labs research and technical documentation.">
+  <meta name="description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
+  <meta property="og:title" content="Documentation · P31 Labs">
+  <meta property="og:description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Page‑specific styles (extend design system) -->
   <style>
-    .page-hero {
-      padding: 8rem 0 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--void-border);
+    /* Quick links and search refinement */
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+      justify-content: center;
     }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
+    .quick-links a {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      transition: background 0.2s;
     }
-    .page-content {
-      padding: 4rem 0;
+    .quick-links a:hover,
+    .quick-links a:focus {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: #2ecc71;
+      outline: none;
     }
-    .pub-grid {
-      display: grid;
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .pub-card {
-      padding: 2rem;
-      background: var(--void-up);
-      border: 1px solid var(--void-border);
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-    .pub-card:hover {
-      border-color: var(--phosphorus-dim);
-      box-shadow: 0 0 30px var(--phosphorus-glow);
-    }
-    .pub-header {
+    .version-info {
       display: flex;
       justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 1rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
     }
-    .pub-status {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 2px;
-      letter-spacing: 0.06em;
+    .version-info code {
+      background: #0a0a1a;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.5rem;
     }
-    .pub-status.published {
-      background: rgba(46, 204, 113, 0.1);
-      border: 1px solid rgba(46, 204, 113, 0.2);
-      color: var(--phosphorus);
+    .search-container {
+      margin: 2rem 0 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
     }
-    .pub-status.in-progress {
-      background: rgba(96, 165, 250, 0.1);
-      border: 1px solid rgba(96, 165, 250, 0.2);
-      color: var(--calcium);
+    .search-container input {
+      flex: 1;
+      background: #0a0a1a;
+      border: 1px solid #1e293b;
+      border-radius: 2rem;
+      padding: 0.8rem 1.2rem;
+      color: #f1f5f9;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      transition: border-color 0.2s;
     }
-    .pub-status.planned {
-      background: rgba(232, 232, 240, 0.05);
-      border: 1px solid var(--void-border);
-      color: var(--white-muted);
+    .search-container input:focus {
+      outline: none;
+      border-color: #2ecc71;
+      box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
     }
-    .pub-doi {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--calcium);
-      margin-top: 0.75rem;
+    .search-container button {
+      background: #2ecc71;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      color: #050510;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-    .pub-doi a {
-      color: var(--calcium);
-      text-decoration: underline;
+    .search-container button:hover,
+    .search-container button:focus {
+      background: #27ae60;
+      outline: none;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      display: none;
+    }
+    .no-results.visible {
+      display: block;
+    }
+    /* Code block styling */
+    pre {
+      background: #0a0a1a;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      overflow-x: auto;
+      border: 1px solid #1e293b;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: #e2e8f0;
+    }
+    /* Syntax highlight (simple) */
+    .token.keyword { color: #f472b6; }
+    .token.string { color: #a3e635; }
+    .token.comment { color: #64748b; }
+    .token.function { color: #60a5fa; }
+    /* Expandable section */
+    details {
+      background: #0a0a1a;
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+    }
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #f1f5f9;
+    }
+    summary:focus-visible {
+      outline: 2px solid #2ecc71;
+      border-radius: 0.5rem;
+    }
+    details[open] {
+      padding-bottom: 1rem;
+    }
+    /* Card hiding for search */
+    .stack-card.hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -93,252 +166,152 @@
     </div>
   </nav>
 
-  <header class="page-hero">
-    <div class="container">
-      <h1>Documentation</h1>
-      <p class="hero-sub">Publications, defensive IP, and technical specifications. All open source. All timestamped.</p>
-    </div>
-  </header>
-
-  <main class="page-content">
-    <div class="container">
-      <section>
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
         <div class="section-header">
-          <span class="section-label">Defensive Publication</span>
-          <h2>IP Strategy</h2>
-          <p>We publish all technical innovations to Zenodo with timestamped DOIs. Apache 2.0 license. This establishes prior art and prevents corporate patenting. Freedom to operate for anyone who forks.</p>
+          <span class="section-label">Documentation</span>
+          <h1>P31 Labs Documentation</h1>
+          <p>Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.</p>
         </div>
 
-        <div class="pub-grid">
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>Node One: ESP32-S3 Assistive Device</h3>
-              <span class="pub-status published">Published</span>
-            </div>
-            <p><strong>Complete hardware specification, firmware architecture, and regulatory pathway (21 CFR § 890.3710)</strong> for the ESP32-S3-based sensory regulation device.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Components:</strong> ESP32-S3 (dual-core Xtensa LX7), SX1262 LoRa transceiver (915MHz), DRV2605L haptic driver, SSD1306 OLED display, 18650 Li-ion battery, 3D-printed enclosure.<br>
-              <strong>Firmware:</strong> ESP-IDF (FreeRTOS), Meshtastic protocol, custom haptic waveforms ("The Thick Click"), power management, deep sleep modes.<br>
-              <strong>Regulatory:</strong> Class II medical device pathway. FDA 510(k) submission planned for Q3 2026.
-            </p>
-            <div class="pub-doi">
-              <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">DOI: 10.5281/zenodo.18627420</a> · <a href="https://zenodo.org/record/18627420" target="_blank" rel="noopener">View on Zenodo →</a>
-            </div>
-          </div>
+        <!-- Version & last updated -->
+        <div class="version-info">
+          <span><code>v0.2.1</code> · Latest release</span>
+          <span>Last updated: <time datetime="2026-02-15">February 15, 2026</time></span>
+        </div>
 
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>The Buffer: Communication Processing Layer</h3>
-              <span class="pub-status in-progress">In Progress</span>
-            </div>
-            <p><strong>Voltage assessment algorithms and pattern detection system</strong> for processing incoming messages before they reach vulnerable recipients.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Detection Patterns:</strong> URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER. Voltage scale: 0–10. ≥6 auto-held. ≥8 critical alert.<br>
-              <strong>Output:</strong> HELD / RELEASED / PASSED status with accommodation documentation. Feeds into accommodation log for SSA/legal evidence.<br>
-              <strong>Tech Stack:</strong> FastAPI, Redis, Local LLM (Ollama), WebSocket, Python. Type-level encryption. Zero-knowledge verification.
-            </p>
-            <div class="pub-doi" style="margin-top: 1rem;">
-              <a href="https://github.com/p31labs/cognitive-shield" target="_blank" rel="noopener">View on GitHub →</a>
-            </div>
-          </div>
+        <!-- Search bar (client‑side, offline‑capable) -->
+        <div class="search-container">
+          <label for="doc-search" class="sr-only">Search documentation</label>
+          <input type="search" id="doc-search" placeholder="Search docs... (filter by title, description, tag)" aria-label="Search documentation">
+          <button id="search-clear" aria-label="Clear search">Clear</button>
+        </div>
 
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>The Scope: Unified Dashboard</h3>
-              <span class="pub-status in-progress">In Progress</span>
-            </div>
-            <p><strong>Production system documentation</strong> for the unified executive function dashboard (1,888 lines, Google Apps Script).</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Systems:</strong> Spoon economy tracker, medication tracker (4-hour Ca²⁺↔Vyvanse gap enforcement), coherence monitoring, ping grid, alert system.<br>
-              <strong>Medications Tracked:</strong> Calcitriol, Calcium Carbonate, Vyvanse, Magnesium. All with timing constraints and interaction warnings.<br>
-              <strong>Status:</strong> Production — actively used daily. Documentation in progress for defensive publication.
-            </p>
-            <div class="pub-doi" style="margin-top: 1rem;">
-              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/sovereign-agents" target="_blank" rel="noopener">View on GitHub →</a>
-            </div>
-          </div>
+        <!-- Quick links to GitHub repos -->
+        <div class="quick-links" aria-label="Quick links to GitHub repositories">
+          <a href="https://github.com/p31labs/node-one" target="_blank" rel="noopener">📦 Node One Firmware</a>
+          <a href="https://github.com/p31labs/buffer" target="_blank" rel="noopener">🧪 The Buffer</a>
+          <a href="https://github.com/p31labs/scope" target="_blank" rel="noopener">🔭 The Scope</a>
+          <a href="https://github.com/p31labs/phenix-navigator" target="_blank" rel="noopener">🧭 Phenix Navigator</a>
+          <a href="https://github.com/p31labs/love-economy" target="_blank" rel="noopener">💚 L.O.V.E. Economy</a>
+        </div>
 
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>L.O.V.E. Economy: Proof of Care Protocol</h3>
-              <span class="pub-status planned">Planned</span>
+        <!-- Documentation grid (cards) -->
+        <div class="stack-grid" id="docs-grid" role="region" aria-label="Documentation sections">
+          <!-- Node One -->
+          <article class="stack-card" data-tags="hardware node one">
+            <div class="card-header">
+              <span class="card-tag">HARDWARE</span>
             </div>
-            <p><strong>Ledger of Ontological Volume and Entropy</strong> — game engine and wallet unified. Proof of Care, not Proof of Work.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Token:</strong> Soulbound ERC-20 on Base L2. Non-transferable, non-monetary, earned only. 50% Sovereignty Pool (founding nodes), 50% Performance Pool (Proof of Care).<br>
-              <strong>Proof of Care Formula:</strong> Care_Score = Σ(T_prox × Q_res) + Tasks_verified. T_prox = BLE/UWB proximity. Q_res = HRV sync at 0.1 Hz.<br>
-              <strong>Chameleon Mode:</strong> Offline = IndexedDB ledger. Online = Base L2 settlement. Same wallet, two modes.
-            </p>
-            <div class="pub-doi" style="margin-top: 1rem; color: var(--white-muted);">
-              Documentation planned for Q2 2026
+            <h3><a href="/docs/node-one/" class="card-link">Node One</a></h3>
+            <p>ESP32‑S3 firmware, LoRa mesh networking, haptic feedback, and hardware specifications.</p>
+            <a href="/docs/node-one/" class="btn btn-ghost" aria-label="Read Node One documentation">View Docs →</a>
+          </article>
+
+          <!-- The Buffer -->
+          <article class="stack-card" data-tags="software buffer">
+            <div class="card-header">
+              <span class="card-tag">SOFTWARE</span>
             </div>
-          </div>
+            <h3><a href="/docs/buffer/" class="card-link">The Buffer</a></h3>
+            <p>Real‑time data processing, signal buffering, and mesh synchronization.</p>
+            <a href="/docs/buffer/" class="btn btn-ghost" aria-label="Read The Buffer documentation">View Docs →</a>
+          </article>
 
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>G.O.D. Protocol: Constitutional Architecture</h3>
-              <span class="pub-status in-progress">In Progress</span>
+          <!-- The Scope -->
+          <article class="stack-card" data-tags="interface scope">
+            <div class="card-header">
+              <span class="card-tag">INTERFACE</span>
             </div>
-            <p><strong>Geodesic Operations Daemon</strong> — constitutional compliance system for all P31 software.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Principles:</strong> Tetrahedron topology (exactly 4 vertices), type-level encryption, local-first architecture, zero-knowledge verification, no backdoors, code for departure.<br>
-              <strong>Enforcement:</strong> ConstitutionalViolationError for state breaches. Immutable by default. No infinite scroll. No vanity metrics. No centralized analytics.<br>
-              <strong>Status:</strong> Protocol defined. Implementation in progress across all components.
-            </p>
-            <div class="pub-doi" style="margin-top: 1rem;">
-              <a href="https://github.com/p31labs" target="_blank" rel="noopener">View on GitHub →</a>
+            <h3><a href="/docs/scope/" class="card-link">The Scope</a></h3>
+            <p>Visualization, user interface components, and accessibility layers.</p>
+            <a href="/docs/scope/" class="btn btn-ghost" aria-label="Read The Scope documentation">View Docs →</a>
+          </article>
+
+          <!-- Phenix Navigator -->
+          <article class="stack-card" data-tags="architecture phenix navigator">
+            <div class="card-header">
+              <span class="card-tag">ARCHITECTURE</span>
             </div>
-          </div>
+            <h3><a href="/docs/phenix-navigator/" class="card-link">Phenix Navigator</a></h3>
+            <p>Mesh topology, routing protocols, and network resilience.</p>
+            <a href="/docs/phenix-navigator/" class="btn btn-ghost" aria-label="Read Phenix Navigator documentation">View Docs →</a>
+          </article>
 
-          <div class="pub-card">
-            <div class="pub-header">
-              <h3>Phenix Navigator: 3D Visualization</h3>
-              <span class="pub-status in-progress">In Progress</span>
+          <!-- L.O.V.E. Economy -->
+          <article class="stack-card" data-tags="economy love">
+            <div class="card-header">
+              <span class="card-tag">ECONOMY</span>
             </div>
-            <p><strong>Three.js-based 3D interface</strong> for visualizing mesh topology, quantum states, and system coherence.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Features:</strong> Interactive tetrahedron visualization, SIC-POVM state rendering, Jitterbug transformation (cuboctahedron → octahedron), mesh network topology display.<br>
-              <strong>Tech Stack:</strong> React, Three.js, Vite, TypeScript. WCAG 2.1 AA compliant. Keyboard navigation. Reduced motion support.<br>
-              <strong>Status:</strong> Core visualization complete. Integration with The Scope in progress.
-            </p>
-            <div class="pub-doi" style="margin-top: 1rem;">
-              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/ui" target="_blank" rel="noopener">View on GitHub →</a>
+            <h3><a href="/docs/love-economy/" class="card-link">L.O.V.E. Economy</a></h3>
+            <p>Token mechanics, pool distribution, Proof of Care, and vesting.</p>
+            <a href="/docs/love-economy/" class="btn btn-ghost" aria-label="Read L.O.V.E. Economy documentation">View Docs →</a>
+          </article>
+
+          <!-- API Reference -->
+          <article class="stack-card" data-tags="api reference">
+            <div class="card-header">
+              <span class="card-tag">API</span>
             </div>
-          </div>
-        </div>
-      </section>
+            <h3><a href="/docs/api/" class="card-link">API Reference</a></h3>
+            <p>REST & WebSocket endpoints, data formats, and authentication.</p>
+            <a href="/docs/api/" class="btn btn-ghost" aria-label="Read API Reference documentation">View Docs →</a>
+          </article>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Architecture</span>
-          <h2>System Design</h2>
-          <p>Three-layer stack. Each layer works independently. Together they form a mesh — no single point of failure.</p>
+          <!-- Development Guides -->
+          <article class="stack-card" data-tags="guides development">
+            <div class="card-header">
+              <span class="card-tag">GUIDES</span>
+            </div>
+            <h3><a href="/docs/guides/" class="card-link">Development Guides</a></h3>
+            <p>Setting up the toolchain, building from source, and contributing.</p>
+            <a href="/docs/guides/" class="btn btn-ghost" aria-label="Read Development Guides">View Docs →</a>
+          </article>
         </div>
-        <div class="pub-grid">
-          <div class="pub-card">
-            <h3>Layer 1: Node One (Hardware)</h3>
-            <p><strong>ESP32-S3 microcontroller</strong> running ESP-IDF (FreeRTOS). LoRa mesh networking via Meshtastic. DRV2605L haptic engine. SSD1306 OLED display.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Communication:</strong> LoRa 915MHz ISM band. Range: 1–10km line-of-sight. Mesh protocol: Meshtastic. No internet required.<br>
-              <strong>Haptics:</strong> "The Thick Click" pattern for sensory regulation. 8-bit waveform library. I2C interface to DRV2605L.<br>
-              <strong>Power:</strong> 18650 Li-ion (2500mAh). USB-C charging. Deep sleep modes. Battery monitoring.
-            </p>
-          </div>
-          <div class="pub-card">
-            <h3>Layer 2: The Buffer (Software)</h3>
-            <p><strong>FastAPI backend</strong> with Redis cache. Local LLM (Ollama) for pattern detection. WebSocket for real-time updates.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>API Endpoints:</strong> POST /api/v1/assess (voltage assessment), GET /api/v1/history (accommodation log), WebSocket /ws (real-time updates).<br>
-              <strong>Pattern Detection:</strong> URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER. Voltage scale: 0–10.<br>
-              <strong>Storage:</strong> SQLite for local-first operation. Redis for caching. Optional encrypted cloud sync.
-            </p>
-          </div>
-          <div class="pub-card">
-            <h3>Layer 3: The Scope (Interface)</h3>
-            <p><strong>React + Three.js frontend</strong> with Tauri desktop wrapper. Capacitor for mobile. Vite build system.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Components:</strong> Medication tracker, spoon economy, coherence monitoring, ping grid, 3D mesh visualization.<br>
-              <strong>Data Sources:</strong> The Buffer (WebSocket), Node One (LoRa/USB), local storage (IndexedDB).<br>
-              <strong>Accessibility:</strong> WCAG 2.1 AA. Keyboard navigation. Screen reader support. High contrast mode.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <section>
-        <div class="section-header">
-          <span class="section-label">API Reference</span>
-          <h2>Developer Documentation</h2>
-          <p>RESTful API endpoints, WebSocket protocols, and integration guides for all P31 Labs systems.</p>
+        <!-- No results message -->
+        <div class="no-results" id="no-results-message" aria-live="polite">
+          No matching documentation found. Try different keywords.
         </div>
-        <div class="pub-grid">
-          <div class="pub-card">
-            <h3>The Buffer API</h3>
-            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
-              POST /api/v1/assess<br>
-              GET /api/v1/history<br>
-              WebSocket /ws
-            </p>
-            <p style="font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Authentication:</strong> API key or OAuth2. Rate limiting: 100 requests/minute.<br>
-              <strong>Response Format:</strong> JSON. Error codes: 400 (bad request), 401 (unauthorized), 429 (rate limit).<br>
-              <a href="https://github.com/p31labs/cognitive-shield" target="_blank" rel="noopener" style="color: var(--phosphorus);">Full API docs →</a>
-            </p>
-          </div>
-          <div class="pub-card">
-            <h3>Node One Firmware</h3>
-            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
-              ESP-IDF v5.1+<br>
-              Meshtastic v2.0+<br>
-              Custom haptic library
-            </p>
-            <p style="font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Build System:</strong> ESP-IDF build system. CMake configuration. FreeRTOS tasks.<br>
-              <strong>Communication:</strong> LoRa (Meshtastic), USB/Serial (debugging), I2C (peripherals).<br>
-              <a href="https://github.com/p31labs/phenix-navigator-creator67/tree/main/firmware" target="_blank" rel="noopener" style="color: var(--phosphorus);">Firmware docs →</a>
-            </p>
-          </div>
-          <div class="pub-card">
-            <h3>L.O.V.E. Economy Smart Contracts</h3>
-            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--calcium); margin: 1rem 0;">
-              Base L2 (OP Stack)<br>
-              ERC-20 (Soulbound)<br>
-              Solidity 0.8.20+
-            </p>
-            <p style="font-size: 0.9rem; color: var(--white-dim);">
-              <strong>Contract Address:</strong> TBD (deployment planned Q2 2026)<br>
-              <strong>Token Standard:</strong> ERC-20 with soulbound extension (non-transferable).<br>
-              <strong>Vesting:</strong> Smart contract-based. Trust phase (0–12): locked. Apprenticeship (13–17): yield access. Sovereignty (18+): full access.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">License</span>
-          <h2>Apache 2.0</h2>
-          <p>All software is licensed under Apache 2.0. Hardware designs use CERN-OHL-S. Research publications use CC-BY-4.0. Fork freely. Build on it. The mesh holds.</p>
-        </div>
-        <div class="why-text">
-          <p><strong>Software License:</strong> Apache License, Version 2.0. You may use, modify, and distribute freely. Patent grant included. No warranty.</p>
-          <p><strong>Hardware License:</strong> CERN Open Hardware Licence Strongly Reciprocal (CERN-OHL-S). Modifications must be shared under the same license.</p>
-          <p><strong>Research License:</strong> Creative Commons Attribution 4.0 International (CC-BY-4.0). Attribution required. Commercial use permitted.</p>
-          <p><strong>Defensive Publication:</strong> All technical innovations published to Zenodo with timestamped DOIs. Establishes prior art. Prevents corporate patenting.</p>
-        </div>
-      </section>
+        <!-- Code example section (demonstration) -->
+        <section aria-labelledby="code-example-heading">
+          <h2 id="code-example-heading" class="section-header" style="margin-top: 3rem;">Code Example</h2>
+          <p>Initializing the Node One mesh network:</p>
+          <pre><code><span class="token keyword">import</span> { NodeOne } <span class="token keyword">from</span> <span class="token string">'@p31/node-one'</span>;
 
-      <section class="section section-dark">
-        <div class="section-header">
-          <span class="section-label">Physics of Documentation</span>
-          <h2>The Mathematics of Knowledge</h2>
-          <p>Just as information theory describes the transmission of signals, documentation describes the transmission of knowledge. The physics is beautiful. The structure is elegant.</p>
-        </div>
-        <div class="math-grid">
-          <div class="math-block">
-            <div class="math-title">Shannon Entropy</div>
-            <div class="math-eq">H(X) = -Σ p(x) log₂ p(x)</div>
-            <div class="math-desc">Information entropy. Uncertainty in a message. Good documentation reduces entropy by providing clear structure, examples, and explanations. Redundancy is not waste — it's resilience.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Mutual Information</div>
-            <div class="math-eq">I(X;Y) = H(X) - H(X|Y)</div>
-            <div class="math-desc">The amount of information shared between source (code) and receiver (developer). Good documentation maximizes I(X;Y) by explaining not just what, but why.</div>
-          </div>
-          <div class="math-block">
-            <div class="math-title">Defensive Publication</div>
-            <div class="math-eq">DOI = timestamp + content_hash</div>
-            <div class="math-desc">Zenodo DOI creates an immutable public record. Timestamp establishes priority. Content hash ensures integrity. This is how we protect freedom to operate — through physics, not law.</div>
-          </div>
-        </div>
-        <div class="why-text" style="margin-top: 2rem;">
-          <p><strong>Why Documentation Matters:</strong> Code without documentation is like a signal without a carrier. The information is there, but it's inaccessible. Good documentation is the carrier wave that makes the signal readable.</p>
-          <p><strong>The Beauty of Physics:</strong> Just as quantum states exist in superposition until measured, code exists in potential until documented. Documentation is the measurement that collapses the wave function into knowledge.</p>
-        </div>
-      </section>
-    </div>
+<span class="token keyword">const</span> node = <span class="token keyword">new</span> <span class="token function">NodeOne</span>({
+  frequency: <span class="token number">915</span>, <span class="token comment">// MHz</span>
+  meshId: <span class="token string">'p31-delta'</span>,
+  haptics: <span class="token boolean">true</span>
+});
+
+<span class="token function">node</span>.<span class="token function">on</span>(<span class="token string">'message'</span>, <span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token operator">=></span> {
+  console.<span class="token function">log</span>(<span class="token string">'Received:'</span>, msg);
+});
+
+<span class="token keyword">await</span> node.<span class="token function">start</span>();</code></pre>
+        </section>
+
+        <!-- Expandable section example -->
+        <section aria-labelledby="expandable-heading">
+          <h2 id="expandable-heading" class="section-header">Detailed Topics</h2>
+          <details>
+            <summary>Mesh Routing Protocol (Phenix)</summary>
+            <p>The Phenix Navigator uses a modified AODV (Ad‑hoc On‑Demand Distance Vector) protocol with topology‑aware metric. Each node maintains a routing table with signal strength and path reliability. For full specification, see <a href="/docs/phenix-navigator/routing/">Routing Protocol</a>.</p>
+          </details>
+          <details>
+            <summary>Haptic Feedback Patterns</summary>
+            <p>Node One supports 123 distinct haptic patterns defined in the <code>DRV2605L</code> library. Patterns are grouped into categories: alerts, confirmations, navigation, and data encoding. Refer to the <a href="/docs/node-one/haptics/">Haptics Reference</a> for waveform tables.</p>
+          </details>
+        </section>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -366,8 +339,13 @@
         Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
         — The geometry protects the signal.
       </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
     </div>
   </footer>
-  <script src="/main.js"></script>
+
+  <script src="../main.js"></script>
+  <script src="docs.js"></script>
 </body>
 </html>
