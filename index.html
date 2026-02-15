@@ -1,640 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="P31 Labs — Assistive technology for neurodivergent minds. Built on Fullerian synergetics and ephemeralization by trimtab.signal. Open-source tools for communication processing, sensory regulation, and cognitive support.">
-    <meta name="keywords" content="assistive technology, neurodivergent, ADHD, autism, communication, open source, Buckminster Fuller, synergetics, ephemeralization, trimtab, tetrahedron, mesh networking, LoRa, ESP32, cognitive support, sensory regulation">
-    <meta name="author" content="trimtab.signal (The Operator)">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="theme-color" content="#050510">
-    <meta name="msapplication-TileColor" content="#050510">
-    <link rel="canonical" href="https://phosphorus31.org">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://phosphorus31.org">
-    <meta property="og:title" content="P31 Labs — Phosphorus-31 | Assistive Technology Built on Fullerian Synergetics">
-    <meta property="og:description" content="Assistive technology for neurodivergent minds. Built on Fullerian synergetics and ephemeralization by trimtab.signal. Building tools that respect how you think. The mesh holds. 🔺">
-    <meta property="og:site_name" content="P31 Labs">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://phosphorus31.org/og-image.png">
-    <meta property="og:image:alt" content="P31 Labs — Phosphorus-31. The Mesh Holds. Tetrahedron geometry.">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="P31 Labs — Phosphorus-31">
-    <meta name="twitter:description" content="Assistive technology for neurodivergent minds. Built on Fullerian synergetics and ephemeralization by trimtab.signal. Building tools that respect how you think.">
-    <meta name="twitter:image" content="https://phosphorus31.org/og-image.png">
-    <meta name="twitter:image:alt" content="P31 Labs — Phosphorus-31. The Mesh Holds. 🔺">
-    <meta name="twitter:creator" content="@trimtabsignal">
-    <meta name="twitter:site" content="@trimtabsignal">
-    
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "P31 Labs",
-      "alternateName": "Phosphorus-31",
-      "url": "https://phosphorus31.org",
-      "logo": "https://phosphorus31.org/logo.png",
-      "description": "Assistive technology for neurodivergent minds. Built on Fullerian synergetics and ephemeralization.",
-      "foundingDate": "2025",
-      "founder": {
-        "@type": "Person",
-        "name": "trimtab.signal",
-        "alternateName": "The Operator",
-        "url": "https://thegeodesicself.substack.com"
-      },
-      "sameAs": [
-        "https://github.com/p31labs",
-        "https://thegeodesicself.substack.com"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "will@p31ca.org",
-        "contactType": "General Inquiry"
-      },
-      "areaServed": "Worldwide",
-      "knowsAbout": [
-        "Assistive Technology",
-        "Neurodivergent Support",
-        "Fullerian Synergetics",
-        "Ephemeralization",
-        "Tetrahedron Geometry",
-        "Mesh Networking",
-        "LoRa Communication",
-        "Open Source Software"
-      ]
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "P31 Labs",
-      "url": "https://phosphorus31.org",
-      "description": "Assistive technology for neurodivergent minds. Built on Fullerian synergetics and ephemeralization by trimtab.signal.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "P31 Labs"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://phosphorus31.org?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "The Buffer",
-      "applicationCategory": "AssistiveTechnologyApplication",
-      "operatingSystem": "Web, Node.js",
-      "description": "Communication processing that detects emotional voltage and protects cognitive bandwidth. Analyzes incoming messages for coercion patterns.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "license": "https://www.apache.org/licenses/LICENSE-2.0",
-      "creator": {
-        "@type": "Organization",
-        "name": "P31 Labs"
-      }
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "Node One",
-      "description": "Open-source assistive device with haptic feedback and off-grid mesh communication. ESP32-S3 handheld device that works offline for sensory regulation and emergency communication.",
-      "brand": {
-        "@type": "Brand",
-        "name": "P31 Labs"
-      },
-      "category": "Assistive Technology Hardware",
-      "offers": {
-        "@type": "Offer",
-        "availability": "https://schema.org/PreOrder",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-    
-    <title>P31 Labs — Phosphorus-31 | Assistive Technology Built on Fullerian Synergetics</title>
-    
-    <!-- Additional Meta for Presentation -->
-    <meta name="geo.region" content="US-GA">
-    <meta name="geo.placename" content="Georgia">
-    <meta name="copyright" content="P31 Labs">
-    <meta name="reply-to" content="will@p31ca.org">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔺%3C/text%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔺%3C/text%3E%3C/svg%3E">
-    <link rel="mask-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔺%3C/text%3E%3C/svg%3E" color="#050510">
-    
-    <style>
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --bg-primary: #050510;
-            --bg-card: #0c0c1c;
-            --bg-alt: #1A201E;
-            --text-primary: #e8e8f0;
-            --text-dim: #6b7280;
-            --accent: #50E3C2;
-            --accent-hover: #00E5FF;
-            --border: #3a3a52;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 16px;
-        }
-        
-        /* Skip Link */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--accent);
-            color: var(--bg-primary);
-            padding: 8px 16px;
-            text-decoration: none;
-            z-index: 100;
-        }
-        
-        .skip-link:focus {
-            top: 0;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: var(--bg-alt);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
-        .logo .badge {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            display: block;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-        }
-        
-        nav {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        nav a:hover {
-            color: var(--accent);
-        }
-        
-        /* Hero */
-        .hero {
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        .hero .accent {
-            color: var(--accent);
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: var(--text-dim);
-            margin-bottom: 0.5rem;
-        }
-        
-        .hero-tagline {
-            font-size: 1.25rem;
-            color: var(--accent);
-            margin-top: 1rem;
-        }
-        
-        /* Sections */
-        section {
-            padding: 4rem 0;
-        }
-        
-        .section-title {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-        }
-        
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-        
-        .card .type {
-            display: inline-block;
-            font-size: 0.875rem;
-            color: var(--text-dim);
-            margin-bottom: 1rem;
-        }
-        
-        .card p {
-            margin-bottom: 1rem;
-            color: var(--text-dim);
-        }
-        
-        .card ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-        
-        .card li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .card li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-        
-        /* Why Section */
-        .why-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .why-content p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-        
-        .why-content .lead {
-            font-size: 1.25rem;
-            color: var(--accent);
-            font-weight: 500;
-        }
-        
-        /* Team Section */
-        .team-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .team-content p {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .contact-info {
-            margin: 2rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .contact-item {
-            font-size: 1.1rem;
-        }
-        
-        .contact-item a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        
-        .contact-item a:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--bg-alt);
-            border-top: 1px solid var(--border);
-            padding: 2rem 0;
-            text-align: center;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .footer-badge {
-            font-size: 0.875rem;
-            color: var(--text-dim);
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-signature {
-            font-family: monospace;
-            color: var(--accent);
-            font-size: 0.875rem;
-        }
-        
-        .footer-tagline {
-            color: var(--accent);
-            font-size: 1.1rem;
-        }
-        
-        .footer-license {
-            color: var(--text-dim);
-            font-size: 0.875rem;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav {
-                justify-content: center;
-            }
-            
-            section {
-                padding: 2rem 0;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Print */
-        @media print {
-            header, footer {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P31 Labs · Phosphorus-31 — Assistive Technology for Neurodivergent Minds</title>
+  <meta name="description" content="P31 Labs builds open-source assistive technology for neurodivergent individuals. Communication processing, sensory regulation, cognitive support — local-first, privacy-first, mesh-resilient.">
+  <meta name="keywords" content="assistive technology, neurodivergent, ADHD, autism, AAC, cognitive prosthetic, executive function, open source, mesh network, LoRa">
+  <meta property="og:title" content="P31 Labs · Phosphorus-31">
+  <meta property="og:description" content="Assistive technology for neurodivergent minds. Open source. Offline-first. The Mesh Holds. 🔺">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phosphorus31.org">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    ⚡ Phosphorus-31
-                    <span class="badge">PHOSPHORUS-31 · THE ONLY STABLE ISOTOPE</span>
-                    <span class="badge" style="margin-top: 0.25rem; font-size: 0.7rem;">trimtab.signal</span>
-                </div>
-                <nav aria-label="Main navigation">
-                    <a href="#products">Products</a>
-                    <a href="#why">Why</a>
-                    <a href="#team">Team</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-            </div>
+
+  <!-- GEOMETRY CANVAS LAYERS -->
+  <canvas id="mesh-bg" aria-hidden="true"></canvas>
+  <canvas id="hero-geometry" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="#stack">Stack</a>
+        <a href="#geometry">Geometry</a>
+        <a href="#why">Why</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-equation" aria-label="Quantum state equation">
+        |ψ⟩ = α|0⟩ + β|1⟩
+      </div>
+      <h1>
+        <span class="hero-pre">Phosphorus-31</span>
+        Assistive technology<br>for <em>neurodivergent</em> minds
+      </h1>
+      <p class="hero-sub">Building the tools that don't exist yet — communication processing, sensory regulation, executive function support. Open source, offline-first, mesh-resilient. Built by the people who need them.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/trimtab-signal" class="btn btn-primary">View Source →</a>
+        <a href="#stack" class="btn btn-ghost">The Stack ↓</a>
+      </div>
+      <div class="hero-isotope" aria-hidden="true">
+        <span class="isotope-num">15</span>
+        <span class="isotope-symbol">P</span>
+        <span class="isotope-mass">30.974</span>
+        <span class="isotope-note">the only stable isotope</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- METRICS -->
+  <section class="metrics">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric">
+          <span class="metric-val" data-target="4">0</span>
+          <span class="metric-unit">core components</span>
         </div>
-    </header>
-    
-    <main id="main-content">
-        <section class="hero">
-            <div class="container">
-                <h1>
-                    Assistive Technology<br>
-                    <span class="accent">for Neurodivergent Minds</span>
-                </h1>
-                <p class="hero-subtitle">Building tools that respect how you think</p>
-                <p class="hero-tagline">The Mesh Holds. 🔺</p>
-                <p style="color: var(--text-dim); font-size: 1rem; margin-top: 0.5rem; font-style: italic;">
-                    trimtab.signal · Small adjustments, massive redirection
-                </p>
-                <p style="color: var(--accent); font-size: 0.95rem; margin-top: 1rem; font-style: italic;">
-                    "The ability to do more and more with less and less until eventually you can do everything with nothing."<br>
-                    <span style="color: var(--text-dim); font-size: 0.85rem;">— R. Buckminster Fuller (Ephemeralization)</span>
-                </p>
-            </div>
-        </section>
-        
-        <section id="products">
-            <div class="container">
-                <h2 class="section-title">What We Build</h2>
-                <div class="cards-grid">
-                    <article class="card">
-                        <h3>The Buffer</h3>
-                        <span class="type">Software</span>
-                        <p>Communication processing that detects emotional voltage and protects cognitive bandwidth. Analyzes incoming messages for coercion patterns and holds high-voltage content until you have capacity. Ephemeralization in action: minimal processing overhead, maximum cognitive protection.</p>
-                        <ul>
-                            <li>Voltage scoring (0-10 scale)</li>
-                            <li>Auto-hold system for high-voltage messages</li>
-                            <li>Accommodation documentation</li>
-                            <li>Privacy-first architecture</li>
-                            <li>Optimized for minimal resource usage</li>
-                        </ul>
-                    </article>
-                    
-                    <article class="card">
-                        <h3>Node One</h3>
-                        <span class="type">Hardware</span>
-                        <p>Open-source assistive device with haptic feedback and off-grid mesh communication. ESP32-S3 handheld device that works offline for sensory regulation and emergency communication. Each device is a trimtab in the mesh — a small mechanism that redirects the system. Built on ephemeralization: maximum function with minimal resources (0.350 kbps LoRa bandwidth, battery-powered, offline-first).</p>
-                        <ul>
-                            <li>Offline operation</li>
-                            <li>Haptic grounding patterns</li>
-                            <li>LoRa mesh networking (0.350 kbps)</li>
-                            <li>Emergency messaging</li>
-                            <li>Tetrahedron topology (4 vertices, 6 edges)</li>
-                            <li>Ephemeralization: doing more with less</li>
-                        </ul>
-                    </article>
-                    
-                    <article class="card">
-                        <h3>The Scope</h3>
-                        <span class="type">Dashboard</span>
-                        <p>Dashboard that makes invisible cognitive load visible and manageable. Tracks spoons (executive function capacity), medications, coherence monitoring, and system alerts.</p>
-                        <ul>
-                            <li>Spoon economy tracking</li>
-                            <li>Medication management</li>
-                            <li>Coherence monitoring</li>
-                            <li>Alert system</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-        </section>
-        
-        <section id="why">
-            <div class="container">
-                <h2 class="section-title">Why</h2>
-                <div class="why-content">
-                    <p class="lead">1 in 5 people are neurodivergent. Current tools are built for neurotypical workflows.</p>
-                    <p>We build <strong>for</strong> neurodivergent people, <strong>by</strong> neurodivergent people. The tools don't exist yet. So we're building them.</p>
-                    <p>When systems fail — divorce, job loss, benefits disruption — neurodivergent people lose their ground reference. There's no technology layer to catch them. P31 provides that layer.</p>
-                    <p><strong>Local-first. Privacy-first. No data harvesting.</strong> Everything works offline. No cloud dependency. Delta topology — mesh networking with no single point of failure. Dependencies need P31 — not the other way around.</p>
-                    <p style="margin-top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: 4px;">
-                        <strong>Ephemeralization (Doing More With Less):</strong> P31 embodies Fuller's principle of ephemeralization — maximum efficiency with minimum resources. Our LoRa mesh operates on 0.350 kbps bandwidth (Whale Channel). Our devices run on battery power. Our code is optimized for minimal footprint. We compress, batch, and optimize until we can do everything with nothing. This is Bucky's principle, applied to assistive technology.
-                    </p>
-                    <p style="margin-top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: 4px;">
-                        <strong>The Trimtab Principle:</strong> In Fullerian synergetics, the tetrahedron is the minimum stable structure. P31 builds on this geometry — four vertices, six edges, no single point of failure. Each node in the mesh is a trimtab: a small mechanism that can redirect the entire system toward resilience.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="team">
-            <div class="container">
-                <h2 class="section-title">Team</h2>
-                <div class="team-content">
-                    <p>Founded by Will (trimtab.signal), a systems engineer with 16 years of federal service maintaining nuclear submarine electrical systems.</p>
-                    <p>Diagnosed with AuDHD at age 39 after years of unaccommodated work. The disability is the origin story, not the excuse.</p>
-                    <p style="margin-top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: 4px;">
-                        <em>"Something hit the rudder of a great ship and the whole ship turned. They called it a trimtab."</em><br>
-                        <span style="color: var(--text-dim); font-size: 0.9rem; margin-top: 0.5rem; display: block;">— R. Buckminster Fuller</span>
-                    </p>
-                    <p style="margin-top: 1rem; color: var(--text-dim); font-size: 0.95rem;">We build for ourselves and our community. The tools don't exist yet. So we're building them.</p>
-                    <p style="margin-top: 1rem; color: var(--accent); font-size: 0.95rem; font-style: italic;">The trimtab effect: small adjustments that change the direction of massive systems.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="contact">
-            <div class="container">
-                <h2 class="section-title">Contact</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <strong>Email:</strong> <a href="mailto:will@p31ca.org">will@p31ca.org</a>
-                        </div>
-                        <div class="contact-item">
-                            <strong>GitHub:</strong> <a href="https://github.com/p31labs" target="_blank" rel="noopener noreferrer">github.com/p31labs</a>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Website:</strong> <a href="https://phosphorus31.org">phosphorus31.org</a>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Signal:</strong> <a href="https://thegeodesicself.substack.com" target="_blank" rel="noopener noreferrer">trimtab.signal</a> <span style="color: var(--text-dim); font-size: 0.9rem;">(Substack)</span>
-                        </div>
-                    </div>
-                    <p style="color: var(--text-dim); margin-top: 1rem;">
-                        For accelerator applications, grant inquiries, or partnership opportunities, please reach out via email.
-                    </p>
-                    <p style="color: var(--accent); margin-top: 1rem; font-size: 0.95rem; font-style: italic;">
-                        Presenting to Buckminster Fuller Institute and Bucky-centric organizations. The trimtab signal propagates through synergetic geometry.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-badge">PHOSPHORUS-31</div>
-                <div class="footer-signature">Ca₁₀(PO₄)₆(OH)₂</div>
-                <p class="footer-tagline">The Mesh Holds. 🔺</p>
-                <p style="color: var(--text-dim); font-size: 0.875rem; margin: 0.5rem 0; font-family: monospace;">
-                    trimtab.signal · The Operator
-                </p>
-                <p class="footer-license">
-                    P31 Labs — Apache 2.0 Licensed<br>
-                    It's okay to be a little wonky. 🔺
-                </p>
-                <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 0.5rem; font-style: italic;">
-                    Built on Fullerian synergetics. The tetrahedron is the minimum stable structure.<br>
-                    Ephemeralization: doing more with less, until eventually everything with nothing.
-                </p>
-            </div>
+        <div class="metric">
+          <span class="metric-val" data-target="0">0</span>
+          <span class="metric-unit">cloud dependencies</span>
         </div>
-    </footer>
+        <div class="metric">
+          <span class="metric-val">A2.0</span>
+          <span class="metric-unit">Apache licensed</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">∞</span>
+          <span class="metric-unit">offline uptime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STACK -->
+  <section id="stack" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">01 — What We Build</span>
+        <h2>The Stack</h2>
+        <p>Three layers. Each works independently. Together they form a mesh —<br>no single point of failure. Every node is a peer.</p>
+      </div>
+
+      <div class="stack-grid">
+
+        <article class="stack-card" data-layer="hardware">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">HARDWARE</span>
+            <span class="card-reg">21 CFR § 890.3710</span>
+          </div>
+          <h3>Node One</h3>
+          <p>Open-source handheld for sensory regulation and off-grid communication. ESP32-S3, haptic feedback engine (DRV2605L), LoRa mesh networking. No internet required. No phone required. No permission required.</p>
+          <div class="card-tech">
+            <span>ESP32-S3</span><span>LoRa 915MHz</span><span>DRV2605L</span><span>OLED</span><span>Meshtastic</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            Tr(Π̂ᵢρ̂) = ⟨ψ|Π̂ᵢ|ψ⟩
+          </div>
+        </article>
+
+        <article class="stack-card" data-layer="software">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">SOFTWARE</span>
+            <span class="card-reg">Cures Act § 3060</span>
+          </div>
+          <h3>The Buffer</h3>
+          <p>Communication processing layer. Detects emotional voltage — urgency, coercion, shame, threat patterns — before messages reach a vulnerable person. Holds incoming signal. Gives you time to think. Time you were never given.</p>
+          <div class="card-tech">
+            <span>FastAPI</span><span>Redis</span><span>Local LLM</span><span>WebSocket</span><span>Python</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            S(ρ) = −Tr(ρ log ρ)
+          </div>
+        </article>
+
+        <article class="stack-card" data-layer="interface">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">INTERFACE</span>
+            <span class="card-reg">WCAG 2.1 AA</span>
+          </div>
+          <h3>The Scope</h3>
+          <p>Unified dashboard. Medication tracking, cognitive metrics, environmental sensing, mesh network status. Your entire executive function stack in one place. Not a wellness app — a cognitive prosthetic.</p>
+          <div class="card-tech">
+            <span>React</span><span>Tauri</span><span>Vite</span><span>Capacitor</span><span>D3.js</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            Ĥ|ψ⟩ = E|ψ⟩
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GEOMETRY -->
+  <section id="geometry" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">02 — The Math</span>
+        <h2>Background Independent Security</h2>
+        <p>Traditional encryption assumes computational difficulty. We assume physics.<br>SIC-POVM measurement geometry detects eavesdropping through system tomography — not error rates.</p>
+      </div>
+
+      <div class="geometry-showcase">
+        <canvas id="jitterbug-canvas" aria-label="Interactive Jitterbug transformation: cuboctahedron morphing to octahedron"></canvas>
+        <div class="geometry-controls">
+          <label for="morph-slider" class="sr-only">Jitterbug transformation phase</label>
+          <input type="range" id="morph-slider" min="0" max="100" value="0" aria-label="Control the Jitterbug transformation phase from cuboctahedron to octahedron">
+          <div class="morph-labels">
+            <span>Cuboctahedron</span>
+            <span class="morph-mid">Icosahedron</span>
+            <span>Octahedron</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="math-grid">
+        <div class="math-block">
+          <div class="math-title">SIC-POVM Condition</div>
+          <div class="math-eq">|⟨ψᵢ|ψⱼ⟩|² = 1/(d+1) for i ≠ j</div>
+          <div class="math-desc">Four quantum states forming a regular tetrahedron inscribed in the Bloch sphere. Maximum information extraction with minimum disturbance.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Wye → Delta Transform</div>
+          <div class="math-eq">Z_Δ = (Z₁Z₂ + Z₂Z₃ + Z₃Z₁) / Zₒₚₚ</div>
+          <div class="math-desc">Every centralized topology can be replaced with a mesh. Every hierarchy can be dissolved into peers. The same math that rewires circuits rewires systems.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Fuller's Synergetic Constant</div>
+          <div class="math-eq">V_tet = 1 (not 1/3 · b · h)</div>
+          <div class="math-desc">Nature doesn't use cubic coordinates. The tetrahedron is the minimum structural system. Unit volume = 1. Everything else is a frequency of it.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Von Neumann Entropy</div>
+          <div class="math-eq">S(ρ) = −Tr(ρ log₂ ρ)</div>
+          <div class="math-desc">Uncertainty is not noise — it is signal. The Buffer measures communication entropy to detect coercive patterns before they reach the operator.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">03 — Why This Exists</span>
+        <h2>The Problem</h2>
+      </div>
+
+      <div class="why-content">
+        <blockquote>
+          "We do not have assistive technology for the largest disability demographic on the planet. We have wellness apps."
+        </blockquote>
+
+        <div class="why-stats">
+          <div class="why-stat">
+            <span class="why-num">15–20%</span>
+            <span class="why-desc">of the global population is neurodivergent</span>
+          </div>
+          <div class="why-stat">
+            <span class="why-num">55%</span>
+            <span class="why-desc">of commercial AT wearables for autism have undefined FDA status (PMC 2024)</span>
+          </div>
+          <div class="why-stat">
+            <span class="why-num">0</span>
+            <span class="why-desc">open-source cognitive prosthetics existed before this project</span>
+          </div>
+        </div>
+
+        <div class="why-text">
+          <p>Wheelchair ramps exist because someone in a wheelchair demanded them. Screen readers exist because a blind engineer built one. Closed captions exist because Deaf advocates sued for them.</p>
+          <p>There is no equivalent infrastructure for cognitive disability. No communication prosthetic that processes emotional subtext. No executive function scaffold that works offline. No sensory regulation tool that doesn't require a smartphone and a subscription.</p>
+          <p>P31 builds them. Open source. Apache 2.0. Mesh-resilient. Because the person who needs it most is often the person least able to navigate the system that would provide it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">04 — Who</span>
+        <h2>Built By Need</h2>
+      </div>
+
+      <div class="founder-content">
+        <div class="founder-info">
+          <h3>Will Johnson</h3>
+          <p class="founder-title">Founder &amp; Principal Engineer</p>
+          <p>16 years as a federal submarine electrician. Diagnosed AuDHD in 2025 — after decades of building workarounds that turned out to be assistive technology prototypes. Now building them for real.</p>
+          <p>P31 Labs is a Georgia 501(c)(3) nonprofit in formation, operating under Hack Club HCB fiscal sponsorship.</p>
+        </div>
+        <div class="founder-stack">
+          <div class="founder-tag">Submarine Electrical Systems</div>
+          <div class="founder-tag">Quantum Information Theory</div>
+          <div class="founder-tag">Embedded Systems (ESP32)</div>
+          <div class="founder-tag">Network Topology</div>
+          <div class="founder-tag">Fullerian Synergetics</div>
+          <div class="founder-tag">Lived Experience (AuDHD)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">05 — Connect</span>
+        <h2>Join the Mesh</h2>
+        <p>Every node strengthens the network.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:will@p31ca.org" class="contact-link">
+          <span class="contact-icon">@</span>
+          <span>will@p31ca.org</span>
+        </a>
+        <a href="https://github.com/trimtab-signal" class="contact-link">
+          <span class="contact-icon">⌥</span>
+          <span>github.com/trimtab-signal</span>
+        </a>
+        <a href="https://zenodo.org/communities/p31" class="contact-link">
+          <span class="contact-icon">◎</span>
+          <span>zenodo.org/communities/p31</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-logo">P<sup>31</sup> LABS</span>
+          <span class="footer-legal">Apache 2.0 · Georgia 501(c)(3) in formation</span>
+        </div>
+        <div class="footer-right">
+          <span class="footer-tagline">It's okay to be a little wonky. 🔺</span>
+        </div>
+      </div>
+      <div class="footer-formula" aria-hidden="true">
+        Ca₁₀(PO₄)₆(OH)₂ · The bone mineral that carries the signal. The only stable isotope. The mesh holds.
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
