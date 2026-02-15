@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation · P31 Labs</title>
+  <meta name="description" content="Publications, defensive IP strategy, and Zenodo DOIs for P31 Labs research and technical documentation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .pub-grid {
+      display: grid;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .pub-card {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .pub-card:hover {
+      border-color: var(--phosphorus-dim);
+      box-shadow: 0 0 30px var(--phosphorus-glow);
+    }
+    .pub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .pub-status {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+    }
+    .pub-status.published {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      color: var(--phosphorus);
+    }
+    .pub-status.in-progress {
+      background: rgba(96, 165, 250, 0.1);
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      color: var(--calcium);
+    }
+    .pub-status.planned {
+      background: rgba(232, 232, 240, 0.05);
+      border: 1px solid var(--void-border);
+      color: var(--white-muted);
+    }
+    .pub-doi {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--calcium);
+      margin-top: 0.75rem;
+    }
+    .pub-doi a {
+      color: var(--calcium);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/" aria-current="page">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Documentation</h1>
+      <p class="hero-sub">Publications, defensive IP, and technical specifications. All open source. All timestamped.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <section>
+        <div class="section-header">
+          <span class="section-label">Defensive Publication</span>
+          <h2>IP Strategy</h2>
+          <p>We publish all technical innovations to Zenodo with timestamped DOIs. Apache 2.0 license. This establishes prior art and prevents corporate patenting. Freedom to operate for anyone who forks.</p>
+        </div>
+
+        <div class="pub-grid">
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>Node One: ESP32-S3 Assistive Device</h3>
+              <span class="pub-status published">Published</span>
+            </div>
+            <p>Complete hardware specification, firmware architecture, and regulatory pathway (21 CFR § 890.3710) for the ESP32-S3-based sensory regulation device.</p>
+            <div class="pub-doi">
+              <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">DOI: 10.5281/zenodo.18627420</a>
+            </div>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>The Buffer: Communication Processing Layer</h3>
+              <span class="pub-status in-progress">In Progress</span>
+            </div>
+            <p>Voltage assessment algorithms, pattern detection (URGENCY, COERCION, SHAME, FALSE AUTHORITY, THREATS, EMOTIONAL LEVER), and accommodation documentation system.</p>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>The Scope: Unified Dashboard</h3>
+              <span class="pub-status in-progress">In Progress</span>
+            </div>
+            <p>Production system documentation (1,888 lines, Google Apps Script). Spoon economy, medication tracker, coherence monitoring, ping grid architecture.</p>
+          </div>
+
+          <div class="pub-card">
+            <div class="pub-header">
+              <h3>L.O.V.E. Economy: Proof of Care Protocol</h3>
+              <span class="pub-status planned">Planned</span>
+            </div>
+            <p>Ledger of Ontological Volume and Entropy. Soulbound ERC-20 token on Base L2. Vesting phases, Proof of Care formula, chameleon mode (offline/online).</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">License</span>
+          <h2>Apache 2.0</h2>
+          <p>All software is licensed under Apache 2.0. Hardware designs use CERN-OHL-S. Research publications use CC-BY-4.0. Fork freely. Build on it. The mesh holds.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Lab · P31 Labs</title>
+  <meta name="description" content="Educational content for Founding Nodes. Hardware explainer, science lab, feelings guide, and math practice.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .topic-picker {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .topic-btn {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      color: var(--white-dim);
+      cursor: pointer;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+    .topic-btn:hover {
+      border-color: var(--phosphorus-dim);
+      color: var(--white);
+    }
+    .topic-btn.active {
+      background: var(--phosphorus);
+      border-color: var(--phosphorus);
+      color: var(--void);
+    }
+    .topic-container {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      min-height: 400px;
+    }
+    .hardware-card {
+      padding: 1.5rem;
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      margin: 1rem 0;
+      cursor: pointer;
+    }
+    .hardware-card.expanded {
+      border-color: var(--phosphorus-dim);
+    }
+    .hardware-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--phosphorus);
+    }
+    .hardware-card-content {
+      display: none;
+      margin-top: 1rem;
+      color: var(--white-dim);
+    }
+    .hardware-card.expanded .hardware-card-content {
+      display: block;
+    }
+    .color-mixer {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .color-slider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .color-preview {
+      width: 200px;
+      height: 200px;
+      border: 2px solid var(--void-border);
+      border-radius: 8px;
+      margin: 1rem auto;
+    }
+    .emotion-card {
+      padding: 1.5rem;
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      margin: 1rem 0;
+    }
+    .emotion-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--phosphorus);
+    }
+    .math-problem {
+      font-size: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      font-family: var(--font-mono);
+      color: var(--white);
+    }
+    .math-input {
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      color: var(--white);
+      border-radius: 3px;
+      text-align: center;
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+    }
+    .math-feedback {
+      text-align: center;
+      margin: 1rem 0;
+      font-weight: 600;
+    }
+    .math-feedback.correct {
+      color: var(--phosphorus);
+    }
+    .math-feedback.incorrect {
+      color: var(--calcium);
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/games/">Games</a>
+        <a href="/education/" aria-current="page">Learn</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Learn Lab</h1>
+      <p class="hero-sub">Educational content for Founding Nodes. Hardware, science, feelings, and math.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="topic-picker">
+        <button class="topic-btn active" onclick="switchTopic('hardware')">How Node One Works</button>
+        <button class="topic-btn" onclick="switchTopic('science')">Science Lab</button>
+        <button class="topic-btn" onclick="switchTopic('feelings')">Feelings Guide</button>
+        <button class="topic-btn" onclick="switchTopic('math')">Math Practice</button>
+      </div>
+
+      <div class="topic-container" id="topic-area">
+        <!-- Topic content will be injected here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+  <script>
+    let currentTopic = 'hardware';
+    let mathState = { streak: 0, difficulty: 'easy' };
+
+    function switchTopic(topic) {
+      currentTopic = topic;
+      document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderTopic();
+    }
+
+    function renderTopic() {
+      const area = document.getElementById('topic-area');
+      area.innerHTML = '';
+
+      if (currentTopic === 'hardware') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1.5rem;">How Node One Works</h2>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>ESP32-S3</h3>
+            <div class="hardware-card-content">
+              <p>The brain of Node One. A powerful microcontroller that runs all the software and controls all the other parts.</p>
+            </div>
+          </div>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>LoRa Radio</h3>
+            <div class="hardware-card-content">
+              <p>Sends messages to other Node One devices without the internet. Like walkie-talkies, but smarter!</p>
+            </div>
+          </div>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>Haptic Engine</h3>
+            <div class="hardware-card-content">
+              <p>Makes vibrations you can feel. Helps with sensory regulation. "The Thick Click" pattern feels good.</p>
+            </div>
+          </div>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>Display</h3>
+            <div class="hardware-card-content">
+              <p>A small screen that shows information. Like a tiny computer screen.</p>
+            </div>
+          </div>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>Battery</h3>
+            <div class="hardware-card-content">
+              <p>Powers everything. Like a rechargeable battery in a toy. Lasts a long time!</p>
+            </div>
+          </div>
+          <div class="hardware-card" onclick="this.classList.toggle('expanded')">
+            <h3>Shell</h3>
+            <div class="hardware-card-content">
+              <p>The outside case. 3D printed. Protects all the parts inside. Feels good to hold.</p>
+            </div>
+          </div>
+        `;
+      } else if (currentTopic === 'science') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1.5rem;">Science Lab</h2>
+          <h3 style="text-align: center; margin: 1.5rem 0; color: var(--phosphorus);">RGB Color Mixer</h3>
+          <div class="color-mixer">
+            <div class="color-slider">
+              <label style="color: var(--white-dim);">Red</label>
+              <input type="range" min="0" max="255" value="128" id="r-slider" oninput="updateColorMixer()">
+              <span id="r-value" style="font-family: var(--font-mono); color: var(--calcium);">128</span>
+            </div>
+            <div class="color-slider">
+              <label style="color: var(--white-dim);">Green</label>
+              <input type="range" min="0" max="255" value="128" id="g-slider" oninput="updateColorMixer()">
+              <span id="g-value" style="font-family: var(--font-mono); color: var(--calcium);">128</span>
+            </div>
+            <div class="color-slider">
+              <label style="color: var(--white-dim);">Blue</label>
+              <input type="range" min="0" max="255" value="128" id="b-slider" oninput="updateColorMixer()">
+              <span id="b-value" style="font-family: var(--font-mono); color: var(--calcium);">128</span>
+            </div>
+          </div>
+          <div class="color-preview" id="color-preview"></div>
+        `;
+        updateColorMixer();
+      } else if (currentTopic === 'feelings') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1.5rem;">Feelings Guide</h2>
+          <div class="emotion-card">
+            <h3>Happy 😊</h3>
+            <p><strong>What it feels like:</strong> Warm, light, energetic. You might smile or want to jump around.</p>
+            <p><strong>What helps:</strong> Share it with someone! Do something fun. Remember this feeling.</p>
+          </div>
+          <div class="emotion-card">
+            <h3>Sad 😢</h3>
+            <p><strong>What it feels like:</strong> Heavy, slow, quiet. You might want to be alone or cry.</p>
+            <p><strong>What helps:</strong> Talk to someone you trust. Take deep breaths. It's okay to feel sad.</p>
+          </div>
+          <div class="emotion-card">
+            <h3>Angry 😠</h3>
+            <p><strong>What it feels like:</strong> Hot, tight, fast. You might want to yell or hit something.</p>
+            <p><strong>What helps:</strong> Take a break. Count to 10. Use your breathing exercises. It's okay to be angry, but we don't hurt others.</p>
+          </div>
+          <div class="emotion-card">
+            <h3>Scared 😨</h3>
+            <p><strong>What it feels like:</strong> Shaky, cold, small. Your heart might beat fast.</p>
+            <p><strong>What helps:</strong> Find a safe person or place. Take deep breaths. Remember you're safe now.</p>
+          </div>
+          <div class="emotion-card">
+            <h3>Excited 🎉</h3>
+            <p><strong>What it feels like:</strong> Buzzy, bouncy, can't sit still. You might talk fast!</p>
+            <p><strong>What helps:</strong> Use that energy! Do something active. Share your excitement with others.</p>
+          </div>
+          <div class="emotion-card">
+            <h3>Calm 😌</h3>
+            <p><strong>What it feels like:</strong> Peaceful, slow, relaxed. Your body feels good.</p>
+            <p><strong>What helps:</strong> Enjoy this feeling! Remember what helped you get here. This is a good place to be.</p>
+          </div>
+        `;
+      } else if (currentTopic === 'math') {
+        generateMathProblem();
+      }
+    }
+
+    function updateColorMixer() {
+      const r = document.getElementById('r-slider').value;
+      const g = document.getElementById('g-slider').value;
+      const b = document.getElementById('b-slider').value;
+      document.getElementById('r-value').textContent = r;
+      document.getElementById('g-value').textContent = g;
+      document.getElementById('b-value').textContent = b;
+      document.getElementById('color-preview').style.background = `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function generateMathProblem() {
+      const area = document.getElementById('topic-area');
+      const difficulties = {
+        easy: { min: 1, max: 10 },
+        medium: { min: 10, max: 50 },
+        hard: { min: 50, max: 100 }
+      };
+      const diff = difficulties[mathState.difficulty];
+      const a = Math.floor(Math.random() * (diff.max - diff.min + 1)) + diff.min;
+      const b = Math.floor(Math.random() * (diff.max - diff.min + 1)) + diff.min;
+      const answer = a + b;
+      mathState.currentAnswer = answer;
+
+      area.innerHTML = `
+        <h2 style="text-align: center; margin-bottom: 1.5rem;">Math Practice</h2>
+        <div style="text-align: center; margin: 1rem 0;">
+          <label style="color: var(--white-dim); margin-right: 1rem;">Difficulty:</label>
+          <select id="math-diff" onchange="mathState.difficulty=this.value; generateMathProblem();" style="padding: 0.5rem; background: var(--void); border: 1px solid var(--void-border); color: var(--white); border-radius: 3px;">
+            <option value="easy" ${mathState.difficulty === 'easy' ? 'selected' : ''}>Easy</option>
+            <option value="medium" ${mathState.difficulty === 'medium' ? 'selected' : ''}>Medium</option>
+            <option value="hard" ${mathState.difficulty === 'hard' ? 'selected' : ''}>Hard</option>
+          </select>
+        </div>
+        <p style="text-align: center; color: var(--white-dim); margin: 1rem 0;">Streak: ${mathState.streak}</p>
+        <div class="math-problem">${a} + ${b} = ?</div>
+        <input type="number" class="math-input" id="math-answer" onkeypress="if(event.key==='Enter') checkMathAnswer()" autofocus>
+        <div class="math-feedback" id="math-feedback"></div>
+        <div style="text-align: center; margin: 1rem 0;">
+          <button class="btn btn-primary" onclick="checkMathAnswer()">Check</button>
+        </div>
+      `;
+      document.getElementById('math-answer').focus();
+    }
+
+    function checkMathAnswer() {
+      const input = document.getElementById('math-answer');
+      const feedback = document.getElementById('math-feedback');
+      const userAnswer = parseInt(input.value);
+      
+      if (userAnswer === mathState.currentAnswer) {
+        feedback.textContent = 'Correct! 🎉';
+        feedback.className = 'math-feedback correct';
+        mathState.streak++;
+        setTimeout(() => {
+          generateMathProblem();
+        }, 1500);
+      } else {
+        feedback.textContent = `Incorrect. Try again! (Answer: ${mathState.currentAnswer})`;
+        feedback.className = 'math-feedback incorrect';
+        mathState.streak = 0;
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    renderTopic();
+  </script>
+</body>
+</html>

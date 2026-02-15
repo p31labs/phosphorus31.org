@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · P31 Labs</title>
+  <meta name="description" content="Mission, principles, founder bio, and partnerships for P31 Labs — building assistive technology for neurodivergent minds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .mission-card {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+    }
+    .mission-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--phosphorus);
+    }
+    .founder-bio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin: 3rem 0;
+    }
+    .partnerships {
+      margin: 3rem 0;
+    }
+    .partnership-item {
+      padding: 1.5rem;
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      margin-bottom: 1rem;
+      background: var(--void-up);
+    }
+    @media (max-width: 768px) {
+      .founder-bio {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/" aria-current="page">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>About P31 Labs</h1>
+      <p class="hero-sub">Building assistive technology for neurodivergent minds. Open source. Offline-first. The mesh holds.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <section>
+        <div class="section-header">
+          <span class="section-label">Mission</span>
+          <h2>What We Do</h2>
+        </div>
+        <p>P31 Labs builds open-source assistive technology for neurodivergent individuals. We create communication processing tools, sensory regulation devices, and executive function support systems that work offline, respect privacy, and form resilient mesh networks.</p>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <h3>Local-First</h3>
+            <p>Every system functions without cloud dependencies. Your data lives on your devices first. The cloud is for sync only, when you choose to connect.</p>
+          </div>
+          <div class="mission-card">
+            <h3>Privacy-First</h3>
+            <p>Type-level encryption. Zero-knowledge verification. No telemetry. No analytics. No surveillance. The mesh protects its own.</p>
+          </div>
+          <div class="mission-card">
+            <h3>Mesh-Resilient</h3>
+            <p>Tetrahedron topology. No single point of failure. Every node is a peer. When the neutral fails, the mesh holds.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">Founder</span>
+          <h2>Built By Need</h2>
+        </div>
+        <div class="founder-bio">
+          <div>
+            <h3>Will</h3>
+            <p class="founder-title">Founder &amp; Principal Engineer</p>
+            <p>16 years as a DoD civilian specializing in power distribution systems. Diagnosed AuDHD in 2025 — after decades of building workarounds that turned out to be assistive technology prototypes. Now building them for real.</p>
+            <p>P31 Labs is a Georgia 501(c)(3) nonprofit in formation, operating under Hack Club HCB fiscal sponsorship.</p>
+          </div>
+          <div class="founder-stack">
+            <div class="founder-tag">Power Distribution Systems</div>
+            <div class="founder-tag">Quantum Information Theory</div>
+            <div class="founder-tag">Embedded Systems (ESP32)</div>
+            <div class="founder-tag">Network Topology</div>
+            <div class="founder-tag">Fullerian Synergetics</div>
+            <div class="founder-tag">Lived Experience (AuDHD)</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-label">Partnerships</span>
+          <h2>Ecosystem</h2>
+        </div>
+        <div class="partnerships">
+          <div class="partnership-item">
+            <h3>Georgia Tech Tools for Life</h3>
+            <p>Partnership with Hunter McFeron and the assistive technology ecosystem at Georgia Tech. Collaboration on hardware prototyping and user testing.</p>
+          </div>
+          <div class="partnership-item">
+            <h3>Hack Club HCB</h3>
+            <p>Fiscal sponsorship through The Hack Foundation (EIN 81-2908499). Enables tax-deductible donations while 501(c)(3) determination is pending.</p>
+          </div>
+          <div class="partnership-item">
+            <h3>Multiple Hub</h3>
+            <p>Autism Tech Accelerator program. Beverly Hills 501(c)(3) supporting neurodivergent-led technology startups.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

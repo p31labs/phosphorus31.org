@@ -655,6 +655,58 @@
 
 
   // ═══════════════════════════════════════════
+  //  8. WALLET COPY FUNCTIONALITY
+  // ═══════════════════════════════════════════
+  function initWalletCopy() {
+    const btn = document.getElementById('copy-wallet-btn');
+    const addrEl = document.getElementById('wallet-addr');
+    if (!btn || !addrEl) return;
+
+    const walletAddr = '0x90048cbb3CDCef200a54D6D336EbB4e0ce18d82c';
+    const originalText = btn.textContent;
+
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(walletAddr);
+        } else {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = walletAddr;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        // Visual feedback
+        btn.textContent = 'Copied!';
+        btn.setAttribute('aria-label', 'Wallet address copied to clipboard');
+        btn.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.setAttribute('aria-label', 'Copy wallet address to clipboard');
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        // Graceful degradation
+        console.warn('Failed to copy wallet address:', err);
+        btn.textContent = 'Copy failed';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      }
+    });
+  }
+
+
+  // ═══════════════════════════════════════════
   //  INIT
   // ═══════════════════════════════════════════
   document.addEventListener('DOMContentLoaded', () => {
@@ -662,6 +714,7 @@
     initCardGlow();
     initCounters();
     initNavScroll();
+    initWalletCopy();
   });
 
 })();

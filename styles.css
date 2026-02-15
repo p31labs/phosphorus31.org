@@ -44,6 +44,29 @@ img { max-width: 100%; }
   clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
+/* ── SKIP LINK ── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.5rem;
+  background: var(--phosphorus);
+  color: var(--void);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--calcium);
+  outline-offset: 2px;
+}
+
 /* ── LAYOUT ── */
 .container {
   max-width: 1200px;
@@ -247,6 +270,16 @@ nav {
   background: #34d67d;
   box-shadow: 0 0 50px var(--phosphorus-flare), 0 4px 20px rgba(46, 204, 113, 0.3);
   transform: translateY(-1px);
+}
+
+.btn-primary:focus {
+  outline: 2px solid var(--calcium);
+  outline-offset: 2px;
+}
+
+.btn-primary.copied {
+  background: var(--calcium);
+  box-shadow: 0 0 30px var(--calcium-glow), 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .btn-ghost {
@@ -798,6 +831,229 @@ footer {
   letter-spacing: 0.04em;
 }
 
+/* ── ELEMENT CARD ── */
+.element-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.element-card {
+  width: 200px;
+  padding: 2rem;
+  border: 1px solid var(--void-border);
+  background: rgba(5, 5, 16, 0.6);
+  text-align: center;
+  border-radius: 3px;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.element-card:hover {
+  border-color: var(--phosphorus-dim);
+  box-shadow: 0 0 40px var(--phosphorus-glow);
+  transform: translateY(-4px);
+}
+
+.element-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--white-muted);
+  margin-bottom: 0.5rem;
+}
+
+.element-symbol {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--phosphorus);
+  line-height: 1;
+  text-shadow: 0 0 40px var(--phosphorus-glow);
+  margin-bottom: 0.5rem;
+}
+
+.element-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.element-mass {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--white-dim);
+  margin-bottom: 0.75rem;
+}
+
+.element-formula {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--calcium);
+  margin-bottom: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--void-border);
+}
+
+.element-note {
+  font-size: 0.65rem;
+  color: var(--white-muted);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+/* ── ECONOMY GRID ── */
+.economy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.economy-card {
+  padding: 2rem;
+  background: var(--void-up);
+  border: 1px solid var(--void-border);
+  border-radius: 3px;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.economy-card:hover {
+  border-color: var(--phosphorus-dim);
+  box-shadow: 0 0 30px var(--phosphorus-glow);
+  transform: translateY(-2px);
+}
+
+.economy-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.economy-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+
+.economy-card p {
+  font-size: 0.9rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.economy-metric {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--void-border);
+}
+
+.economy-val {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--phosphorus);
+  text-shadow: 0 0 30px var(--phosphorus-glow);
+  margin-bottom: 0.25rem;
+}
+
+.economy-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+}
+
+/* ── DONATE SECTION ── */
+.donate-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.donate-wallet {
+  padding: 2rem;
+  background: var(--void-up);
+  border: 1px solid var(--void-border);
+  border-radius: 3px;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+  margin-bottom: 0.75rem;
+}
+
+.wallet-address {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  user-select: all;
+  cursor: text;
+  color: var(--phosphorus);
+  word-break: break-all;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(5, 5, 16, 0.5);
+  border: 1px solid var(--void-border);
+  border-radius: 2px;
+}
+
+.donate-networks {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.network-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--calcium-glow);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 2px;
+  color: var(--calcium);
+  letter-spacing: 0.04em;
+}
+
+.donate-note {
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+}
+
+/* ── FOOTER LINKS ── */
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--void-border);
+  justify-content: center;
+}
+
+.foot-links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.foot-links a:hover {
+  color: var(--phosphorus);
+}
+
 /* ── ANIMATIONS ── */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -823,6 +1079,18 @@ footer {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── RESPONSIVE ── */
@@ -855,6 +1123,15 @@ footer {
   }
 
   .footer-legal { margin-left: 0; }
+
+  .economy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .element-card {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 480px) {

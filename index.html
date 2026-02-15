@@ -11,14 +11,17 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://phosphorus31.org">
   <meta name="twitter:card" content="summary">
-  <meta name="theme-color" content="#050510">
+  <meta name="theme-color" content="#050510"><!-- Required for browser theme; matches --void CSS variable -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#top" class="skip-link">Skip to main content</a>
 
   <!-- GEOMETRY CANVAS LAYERS -->
   <canvas id="mesh-bg" aria-hidden="true"></canvas>
@@ -27,12 +30,13 @@
   <!-- NAV -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">P<sup>31</sup></a>
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
       <div class="nav-links">
-        <a href="#stack">Stack</a>
-        <a href="#geometry">Geometry</a>
-        <a href="#why">Why</a>
-        <a href="#contact">Contact</a>
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
       </div>
     </div>
   </nav>
@@ -49,7 +53,7 @@
       </h1>
       <p class="hero-sub">Building the tools that don't exist yet — communication processing, sensory regulation, executive function support. Open source, offline-first, mesh-resilient. Built by the people who need them.</p>
       <div class="hero-actions">
-        <a href="https://github.com/trimtab-signal" class="btn btn-primary">View Source →</a>
+        <a href="https://github.com/p31labs" class="btn btn-primary">View Source →</a>
         <a href="#stack" class="btn btn-ghost">The Stack ↓</a>
       </div>
       <div class="hero-isotope" aria-hidden="true">
@@ -81,6 +85,13 @@
           <span class="metric-val">∞</span>
           <span class="metric-unit">offline uptime</span>
         </div>
+      </div>
+      <div class="element-card">
+        <div class="element-num">15</div>
+        <div class="element-symbol">P</div>
+        <div class="element-name">Phosphorus</div>
+        <div class="element-mass">30.974</div>
+        <div class="element-note">the only stable isotope</div>
       </div>
     </div>
   </section>
@@ -232,23 +243,66 @@
     </div>
   </section>
 
-  <!-- FOUNDER -->
-  <section id="founder" class="section section-dark">
+  <!-- ECONOMY -->
+  <section id="economy" class="section section-dark">
     <div class="container">
       <div class="section-header">
-        <span class="section-label">04 — Who</span>
+        <span class="section-label">04 — The Economy</span>
+        <h2>L.O.V.E. Ledger</h2>
+        <p>Ledger of Ontological Volume and Entropy. A game engine and wallet unified.<br>Proof of Care, not Proof of Work. The mesh holds.</p>
+      </div>
+
+      <div class="economy-grid">
+        <article class="economy-card">
+          <div class="economy-icon">🔺</div>
+          <h3>Founding Nodes</h3>
+          <p>50% of all LOVE tokens vest to the founding nodes. Immutable. Locked until sovereignty phase (age 18). The mesh protects its own.</p>
+          <div class="economy-metric">
+            <span class="economy-val">50%</span>
+            <span class="economy-label">Sovereignty Pool</span>
+          </div>
+        </article>
+
+        <article class="economy-card">
+          <div class="economy-icon">💜</div>
+          <h3>Proof of Care</h3>
+          <p>Verified presence + care tasks = LOVE earned. BLE proximity, HRV sync, discrete actions confirmed by child's device. Not surveillance — verification.</p>
+          <div class="economy-metric">
+            <span class="economy-val">50%</span>
+            <span class="economy-label">Performance Pool</span>
+          </div>
+        </article>
+
+        <article class="economy-card">
+          <div class="economy-icon">🦎</div>
+          <h3>Chameleon Mode</h3>
+          <p>Offline = IndexedDB ledger. Online = Base L2 settlement. Same wallet, two modes. The mesh adapts to connectivity.</p>
+          <div class="economy-metric">
+            <span class="economy-val">Base</span>
+            <span class="economy-label">L2 Chain</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">05 — Who</span>
         <h2>Built By Need</h2>
       </div>
 
       <div class="founder-content">
         <div class="founder-info">
-          <h3>Will Johnson</h3>
+          <h3>Will</h3>
           <p class="founder-title">Founder &amp; Principal Engineer</p>
-          <p>16 years as a federal submarine electrician. Diagnosed AuDHD in 2025 — after decades of building workarounds that turned out to be assistive technology prototypes. Now building them for real.</p>
+          <p>16 years as a DoD civilian specializing in power distribution systems. Diagnosed AuDHD in 2025 — after decades of building workarounds that turned out to be assistive technology prototypes. Now building them for real.</p>
           <p>P31 Labs is a Georgia 501(c)(3) nonprofit in formation, operating under Hack Club HCB fiscal sponsorship.</p>
         </div>
         <div class="founder-stack">
-          <div class="founder-tag">Submarine Electrical Systems</div>
+          <div class="founder-tag">Power Distribution Systems</div>
           <div class="founder-tag">Quantum Information Theory</div>
           <div class="founder-tag">Embedded Systems (ESP32)</div>
           <div class="founder-tag">Network Topology</div>
@@ -259,27 +313,56 @@
     </div>
   </section>
 
+  <!-- DONATE -->
+  <section id="donate" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">06 — Support</span>
+        <h2>Donate</h2>
+        <p>Every contribution strengthens the mesh. All donations support open-source development and hardware prototyping.</p>
+      </div>
+
+      <div class="donate-content">
+        <div class="donate-wallet">
+          <div class="wallet-label">Base L2 Wallet</div>
+          <div class="wallet-address" id="wallet-addr">0x90048cbb3CDCef200a54D6D336EbB4e0ce18d82c</div>
+          <button class="btn btn-primary" id="copy-wallet-btn" type="button" aria-label="Copy wallet address to clipboard">Copy Address</button>
+        </div>
+        <div class="donate-networks">
+          <span class="network-badge">Base</span>
+          <span class="network-badge">Ethereum</span>
+          <span class="network-badge">Optimism</span>
+        </div>
+        <p class="donate-note">Donations are not tax-deductible until 501(c)(3) determination is received. All funds support open-source development.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-label">05 — Connect</span>
+        <span class="section-label">07 — Connect</span>
         <h2>Join the Mesh</h2>
         <p>Every node strengthens the network.</p>
       </div>
 
       <div class="contact-grid">
-        <a href="mailto:will@p31ca.org" class="contact-link">
+        <a href="mailto:will@phosphorus31.org" class="contact-link">
           <span class="contact-icon">@</span>
-          <span>will@p31ca.org</span>
+          <span>will@phosphorus31.org</span>
         </a>
-        <a href="https://github.com/trimtab-signal" class="contact-link">
+        <a href="https://github.com/p31labs" class="contact-link">
           <span class="contact-icon">⌥</span>
-          <span>github.com/trimtab-signal</span>
+          <span>github.com/p31labs</span>
         </a>
-        <a href="https://zenodo.org/communities/p31" class="contact-link">
+        <a href="https://doi.org/10.5281/zenodo.18627420" class="contact-link">
           <span class="contact-icon">◎</span>
-          <span>zenodo.org/communities/p31</span>
+          <span>Zenodo DOI</span>
+        </a>
+        <a href="https://thegeodesicself.substack.com" class="contact-link">
+          <span class="contact-icon">📰</span>
+          <span>Substack</span>
         </a>
       </div>
     </div>
@@ -289,17 +372,30 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-left">
-          <span class="footer-logo">P<sup>31</sup> LABS</span>
-          <span class="footer-legal">Apache 2.0 · Georgia 501(c)(3) in formation</span>
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
         </div>
-        <div class="footer-right">
-          <span class="footer-tagline">It's okay to be a little wonky. 🔺</span>
-        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
       </div>
-      <div class="footer-formula" aria-hidden="true">
-        Ca₁₀(PO₄)₆(OH)₂ · The bone mineral that carries the signal. The only stable isotope. The mesh holds.
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
       </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
     </div>
   </footer>
 

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal · P31 Labs</title>
+  <meta name="description" content="Licenses, privacy policy, and nonprofit status for P31 Labs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .license-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .license-card {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+    }
+    .license-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--phosphorus);
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/legal/" aria-current="page">Legal</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Legal</h1>
+      <p class="hero-sub">Licenses, privacy, and nonprofit status.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <section>
+        <div class="section-header">
+          <span class="section-label">Licenses</span>
+          <h2>Open Source</h2>
+        </div>
+        <div class="license-grid">
+          <div class="license-card">
+            <h3>Software</h3>
+            <p><strong>Apache 2.0</strong></p>
+            <p>All software code is licensed under the Apache License, Version 2.0. You may use, modify, and distribute freely.</p>
+          </div>
+          <div class="license-card">
+            <h3>Hardware</h3>
+            <p><strong>CERN-OHL-S</strong></p>
+            <p>Hardware designs use the CERN Open Hardware Licence Strongly Reciprocal. Modifications must be shared under the same license.</p>
+          </div>
+          <div class="license-card">
+            <h3>Research</h3>
+            <p><strong>CC-BY-4.0</strong></p>
+            <p>Research publications and documentation use Creative Commons Attribution 4.0 International. Attribution required.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">Privacy</span>
+          <h2>Local-First</h2>
+          <p>P31 Labs does not collect, store, or transmit any personal data. All systems are local-first. No telemetry. No analytics. No surveillance.</p>
+        </div>
+        <div class="why-text">
+          <p><strong>Data Storage:</strong> All data lives on your devices first. Cloud sync is optional and encrypted.</p>
+          <p><strong>No Tracking:</strong> We do not use cookies, tracking pixels, or analytics services.</p>
+          <p><strong>No Collection:</strong> We do not collect email addresses, usage statistics, or any personal information.</p>
+          <p><strong>Open Source:</strong> All code is publicly auditable. You can verify our privacy claims by reading the source.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-label">Nonprofit Status</span>
+          <h2>501(c)(3) Formation</h2>
+          <p>P31 Labs is a Georgia nonprofit corporation in formation. Articles of Incorporation have been drafted. IRS Form 1023-EZ will be filed immediately after EIN issuance.</p>
+          <p>Until determination is received, P31 Labs operates under fiscal sponsorship through Hack Club HCB (The Hack Foundation, EIN 81-2908499). Donations are tax-deductible through this arrangement.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

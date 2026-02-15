@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node One · P31 Labs</title>
+  <meta name="description" content="ESP32-S3-based assistive device for sensory regulation and off-grid communication. Hardware specifications, BOM, and firmware architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .spec-card {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+    }
+    .spec-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--phosphorus);
+    }
+    .bom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+    }
+    .bom-table th,
+    .bom-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .bom-table th {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--phosphorus);
+    }
+    .bom-table td {
+      color: var(--white-dim);
+    }
+    .bom-table code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--calcium);
+      background: rgba(96, 165, 250, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/node-one/" aria-current="page">Node One</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Node One</h1>
+      <p class="hero-sub">ESP32-S3-based assistive device. Sensory regulation. Off-grid communication. The mesh holds.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <section>
+        <div class="section-header">
+          <span class="section-label">Hardware</span>
+          <h2>Specifications</h2>
+          <p>Open-source handheld for sensory regulation and off-grid communication. No internet required. No phone required. No permission required.</p>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-card">
+            <h3>ESP32-S3</h3>
+            <p>Dual-core Xtensa LX7 processor. 512KB SRAM. 8MB PSRAM. WiFi + Bluetooth 5.0. USB-C for programming and power.</p>
+          </div>
+          <div class="spec-card">
+            <h3>LoRa 915MHz</h3>
+            <p>SX1262 LoRa transceiver. 915MHz ISM band. Meshtastic firmware. Range: 1-10km line-of-sight. Mesh networking protocol.</p>
+          </div>
+          <div class="spec-card">
+            <h3>DRV2605L Haptic</h3>
+            <p>Linear resonant actuator (LRA) driver. "The Thick Click" haptic feedback. 8-bit waveform library. I2C interface.</p>
+          </div>
+          <div class="spec-card">
+            <h3>OLED Display</h3>
+            <p>128x64 monochrome OLED. SSD1306 controller. I2C interface. Low power consumption. High contrast.</p>
+          </div>
+          <div class="spec-card">
+            <h3>Battery</h3>
+            <p>18650 Li-ion cell. 3.7V nominal. 2500mAh capacity. USB-C charging. Power management IC.</p>
+          </div>
+          <div class="spec-card">
+            <h3>Shell</h3>
+            <p>3D-printed enclosure. PLA/PETG material. Tactile buttons. Haptic feedback zone. Weather-resistant design.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">Bill of Materials</span>
+          <h2>BOM</h2>
+        </div>
+        <table class="bom-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Part Number</th>
+              <th>Quantity</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MCU</td>
+              <td><code>ESP32-S3-DevKitC-1</code></td>
+              <td>1</td>
+              <td>Development board or custom PCB</td>
+            </tr>
+            <tr>
+              <td>LoRa Module</td>
+              <td><code>SX1262</code></td>
+              <td>1</td>
+              <td>915MHz ISM band</td>
+            </tr>
+            <tr>
+              <td>Haptic Driver</td>
+              <td><code>DRV2605L</code></td>
+              <td>1</td>
+              <td>LRA driver with waveform library</td>
+            </tr>
+            <tr>
+              <td>LRA</td>
+              <td><code>LRA-10mm</code></td>
+              <td>1</td>
+              <td>10mm linear resonant actuator</td>
+            </tr>
+            <tr>
+              <td>OLED Display</td>
+              <td><code>SSD1306 128x64</code></td>
+              <td>1</td>
+              <td>I2C interface, monochrome</td>
+            </tr>
+            <tr>
+              <td>Battery</td>
+              <td><code>18650 Li-ion</code></td>
+              <td>1</td>
+              <td>2500mAh, 3.7V nominal</td>
+            </tr>
+            <tr>
+              <td>Charging IC</td>
+              <td><code>TP4056</code></td>
+              <td>1</td>
+              <td>USB-C charging module</td>
+            </tr>
+            <tr>
+              <td>Buttons</td>
+              <td><code>Tactile 6x6mm</code></td>
+              <td>4</td>
+              <td>Momentary push buttons</td>
+            </tr>
+            <tr>
+              <td>Enclosure</td>
+              <td><code>3D Printed</code></td>
+              <td>1</td>
+              <td>PLA/PETG, custom design</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-label">Firmware</span>
+          <h2>Architecture</h2>
+        </div>
+        <div class="why-text">
+          <p><strong>Framework:</strong> ESP-IDF (Espressif IoT Development Framework). FreeRTOS-based. C/C++.</p>
+          <p><strong>Meshtastic:</strong> LoRa mesh networking protocol. Off-grid communication. No infrastructure required.</p>
+          <p><strong>Haptic Engine:</strong> DRV2605L driver with custom waveform library. "The Thick Click" haptic pattern for sensory regulation.</p>
+          <p><strong>Display Driver:</strong> SSD1306 OLED controller. Low-power mode. Status indicators. Menu system.</p>
+          <p><strong>Power Management:</strong> Deep sleep modes. Battery monitoring. USB-C charging detection.</p>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-header">
+          <span class="section-label">Regulatory</span>
+          <h2>FDA Pathway</h2>
+          <p>Node One is designed to meet <strong>21 CFR § 890.3710</strong> — Powered muscle stimulator. Class II medical device pathway.</p>
+          <p>Note: Haptic feedback for sensory regulation may fall under different classification. Regulatory strategy under development.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>

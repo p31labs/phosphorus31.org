@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games · P31 Labs</title>
+  <meta name="description" content="Interactive games for Founding Nodes. Breathing exercises, shape building, sequence memory, and particle catch.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .game-picker {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .game-btn {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      color: var(--white-dim);
+      cursor: pointer;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+    .game-btn:hover {
+      border-color: var(--phosphorus-dim);
+      color: var(--white);
+    }
+    .game-btn.active {
+      background: var(--phosphorus);
+      border-color: var(--phosphorus);
+      color: var(--void);
+    }
+    .game-container {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      min-height: 400px;
+    }
+    .breathing-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--phosphorus);
+      margin: 2rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--void);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .shape-builder {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: 10px;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .shape-dot {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--void-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .shape-dot.active {
+      background: var(--phosphorus);
+      box-shadow: 0 0 20px var(--phosphorus-glow);
+    }
+    .sequence-pad {
+      display: grid;
+      grid-template-columns: repeat(2, 150px);
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .sequence-btn {
+      width: 150px;
+      height: 150px;
+      border-radius: 8px;
+      border: 2px solid var(--void-border);
+      cursor: pointer;
+      font-size: 2rem;
+      transition: all 0.1s ease;
+    }
+    .sequence-btn.active {
+      transform: scale(0.95);
+      box-shadow: 0 0 30px var(--phosphorus-glow);
+    }
+    .particle-canvas {
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      display: block;
+      margin: 1rem auto;
+      background: var(--void);
+    }
+    .game-controls {
+      text-align: center;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/games/" aria-current="page">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Game Lab</h1>
+      <p class="hero-sub">Interactive games for Founding Nodes. Sensory regulation. Executive function. Fun.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="game-picker">
+        <button class="game-btn active" onclick="switchGame('breathing')">Breathing Bubble</button>
+        <button class="game-btn" onclick="switchGame('shape')">Shape Builder</button>
+        <button class="game-btn" onclick="switchGame('sequence')">Sequence Flash</button>
+        <button class="game-btn" onclick="switchGame('particle')">Particle Catch</button>
+      </div>
+
+      <div class="game-container" id="game-area">
+        <!-- Game content will be injected here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+  <script>
+    // Read brand colors from CSS variables (with fallback)
+    const getCSSVar = (varName) => {
+      if (document.documentElement) {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        if (val) return val;
+      }
+      // Fallback to CSS variable defaults (matches styles.css :root values)
+      const defaults = {
+        '--phosphorus': '#2ecc71', // var(--phosphorus) from styles.css
+        '--calcium': '#60a5fa'      // var(--calcium) from styles.css
+      };
+      return defaults[varName] || '';
+    };
+    const PHOSPHORUS = getCSSVar('--phosphorus');
+    const CALCIUM = getCSSVar('--calcium');
+
+    let currentGame = 'breathing';
+    let gameState = {};
+
+    function switchGame(game) {
+      currentGame = game;
+      document.querySelectorAll('.game-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGame();
+    }
+
+    function renderGame() {
+      const area = document.getElementById('game-area');
+      area.innerHTML = '';
+
+      if (currentGame === 'breathing') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1rem;">Breathing Bubble</h2>
+          <div class="game-controls">
+            <select id="breath-pattern" style="margin: 1rem; padding: 0.5rem; background: var(--void-up); border: 1px solid var(--void-border); color: var(--white); border-radius: 3px;">
+              <option value="box">Box 4-4-4-4</option>
+              <option value="relax">Relax 4-7-8</option>
+              <option value="calm">Calm 5-5</option>
+            </select>
+            <button class="btn btn-primary" onclick="startBreathing()">Start</button>
+          </div>
+          <div class="breathing-circle" id="breath-circle">Breathe</div>
+        `;
+      } else if (currentGame === 'shape') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1rem;">Shape Builder</h2>
+          <div class="game-controls">
+            <p style="text-align: center; color: var(--white-dim);">Tap dots to form triangles</p>
+          </div>
+          <div class="shape-builder" id="shape-grid"></div>
+          <div class="game-controls">
+            <button class="btn btn-primary" onclick="resetShape()">Reset</button>
+          </div>
+        `;
+        initShapeBuilder();
+      } else if (currentGame === 'sequence') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1rem;">Sequence Flash</h2>
+          <div class="game-controls">
+            <p id="seq-status" style="text-align: center; color: var(--white-dim);">Watch the sequence...</p>
+          </div>
+          <div class="sequence-pad" id="seq-pad"></div>
+          <div class="game-controls">
+            <button class="btn btn-primary" onclick="startSequence()">New Game</button>
+          </div>
+        `;
+        initSequence();
+      } else if (currentGame === 'particle') {
+        area.innerHTML = `
+          <h2 style="text-align: center; margin-bottom: 1rem;">Particle Catch</h2>
+          <canvas class="particle-canvas" id="particle-canvas" width="600" height="400" aria-hidden="true"></canvas>
+          <div class="game-controls">
+            <p id="particle-score" style="text-align: center; color: var(--white-dim);">Score: 0 | Lives: 3</p>
+            <button class="btn btn-primary" onclick="startParticle()">Start</button>
+          </div>
+        `;
+      }
+    }
+
+    function startBreathing() {
+      const pattern = document.getElementById('breath-pattern').value;
+      const circle = document.getElementById('breath-circle');
+      let phase = 0;
+      const patterns = {
+        box: [4, 4, 4, 4],
+        relax: [4, 7, 8],
+        calm: [5, 5]
+      };
+      const times = patterns[pattern];
+      let step = 0;
+      const interval = setInterval(() => {
+        const duration = times[step] * 1000;
+        const scale = step % 2 === 0 ? 1.5 : 1;
+        circle.style.transform = `scale(${scale})`;
+        circle.textContent = step % 2 === 0 ? 'Breathe In' : 'Breathe Out';
+        step = (step + 1) % times.length;
+      }, times[0] * 1000);
+      gameState.breathingInterval = interval;
+    }
+
+    function initShapeBuilder() {
+      const grid = document.getElementById('shape-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < 9; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'shape-dot';
+        dot.onclick = () => {
+          dot.classList.toggle('active');
+          checkTriangle();
+        };
+        grid.appendChild(dot);
+      }
+    }
+
+    function checkTriangle() {
+      // Simple triangle detection - check if 3 active dots form a triangle
+      const active = Array.from(document.querySelectorAll('.shape-dot.active'));
+      if (active.length >= 3) {
+        alert('Triangle formed!');
+        setTimeout(initShapeBuilder, 1000);
+      }
+    }
+
+    function resetShape() {
+      initShapeBuilder();
+    }
+
+    function initSequence() {
+      const pad = document.getElementById('seq-pad');
+      pad.innerHTML = '';
+      const colors = [PHOSPHORUS, CALCIUM, '#e74c3c', '#f39c12'];
+      colors.forEach((color, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'sequence-btn';
+        btn.style.background = color;
+        btn.onclick = () => handleSequenceClick(i);
+        pad.appendChild(btn);
+      });
+      gameState.sequence = [];
+      gameState.playerSequence = [];
+      gameState.waiting = false;
+    }
+
+    function startSequence() {
+      gameState.sequence = [];
+      gameState.playerSequence = [];
+      gameState.round = 0;
+      nextRound();
+    }
+
+    function nextRound() {
+      gameState.round++;
+      gameState.sequence.push(Math.floor(Math.random() * 4));
+      gameState.playerSequence = [];
+      gameState.waiting = true;
+      document.getElementById('seq-status').textContent = 'Watch...';
+      let idx = 0;
+      const showInterval = setInterval(() => {
+        if (idx >= gameState.sequence.length) {
+          clearInterval(showInterval);
+          gameState.waiting = false;
+          document.getElementById('seq-status').textContent = 'Your turn!';
+          return;
+        }
+        const btn = document.querySelectorAll('.sequence-btn')[gameState.sequence[idx]];
+        btn.classList.add('active');
+        setTimeout(() => btn.classList.remove('active'), 500);
+        idx++;
+      }, 800);
+    }
+
+    function handleSequenceClick(i) {
+      if (gameState.waiting) return;
+      const btn = document.querySelectorAll('.sequence-btn')[i];
+      btn.classList.add('active');
+      setTimeout(() => btn.classList.remove('active'), 200);
+      gameState.playerSequence.push(i);
+      if (gameState.playerSequence[gameState.playerSequence.length - 1] !== gameState.sequence[gameState.playerSequence.length - 1]) {
+        document.getElementById('seq-status').textContent = 'Wrong! Try again.';
+        setTimeout(() => startSequence(), 2000);
+        return;
+      }
+      if (gameState.playerSequence.length === gameState.sequence.length) {
+        document.getElementById('seq-status').textContent = `Round ${gameState.round} complete!`;
+        setTimeout(nextRound, 1500);
+      }
+    }
+
+    function startParticle() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let score = 0;
+      let lives = 3;
+      let particles = [];
+      let paddleX = canvas.width / 2;
+      let mouseX = paddleX;
+
+      canvas.onmousemove = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+      };
+
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        paddleX += (mouseX - paddleX) * 0.1;
+        ctx.fillStyle = PHOSPHORUS; // phosphorus green (from CSS variable)
+        ctx.fillRect(paddleX - 50, canvas.height - 20, 100, 10);
+
+        particles = particles.filter(p => {
+          p.y += p.vy;
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (p.y > canvas.height - 30 && p.x > paddleX - 50 && p.x < paddleX + 50) {
+            score++;
+            document.getElementById('particle-score').textContent = `Score: ${score} | Lives: ${lives}`;
+            return false;
+          }
+          if (p.y > canvas.height) {
+            lives--;
+            document.getElementById('particle-score').textContent = `Score: ${score} | Lives: ${lives}`;
+            if (lives <= 0) {
+              alert(`Game Over! Score: ${score}`);
+              particles = [];
+              score = 0;
+              lives = 3;
+            }
+            return false;
+          }
+          return true;
+        });
+
+        if (Math.random() < 0.02) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: 0,
+            vy: 2 + Math.random() * 2,
+            r: 5 + Math.random() * 10,
+            color: [PHOSPHORUS, CALCIUM, '#e74c3c', '#f39c12'][Math.floor(Math.random() * 4)]
+          });
+        }
+
+        requestAnimationFrame(update);
+      }
+      update();
+    }
+
+    renderGame();
+  </script>
+</body>
+</html>

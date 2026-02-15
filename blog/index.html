@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog · P31 Labs</title>
+  <meta name="description" content="Updates, announcements, and build logs from P31 Labs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .page-content {
+      padding: 4rem 0;
+    }
+    .post-list {
+      display: grid;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .post-card {
+      padding: 2rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .post-card:hover {
+      border-color: var(--phosphorus-dim);
+      box-shadow: 0 0 30px var(--phosphorus-glow);
+      transform: translateY(-2px);
+    }
+    .post-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--white-muted);
+      margin-bottom: 0.75rem;
+    }
+    .post-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .post-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--calcium-glow);
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      border-radius: 2px;
+      color: var(--calcium);
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="hero-sub">Updates, announcements, and build logs. The mesh grows.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <section>
+        <div class="post-list">
+          <article class="post-card">
+            <div class="post-meta">2026-02-15 · Announcement</div>
+            <h2 class="post-title">phosphorus31.org Launched</h2>
+            <p>The P31 Labs website is now live. 12 pages. Pure HTML/CSS/JS. Zero frameworks. Zero build tools. The geometry protects the signal.</p>
+            <div class="post-tags">
+              <span class="post-tag">Website</span>
+              <span class="post-tag">Launch</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">2026-02-14 · Technical</div>
+            <h2 class="post-title">Node One Firmware Progress</h2>
+            <p>ESP32-S3 firmware development continues. DRV2605L haptic engine integration complete. LoRa mesh networking in progress. 65% complete.</p>
+            <div class="post-tags">
+              <span class="post-tag">Hardware</span>
+              <span class="post-tag">Firmware</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">2026-02-10 · Publication</div>
+            <h2 class="post-title">Zenodo DOI Published</h2>
+            <p>Node One hardware specification published to Zenodo. DOI: 10.5281/zenodo.18627420. Defensive publication strategy in action.</p>
+            <div class="post-tags">
+              <span class="post-tag">Research</span>
+              <span class="post-tag">IP</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+  <script src="/main.js"></script>
+</body>
+</html>
