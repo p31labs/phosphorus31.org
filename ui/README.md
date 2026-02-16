@@ -2,6 +2,16 @@
 
 Dashboard and visualization layer for the P31 ecosystem. Shows network health, signal strength, and system status. Built with Vite, React, TypeScript, and Three.js.
 
+## ⚛️ Quantum-optimized
+
+- **QuantumCanvas** — Fisher–Escolà, tetrahedron trust geometry, golden-ratio spirals, coherence-driven particles.
+- **IVM lattice** — Isotropic vector matrix (Fuller) as 3D scaffold; `engine/ivm.ts`, IVMLatticePoints, IVMLatticeEdges.
+- **VoltageIcosahedron** — Buffer visualization; voltage-driven rotation, color (green → red), jitter at overload.
+- **MATA Demo Cockpit** — Timeline scrub (dysregulation → intervention → stability); spoon gauge, mesh log, 3D Buffer.
+- **Quantum store** — Zustand: coherence, phase, purity, entangled nodes, UI adaptation (glow, animation speed).
+- **Geodesic engine** — Message curvature/complexity; voltage and genre for ontological volume.
+- **Meta** — `index.html`: `p31:quantum-optimized`, title "P31 Scope · Quantum-Optimized Dashboard".
+
 ## 🚀 Features
 
 ### Core Development Infrastructure
@@ -31,10 +41,30 @@ Dashboard and visualization layer for the P31 ecosystem. Shows network health, s
 
 ## 📦 Installation
 
+**From the repo root (recommended for workspaces):**
+
+```bash
+cd C:\Users\sandra\Downloads\p31
+npm install --legacy-peer-deps
+```
+
+Then run the Scope:
+
 ```bash
 cd ui
-npm install
+npm run dev
 ```
+
+**If you see `Cannot find module '../caching.js'` (Babel):** The root `package.json` pins `@babel/core` and the UI declares it explicitly. Do a clean reinstall: close any running dev servers and terminals, then from the repo root run:
+
+```powershell
+Remove-Item -Recurse -Force node_modules, ui\node_modules, cognitive-shield\node_modules -ErrorAction SilentlyContinue
+Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue
+npm install --legacy-peer-deps
+cd ui; npm run dev
+```
+
+**If you see ERESOLVE / peer dependency conflicts:** Use `npm install --legacy-peer-deps` from the repo root. The root has `installConfig.legacyPeerDeps: true` so a plain `npm install` may also work.
 
 ## 🏃‍♂️ Running the Development Server
 
@@ -67,6 +97,12 @@ ui/
 ├── vite.config.ts
 └── tsconfig.json
 ```
+
+## 🌍 Quantum Geodesic Platform
+
+- **World Builder** — Code (P31 language) or visual mode; geodesic analysis (stability, Maxwell's rule, weak points); coherence HUD.
+- **Colyseus (optional)** — Multiplayer sync. Set `VITE_COLYSEUS_URL` in `.env` (see `.env.example`). Install `colyseus.js` for the client; run the Colyseus server from `../server` with the GeodesicRoom.
+- **Geodesic WASM (optional)** — From repo root: `cd geodesic-engine && wasm-pack build --target web`, then copy `pkg/` to `ui/src/geodesic-engine`. The app uses JS `engine/structure-analysis.ts` by default; you can switch the hook to the WASM module for heavier workloads.
 
 ## 🔧 Configuration
 
@@ -167,9 +203,13 @@ The project uses CSS-in-JS with styled-components for:
    ```bash
    npm run build
    ```
+   For a subpath (e.g. GitHub Pages at `username.github.io/p31`):  
+   `VITE_BASE_PATH=/p31/ npm run build`
 
-2. The build output is in the `dist/` directory
-3. Deploy to any static hosting service (Netlify, Vercel, etc.)
+2. The build output is in the `dist/` directory.
+3. Deploy to any static hosting service (Netlify, Vercel, GitHub Pages, Cloudflare Pages).
+
+**GitHub Pages & Cloudflare Pages:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for base path, SPA fallback (404.html / `_redirects`), and wallet graceful degradation.
 
 ## 🤝 Contributing
 
