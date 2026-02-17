@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node One · P31 Labs</title>
+  <meta name="description" content="Detailed hardware documentation and specifications for Node One — the core mesh networking device.">
+  <meta property="og:title" content="Node One · P31 Labs">
+  <meta property="og:description" content="Detailed hardware documentation and specifications for Node One — the core mesh networking device.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Page‑specific node‑one styles */
+    .hero-diagram {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+      background: rgba(10, 10, 20, 0.4);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid #1e293b;
+    }
+    .hero-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .spec-table th {
+      background: #0f1a14;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #2ecc71;
+      text-align: left;
+      border-bottom: 1px solid #1e293b;
+    }
+    .spec-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #1e293b;
+      color: #e2e8f0;
+    }
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+    .spec-table td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      color: #94a3b8;
+      width: 30%;
+    }
+    .regulatory-box {
+      background: rgba(96, 165, 250, 0.05);
+      border: 1px solid #60a5fa;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .regulatory-box h3 {
+      color: #60a5fa;
+      margin-bottom: 1rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-production { background: #2ecc71; color: #050510; }
+    .status-beta { background: #60a5fa; color: #050510; }
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .use-case-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+    }
+    .use-case-card h3 {
+      margin-bottom: 0.5rem;
+      color: #2ecc71;
+    }
+    .btn-download {
+      background: transparent;
+      border: 1px solid #2ecc71;
+      color: #2ecc71;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-download:hover,
+    .btn-download:focus {
+      background: #2ecc71;
+      color: #050510;
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Hardware</span>
+          <h1>Node One</h1>
+          <p>The core mesh networking device — ESP32‑S3, LoRa, haptics, and privacy by design.</p>
+        </div>
+
+        <!-- Hero diagram (SVG placeholder) -->
+        <div class="hero-diagram" aria-label="Technical diagram of Node One hardware">
+          <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+            <rect x="150" y="50" width="300" height="200" rx="20" fill="#0a0a1a" stroke="#2ecc71" stroke-width="2"/>
+            <!-- ESP32 label -->
+            <text x="300" y="100" font-family="'JetBrains Mono', monospace" font-size="14" fill="#2ecc71" text-anchor="middle">ESP32‑S3</text>
+            <!-- LoRa -->
+            <rect x="200" y="120" width="80" height="40" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+            <text x="240" y="147" font-family="'JetBrains Mono', monospace" font-size="10" fill="#60a5fa" text-anchor="middle">LoRa</text>
+            <!-- Haptics -->
+            <rect x="320" y="120" width="80" height="40" rx="8" fill="#1e293b" stroke="#ff9f43" stroke-width="1.5"/>
+            <text x="360" y="147" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ff9f43" text-anchor="middle">DRV2605L</text>
+            <!-- Antenna -->
+            <line x1="450" y1="100" x2="520" y2="60" stroke="#e2e8f0" stroke-width="2"/>
+            <circle cx="530" cy="55" r="12" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+            <text x="530" y="60" font-family="'JetBrains Mono', monospace" font-size="8" fill="#e2e8f0" text-anchor="middle">ANT</text>
+          </svg>
+        </div>
+
+        <!-- Specifications table -->
+        <section aria-labelledby="specs-heading">
+          <h2 id="specs-heading" class="section-header">Technical Specifications</h2>
+          <table class="spec-table">
+            <thead>
+              <tr><th colspan="2">Node One v0.2</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>MCU</td><td>ESP32‑S3 (dual‑core Xtensa LX7, up to 240 MHz)</td></tr>
+              <tr><td>Memory</td><td>512 KB SRAM, 8 MB PSRAM, 16 MB flash</td></tr>
+              <tr><td>Wireless</td><td>LoRa 915 MHz (SX1262), BLE 5.0, NFC</td></tr>
+              <tr><td>Haptics</td><td>DRV2605L with LRA motor</td></tr>
+              <tr><td>Display</td><td>1.3" OLED (128x64) or E‑Ink (optional)</td></tr>
+              <tr><td>Power</td><td>2000 mAh Li‑Po, USB‑C charging</td></tr>
+              <tr><td>Dimensions</td><td>95 × 60 × 15 mm</td></tr>
+              <tr><td>Weight</td><td>85 g</td></tr>
+              <tr><td>Operating temp</td><td>-10°C to 50°C</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Regulatory information -->
+        <section aria-labelledby="regulatory-heading" class="regulatory-box">
+          <h3 id="regulatory-heading">Regulatory Compliance</h3>
+          <p>Node One is designed as a wellness device under <strong>21 CFR § 890.3710</strong> (Powered communication system). It is not a medical device and does not require FDA clearance. Compliance with FCC Part 15 and Industry Canada RSS‑247 is pending.</p>
+          <p style="margin-top: 1rem;"><span class="status-badge status-beta">Regulatory review in progress</span></p>
+        </section>
+
+        <!-- Development status -->
+        <section aria-labelledby="status-heading">
+          <h2 id="status-heading" class="section-header">Development Status</h2>
+          <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1rem; padding: 1.5rem;">
+            <p><span class="status-badge status-production">Production ready</span> <span style="margin-left: 1rem;">First batch of 1000 units in manufacturing (Q1 2026).</span></p>
+            <p>Firmware: v0.2.1 stable. Features: mesh networking, haptic patterns, BLE configuration, and OTA updates.</p>
+            <div style="margin-top: 1rem;">
+              <a href="https://github.com/p31labs/node-one-firmware" target="_blank" rel="noopener" class="btn-download">GitHub Firmware →</a>
+              <a href="/docs/node-one/" class="btn-download" style="margin-left: 1rem;">Documentation →</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Use cases -->
+        <section aria-labelledby="use-cases-heading">
+          <h2 id="use-cases-heading" class="section-header">Use Cases</h2>
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <h3>🧠 Neurodivergent Support</h3>
+              <p>Custom haptic cues for routine reminders, grounding exercises, and environmental awareness.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>🌐 Mesh Messaging</h3>
+              <p>Off‑grid communication for communities, events, or emergency preparedness.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>📡 Environmental Sensing</h3>
+              <p>Add sensors for air quality, temperature, or motion – data shared via mesh.</p>
+            </div>
+            <div class="use-case-card">
+              <h3>🎮 Accessible Gaming</h3>
+              <p>Use haptic feedback and simple buttons for inclusive game controllers.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Purchase / build information -->
+        <section aria-labelledby="purchase-heading" style="margin-top: 3rem;">
+          <h2 id="purchase-heading" class="section-header">Get Node One</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+            <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1.5rem; padding: 2rem; text-align: center; flex: 1 1 250px;">
+              <h3 style="color: #2ecc71;">Pre‑order</h3>
+              <p style="font-size: 2rem; margin: 0.5rem 0;">$129</p>
+              <p>Estimated shipping: April 2026</p>
+              <a href="#" class="btn btn-primary" aria-disabled="true">Sold out (first batch)</a>
+            </div>
+            <div style="background: rgba(10,10,20,0.6); border: 1px solid #1e293b; border-radius: 1.5rem; padding: 2rem; text-align: center; flex: 1 1 250px;">
+              <h3 style="color: #60a5fa;">DIY Build</h3>
+              <p>Open‑source hardware files and BOM.</p>
+              <a href="https://github.com/p31labs/node-one-hardware" target="_blank" rel="noopener" class="btn-download">GitHub Hardware →</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/" aria-current="page">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for node‑one page -->
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "@p31/web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "phosphorus31.org — P31 Labs static site",
+  "author": "P31 Labs, Inc.",
+  "license": "MIT",
+  "homepage": "https://phosphorus31.org",
+  "scripts": {
+    "build": "node -e \"console.log('Static site; no build step. Use as-is for Cloudflare Pages.')\"",
+    "dev": "npx serve . -l 8000",
+    "preview": "npx serve . -l 8000"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Guides · P31 Labs</title>
+  <meta name="description" content="Setting up the toolchain, building from source, and contributing to P31 Labs.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .guide-card { background: rgba(10, 10, 20, 0.6); border: 1px solid #1e293b; border-radius: 1.5rem; padding: 1.5rem; transition: border-color 0.2s; }
+    .guide-card:hover { border-color: #2ecc71; }
+    .guide-card h3 { margin-top: 0; }
+    .guide-card .btn { display: inline-block; margin-top: 0.75rem; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding: 4rem 1.5rem; max-width: 900px; margin: 0 auto;">
+    <a href="/docs/">← Documentation</a>
+    <h1 style="margin-top: 1rem;">Development Guides</h1>
+    <p class="hero-sub" style="margin-bottom: 2rem;">Setting up the toolchain, building from source, and contributing.</p>
+
+    <div class="guide-grid">
+      <article class="guide-card">
+        <h3>For developers</h3>
+        <p>Clone the repo, install dependencies, run the Scope and Buffer locally.</p>
+        <a href="/docs/" class="btn btn-ghost">Start coding →</a>
+      </article>
+      <article class="guide-card">
+        <h3>For users</h3>
+        <p>Get started with P31 Compass, Node One, and the Buffer.</p>
+        <a href="/node-one/" class="btn btn-ghost">Get started →</a>
+      </article>
+      <article class="guide-card">
+        <h3>For educators</h3>
+        <p>Teaching resources and accessibility notes.</p>
+        <a href="/education/" class="btn btn-ghost">Learn →</a>
+      </article>
+    </div>
+
+    <p style="color: #64748b; font-size: 0.95rem;">More guides and API reference are linked from the <a href="/docs/">main Docs</a> page.</p>
+  </main>
+</body>
+</html>

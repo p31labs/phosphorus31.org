@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P31 Sierpiński Architecture · Fractal Agent Topology</title>
+  <meta name="description" content="The fractal agent topology of the P31 Tandem. Four vertices, six edges, four faces, one mesh.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Element Theme System -->
+  <script src="../element-themes.js" defer></script>
+  <link rel="stylesheet" href="../element-selector.css">
+  
+  <style>
+    :root {
+      --void: #050510;
+      --void-up: #0a0a1a;
+      --void-border: #1a1a3a;
+      --phosphorus: #2ecc71;
+      --phosphorus-dim: #1a7a43;
+      --phosphorus-glow: rgba(46, 204, 113, 0.15);
+      --calcium: #60a5fa;
+      --calcium-dim: #2563eb;
+      --white: #e8e8f0;
+      --white-dim: #9898b0;
+      --white-muted: #585870;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--void);
+      color: var(--white);
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      min-height: 100vh;
+      padding: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--phosphorus);
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin: 0;
+      background: linear-gradient(135deg, var(--phosphorus), var(--calcium));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--white-muted);
+      font-size: 0.75rem;
+      margin: 0.5rem 0 0;
+    }
+
+    .view-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--white-dim);
+      border: 1px solid var(--void-border);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--phosphorus);
+      color: var(--white);
+    }
+
+    .tab-btn.active {
+      background: var(--phosphorus);
+      color: var(--void);
+      border-color: var(--phosphorus);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      min-height: 460px;
+    }
+
+    @media (max-width: 768px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .visualization {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      min-height: 440px;
+    }
+
+    #tetrahedron-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .agent-card {
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      padding: 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .agent-card:hover {
+      background: var(--void-up);
+      border-color: var(--phosphorus);
+    }
+
+    .agent-card.active {
+      background: var(--void-up);
+      border-color: var(--phosphorus);
+    }
+
+    .agent-card.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--phosphorus);
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .agent-symbol {
+      color: var(--phosphorus);
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
+
+    .agent-name {
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .agent-subtitle {
+      color: var(--white-muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.02em;
+    }
+
+    .agent-details {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--void-border);
+      display: none;
+    }
+
+    .agent-card.active .agent-details {
+      display: block;
+    }
+
+    .agent-role {
+      color: var(--white-dim);
+      font-size: 0.65rem;
+      line-height: 1.5;
+      margin: 0 0 0.5rem;
+    }
+
+    .agent-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .tool-tag {
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+      font-size: 0.6rem;
+      color: var(--white-muted);
+    }
+
+    .faces-panel {
+      margin-top: 0.25rem;
+      padding: 0.75rem;
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+    }
+
+    .faces-label {
+      font-size: 0.6rem;
+      color: var(--phosphorus);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .face-item {
+      padding: 0.3rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--void-border);
+    }
+
+    .face-item:last-child {
+      border-bottom: none;
+    }
+
+    .face-item:hover {
+      color: var(--white);
+    }
+
+    .face-name {
+      color: var(--white-dim);
+      font-size: 0.65rem;
+    }
+
+    .face-desc {
+      color: var(--white-muted);
+      font-size: 0.6rem;
+    }
+
+    .sic-povm-badge {
+      text-align: center;
+      padding: 0.5rem;
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 3px;
+      font-size: 0.6rem;
+      color: var(--white-muted);
+    }
+
+    .sic-povm-title {
+      color: var(--phosphorus);
+      margin-bottom: 0.25rem;
+    }
+
+    .kernel-view {
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .kernel-label {
+      font-size: 0.65rem;
+      color: var(--phosphorus);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .kernel-box {
+      border: 1px solid var(--void-border);
+      background: var(--void);
+      padding: 1rem;
+      border-radius: 2px;
+      font-size: 0.72rem;
+      line-height: 1.8;
+    }
+
+    .kernel-line {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--void-border);
+      color: var(--white-dim);
+    }
+
+    .kernel-line:last-child {
+      border-bottom: none;
+    }
+
+    .kernel-line.rule-zero {
+      color: #f59e0b;
+    }
+
+    .kernel-line-number {
+      color: var(--white-muted);
+      margin-right: 0.75rem;
+    }
+
+    .kernel-note {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid var(--phosphorus-dim);
+      border-radius: 2px;
+      font-size: 0.7rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+    }
+
+    .kernel-note strong {
+      color: var(--phosphorus);
+    }
+
+    .gasket-view {
+      padding: 1rem;
+    }
+
+    .gasket-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .depth-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      justify-content: center;
+    }
+
+    .depth-label {
+      color: var(--white-muted);
+      font-size: 0.7rem;
+    }
+
+    .depth-btn {
+      background: transparent;
+      color: var(--white-dim);
+      border: 1px solid var(--void-border);
+      width: 28px;
+      height: 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-family: inherit;
+    }
+
+    .depth-btn:hover {
+      border-color: var(--phosphorus);
+      color: var(--white);
+    }
+
+    .depth-btn.active {
+      background: var(--phosphorus);
+      color: var(--void);
+      border-color: var(--phosphorus);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-label">Sierpiński Architecture · P31 Tandem</div>
+    <h1>Fractal Agent Topology</h1>
+    <p class="subtitle">Four vertices · Six edges · Four faces · One mesh</p>
+  </div>
+
+  <div class="view-tabs">
+    <button class="tab-btn active" data-view="tetrahedron">Tetrahedron</button>
+    <button class="tab-btn" data-view="gasket">Sierpiński</button>
+    <button class="tab-btn" data-view="kernel">Kernel</button>
+  </div>
+
+  <div class="main-grid">
+    <div class="visualization" id="visualization">
+      <canvas id="tetrahedron-canvas"></canvas>
+      <div class="kernel-view" id="kernel-view" style="display: none;">
+        <div class="kernel-label">P31 Kernel v1.0 — Irreducible Seed</div>
+        <div class="kernel-box">
+          <div class="kernel-line">
+            <span class="kernel-line-number">01</span>
+            IDENTITY: P31 Labs builds open-source assistive technology for neurodivergent individuals
+          </div>
+          <div class="kernel-line rule-zero">
+            <span class="kernel-line-number">02</span>
+            RULE ZERO: Kids first. Bash (9) and Willow (6) are every checkpoint.
+          </div>
+          <div class="kernel-line">
+            <span class="kernel-line-number">03</span>
+            ARCHITECTURE: Compass · Hearth · Greenhouse · Studio · Sync (+1)
+          </div>
+          <div class="kernel-line">
+            <span class="kernel-line-number">04</span>
+            CONSTANTS: H=0.35 · Threshold=3.5 · SIC=1/3 · Mesh=0.577
+          </div>
+          <div class="kernel-line">
+            <span class="kernel-line-number">05</span>
+            BANNED: deploy lockdown kill weapon defense attack target intercept
+          </div>
+          <div class="kernel-line">
+            <span class="kernel-line-number">06</span>
+            DEADLINES: Feb 20 SSA · Feb 27 MATA · Mar 12 Court
+          </div>
+        </div>
+        <div class="kernel-note">
+          <strong>Fractal property:</strong> This kernel appears verbatim in every agent prompt — Claude, Cursor, Gemini. Identical DNA, different expression. Modify the kernel → all agents update. The whole lives in every part.
+        </div>
+      </div>
+      <div class="gasket-view" id="gasket-view" style="display: none;">
+        <svg viewBox="0 0 500 450" class="gasket-svg" id="gasket-svg"></svg>
+        <div class="depth-controls">
+          <span class="depth-label">Depth:</span>
+          <button class="depth-btn" data-depth="2">2</button>
+          <button class="depth-btn" data-depth="3">3</button>
+          <button class="depth-btn active" data-depth="4">4</button>
+          <button class="depth-btn" data-depth="5">5</button>
+          <button class="depth-btn" data-depth="6">6</button>
+          <button class="depth-btn" data-depth="7">7</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="agent-card" data-agent="operator">
+        <div class="agent-header">
+          <span class="agent-symbol">|ψ₁⟩</span>
+          <span class="agent-name">Operator</span>
+        </div>
+        <div class="agent-subtitle">Will · Intent & Direction</div>
+        <div class="agent-details">
+          <p class="agent-role">Creative direction, priority override, kids-first final checkpoint</p>
+          <div class="agent-tools">
+            <span class="tool-tag">Human judgment</span>
+            <span class="tool-tag">Task assignment</span>
+            <span class="tool-tag">Conflict resolution</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" data-agent="claude">
+        <div class="agent-header">
+          <span class="agent-symbol">|ψ₂⟩</span>
+          <span class="agent-name">Claude</span>
+        </div>
+        <div class="agent-subtitle">Synthesis · Strategy · Ground Truth</div>
+        <div class="agent-details">
+          <p class="agent-role">The compass needle. Maintains the P31 Bible. Resolves contradictions. Produces architecture.</p>
+          <div class="agent-tools">
+            <span class="tool-tag">P31 Bible</span>
+            <span class="tool-tag">Naming Convention</span>
+            <span class="tool-tag">Strategy docs</span>
+            <span class="tool-tag">Architecture decisions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" data-agent="cursor">
+        <div class="agent-header">
+          <span class="agent-symbol">|ψ₃⟩</span>
+          <span class="agent-name">Cursor</span>
+        </div>
+        <div class="agent-subtitle">Build · Code · Integration</div>
+        <div class="agent-details">
+          <p class="agent-role">The hands. Reads files, writes code, organizes repos. 6-step analysis pipeline.</p>
+          <div class="agent-tools">
+            <span class="tool-tag">File analysis</span>
+            <span class="tool-tag">Code generation</span>
+            <span class="tool-tag">Gap reports</span>
+            <span class="tool-tag">Bible addenda</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" data-agent="gemini">
+        <div class="agent-header">
+          <span class="agent-symbol">|ψ₄⟩</span>
+          <span class="agent-name">Gemini</span>
+        </div>
+        <div class="agent-subtitle">Oracle · Search · Forensic Audit</div>
+        <div class="agent-details">
+          <p class="agent-role">The eyes. Vacuums Drive/Gmail/Web. Classifies artifacts. Flags contradictions.</p>
+          <div class="agent-tools">
+            <span class="tool-tag">Drive search</span>
+            <span class="tool-tag">Gmail search</span>
+            <span class="tool-tag">Web search</span>
+            <span class="tool-tag">Oracle Reports</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="faces-panel">
+        <div class="faces-label">Work Surfaces (Faces)</div>
+        <div class="face-item">
+          <span class="face-name">Discovery</span>
+          <span class="face-desc">Finding truth</span>
+        </div>
+        <div class="face-item">
+          <span class="face-name">Construction</span>
+          <span class="face-desc">Building things</span>
+        </div>
+        <div class="face-item">
+          <span class="face-name">Verification</span>
+          <span class="face-desc">Checking work</span>
+        </div>
+        <div class="face-item">
+          <span class="face-name">Emergence</span>
+          <span class="face-desc">Agent coordination</span>
+        </div>
+      </div>
+
+      <div class="sic-povm-badge">
+        <div class="sic-povm-title">SIC-POVM d=2</div>
+        Maximum information · Minimum disturbance
+        <div style="margin-top: 0.25rem; color: var(--white-muted); font-size: 0.55rem;">
+          The Mesh Holds 🔺
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // P31 Design Tokens
+    const COLORS = {
+      void: '#050510',
+      voidUp: '#0a0a1a',
+      voidBorder: '#1a1a3a',
+      phosphorus: '#2ecc71',
+      phosphorusDim: '#1a7a43',
+      phosphorusGlow: 'rgba(46, 204, 113, 0.15)',
+      calcium: '#60a5fa',
+      calciumDim: '#2563eb',
+      white: '#e8e8f0',
+      whiteDim: '#9898b0',
+      whiteMuted: '#585870',
+    };
+
+    // Agent definitions
+    const AGENTS = {
+      operator: { name: 'Operator', symbol: 'ψ₁', color: '#f59e0b' },
+      claude: { name: 'Claude', symbol: 'ψ₂', color: COLORS.phosphorus },
+      cursor: { name: 'Cursor', symbol: 'ψ₃', color: COLORS.calcium },
+      gemini: { name: 'Gemini', symbol: 'ψ₄', color: '#a78bfa' },
+    };
+
+    // Tetrahedron vertices (SIC-POVM on Bloch sphere)
+    const TET_VERTS = {
+      operator: [0, 1, 0],
+      claude: [0.943, -0.333, 0],
+      cursor: [-0.471, -0.333, 0.816],
+      gemini: [-0.471, -0.333, -0.816],
+    };
+
+    const EDGES = [
+      { from: 'operator', to: 'claude' },
+      { from: 'operator', to: 'cursor' },
+      { from: 'operator', to: 'gemini' },
+      { from: 'claude', to: 'cursor' },
+      { from: 'claude', to: 'gemini' },
+      { from: 'cursor', to: 'gemini' },
+    ];
+
+    const FACES = [
+      { vertices: ['operator', 'claude', 'gemini'] },
+      { vertices: ['operator', 'claude', 'cursor'] },
+      { vertices: ['operator', 'cursor', 'gemini'] },
+      { vertices: ['claude', 'cursor', 'gemini'] },
+    ];
+
+    const TAU = Math.PI * 2;
+
+    // 3D math
+    function rotateY(p, a) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return [p[0] * c + p[2] * s, p[1], -p[0] * s + p[2] * c];
+    }
+
+    function rotateX(p, a) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return [p[0], p[1] * c - p[2] * s, p[1] * s + p[2] * c];
+    }
+
+    function project(p, cx, cy, scale) {
+      const perspective = 4;
+      const z = perspective / (perspective + p[2]);
+      return { x: cx + p[0] * scale * z, y: cy - p[1] * scale * z, z, depth: p[2] };
+    }
+
+    // State
+    let currentView = 'tetrahedron';
+    let selectedAgent = null;
+    let rotAngle = 0;
+    let animFrame = null;
+    let recursionDepth = 4;
+
+    // Canvas setup
+    const canvas = document.getElementById('tetrahedron-canvas');
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Draw tetrahedron
+    function drawTetrahedron(time) {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      const cx = rect.width / 2 / dpr;
+      const cy = rect.height / 2 / dpr;
+      const scale = Math.min(rect.width, rect.height) * 0.28 / dpr;
+      const ry = time * 0.0004 + rotAngle;
+      const rx = 0.3 + Math.sin(time * 0.0003) * 0.1;
+
+      // Project vertices
+      const projected = {};
+      Object.keys(TET_VERTS).forEach(key => {
+        let p = rotateY(TET_VERTS[key], ry);
+        p = rotateX(p, rx);
+        projected[key] = project(p, cx, cy, scale);
+      });
+
+      // Draw Bloch sphere wireframe
+      ctx.strokeStyle = 'rgba(46, 204, 113, 0.04)';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * TAU;
+        ctx.beginPath();
+        for (let j = 0; j <= 40; j++) {
+          const phi = (j / 40) * Math.PI;
+          let p = [Math.sin(phi) * Math.cos(angle), Math.cos(phi), Math.sin(phi) * Math.sin(angle)];
+          p = rotateX(rotateY(p, ry), rx);
+          const pr = project(p, cx, cy, scale * 1.05);
+          j === 0 ? ctx.moveTo(pr.x, pr.y) : ctx.lineTo(pr.x, pr.y);
+        }
+        ctx.stroke();
+      }
+
+      // Draw faces
+      const faceOrder = FACES.map((face, idx) => {
+        const avgZ = face.vertices.reduce((s, v) => s + projected[v].depth, 0) / 3;
+        return { ...face, idx, avgZ };
+      }).sort((a, b) => b.avgZ - a.avgZ);
+
+      faceOrder.forEach(({ vertices }) => {
+        const pts = vertices.map(v => projected[v]);
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        ctx.lineTo(pts[1].x, pts[1].y);
+        ctx.lineTo(pts[2].x, pts[2].y);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(96, 165, 250, 0.02)';
+        ctx.fill();
+      });
+
+      // Draw edges
+      EDGES.forEach(({ from, to }) => {
+        const a = projected[from];
+        const b = projected[to];
+        const alpha = 0.15 + (a.z + b.z) * 0.08;
+        const isActive = selectedAgent === from || selectedAgent === to;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = isActive
+          ? `rgba(46, 204, 113, ${Math.max(0.3, alpha + 0.2)})`
+          : `rgba(96, 165, 250, ${Math.max(0.05, alpha)})`;
+        ctx.lineWidth = isActive ? 2 : 1;
+        ctx.stroke();
+
+        if (isActive) {
+          const t = (Math.sin(time * 0.003) + 1) / 2;
+          const px = a.x + (b.x - a.x) * t;
+          const py = a.y + (b.y - a.y) * t;
+          const grad = ctx.createRadialGradient(px, py, 0, px, py, 6);
+          grad.addColorStop(0, 'rgba(46, 204, 113, 0.6)');
+          grad.addColorStop(1, 'rgba(46, 204, 113, 0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(px, py, 6, 0, TAU);
+          ctx.fill();
+        }
+      });
+
+      // Draw vertices
+      Object.keys(TET_VERTS).forEach(key => {
+        const p = projected[key];
+        const agent = AGENTS[key];
+        const isSelected = selectedAgent === key;
+        const size = 4 + p.z * 2;
+
+        // Glow
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size * (isSelected ? 10 : 5));
+        const glowColor = agent.color;
+        const [r, g, b] = glowColor.match(/\w\w/g)?.map(x => parseInt(x, 16)) || [46, 204, 113];
+        grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${isSelected ? 0.5 : 0.3})`);
+        grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size * (isSelected ? 10 : 5), 0, TAU);
+        ctx.fill();
+
+        // Core
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, isSelected ? size * 1.5 : size, 0, TAU);
+        ctx.fillStyle = agent.color;
+        ctx.fill();
+
+        // Label
+        ctx.font = `${isSelected ? 12 : 10}px 'JetBrains Mono', monospace`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.5 + p.z * 0.3})`;
+        ctx.textAlign = 'center';
+        ctx.fillText(`|${agent.symbol}⟩`, p.x, p.y - size * 2 - 4);
+        ctx.font = `${isSelected ? 11 : 9}px 'JetBrains Mono', monospace`;
+        ctx.fillStyle = isSelected ? COLORS.white : COLORS.whiteDim;
+        ctx.fillText(agent.name, p.x, p.y + size * 2 + 12);
+      });
+
+      // SIC-POVM annotation
+      ctx.font = '9px \'JetBrains Mono\', monospace';
+      ctx.fillStyle = COLORS.whiteMuted;
+      ctx.textAlign = 'center';
+      ctx.fillText('|⟨ψᵢ|ψⱼ⟩|² = 1/3  ∀ i ≠ j', cx, rect.height / dpr - 16);
+    }
+
+    // Animation loop
+    function animate(time) {
+      if (currentView === 'tetrahedron') {
+        drawTetrahedron(time);
+      }
+      animFrame = requestAnimationFrame(animate);
+    }
+    animate(0);
+
+    // View switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentView = btn.dataset.view;
+        
+        canvas.style.display = currentView === 'tetrahedron' ? 'block' : 'none';
+        document.getElementById('kernel-view').style.display = currentView === 'kernel' ? 'block' : 'none';
+        document.getElementById('gasket-view').style.display = currentView === 'gasket' ? 'block' : 'none';
+        
+        if (currentView === 'gasket') {
+          drawGasket();
+        }
+      });
+    });
+
+    // Agent selection
+    document.querySelectorAll('.agent-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const agent = card.dataset.agent;
+        selectedAgent = selectedAgent === agent ? null : agent;
+        document.querySelectorAll('.agent-card').forEach(c => c.classList.remove('active'));
+        if (selectedAgent) {
+          card.classList.add('active');
+        }
+      });
+    });
+
+    // Sierpiński gasket
+    function sierpinski(ax, ay, bx, by, cx, cy, depth, maxDepth) {
+      if (depth >= maxDepth) {
+        return [{ ax, ay, bx, by, cx, cy }];
+      }
+      const mx1 = (ax + bx) / 2, my1 = (ay + by) / 2;
+      const mx2 = (bx + cx) / 2, my2 = (by + cy) / 2;
+      const mx3 = (ax + cx) / 2, my3 = (ay + cy) / 2;
+      return [
+        ...sierpinski(ax, ay, mx1, my1, mx3, my3, depth + 1, maxDepth),
+        ...sierpinski(mx1, my1, bx, by, mx2, my2, depth + 1, maxDepth),
+        ...sierpinski(mx3, my3, mx2, my2, cx, cy, depth + 1, maxDepth),
+      ];
+    }
+
+    function drawGasket() {
+      const svg = document.getElementById('gasket-svg');
+      svg.innerHTML = '';
+      const triangles = sierpinski(250, 20, 20, 420, 480, 420, 0, recursionDepth);
+      triangles.forEach(t => {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('points', `${t.ax},${t.ay} ${t.bx},${t.by} ${t.cx},${t.cy}`);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', COLORS.phosphorus);
+        poly.setAttribute('stroke-width', '0.5');
+        poly.setAttribute('opacity', '0.6');
+        svg.appendChild(poly);
+      });
+      
+      // Labels
+      const labels = [
+        { x: 250, y: 16, text: '|ψ₁⟩ Operator', color: AGENTS.operator.color },
+        { x: 20, y: 438, text: '|ψ₂⟩ Claude', color: AGENTS.claude.color },
+        { x: 480, y: 438, text: '|ψ₃⟩ Cursor', color: AGENTS.cursor.color },
+      ];
+      labels.forEach(({ x, y, text, color }) => {
+        const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textEl.setAttribute('x', x);
+        textEl.setAttribute('y', y);
+        textEl.setAttribute('text-anchor', x === 250 ? 'middle' : x < 250 ? 'start' : 'end');
+        textEl.setAttribute('fill', color);
+        textEl.setAttribute('font-size', '10');
+        textEl.setAttribute('font-family', 'monospace');
+        textEl.textContent = text;
+        svg.appendChild(textEl);
+      });
+    }
+
+    // Depth controls
+    document.querySelectorAll('.depth-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.depth-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        recursionDepth = parseInt(btn.dataset.depth);
+        if (currentView === 'gasket') {
+          drawGasket();
+        }
+      });
+    });
+
+    // Initial gasket draw
+    drawGasket();
+  </script>
+</body>
+</html>

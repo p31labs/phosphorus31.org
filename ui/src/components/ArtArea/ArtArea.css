@@ -1,0 +1,630 @@
+/**
+ * Art Area Styles
+ * Beautiful, accessible styles for the art area
+ */
+
+.art-area {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.art-area-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.art-area-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.art-area-subtitle {
+  font-size: 1.1rem;
+  margin: 10px 0 0 0;
+  opacity: 0.9;
+}
+
+.art-area-controls {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.color-palette label,
+.brush-controls label,
+.artwork-name-input label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  display: block;
+  font-size: 1rem;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 10px;
+}
+
+.color-button {
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.color-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.color-button.active {
+  border-color: #333;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+}
+
+.brush-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.brush-sizes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.brush-size-button {
+  padding: 8px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brush-size-button:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.brush-size-button.active {
+  border-color: #667eea;
+  background: #f0f0ff;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.brush-preview {
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.art-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.art-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.undo-button,
+.redo-button {
+  background: #95a5a6;
+  color: white;
+}
+
+.undo-button:hover:not(:disabled),
+.redo-button:hover:not(:disabled) {
+  background: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+.undo-button:disabled,
+.redo-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clear-button {
+  background: #ff6b6b;
+  color: white;
+}
+
+.clear-button:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+}
+
+.save-button {
+  background: #4ecdc4;
+  color: white;
+}
+
+.save-button:hover {
+  background: #45b7aa;
+  transform: translateY(-2px);
+}
+
+.gallery-button {
+  background: #95a5a6;
+  color: white;
+}
+
+.gallery-button:hover {
+  background: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+.download-button {
+  background: #667eea;
+  color: white;
+}
+
+.download-button:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+}
+
+.artwork-name-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-input {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.canvas-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.art-canvas {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: crosshair;
+  touch-action: none;
+  background: white;
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.art-gallery {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.gallery-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.close-gallery {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-gallery:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.gallery-thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item-info {
+  padding: 15px;
+}
+
+.gallery-item-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.gallery-item-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+.gallery-item-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.gallery-button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gallery-button:not(.delete) {
+  background: #4ecdc4;
+  color: white;
+}
+
+.gallery-button:not(.delete):hover {
+  background: #45b7aa;
+}
+
+.gallery-button.delete {
+  background: #ff6b6b;
+  color: white;
+}
+
+.gallery-button.delete:hover {
+  background: #ff5252;
+}
+
+.no-artworks {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  padding: 40px;
+}
+
+.art-area-footer {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  padding: 10px;
+  opacity: 0.9;
+}
+
+.art-area-footer p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+  animation:
+    slideIn 0.3s ease-out,
+    fadeOut 0.3s ease-in 2.7s;
+  max-width: 300px;
+}
+
+.notification-success {
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+.notification-info {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.notification-error {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Confirm Dialog */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.confirm-dialog {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.2s ease-out;
+}
+
+.confirm-dialog h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.confirm-dialog p {
+  margin: 0 0 20px 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-button.cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.confirm-button.cancel:hover {
+  background: #d0d0d0;
+}
+
+.confirm-button.confirm {
+  background: #ff6b6b;
+  color: white;
+}
+
+.confirm-button.confirm:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Gallery Animation */
+.art-gallery {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.gallery-item {
+  animation: fadeInUp 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+.gallery-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.gallery-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.gallery-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.gallery-item:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.gallery-item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.gallery-item:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Save button loading state */
+.save-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .art-area {
+    padding: 10px;
+  }
+
+  .art-area-header h1 {
+    font-size: 2rem;
+  }
+
+  .art-area-controls {
+    padding: 15px;
+    max-height: 250px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+  }
+
+  .art-actions {
+    flex-direction: column;
+  }
+
+  .art-button {
+    width: 100%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .color-button,
+  .brush-size-button,
+  .art-button,
+  .gallery-item {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .art-area {
+    background: #000;
+  }
+
+  .art-area-controls {
+    background: #fff;
+    border: 2px solid #000;
+  }
+
+  .art-button {
+    border: 2px solid #000;
+  }
+}

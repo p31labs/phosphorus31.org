@@ -1,0 +1,18 @@
+# P31 Health Monitor Worker
+# Create KV: wrangler kv:namespace create P31_KV
+# Bind in dashboard or: kv_namespaces = [{ binding = "P31_KV", id = "<ID>" }]
+name = "p31-health-monitor"
+main = "index.js"
+compatibility_date = "2026-02-16"
+
+# Cron: every 5 minutes (configure in Cloudflare Dashboard → Triggers)
+# [triggers]
+# crons = ["*/5 * * * *"]
+
+# KV namespace — create in dashboard, then add id here
+# kv_namespaces = [{ binding = "P31_KV", id = "YOUR_KV_NAMESPACE_ID" }]
+
+# Env vars (set in dashboard or via wrangler secret)
+# SHELTER_URL = "https://shelter.p31.io"
+# WEBSITE_URL = "https://phosphorus31.org"
+# ALERT_WEBHOOK = "https://hooks.slack.com/..." (optional)

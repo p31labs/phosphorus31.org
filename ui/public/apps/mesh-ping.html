@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesh Ping — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid #7878AA;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #34d399;
+    }
+    
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .buttons-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      min-height: 0;
+    }
+    
+    .ping-button {
+      min-height: 120px;
+      border: 2px solid currentColor;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s, opacity 0.2s;
+      position: relative;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    
+    .ping-button:active {
+      transform: scale(0.98);
+    }
+    
+    .ping-button.ok {
+      color: #00FF88;
+      background: rgba(0, 255, 136, 0.1);
+    }
+    
+    .ping-button.help {
+      color: #FF00CC;
+      background: rgba(255, 0, 204, 0.1);
+    }
+    
+    .ping-button.love {
+      color: #FFB800;
+      background: rgba(255, 184, 0, 0.1);
+    }
+    
+    .ping-button.think {
+      color: #00D4FF;
+      background: rgba(0, 212, 255, 0.1);
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(0);
+      animation: ripple-animation 0.6s ease-out;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    .history {
+      border-top: 1px solid #7878AA;
+      padding: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .history-title {
+      color: #7878AA;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .history-item {
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(120, 120, 170, 0.2);
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    .history-type {
+      font-weight: 600;
+    }
+    
+    .history-time {
+      color: #7878AA;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+    
+    .history-empty {
+      color: #7878AA;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #7878AA;
+      font-size: 0.8rem;
+      border-top: 1px solid #7878AA;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📡 Mesh Ping</h1>
+    <p class="subtitle">Send a signal to the mesh.</p>
+  </header>
+  
+  <div class="buttons-grid">
+    <button class="ping-button ok" data-type="OK">
+      OK
+    </button>
+    <button class="ping-button help" data-type="HELP">
+      HELP
+    </button>
+    <button class="ping-button love" data-type="LOVE">
+      LOVE
+    </button>
+    <button class="ping-button think" data-type="THINK">
+      THINK
+    </button>
+  </div>
+  
+  <div class="history">
+    <div class="history-title">History</div>
+    <div id="history-list"></div>
+  </div>
+  
+  <footer>
+    Signals are stored locally. When the mesh connects, they'll be heard.<br>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+  
+  <script>
+    class MeshPing {
+      constructor() {
+        this.audioContext = null;
+        this.history = [];
+        this.init();
+      }
+      
+      init() {
+        // Initialize audio context
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Button frequencies (pentatonic scale)
+        this.frequencies = {
+          'OK': 261.63,    // C
+          'HELP': 293.66,  // D
+          'LOVE': 329.63,  // E
+          'THINK': 392.00   // G
+        };
+        
+        // Setup buttons
+        document.querySelectorAll('.ping-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const type = button.dataset.type;
+            this.sendPing(type, button);
+          });
+          
+          // Touch support
+          button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const type = button.dataset.type;
+            this.sendPing(type, button);
+          });
+        });
+        
+        // Load history
+        this.loadHistory();
+        this.renderHistory();
+      }
+      
+      sendPing(type, button) {
+        // Play sound
+        this.playNote(this.frequencies[type]);
+        
+        // Ripple effect
+        this.createRipple(button, event);
+        
+        // Store signal
+        const signal = {
+          type: type,
+          timestamp: new Date().toISOString()
+        };
+        
+        this.history.unshift(signal);
+        this.saveHistory();
+        this.renderHistory();
+      }
+      
+      playNote(frequency) {
+        const oscillator = this.audioContext.createOscillator();
+        const gain = this.audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency;
+        
+        gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+        gain.gain.linearRampToValueAtTime(0.3, this.audioContext.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+        
+        oscillator.connect(gain);
+        gain.connect(this.audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.3);
+      }
+      
+      createRipple(button, event) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple');
+        
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = rect.width / 2;
+        const y = rect.height / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (x - size / 2) + 'px';
+        ripple.style.top = (y - size / 2) + 'px';
+        
+        button.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+      
+      renderHistory() {
+        const list = document.getElementById('history-list');
+        
+        if (this.history.length === 0) {
+          list.innerHTML = '<div class="history-empty">No signals yet. Tap a button to send one.</div>';
+          return;
+        }
+        
+        list.innerHTML = this.history.slice(0, 50).map(signal => {
+          const date = new Date(signal.timestamp);
+          const timeStr = date.toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true 
+          });
+          
+          return `
+            <div class="history-item">
+              <span class="history-type">${signal.type}</span>
+              <span class="history-time">${timeStr}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      
+      saveHistory() {
+        // Keep only last 100 signals
+        const toSave = this.history.slice(0, 100);
+        localStorage.setItem('meshPingHistory', JSON.stringify(toSave));
+      }
+      
+      loadHistory() {
+        const saved = localStorage.getItem('meshPingHistory');
+        if (saved) {
+          try {
+            this.history = JSON.parse(saved);
+          } catch (e) {
+            this.history = [];
+          }
+        }
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      new MeshPing();
+    });
+  </script>
+</body>
+</html>

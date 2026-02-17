@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breathing Pacer — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #2ecc71;
+    }
+    
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .pacer-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 2rem 0;
+    }
+    
+    .circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 3px solid #2ecc71;
+      transition: width 0.1s linear, height 0.1s linear;
+      width: 100px;
+      height: 100px;
+    }
+    
+    .progress-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+    }
+    
+    .progress-ring svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    
+    .progress-ring circle {
+      fill: none;
+      stroke: #2ecc71;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0.3;
+    }
+    
+    .progress-ring .progress {
+      opacity: 1;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+    
+    .prompt {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2rem 0;
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2ecc71;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #E0E0EE;
+    }
+    
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .timer-select {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .timer-button {
+      background: transparent;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: system-ui;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    
+    .timer-button:hover {
+      border-color: #2ecc71;
+    }
+    
+    .timer-button.active {
+      border-color: #2ecc71;
+      color: #2ecc71;
+    }
+    
+    .control-button {
+      background: transparent;
+      border: 2px solid #ff4444;
+      color: #ff4444;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: system-ui;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: transform 0.1s;
+      width: 100%;
+      max-width: 200px;
+    }
+    
+    .control-button:active {
+      transform: scale(0.98);
+    }
+    
+    .control-button.start {
+      border-color: #2ecc71;
+      color: #2ecc71;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #7878AA;
+      font-size: 0.8rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌬️ Breathing Pacer</h1>
+    <p class="subtitle">Guided box breathing with a visual pacer.</p>
+  </header>
+  
+  <div class="pacer-container">
+    <div class="progress-ring">
+      <svg>
+        <circle cx="160" cy="160" r="150" class="bg"></circle>
+        <circle cx="160" cy="160" r="150" class="progress" id="progress-circle"></circle>
+      </svg>
+    </div>
+    <div class="circle" id="breathing-circle"></div>
+  </div>
+  
+  <div class="prompt" id="prompt">Press Start to begin</div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <div>Cycles</div>
+      <div class="stat-value" id="cycles">0</div>
+    </div>
+    <div class="stat-item">
+      <div>Time</div>
+      <div class="stat-value" id="timer">—</div>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <div class="timer-select">
+      <button class="timer-button" data-minutes="2">2 min</button>
+      <button class="timer-button" data-minutes="5">5 min</button>
+      <button class="timer-button" data-minutes="10">10 min</button>
+      <button class="timer-button active" data-minutes="0">No limit</button>
+    </div>
+    <button class="control-button start" id="start-btn">Start</button>
+    <button class="control-button" id="stop-btn" style="display: none;">Stop</button>
+  </div>
+  
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+  
+  <script>
+    class BreathingPacer {
+      constructor() {
+        this.audioContext = null;
+        this.phase = 'idle'; // idle, inhale, hold1, exhale, hold2
+        this.phaseDuration = 4000; // 4 seconds each
+        this.cycleTime = 0;
+        this.cycles = 0;
+        this.sessionStartTime = null;
+        this.sessionDuration = 0; // 0 = no limit
+        this.animationId = null;
+        this.timerId = null;
+        this.init();
+      }
+      
+      init() {
+        // Initialize audio context
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Setup progress circle
+        const progressCircle = document.getElementById('progress-circle');
+        const radius = 150;
+        const circumference = 2 * Math.PI * radius;
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference;
+        this.progressCircumference = circumference;
+        
+        // Setup buttons
+        document.getElementById('start-btn').addEventListener('click', () => {
+          this.start();
+        });
+        
+        document.getElementById('stop-btn').addEventListener('click', () => {
+          this.stop();
+        });
+        
+        // Timer buttons
+        document.querySelectorAll('.timer-button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.timer-button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.sessionDuration = parseInt(btn.dataset.minutes) * 60 * 1000;
+          });
+        });
+      }
+      
+      start() {
+        if (this.phase !== 'idle') return;
+        
+        this.phase = 'inhale';
+        this.cycleTime = 0;
+        this.sessionStartTime = Date.now();
+        this.animate();
+        
+        document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('stop-btn').style.display = 'block';
+        
+        // Check session timer
+        if (this.sessionDuration > 0) {
+          this.timerId = setTimeout(() => {
+            this.stop();
+          }, this.sessionDuration);
+        }
+      }
+      
+      stop() {
+        this.phase = 'idle';
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+          this.animationId = null;
+        }
+        if (this.timerId) {
+          clearTimeout(this.timerId);
+          this.timerId = null;
+        }
+        
+        document.getElementById('start-btn').style.display = 'block';
+        document.getElementById('stop-btn').style.display = 'none';
+        
+        this.updatePrompt('Press Start to begin');
+        this.updateCircle(100);
+        this.updateProgress(0);
+      }
+      
+      animate() {
+        const now = Date.now();
+        const elapsed = now - (this.sessionStartTime || now);
+        
+        // Update timer display
+        if (this.sessionDuration > 0) {
+          const remaining = Math.max(0, this.sessionDuration - elapsed);
+          const minutes = Math.floor(remaining / 60000);
+          const seconds = Math.floor((remaining % 60000) / 1000);
+          document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+          const minutes = Math.floor(elapsed / 60000);
+          const seconds = Math.floor((elapsed % 60000) / 1000);
+          document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Phase timing
+        const phaseTime = this.cycleTime % (this.phaseDuration * 4);
+        const phaseIndex = Math.floor(phaseTime / this.phaseDuration);
+        
+        let newPhase = 'inhale';
+        let progress = 0;
+        let circleSize = 100;
+        let prompt = 'Inhale...';
+        
+        if (phaseIndex === 0) {
+          // Inhale (0-4s)
+          newPhase = 'inhale';
+          progress = phaseTime / this.phaseDuration;
+          circleSize = 100 + (progress * 100); // 100 to 200
+          prompt = 'Inhale...';
+        } else if (phaseIndex === 1) {
+          // Hold 1 (4-8s)
+          newPhase = 'hold1';
+          progress = 0.25 + ((phaseTime - this.phaseDuration) / this.phaseDuration) * 0.25;
+          circleSize = 200;
+          prompt = 'Hold...';
+        } else if (phaseIndex === 2) {
+          // Exhale (8-12s)
+          newPhase = 'exhale';
+          progress = 0.5 + ((phaseTime - this.phaseDuration * 2) / this.phaseDuration) * 0.25;
+          circleSize = 200 - ((phaseTime - this.phaseDuration * 2) / this.phaseDuration) * 100; // 200 to 100
+          prompt = 'Exhale...';
+        } else {
+          // Hold 2 (12-16s)
+          newPhase = 'hold2';
+          progress = 0.75 + ((phaseTime - this.phaseDuration * 3) / this.phaseDuration) * 0.25;
+          circleSize = 100;
+          prompt = 'Hold...';
+        }
+        
+        // Phase change detection
+        if (newPhase !== this.phase) {
+          this.onPhaseChange(newPhase);
+          this.phase = newPhase;
+          
+          // Count cycles
+          if (newPhase === 'inhale' && this.cycleTime > 0) {
+            this.cycles++;
+            document.getElementById('cycles').textContent = this.cycles;
+          }
+        }
+        
+        this.updatePrompt(prompt);
+        this.updateCircle(circleSize);
+        this.updateProgress(progress);
+        
+        this.cycleTime += 16; // ~60fps
+        this.animationId = requestAnimationFrame(() => this.animate());
+      }
+      
+      onPhaseChange(newPhase) {
+        // Play tone
+        this.playTone();
+        
+        // Haptic feedback
+        if (navigator.vibrate) {
+          navigator.vibrate([50]);
+        }
+      }
+      
+      playTone() {
+        const oscillator = this.audioContext.createOscillator();
+        const gain = this.audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 220; // A3
+        
+        gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+        gain.gain.linearRampToValueAtTime(0.1, this.audioContext.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gain);
+        gain.connect(this.audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.1);
+      }
+      
+      updatePrompt(text) {
+        document.getElementById('prompt').textContent = text;
+      }
+      
+      updateCircle(size) {
+        const circle = document.getElementById('breathing-circle');
+        circle.style.width = size + 'px';
+        circle.style.height = size + 'px';
+      }
+      
+      updateProgress(progress) {
+        const progressCircle = document.getElementById('progress-circle');
+        const offset = this.progressCircumference - (progress * this.progressCircumference);
+        progressCircle.style.strokeDashoffset = offset;
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      new BreathingPacer();
+    });
+  </script>
+</body>
+</html>

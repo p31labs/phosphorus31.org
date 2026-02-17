@@ -1,0 +1,5 @@
+## IDF Component Manager Manifest File
+## Display component dependencies
+dependencies:
+  espressif/esp_lvgl_port: "^2"             # LVGL display/touch integration
+  lvgl/lvgl: ">=9,<10"                      # GUI framework

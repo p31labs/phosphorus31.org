@@ -1,0 +1,234 @@
+/* P31 Sprout — four buttons, full screen, safe for kids */
+
+.app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  padding: 1rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Connection status: small dot, bottom-right. Green = connected, amber = reconnecting. Never red. */
+.status-dot {
+  position: absolute;
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  right: max(0.75rem, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot.connected {
+  background-color: #00FF88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3), 0 0 20px rgba(0, 255, 136, 0.15), 0 0 40px rgba(0, 255, 136, 0.05);
+}
+
+.dot.reconnecting {
+  background-color: #FFB800;
+  box-shadow: 0 0 8px rgba(255, 184, 0, 0.3), 0 0 20px rgba(255, 184, 0, 0.15), 0 0 40px rgba(255, 184, 0, 0.05);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-text {
+  font-size: 9px;
+  color: #7878AA;
+}
+
+/* 2×2 grid on screens ≥ 600px or in landscape; 1-column stack on narrow portrait. Buttons fill viewport. */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  flex: 1;
+  min-height: 0;
+  align-content: center;
+}
+
+/* Landscape: keep 2×2, reduce min-heights so all four fit without scroll (kids flip phones) */
+@media (orientation: landscape) and (max-height: 500px) {
+  .grid {
+    gap: 0.5rem;
+    align-content: stretch;
+  }
+
+  .grid .sprout-button {
+    min-height: 0;
+    padding: 0.5rem;
+    font-size: clamp(14px, 3vw, 20px);
+  }
+
+  .sprout-button .emoji {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 599px) and (orientation: portrait) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+
+  .grid .sprout-button {
+    min-height: 0; /* flex distributes space; avoids overflow on 320×568 */
+    min-width: 100%;
+  }
+}
+
+/* Tiny portrait (e.g. iPhone SE 320×568): ensure no overflow */
+@media (max-width: 380px) and (orientation: portrait) {
+  .app {
+    padding: 0.5rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+
+  .grid {
+    gap: 0.35rem;
+  }
+}
+
+.sprout-button {
+  --btn-color: #00FF88;
+  min-height: 120px;
+  min-width: 120px;
+  padding: 1.25rem;
+  border: none;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--btn-color) 12%, #0A0A1F);
+  color: #E0E0EE;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(24px, 5vw, 28px);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--btn-color) 30%, transparent),
+              0 0 20px color-mix(in srgb, var(--btn-color) 15%, transparent),
+              0 0 40px color-mix(in srgb, var(--btn-color) 5%, transparent);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.sprout-button:hover {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--btn-color) 40%, transparent),
+              0 0 24px color-mix(in srgb, var(--btn-color) 20%, transparent),
+              0 0 48px color-mix(in srgb, var(--btn-color) 8%, transparent);
+}
+
+.sprout-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--btn-color) 50%, transparent),
+              0 0 28px color-mix(in srgb, var(--btn-color) 25%, transparent);
+}
+
+.sprout-button:focus {
+  outline: none;
+}
+
+.sprout-button:focus-visible {
+  outline: 2px solid var(--btn-color);
+  outline-offset: 2px;
+}
+
+.sprout-button .emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.sprout-button .label {
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Brief "Sent ✓" confirmation */
+.confirmation {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #00FF88;
+  padding: 2rem;
+}
+
+.confirmation.sent {
+  animation: fadeIn 0.2s ease;
+  text-shadow: 0 0 12px #00FF88, 0 0 24px rgba(0, 255, 136, 0.4);
+}
+
+.confirmation.scope-response {
+  color: #00D4FF;
+  max-width: 20ch;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Reduced motion: instant state changes, no animations */
+@media (prefers-reduced-motion: reduce) {
+  .sprout-button,
+  .sprout-button:hover,
+  .sprout-button:active {
+    transition: none;
+  }
+
+  .sprout-button:active {
+    transform: scale(1);
+  }
+
+  .dot.reconnecting {
+    animation: none;
+  }
+
+  .confirmation.sent {
+    animation: none;
+  }
+}
+
+/* High contrast: stronger text and glow (brand text, not pure white) */
+@media (prefers-contrast: more) {
+  .sprout-button {
+    color: #E0E0EE;
+  }
+
+  .confirmation {
+    color: #00FF88;
+  }
+
+  .confirmation.scope-response {
+    color: #00D4FF;
+  }
+
+  .dot.connected,
+  .dot.reconnecting {
+    box-shadow: 0 0 10px currentColor, 0 0 24px currentColor;
+  }
+}

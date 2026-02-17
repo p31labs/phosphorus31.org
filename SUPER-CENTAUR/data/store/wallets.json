@@ -1,0 +1,42 @@
+[
+  {
+    "id": "wallet_sj",
+    "memberId": "sj",
+    "memberName": "S.J.",
+    "role": "Founding Node",
+    "balance": 5000,
+    "currency": "LOVE",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  },
+  {
+    "id": "wallet_wj",
+    "memberId": "wj",
+    "memberName": "W.J.",
+    "role": "Founding Node",
+    "balance": 4000,
+    "currency": "LOVE",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  },
+  {
+    "id": "wallet_will",
+    "memberId": "will",
+    "memberName": "Will",
+    "role": "Trustee",
+    "balance": 2500,
+    "currency": "LOVE",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  },
+  {
+    "id": "wallet_community",
+    "memberId": "community",
+    "memberName": "Community Pool",
+    "role": "Shared",
+    "balance": 1000,
+    "currency": "LOVE",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  }
+]

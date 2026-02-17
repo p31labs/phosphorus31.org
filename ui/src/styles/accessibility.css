@@ -1,0 +1,217 @@
+/**
+ * Accessibility Styles
+ * Universal access for all users
+ */
+
+/* High Contrast Mode */
+.high-contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --border-color: #ffffff;
+  --accent-color: #ffff00;
+}
+
+.high-contrast * {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.high-contrast button,
+.high-contrast .simple-button {
+  border: 3px solid var(--border-color) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.high-contrast button:hover,
+.high-contrast .simple-button:hover {
+  background: var(--accent-color) !important;
+  color: #000000 !important;
+}
+
+/* Reduced Motion - System Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reduced Motion - Manual Toggle */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Large Text Sizes */
+html[style*='font-size: 24px'] {
+  line-height: 1.6;
+}
+
+html[style*='font-size: 24px'] button,
+html[style*='font-size: 24px'] .simple-button {
+  padding: 1.5rem 2rem;
+  font-size: 1.5rem;
+  min-height: 64px;
+}
+
+html[style*='font-size: 20px'] button,
+html[style*='font-size: 20px'] .simple-button {
+  padding: 1.25rem 1.75rem;
+  font-size: 1.25rem;
+  min-height: 56px;
+}
+
+/* Simple Button Styles */
+.simple-button {
+  border: 2px solid;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.simple-button:focus {
+  outline: 3px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.simple-button.button-primary {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+.simple-button.button-primary:hover:not(:disabled) {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  transform: scale(1.05);
+}
+
+.simple-button.button-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.simple-button.button-success {
+  background: #4ade80;
+  color: #000000;
+  border-color: #4ade80;
+}
+
+.simple-button.button-warning {
+  background: #fbbf24;
+  color: #000000;
+  border-color: #fbbf24;
+}
+
+.simple-button.button-danger {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+.simple-button.button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 36px;
+}
+
+.simple-button.button-medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.simple-button.button-large {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  min-height: 56px;
+}
+
+.simple-button.button-xlarge {
+  padding: 1.5rem 3rem;
+  font-size: 1.5rem;
+  min-height: 72px;
+}
+
+.simple-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.simple-button.full-width {
+  width: 100%;
+}
+
+.simple-button.simplified {
+  border-width: 3px;
+  font-weight: 900;
+}
+
+/* Overload Guard — blur everything except the focus panel */
+.overloaded * {
+  filter: blur(6px);
+  transition: filter 0.5s;
+}
+
+.overloaded .overload-focus,
+.overloaded .overload-focus * {
+  filter: none !important;
+  z-index: 99999;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 3px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Minimum Touch Targets - WCAG 2.5.5 AAA (44x44px minimum) */
+button,
+.simple-button,
+a[role='button'] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Large Touch Targets for Mobile */
+@media (max-width: 768px) {
+  button,
+  .simple-button,
+  a[role='button'] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}

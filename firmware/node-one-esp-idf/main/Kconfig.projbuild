@@ -1,0 +1,21 @@
+menu "Node One Configuration"
+
+    config NODE_ONE_DEVICE_NAME
+        string "Device Name"
+        default "P31-Node-One"
+
+    config NODE_ONE_LORA_FREQ
+        int "LoRa Frequency (MHz x 10)"
+        default 9150
+        help
+            LoRa frequency in MHz * 10. 9150 = 915.0 MHz.
+
+    config NODE_ONE_WIFI_SSID
+        string "WiFi AP SSID"
+        default "P31-NodeOne"
+
+    config NODE_ONE_WIFI_PASS
+        string "WiFi AP Password"
+        default "phenixnavigator"
+
+endmenu

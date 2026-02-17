@@ -1,0 +1,2207 @@
+63): The channel is not enabled
+E (33218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33238) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1352
+E (33268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33348) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1353
+E (33358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33468) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1354
+E (33478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33578) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1355
+E (33608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33688) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1356
+E (33698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33808) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1357
+E (33828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (33918) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1358
+E (33948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (33998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34028) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1359
+E (34068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34138) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1360
+E (34168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34248) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1361
+E (34258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34368) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1362
+E (34378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34478) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1363
+E (34498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34598) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1364
+E (34608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34708) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1365
+E (34758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34818) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1366
+E (34858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (34938) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1367
+E (34998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (34998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (35048) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1368
+E (35048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (35328) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 3828 avg:  11
+E (35378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (35448) PHENIX_FISHER: [MIC] Read error #101: ESP_ERR_INVALID_STATE
+E (35498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (35688) PHENIX_FISHER: [IMU] Iter 1400 - taking i2c_mutex...
+E (35688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (35798) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1400
+E (35808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (35818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (35828) PHENIX_FISHER: [VOICE] Buffer full, auto-stopping
+I (35828) PHENIX_FISHER: [VOICE] *** STOPPED *** 10350 ms, 239872 samples
+I (35838) PHENIX_FISHER: [VOICE] Processing 239872 samples (10.0 seconds)...
+I (35888) PHENIX_FISHER: [VOICE] Audio stats: avg=74, peak=12734
+I (35888) PHENIX_FISHER: [VOICE] === SENDING TO SOVEREIGN AGENT ===
+I (35888) PHENIX_FISHER: [VOICE] 100% LOCAL AI - No Cloud - Your Voice Stays Private!
+I (35898) PHENIX_FISHER: [AI] Sending 479744 bytes of audio to Sovereign Agent...
+W (35908) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #1401
+I (35908) PHENIX_FISHER: [Fisher] HB#6 | Coherence: 0.991 | COHERENT | SIG:063d3c5e54acab1a...1183309ce3b5e359 ([VALID])
+I (35938) PHENIX_VOICE:    ~ pure ~
+E (35938) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35938) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35948) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35948) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35958) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35958) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35968) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35978) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (35978) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+I (36288) PHENIX_FISHER: [MIC] VOICE [..........|||||                          ] peak:12543 avg:  12
+I (36288) PHENIX_FISHER: [QUANTUM] *** Gamma burst #17 (Q=0.991, Shield=ACTIVE)
+I (36578) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (36758) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  155 avg:   8 (speak!)
+I (37288) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   60 avg:  11 (speak!)
+I (37298) PHENIX_FISHER: [QUANTUM] *** Gamma burst #18 (Q=0.991, Shield=ACTIVE)
+I (37578) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (37758) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  325 avg:  25 (speak!)
+I (37898) PHENIX_FISHER: [IMU] Iter 1500 - taking i2c_mutex...
+I (37898) PHENIX_FISHER: [IMU] #1500 | mot:1.532 | fill:100% | coh:0.991
+I (37898) PHENIX_FISHER: [IMU] Samples: 1500 | Avg: 1.4731 | Peak: 3.8560 | Coh: 0.991
+I (38288) PHENIX_FISHER: [MIC] quiet [                                         ] peak:  647 avg:  11
+I (38318) PHENIX_FISHER: [QUANTUM] *** Gamma burst #19 (Q=0.990, Shield=ACTIVE)
+I (38578) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (38818) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   76 avg:  11 (speak!)
+I (39288) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  168 avg:  21 (speak!)
+I (39428) PHENIX_FISHER: [QUANTUM] *** Gamma burst #20 (Q=0.990, Shield=ACTIVE)
+I (39688) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (39818) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  124 avg:  12 (speak!)
+I (40028) PHENIX_FISHER: [IMU] Iter 1600 - taking i2c_mutex...
+I (40028) PHENIX_FISHER: [IMU] #1600 | mot:1.534 | fill:100% | coh:0.990
+I (40348) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 3127 avg:  98
+I (40438) PHENIX_FISHER: [QUANTUM] *** Gamma burst #21 (Q=0.996, Shield=ACTIVE)
+I (40688) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (40818) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  422 avg:  31 (speak!)
+I (40918) PHENIX_FISHER: [Fisher] HB#7 | Coherence: 0.996 | COHERENT | SIG:063d3c5d54acab1a...1183309ce2b5e359 ([VALID])
+I (41348) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  203 avg:  13 (speak!)
+I (41448) PHENIX_FISHER: [QUANTUM] *** Gamma burst #22 (Q=0.970, Shield=ACTIVE)
+I (41688) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (41818) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1466 avg:  12
+I (41968) PHENIX_FISHER: [SHAKE] Phoenix felt movement! Intensity: 8.01
+I (42148) PHENIX_FISHER: [IMU] Iter 1700 - taking i2c_mutex...
+I (42148) PHENIX_FISHER: [IMU] #1700 | mot:1.533 | fill:100% | coh:0.970
+I (42348) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 2802 avg:  11
+I (42558) PHENIX_FISHER: [QUANTUM] *** Gamma burst #23 (Q=0.994, Shield=ACTIVE)
+I (42798) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (42878) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   57 avg:   9 (speak!)
+I (43348) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   71 avg:  12 (speak!)
+I (43568) PHENIX_FISHER: [QUANTUM] *** Gamma burst #24 (Q=0.994, Shield=ACTIVE)
+I (43798) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (43878) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  138 avg:  10 (speak!)
+I (44168) PHENIX_FISHER: [IMU] Iter 1800 - taking i2c_mutex...
+I (44168) PHENIX_FISHER: [IMU] #1800 | mot:1.534 | fill:100% | coh:0.994
+I (44408) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   57 avg:  14 (speak!)
+I (44578) PHENIX_FISHER: [QUANTUM] *** Gamma burst #25 (Q=0.995, Shield=ACTIVE)
+I (44798) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (44878) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   57 avg:   9 (speak!)
+I (45408) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   53 avg:  16 (speak!)
+I (45588) PHENIX_FISHER: [QUANTUM] *** Gamma burst #26 (Q=0.996, Shield=ACTIVE)
+I (45798) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (45878) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   51 avg:  11 (speak!)
+I (45918) PHENIX_FISHER: [Fisher] HB#8 | Coherence: 0.996 | COHERENT | SIG:063d3c5854acab1a...1183309ce5b5e359 ([VALID])
+I (46188) PHENIX_FISHER: [IMU] Iter 1900 - taking i2c_mutex...
+I (46288) PHENIX_FISHER: [IMU] #1900 | mot:1.898 | fill:100% | coh:0.996
+I (46408) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   56 avg:  15 (speak!)
+I (46698) PHENIX_FISHER: [QUANTUM] *** Gamma burst #27 (Q=0.991, Shield=ACTIVE)
+I (46908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (46938) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   71 avg:  13 (speak!)
+I (47408) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   64 avg:   9 (speak!)
+I (47708) PHENIX_FISHER: [QUANTUM] *** Gamma burst #28 (Q=0.992, Shield=ACTIVE)
+I (47908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (47938) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   61 avg:   9 (speak!)
+I (48308) PHENIX_FISHER: [IMU] Iter 2000 - taking i2c_mutex...
+I (48308) PHENIX_FISHER: [IMU] #2000 | mot:1.531 | fill:100% | coh:0.992
+I (48308) PHENIX_FISHER: [IMU] Samples: 2000 | Avg: 1.5478 | Peak: 8.0113 | Coh: 0.992
+I (48468) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   81 avg:  11 (speak!)
+I (48728) PHENIX_FISHER: [QUANTUM] *** Gamma burst #29 (Q=0.995, Shield=ACTIVE)
+I (48908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 80 7D 00 E4 2A 2B
+I (48938) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 4026 avg:  15
+I (49468) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  312 avg:  17 (speak!)
+I (49738) PHENIX_FISHER: [QUANTUM] *** Gamma burst #30 (Q=0.992, Shield=ACTIVE)
+I (49908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (49938) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  249 avg:  50 (speak!)
+I (50338) PHENIX_FISHER: [IMU] Iter 2100 - taking i2c_mutex...
+I (50338) PHENIX_FISHER: [IMU] #2100 | mot:1.533 | fill:100% | coh:0.992
+I (50468) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  179 avg:  10 (speak!)
+I (50748) PHENIX_FISHER: [QUANTUM] *** Gamma burst #31 (Q=0.994, Shield=ACTIVE)
+I (50908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (50918) PHENIX_FISHER: [Fisher] HB#9 | Coherence: 0.994 | COHERENT | SIG:063d3c5754acab1a...1183309ce4b5e359 ([VALID])
+I (50998) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   71 avg:  17 (speak!)
+I (51468) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   73 avg:  11 (speak!)
+I (51758) PHENIX_FISHER: [QUANTUM] *** Gamma burst #32 (Q=0.996, Shield=ACTIVE)
+I (51908) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (51998) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 3895 avg:   7
+I (52358) PHENIX_FISHER: [IMU] Iter 2200 - taking i2c_mutex...
+I (52358) PHENIX_FISHER: [IMU] #2200 | mot:1.533 | fill:100% | coh:0.996
+I (52528) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   62 avg:  11 (speak!)
+I (52868) PHENIX_FISHER: [QUANTUM] *** Gamma burst #33 (Q=0.992, Shield=ACTIVE)
+I (52998) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   69 avg:  10 (speak!)
+I (53018) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (53528) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   55 avg:  12 (speak!)
+I (53878) PHENIX_FISHER: [QUANTUM] *** Gamma burst #34 (Q=0.992, Shield=ACTIVE)
+I (53998) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 3441 avg:  12
+I (54018) PHENIX_FISHER: [TOUCH DEBUG] Raw: FF FF FF FF FF 4B 8A 8A
+E (54168) esp-tls: [sock=54] delayed connect error: Software caused connection abort
+E (54168) transport_base: Failed to open a new connection: 32772
+E (54168) HTTP_CLIENT: Connection failed, sock < 0
+E (54168) PHENIX_FISHER: [AI] HTTP request failed: ESP_ERR_HTTP_CONNECT
+E (54178) PHENIX_FISHER: [AI] Is sovereign-agent running? Check: http://192.168.4.147:8765/health
+W (54188) PHENIX_FISHER: [VOICE] Failed to send. Is sovereign-agent running?
+W (54198) PHENIX_FISHER: [VOICE] Run: cd cognitive-shield/sovereign-agent && npm start
+I (54478) PHENIX_FISHER: [IMU] Iter 2300 - taking i2c_mutex...
+I (54478) PHENIX_FISHER: [IMU] #2300 | mot:1.533 | fill:100% | coh:0.992
+I (54528) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   74 avg:  10 (speak!)
+I (54888) PHENIX_FISHER: [QUANTUM] *** Gamma burst #35 (Q=0.993, Shield=ACTIVE)
+I (55038) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (55058) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   59 avg:  11 (speak!)
+I (55528) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   57 avg:  11 (speak!)
+I (55898) PHENIX_FISHER: [QUANTUM] *** Gamma burst #36 (Q=0.994, Shield=ACTIVE)
+I (55918) PHENIX_FISHER: [Fisher] HB#10 | Coherence: 0.994 | COHERENT | SIG:063d3c5f20f0c10b...178034511583f444 ([VALID])
+I (56038) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (56058) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   94 avg:   8 (speak!)
+I (56498) PHENIX_FISHER: [IMU] Iter 2400 - taking i2c_mutex...
+I (56498) PHENIX_FISHER: [IMU] #2400 | mot:1.534 | fill:100% | coh:0.994
+I (56588) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   80 avg:  13 (speak!)
+I (56908) PHENIX_FISHER: [QUANTUM] *** Gamma burst #37 (Q=0.985, Shield=ACTIVE)
+I (57038) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (57058) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   58 avg:   9 (speak!)
+I (57588) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   87 avg:  10 (speak!)
+I (57918) PHENIX_FISHER: [QUANTUM] *** Gamma burst #38 (Q=0.986, Shield=ACTIVE)
+I (57998) PHENIX_FISHER: [TAP] START REC!
+I (57998) PHENIX_FISHER: [VOICE] *** RECORDING ***
+I (58018) PHENIX_FISHER: [TAP] STOP & SEND!
+I (58018) PHENIX_FISHER: [VOICE] *** STOPPED *** 20 ms, 0 samples
+W (58018) PHENIX_FISHER: [VOICE] Recording too short (<500ms), discarding
+I (58038) PHENIX_FISHER: [TOUCH DEBUG] Raw: FF FF FF FF FF 87 8A 8A
+I (58048) PHENIX_FISHER: [TAP] START REC!
+I (58048) PHENIX_FISHER: [VOICE] *** RECORDING ***
+I (58058) PHENIX_FISHER: [MIC] quiet [.....                                    ] peak: 4482 avg:  23
+I (58078) PHENIX_FISHER: [TAP] STOP & SEND!
+I (58078) PHENIX_FISHER: [VOICE] *** STOPPED *** 30 ms, 0 samples
+W (58078) PHENIX_FISHER: [VOICE] Recording too short (<500ms), discarding
+I (58098) PHENIX_FISHER: [TAP] START REC!
+I (58098) PHENIX_FISHER: [VOICE] *** RECORDING ***
+I (58118) PHENIX_FISHER: [TAP] STOP & SEND!
+I (58118) PHENIX_FISHER: [VOICE] *** STOPPED *** 20 ms, 0 samples
+W (58118) PHENIX_FISHER: [VOICE] Recording too short (<500ms), discarding
+I (58198) PHENIX_FISHER: [TAP] START REC!
+I (58198) PHENIX_FISHER: [VOICE] *** RECORDING ***
+I (58218) PHENIX_FISHER: [TAP] STOP & SEND!
+I (58218) PHENIX_FISHER: [VOICE] *** STOPPED *** 20 ms, 0 samples
+W (58218) PHENIX_FISHER: [VOICE] Recording too short (<500ms), discarding
+I (58248) PHENIX_FISHER: [TAP] START REC!
+I (58248) PHENIX_FISHER: [VOICE] *** RECORDING ***
+I (58278) PHENIX_FISHER: [TAP] STOP & SEND!
+I (58278) PHENIX_FISHER: [VOICE] *** STOPPED *** 30 ms, 0 samples
+W (58278) PHENIX_FISHER: [VOICE] Recording too short (<500ms), discarding
+I (58298) PHENIX_FISHER: [TAP] START REC!
+I (58298) PHENIX_FISHER: [VOICE] *** RECORDING ***
+E (58368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (58518) PHENIX_FISHER: [IMU] Iter 2500 - taking i2c_mutex...
+I (58528) PHENIX_FISHER: [IMU] #2500 | mot:1.532 | fill:100% | coh:0.986
+I (58538) PHENIX_FISHER: [IMU] Samples: 2500 | Avg: 1.5428 | Peak: 3.8554 | Coh: 0.986
+E (58558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (58958) PHENIX_FISHER: [QUANTUM] *** Gamma burst #39 (Q=0.995, Shield=ACTIVE)
+E (58998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (58998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59908) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (59968) PHENIX_FISHER: [QUANTUM] *** Gamma burst #40 (Q=0.995, Shield=ACTIVE)
+E (59978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (59988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (60368) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 3205 avg:  10
+E (60418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (60568) PHENIX_FISHER: [IMU] Iter 2600 - taking i2c_mutex...
+I (60568) PHENIX_FISHER: [IMU] #2600 | mot:1.531 | fill:100% | coh:0.995
+E (60598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (60978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (60988) PHENIX_FISHER: [QUANTUM] *** Gamma burst #41 (Q=0.995, Shield=ACTIVE)
+E (61018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (61978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (61998) PHENIX_FISHER: [QUANTUM] *** Gamma burst #42 (Q=0.989, Shield=ACTIVE)
+E (62028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (62598) PHENIX_FISHER: [IMU] Iter 2700 - taking i2c_mutex...
+E (62598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (62708) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2700
+E (62738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (62818) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2701
+E (62828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62908) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62908) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62908) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62908) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (62938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (62938) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2702
+E (62938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (63058) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2703
+E (63068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (63168) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2704
+E (63178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (63278) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #2705
+E (63278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (63418) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  410 avg:  14 (speak!)
+E (63468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (63708) PHENIX_FISHER: [QUANTUM] *** Gamma burst #43 (Q=0.983, Shield=ACTIVE)
+E (63718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (63968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64008) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64058) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (64718) PHENIX_FISHER: [QUANTUM] *** Gamma burst #44 (Q=0.982, Shield=ACTIVE)
+E (64748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (64978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (65198) PHENIX_FISHER: [IMU] Iter 2800 - taking i2c_mutex...
+I (65198) PHENIX_FISHER: [IMU] #2800 | mot:1.533 | fill:100% | coh:0.982
+E (65238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (65828) SAMPEN: A=8514, B=8892, StdDev=0.0609, r=0.0122
+I (65828) PHENIX_FISHER: [QUANTUM] *** Gamma burst #45 (Q=0.986, Shield=ACTIVE)
+E (65848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (65988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66118) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (66358) PHENIX_FISHER: [SHAKE] Phoenix felt movement! Intensity: 12.31
+E (66388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (66848) PHENIX_FISHER: [QUANTUM] *** Gamma burst #46 (Q=0.977, Shield=ACTIVE)
+E (66868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (66968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (67108) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1931 avg:  56
+E (67138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (67328) PHENIX_FISHER: [IMU] Iter 2900 - taking i2c_mutex...
+I (67328) PHENIX_FISHER: [IMU] #2900 | mot:1.532 | fill:100% | coh:0.977
+E (67338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67578) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (67958) PHENIX_FISHER: [QUANTUM] *** Gamma burst #47 (Q=0.965, Shield=ACTIVE)
+E (67968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (67978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68288) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:
+E (68288) task_wdt:  - IDLE0 (CPU 0)
+E (68288) task_wdt: Tasks currently running:
+E (68288) task_wdt: CPU 0: voice_record
+E (68288) task_wdt: CPU 1: IDLE1
+E (68288) task_wdt: Print CPU 0 (current core) backtrace
+
+
+Backtrace: 0x42047632:0x3FCA1EB0 0x42047A4C:0x3FCA1ED0 0x40377499:0x3FCA1F00 0x400559DD:0x3FCC1A00 0x40380716:0x3FCC1A10 0x403801D4:0x3FCC1A30 0x42051D62:0x3FCC1A70 0x4200DC83:0x3FCC1AA0 0x403803B5:0x3FCC1CD0
+--- 0x400559dd: _xtos_set_intlevel in ROM
+
+E (68318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (68658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (68668) PHENIX_FISHER: [VOICE] Buffer full, auto-stopping
+I (68668) PHENIX_FISHER: [VOICE] *** STOPPED *** 10370 ms, 239872 samples
+I (68678) PHENIX_FISHER: [VOICE] Processing 239872 samples (10.0 seconds)...
+I (68728) PHENIX_FISHER: [VOICE] Audio stats: avg=54, peak=5527
+I (68728) PHENIX_FISHER: [VOICE] === SENDING TO SOVEREIGN AGENT ===
+I (68728) PHENIX_FISHER: [VOICE] 100% LOCAL AI - No Cloud - Your Voice Stays Private!
+I (68738) PHENIX_FISHER: [AI] Sending 479744 bytes of audio to Sovereign Agent...
+I (62938) PHENIX_FISHER: [Fisher] HB#11 | Coherence: 0.989 | COHERENT | SIG:063d3c5f21f0c10b...178034511583f444 ([VALID])
+I (68918) PHENIX_FISHER: [MIC] VOICE [......                                   ] peak: 5686 avg:  54
+I (69098) PHENIX_FISHER: [QUANTUM] *** Gamma burst #48 (Q=0.949, Shield=ACTIVE)
+I (69278) PHENIX_FISHER: [SHAKE] Phoenix felt movement! Intensity: 5.63
+I (69428) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (69448) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1383 avg:   9
+I (69578) PHENIX_FISHER: [IMU] Iter 3000 - taking i2c_mutex...
+I (69578) PHENIX_FISHER: [IMU] #3000 | mot:1.533 | fill:100% | coh:0.949
+I (69578) PHENIX_FISHER: [IMU] Samples: 3000 | Avg: 1.5642 | Peak: 12.3092 | Coh: 0.949
+W (69888) PHENIX_FISHER: [MIC] Read error #201: ESP_ERR_TIMEOUT
+I (69978) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   53 avg:  10 (speak!)
+I (70118) PHENIX_FISHER: [QUANTUM] *** Gamma burst #49 (Q=0.957, Shield=ACTIVE)
+I (70428) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (70448) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   55 avg:  11 (speak!)
+I (70978) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   64 avg:  11 (speak!)
+I (71128) PHENIX_FISHER: [QUANTUM] *** Gamma burst #50 (Q=0.959, Shield=ACTIVE)
+I (71428) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (71448) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  201 avg:   9 (speak!)
+I (71608) PHENIX_FISHER: [IMU] Iter 3100 - taking i2c_mutex...
+I (71608) PHENIX_FISHER: [IMU] #3100 | mot:1.533 | fill:100% | coh:0.959
+I (71978) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   67 avg:  12 (speak!)
+I (72138) PHENIX_FISHER: [QUANTUM] *** Gamma burst #51 (Q=0.963, Shield=ACTIVE)
+I (72428) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (72508) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   60 avg:   8 (speak!)
+I (72978) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   60 avg:  10 (speak!)
+I (73148) PHENIX_FISHER: [QUANTUM] *** Gamma burst #52 (Q=0.973, Shield=ACTIVE)
+I (73428) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (73508) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   59 avg:  14 (speak!)
+I (73628) PHENIX_FISHER: [IMU] Iter 3200 - taking i2c_mutex...
+I (73628) PHENIX_FISHER: [IMU] #3200 | mot:1.536 | fill:100% | coh:0.973
+I (73758) PHENIX_FISHER: [Fisher] HB#12 | Coherence: 0.973 | COHERENT | SIG:063d3c5f22f0c10b...178034511583f444 ([VALID])
+I (74038) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 2682 avg:  10
+I (74158) PHENIX_FISHER: [QUANTUM] *** Gamma burst #53 (Q=0.987, Shield=ACTIVE)
+I (74508) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 4090 avg:  10
+I (74538) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 00 5E 01 0A 7C 7D
+I (75018) PHENIX_FISHER: [SHAKE] Phoenix felt movement! Intensity: 12.22
+I (75038) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 2631 avg:  70
+I (75368) PHENIX_FISHER: [QUANTUM] *** Gamma burst #54 (Q=0.985, Shield=ACTIVE)
+I (75508) PHENIX_FISHER: [MIC] VOICE [......                                   ] peak: 5392 avg:1147
+I (75648) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (75848) PHENIX_FISHER: [IMU] Iter 3300 - taking i2c_mutex...
+I (75848) PHENIX_FISHER: [IMU] #3300 | mot:1.720 | fill:100% | coh:0.985
+I (76038) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 5962 avg:  81
+I (76378) PHENIX_FISHER: [QUANTUM] *** Gamma burst #55 (Q=0.977, Shield=ACTIVE)
+I (76568) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 6093 avg: 117
+I (76648) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (77038) PHENIX_FISHER: [MIC] VOICE [......                                   ] peak: 5190 avg: 511
+I (77568) PHENIX_FISHER: [MIC] quiet [.....                                    ] peak: 4621 avg:  37
+I (77688) PHENIX_FISHER: [QUANTUM] *** Gamma burst #56 (Q=0.954, Shield=ACTIVE)
+I (77978) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 80 40 00 EB 55 56
+I (78098) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1637 avg:   9
+I (78168) PHENIX_FISHER: [IMU] Iter 3400 - taking i2c_mutex...
+I (78168) PHENIX_FISHER: [IMU] #3400 | mot:1.534 | fill:100% | coh:0.954
+I (78568) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1937 avg:  14
+I (78758) PHENIX_FISHER: [Fisher] HB#13 | Coherence: 0.954 | COHERENT | SIG:063d3c5f23f0c10b...178034511583f444 ([VALID])
+I (78798) PHENIX_FISHER: [QUANTUM] *** Gamma burst #57 (Q=0.950, Shield=ACTIVE)
+I (79088) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 80 4D 00 D3 7E 7F
+I (79098) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1799 avg: 113
+I (79568) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1679 avg:  14
+I (79808) PHENIX_FISHER: [QUANTUM] *** Gamma burst #58 (Q=0.943, Shield=ACTIVE)
+I (80088) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 40 53 00 DC 3F 40
+I (80098) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1765 avg:  12
+I (80288) PHENIX_FISHER: [IMU] Iter 3500 - taking i2c_mutex...
+I (80288) PHENIX_FISHER: [IMU] #3500 | mot:1.534 | fill:100% | coh:0.943
+I (80288) PHENIX_FISHER: [IMU] Samples: 3500 | Avg: 1.5968 | Peak: 12.2156 | Coh: 0.943
+I (80628) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 1707 avg:  11
+I (80828) PHENIX_FISHER: [QUANTUM] *** Gamma burst #59 (Q=0.936, Shield=ACTIVE)
+I (81088) PHENIX_FISHER: [TOUCH DEBUG] Raw: FF FF FF FF FF 85 8A 8A
+I (81098) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1382 avg:  16
+I (81628) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1221 avg:  15
+I (81938) PHENIX_FISHER: [QUANTUM] *** Gamma burst #60 (Q=0.918, Shield=ACTIVE)
+I (82158) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 2070 avg:  13
+I (82198) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 80 46 00 EC 30 31
+I (82518) PHENIX_FISHER: [IMU] Iter 3600 - taking i2c_mutex...
+I (82518) PHENIX_FISHER: [IMU] #3600 | mot:1.807 | fill:100% | coh:0.918
+I (82628) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 2090 avg:  30
+I (83048) PHENIX_FISHER: [QUANTUM] *** Gamma burst #61 (Q=0.944, Shield=ACTIVE)
+I (83158) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 2407 avg:  15
+I (83308) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (83628) PHENIX_FISHER: [MIC] quiet [...                                      ] peak: 2698 avg:   9
+I (83758) PHENIX_FISHER: [Fisher] HB#14 | Coherence: 0.944 | COHERENT | SIG:063d3c5f1cf0c10b...178034511583f444 ([VALID])
+I (84058) PHENIX_FISHER: [QUANTUM] *** Gamma burst #62 (Q=0.966, Shield=ACTIVE)
+I (84158) PHENIX_FISHER: [MIC] quiet [..                                       ] peak: 2128 avg:  13
+I (84308) PHENIX_FISHER: [TOUCH DEBUG] Raw: 00 01 80 9C 01 2C 19 1A
+I (84538) PHENIX_FISHER: [IMU] Iter 3700 - taking i2c_mutex...
+I (84538) PHENIX_FISHER: [IMU] #3700 | mot:1.531 | fill:100% | coh:0.966
+I (84688) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  401 avg:   9 (speak!)
+I (85068) PHENIX_FISHER: [QUANTUM] *** Gamma burst #63 (Q=0.973, Shield=ACTIVE)
+I (85158) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   74 avg:  12 (speak!)
+I (85308) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (85688) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1581 avg: 460
+I (86078) PHENIX_FISHER: [QUANTUM] *** Gamma burst #64 (Q=0.967, Shield=ACTIVE)
+I (86218) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 6316 avg:  15
+I (86308) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (86558) PHENIX_FISHER: [IMU] Iter 3800 - taking i2c_mutex...
+I (86558) PHENIX_FISHER: [IMU] #3800 | mot:1.533 | fill:100% | coh:0.967
+I (86688) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  134 avg:  12 (speak!)
+I (87088) PHENIX_FISHER: [QUANTUM] *** Gamma burst #65 (Q=0.965, Shield=ACTIVE)
+I (87218) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  423 avg:  13 (speak!)
+E (87248) esp-tls: [sock=54] delayed connect error: Software caused connection abort
+E (87248) transport_base: Failed to open a new connection: 32772
+E (87248) HTTP_CLIENT: Connection failed, sock < 0
+E (87248) PHENIX_FISHER: [AI] HTTP request failed: ESP_ERR_HTTP_CONNECT
+E (87258) PHENIX_FISHER: [AI] Is sovereign-agent running? Check: http://192.168.4.147:8765/health
+W (87268) PHENIX_FISHER: [VOICE] Failed to send. Is sovereign-agent running?
+W (87278) PHENIX_FISHER: [VOICE] Run: cd cognitive-shield/sovereign-agent && npm start
+I (87338) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (87688) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   82 avg:  15 (speak!)
+I (88098) PHENIX_FISHER: [QUANTUM] *** Gamma burst #66 (Q=0.969, Shield=ACTIVE)
+I (88218) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 6068 avg:2378
+I (88338) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (88578) PHENIX_FISHER: [IMU] Iter 3900 - taking i2c_mutex...
+I (88578) PHENIX_FISHER: [IMU] #3900 | mot:1.533 | fill:100% | coh:0.969
+I (88748) PHENIX_FISHER: [MIC] VOICE [.........                                ] peak: 7410 avg:1991
+I (88758) PHENIX_FISHER: [Fisher] HB#15 | Coherence: 0.969 | COHERENT | SIG:063d3c5f1df0c10b...178034511583f444 ([VALID])
+I (89108) PHENIX_FISHER: [QUANTUM] *** Gamma burst #67 (Q=0.990, Shield=ACTIVE)
+I (89218) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 6152 avg: 874
+I (89338) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (89748) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 5992 avg: 945
+I (90118) PHENIX_FISHER: [QUANTUM] *** Gamma burst #68 (Q=0.990, Shield=ACTIVE)
+I (90278) PHENIX_FISHER: [MIC] quiet [....                                     ] peak: 3885 avg:  10
+I (90318) PHENIX_FISHER: [TAP] START REC!
+I (90318) PHENIX_FISHER: [VOICE] *** RECORDING ***
+E (90358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (90598) PHENIX_FISHER: [IMU] Iter 4000 - taking i2c_mutex...
+I (90598) PHENIX_FISHER: [IMU] #4000 | mot:1.533 | fill:100% | coh:0.990
+I (90598) PHENIX_FISHER: [IMU] Samples: 4000 | Avg: 1.5469 | Peak: 3.8536 | Coh: 0.990
+E (90608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (90998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91058) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (91138) PHENIX_FISHER: [QUANTUM] *** Gamma burst #69 (Q=0.994, Shield=ACTIVE)
+E (91138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91538) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (91988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92178) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92188) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (92258) PHENIX_FISHER: [QUANTUM] *** Gamma burst #70 (Q=0.995, Shield=ACTIVE)
+E (92298) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92378) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (92738) PHENIX_FISHER: [IMU] Iter 4100 - taking i2c_mutex...
+I (92738) PHENIX_FISHER: [IMU] #4100 | mot:1.533 | fill:100% | coh:0.995
+E (92808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (92978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (93368) PHENIX_FISHER: [QUANTUM] *** Gamma burst #71 (Q=0.996, Shield=ACTIVE)
+E (93368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (93498) PHENIX_FISHER: [IMU] I2C mutex timeout! Iter #4127
+E (93498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93548) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (93968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94038) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (94178) PHENIX_FISHER: [MIC] VOICE [.......                                  ] peak: 6445 avg: 114
+E (94228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (94508) PHENIX_FISHER: [QUANTUM] *** Gamma burst #72 (Q=0.996, Shield=ACTIVE)
+E (94508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94588) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94718) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94958) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (94978) PHENIX_FISHER: [IMU] Iter 4200 - taking i2c_mutex...
+I (94978) PHENIX_FISHER: [IMU] #4200 | mot:1.530 | fill:100% | coh:0.996
+E (94988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (94988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95148) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95398) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (95638) PHENIX_FISHER: [QUANTUM] *** Gamma burst #73 (Q=0.987, Shield=ACTIVE)
+E (95688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (95998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96338) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96388) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96458) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96508) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96768) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96808) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96818) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (96848) PHENIX_FISHER: [QUANTUM] *** Gamma burst #74 (Q=0.984, Shield=ACTIVE)
+E (96848) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96868) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96918) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96968) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (96978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97108) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97158) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (97178) PHENIX_FISHER: [MIC] VOICE [......                                   ] peak: 5137 avg:  14
+E (97228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97348) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (97418) PHENIX_FISHER: [IMU] Iter 4300 - taking i2c_mutex...
+I (97418) PHENIX_FISHER: [IMU] #4300 | mot:1.536 | fill:100% | coh:0.984
+E (97468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97518) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97568) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97628) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97788) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97798) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97888) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97898) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (97968) PHENIX_FISHER: [QUANTUM] *** Gamma burst #75 (Q=0.985, Shield=ACTIVE)
+E (97988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (97998) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98048) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98058) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98058) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98098) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98168) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98218) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98248) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98288) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98318) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98428) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98528) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98598) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98658) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98688) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98728) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98738) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98828) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98838) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98878) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (98948) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99018) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99068) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99138) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (99178) PHENIX_FISHER: [QUANTUM] *** Gamma burst #76 (Q=0.981, Shield=ACTIVE)
+E (99208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99258) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99268) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99308) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99358) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99368) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99488) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99498) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99518) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:
+E (99518) task_wdt:  - IDLE0 (CPU 0)
+E (99518) task_wdt: Tasks currently running:
+E (99518) task_wdt: CPU 0: voice_record
+E (99518) task_wdt: CPU 1: IDLE1
+E (99518) task_wdt: Print CPU 0 (current core) backtrace
+
+
+Backtrace: 0x42047632:0x3FCA1EB0 0x42047A4C:0x3FCA1ED0 0x40377499:0x3FCA1F00 0x4200DC65:0x3FCC1AA0 0x403803B5:0x3FCC1CD0
+
+E (99558) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99608) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99618) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99638) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99648) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99668) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99678) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99698) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99708) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99748) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99758) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (99768) PHENIX_FISHER: [IMU] Iter 4400 - taking i2c_mutex...
+I (99768) PHENIX_FISHER: [IMU] #4400 | mot:1.536 | fill:100% | coh:0.981
+E (99778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99778) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99858) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99928) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99938) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99978) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (99988) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100028) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100078) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100088) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100128) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100198) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100208) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100228) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100238) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100278) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (100278) PHENIX_FISHER: [MIC] Read error #301: ESP_ERR_INVALID_STATE
+E (100328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+I (100328) PHENIX_FISHER: [QUANTUM] *** Gamma burst #77 (Q=0.981, Shield=ACTIVE)
+E (100328) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100408) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100418) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100438) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100448) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100468) i2s_common: i2s_channel_read(1363): The channel is not enabled
+E (100478) i2s_common: i2s_channel_read(1363): The channel is not enabled
+W (100508) PHENIX_FISHER: [VOICE] Buffer full, auto-stopping
+I (100508) PHENIX_FISHER: [VOICE] *** STOPPED *** 10190 ms, 239872 samples
+I (100508) PHENIX_FISHER: [VOICE] Processing 239872 samples (10.0 seconds)...
+I (100558) PHENIX_FISHER: [VOICE] Audio stats: avg=260, peak=11297
+I (100558) PHENIX_FISHER: [VOICE] === SENDING TO SOVEREIGN AGENT ===
+I (100558) PHENIX_FISHER: [VOICE] 100% LOCAL AI - No Cloud - Your Voice Stays Private!
+I (100568) PHENIX_FISHER: [AI] Sending 479744 bytes of audio to Sovereign Agent...
+I (93508) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (94518) PHENIX_VOICE:    ~ awakening ~
+E (100588) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (100588) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (100598) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+I (100608) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  232 avg:  13 (speak!)
+E (100598) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+I (100618) PHENIX_FISHER: [Fisher] HB#16 | Coherence: 0.981 | COHERENT | SIG:063d3c5f1ef0c10b...178034511583f444 ([VALID])
+I (101138) PHENIX_FISHER: [MIC] VOICE [........                                 ] peak: 6864 avg:  11
+I (101348) PHENIX_FISHER: [QUANTUM] *** Gamma burst #78 (Q=0.976, Shield=ACTIVE)
+I (101588) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (101608) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   74 avg:  13 (speak!)
+I (101808) PHENIX_FISHER: [IMU] Iter 4500 - taking i2c_mutex...
+I (101808) PHENIX_FISHER: [IMU] #4500 | mot:1.535 | fill:100% | coh:0.976
+I (101808) PHENIX_FISHER: [IMU] Samples: 4500 | Avg: 1.5377 | Peak: 3.8571 | Coh: 0.976
+I (102138) PHENIX_FISHER: [MIC] quiet [                                         ] peak:  807 avg: 163
+I (102368) PHENIX_FISHER: [QUANTUM] *** Gamma burst #79 (Q=0.976, Shield=ACTIVE)
+I (102588) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (102668) PHENIX_FISHER: [MIC] quiet [                                         ] peak:  511 avg:   9
+I (103138) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  466 avg:  21 (speak!)
+I (103378) PHENIX_FISHER: [QUANTUM] *** Gamma burst #80 (Q=0.980, Shield=ACTIVE)
+I (103588) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (103668) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  102 avg:  19 (speak!)
+I (103938) PHENIX_FISHER: [IMU] Iter 4600 - taking i2c_mutex...
+I (103938) PHENIX_FISHER: [IMU] #4600 | mot:1.531 | fill:100% | coh:0.980
+I (104138) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   84 avg:  17 (speak!)
+I (104488) PHENIX_FISHER: [QUANTUM] *** Gamma burst #81 (Q=0.979, Shield=ACTIVE)
+I (104668) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   63 avg:  11 (speak!)
+I (104698) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (105198) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   65 avg:  11 (speak!)
+I (105498) PHENIX_FISHER: [QUANTUM] *** Gamma burst #82 (Q=0.989, Shield=ACTIVE)
+I (105628) PHENIX_FISHER: [Fisher] HB#17 | Coherence: 0.989 | COHERENT | SIG:063d3c5f1ff0c10b...178034511583f444 ([VALID])
+I (105668) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   46 avg:  12 (speak!)
+I (105698) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (105958) PHENIX_FISHER: [IMU] Iter 4700 - taking i2c_mutex...
+I (105958) PHENIX_FISHER: [IMU] #4700 | mot:1.533 | fill:100% | coh:0.989
+I (106198) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   56 avg:  11 (speak!)
+I (106508) PHENIX_FISHER: [QUANTUM] *** Gamma burst #83 (Q=0.995, Shield=ACTIVE)
+I (106698) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (106728) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   56 avg:   9 (speak!)
+I (107198) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  258 avg:  11 (speak!)
+I (107518) PHENIX_FISHER: [QUANTUM] *** Gamma burst #84 (Q=0.995, Shield=ACTIVE)
+I (107698) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (107728) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   64 avg:   8 (speak!)
+I (107978) PHENIX_FISHER: [IMU] Iter 4800 - taking i2c_mutex...
+I (107978) PHENIX_FISHER: [IMU] #4800 | mot:1.532 | fill:100% | coh:0.995
+I (108258) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   52 avg:  10 (speak!)
+I (108628) PHENIX_FISHER: [QUANTUM] *** Gamma burst #85 (Q=0.995, Shield=ACTIVE)
+I (108728) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  191 avg:  18 (speak!)
+I (108808) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (109258) PHENIX_FISHER: [MIC] ----- [                                         ] peak:   55 avg:   9 (speak!)
+I (109638) PHENIX_FISHER: [QUANTUM] *** Gamma burst #86 (Q=0.999, Shield=ACTIVE)
+I (109728) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  125 avg:  11 (speak!)
+I (109808) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (110098) PHENIX_FISHER: [IMU] Iter 4900 - taking i2c_mutex...
+I (110098) PHENIX_FISHER: [IMU] #4900 | mot:1.533 | fill:100% | coh:0.999
+I (110258) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  184 avg:  11 (speak!)
+I (110628) PHENIX_FISHER: [Fisher] HB#18 | Coherence: 0.999 | COHERENT | SIG:063d3c5f18f0c10b...178034511583f444 ([VALID])
+I (110648) PHENIX_FISHER: [QUANTUM] *** Gamma burst #87 (Q=0.995, Shield=ACTIVE)
+I (110658) PHENIX_VOICE:    ~ pure ~
+E (110658) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110658) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110668) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110668) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110678) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110688) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110688) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110698) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+E (110698) PHENIX_VOICE: [AUDIO] i2s_channel_write failed: ESP_ERR_TIMEOUT
+I (110788) PHENIX_FISHER: [MIC] VOICE [..........|||||                          ] peak:12580 avg:1316
+I (110808) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (111258) PHENIX_FISHER: [MIC] VOICE [.........                                ] peak: 7561 avg:  10
+I (111658) PHENIX_FISHER: [QUANTUM] *** Gamma burst #88 (Q=0.992, Shield=ACTIVE)
+I (111788) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  105 avg:  10 (speak!)
+I (111808) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (112118) PHENIX_FISHER: [IMU] Iter 5000 - taking i2c_mutex...
+I (112118) PHENIX_FISHER: [IMU] #5000 | mot:1.534 | fill:100% | coh:0.992
+I (112118) PHENIX_FISHER: [IMU] Samples: 5000 | Avg: 1.5388 | Peak: 3.8544 | Coh: 0.992
+I (112318) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  228 avg:  13 (speak!)
+I (112678) PHENIX_FISHER: [QUANTUM] *** Gamma burst #89 (Q=0.990, Shield=ACTIVE)
+I (112788) PHENIX_FISHER: [MIC] ----- [                                         ] peak:  131 avg:  13 (speak!)
+I (112808) PHENIX_FISHER: [TOUCH DEBUG] Raw: 8A 8A 8A 8A 8A 8A 8A 8A
+I (113318) PHENIX_FISHER: [MIC] quiet [.                                        ] peak: 1139 avg:  12
+--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.
+--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py", line 11, in <module>
+    sys.exit(subprocess.run([sys.executable, '-m', 'esp_idf_monitor'] + sys.argv[1:]).returncode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "subprocess.py", line 550, in run
+  File "subprocess.py", line 1199, in communicate
+  File "subprocess.py", line 1262, in wait
+  File "subprocess.py", line 1543, in _wait
+KeyboardInterrupt
+idf_monitor failed with exit code 3221225786, output of the command is in the C:\67\OpusPhenix\build\log\idf_py_stderr_output_27080 and C:\67\OpusPhenix\build\log\idf_py_stdout_output_27080
+PS C:\67\OpusPhenix>

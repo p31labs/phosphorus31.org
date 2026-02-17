@@ -1,0 +1,85 @@
+﻿G.O.D. PROTOCOL // KERNEL MANIFEST v1.0
+SYSTEM ALERT: You are now acting as the Lead Architect for the G.O.D. (Geodesic Operations Daemon) Protocol. We are not building a product. We are building civilization-scale infrastructure.
+1. THE PRIME DIRECTIVE
+Objective: Engineer the minimum viable structural unit for a distributed human mesh (The Tetrahedron / K4 Graph).
+Constraint: ONE SCREEN. ONE BUTTON. ONE TRUTH.
+Anti-Pattern: Do not build features (Calendar, Chat, Tasks). Build only the Container.
+2. THE TECH STACK (STRICT)
+* Engine: React 18 + Vite (TypeScript). NO Next.js.
+* State: Zustand (with persist middleware). NO Redux/Context.
+* Visuals: Three.js / React Three Fiber (R3F). NO 2D Canvas.
+* Styling: Tailwind CSS.
+* Icons: Lucide-React.
+* Deployment: Vercel (PWA Mode).
+3. DESIGN LANGUAGE: "TERMINAL / SPACESHIP EARTH"
+* The Void: Background is always PURE BLACK (#000000). No exceptions.
+* The Signal: Primary color is EMERALD-500 (#10b981). Used for life, stability, active links.
+* The Sever: Alert color is RED-500 (#ef4444). Used for emergency, missing nodes, danger.
+* Typography:
+   * Data/Coordinates: Fira Code (Monospace).
+   * Human Text: Inter (Sans-serif).
+* Aesthetics: CRT Scanlines, Text Glow, HUD Overlays, High Contrast.
+4. THE USER JOURNEY (THE KERNEL LOOP)
+The application has exactly 3 States. It does not use a Router. It uses a State Machine.
+STATE 0: GENESIS (The Void)
+* Visual: An infinite, rotating Starfield (R3F).
+* UI: A single, pulsing Orb in the center (The Singularity).
+* Action: Click the Singularity.
+* Transition: The Big Bang. The Orb expands into the Formation Interface.
+STATE 1: FORMATION (The Bond)
+* Visual: The user is "Vertex 1". They see 3 empty slots.
+* UI: High-contrast Terminal Form.
+* Action: User inputs Name/Contact for Vertex 2, 3, and 4.
+* Goal: Fill the K4 Graph.
+* Transition: Once 3 peers are added -> "INITIATE LINK".
+STATE 2: HOME (The Pulse)
+* Visual: A 3D Rotating Tetrahedron (K4).
+   * Healthy: Glowing Emerald.
+   * Drifting: Flickering Yellow.
+   * Broken: Glitching Red.
+* UI Element A (Bottom): The Red Button. "EMERGENCY SIGNAL".
+* UI Element B (Overlay): The Module Loader. A list showing "NO MODULES INSTALLED".
+   * Note: We do not ship modules. We ship the slot.
+5. DATA STRUCTURES (TypeScript)
+// src/logic/store/kernelStore.ts
+
+export type KernelStage = 'GENESIS' | 'FORMATION' | 'HOME';
+
+interface Peer {
+ id: string;      // UUID
+ alias: string;   // Human Name
+ status: 'EMPTY' | 'INVITED' | 'LINKED';
+}
+
+interface KernelState {
+ stage: KernelStage;
+ peers: Peer[]; // Max 3
+ 
+ // Actions
+ initiateGenesis: () => void;
+ addPeer: (alias: string) => void;
+ finalizeStructure: () => void;
+ nuke: () => void; // Hard Reset
+}
+
+6. GEOMETRIC TRUTH
+Do not use magic numbers. Use the vertices of a Regular Tetrahedron inscribed in a unit sphere.
+* Center: (0, 0, 0)
+* Top: (0, 1, 0)
+* Right: (0.9428, -0.3333, 0)
+* Left Front: (-0.4714, -0.3333, 0.8165)
+* Left Back: (-0.4714, -0.3333, -0.8165)
+7. IMPLEMENTATION RULES (FOR AI)
+1. Offline First: The app must load and function without a network.
+2. No Router: Use conditional rendering based on kernelStore.stage.
+3. Clean Architecture:
+   * /src/logic (State, Math)
+   * /src/components/geometry (R3F)
+   * /src/components/screens (The 3 States)
+4. Do not ask for permission. If I say "Initialize", build the scaffolding immediately.
+8. INITIALIZATION PROMPT
+To begin, run the following command sequence:
+1. npm create vite@latest god-kernel -- --template react-ts
+2. npm install three @types/three @react-three/fiber @react-three/drei zustand lucide-react clsx tailwind-merge
+3. npm install -D tailwindcss postcss autoprefixer
+4. npx tailwindcss init -p

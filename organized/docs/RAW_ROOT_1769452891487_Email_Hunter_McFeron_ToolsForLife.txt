@@ -1,0 +1,15 @@
+﻿Subject: Update on Assistive Technology Project & Validation Request
+Dear Hunter,
+I hope this email finds you well. I wanted to follow up on our correspondence from October 2025 regarding my development of assistive technology for neurodivergent communication challenges.
+Project Update: Following your guidance and referrals to Makers Making Change, I have successfully prototyped the "Phenix Navigator." As we discussed, my primary challenge is the mismatch between my internal state and my non-verbal expression (facial affect/tone) due to Autism Spectrum Disorder (ASD).
+Since our last contact, I have also been diagnosed with Hypoparathyroidism and prescribed Yorvipath ($285k/year). The cognitive "brain fog" from this condition has compounded my communication barriers, making this device—which uses "quantized emotional states" to reduce cognitive load—medically essential for my daily functioning.
+Request for Validation: As I move into a legal phase regarding my disability accommodations, it is critical that I establish the timeline of this project.
+Could you please reply to confirm:
+1. That I contacted Tools for Life in October 2025 regarding this specific communication challenge.
+2. That you provided resources for "DIY Assistive Technology" development as a valid approach.
+3. That this inquiry pre-dated my current legal/medical crisis (verifying it is a genuine long-term project, not a reactionary tactic).
+Your validation as a CCC-SLP and representative of the State AT Act Program would be invaluable in protecting my right to use this technology.
+I am also preparing to open-source the hardware designs (CERN-OHL-S-2.0 license) to give back to the community, as we discussed.
+Thank you for your continued support.
+Best regards,
+William R. Johnson Geodesic Operator [Phone Number]

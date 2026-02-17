@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation · P31 Labs</title>
+  <meta name="description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
+  <meta property="og:title" content="Documentation · P31 Labs">
+  <meta property="og:description" content="Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Page‑specific styles (extend design system) -->
+  <style>
+    /* Quick links and search refinement */
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+    .quick-links a {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .quick-links a:hover,
+    .quick-links a:focus {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: #2ecc71;
+      outline: none;
+    }
+    .version-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 1rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .version-info code {
+      background: #0a0a1a;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.5rem;
+    }
+    .search-container {
+      margin: 2rem 0 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .search-container input {
+      flex: 1;
+      min-height: 36px;
+      background: #0A0A1F;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 8px 12px 8px 36px;
+      color: #E0E0EE;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+    }
+    .search-container input::placeholder {
+      color: #4A4A7A;
+      font-style: italic;
+    }
+    .search-container input:focus {
+      outline: none;
+      border-color: #00FF88;
+      box-shadow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+    }
+    .search-container button {
+      min-height: 36px;
+      min-width: 80px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: #7878AA;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-container button:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #E0E0EE;
+    }
+    .search-container button:focus {
+      outline: none;
+      border-color: #00FF88;
+      box-shadow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      display: none;
+    }
+    .no-results.visible {
+      display: block;
+    }
+    /* Code block styling */
+    pre {
+      background: #0a0a1a;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      overflow-x: auto;
+      border: 1px solid #1e293b;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: #e2e8f0;
+    }
+    /* Syntax highlight (simple) */
+    .token.keyword { color: #f472b6; }
+    .token.string { color: #a3e635; }
+    .token.comment { color: #64748b; }
+    .token.function { color: #60a5fa; }
+    /* Expandable section */
+    details {
+      background: #0a0a1a;
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+    }
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #f1f5f9;
+    }
+    summary:focus-visible {
+      outline: 2px solid #2ecc71;
+      border-radius: 0.5rem;
+    }
+    details[open] {
+      padding-bottom: 1rem;
+    }
+    /* Card hiding for search */
+    .stack-card.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/" aria-current="page">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Documentation</span>
+          <h1>P31 Labs Documentation</h1>
+          <p>Complete technical documentation for Node One, The Buffer, The Scope, and the Phenix Navigator architecture.</p>
+        </div>
+
+        <!-- Version & last updated -->
+        <div class="version-info">
+          <span><code>v0.2.1</code> · Latest release</span>
+          <span>Last updated: <time datetime="2026-02-15">February 15, 2026</time></span>
+        </div>
+
+        <!-- Search bar (client‑side, offline‑capable) -->
+        <div class="search-container">
+          <label for="doc-search" class="sr-only">Search documentation</label>
+          <input type="search" id="doc-search" placeholder="Search docs... (filter by title, description, tag)" aria-label="Search documentation">
+          <button id="search-clear" aria-label="Clear search">Clear</button>
+        </div>
+
+        <!-- Quick links to GitHub repos -->
+        <div class="quick-links" aria-label="Quick links to GitHub repositories">
+          <a href="https://github.com/p31labs/node-one" target="_blank" rel="noopener">📦 Node One Firmware</a>
+          <a href="https://github.com/p31labs/buffer" target="_blank" rel="noopener">🧪 The Buffer</a>
+          <a href="https://github.com/p31labs/scope" target="_blank" rel="noopener">🔭 The Scope</a>
+          <a href="https://github.com/p31labs/phenix-navigator" target="_blank" rel="noopener">🧭 Phenix Navigator</a>
+          <a href="https://github.com/p31labs/love-economy" target="_blank" rel="noopener">💚 L.O.V.E. Economy</a>
+        </div>
+
+        <!-- Documentation grid (cards) -->
+        <div class="stack-grid" id="docs-grid" role="region" aria-label="Documentation sections">
+          <!-- Node One -->
+          <article class="stack-card" data-tags="hardware node one">
+            <div class="card-header">
+              <span class="card-tag">HARDWARE</span>
+            </div>
+            <h3><a href="/docs/node-one/" class="card-link">Node One</a></h3>
+            <p>ESP32‑S3 firmware, LoRa mesh networking, haptic feedback, and hardware specifications.</p>
+            <a href="/docs/node-one/" class="btn btn-ghost" aria-label="Read Node One documentation">View Docs →</a>
+          </article>
+
+          <!-- The Buffer -->
+          <article class="stack-card" data-tags="software buffer">
+            <div class="card-header">
+              <span class="card-tag">SOFTWARE</span>
+            </div>
+            <h3><a href="/docs/buffer/" class="card-link">The Buffer</a></h3>
+            <p>Real‑time data processing, signal buffering, and mesh synchronization.</p>
+            <a href="/docs/buffer/" class="btn btn-ghost" aria-label="Read The Buffer documentation">View Docs →</a>
+          </article>
+
+          <!-- The Scope -->
+          <article class="stack-card" data-tags="interface scope">
+            <div class="card-header">
+              <span class="card-tag">INTERFACE</span>
+            </div>
+            <h3><a href="/docs/scope/" class="card-link">The Scope</a></h3>
+            <p>Visualization, user interface components, and accessibility layers.</p>
+            <a href="/docs/scope/" class="btn btn-ghost" aria-label="Read The Scope documentation">View Docs →</a>
+          </article>
+
+          <!-- Phenix Navigator -->
+          <article class="stack-card" data-tags="architecture phenix navigator">
+            <div class="card-header">
+              <span class="card-tag">ARCHITECTURE</span>
+            </div>
+            <h3><a href="/docs/phenix-navigator/" class="card-link">Phenix Navigator</a></h3>
+            <p>Mesh topology, routing protocols, and network resilience.</p>
+            <a href="/docs/phenix-navigator/" class="btn btn-ghost" aria-label="Read Phenix Navigator documentation">View Docs →</a>
+          </article>
+
+          <!-- L.O.V.E. Economy -->
+          <article class="stack-card" data-tags="economy love">
+            <div class="card-header">
+              <span class="card-tag">ECONOMY</span>
+            </div>
+            <h3><a href="/docs/love-economy/" class="card-link">L.O.V.E. Economy</a></h3>
+            <p>Token mechanics, pool distribution, Proof of Care, and vesting.</p>
+            <a href="/docs/love-economy/" class="btn btn-ghost" aria-label="Read L.O.V.E. Economy documentation">View Docs →</a>
+          </article>
+
+          <!-- API Reference -->
+          <article class="stack-card" data-tags="api reference">
+            <div class="card-header">
+              <span class="card-tag">API</span>
+            </div>
+            <h3><a href="/docs/api/" class="card-link">API Reference</a></h3>
+            <p>REST & WebSocket endpoints, data formats, and authentication.</p>
+            <a href="/docs/api/" class="btn btn-ghost" aria-label="Read API Reference documentation">View Docs →</a>
+          </article>
+
+          <!-- Development Guides -->
+          <article class="stack-card" data-tags="guides development">
+            <div class="card-header">
+              <span class="card-tag">GUIDES</span>
+            </div>
+            <h3><a href="/docs/guides/" class="card-link">Development Guides</a></h3>
+            <p>Setting up the toolchain, building from source, and contributing.</p>
+            <a href="/docs/guides/" class="btn btn-ghost" aria-label="Read Development Guides">View Docs →</a>
+          </article>
+        </div>
+
+        <!-- No results message -->
+        <div class="no-results" id="no-results-message" aria-live="polite">
+          No matching documentation found. Try different keywords.
+        </div>
+
+        <!-- Code example section (demonstration) -->
+        <section aria-labelledby="code-example-heading">
+          <h2 id="code-example-heading" class="section-header" style="margin-top: 3rem;">Code Example</h2>
+          <p>Initializing the Node One mesh network:</p>
+          <pre><code><span class="token keyword">import</span> { NodeOne } <span class="token keyword">from</span> <span class="token string">'@p31/node-one'</span>;
+
+<span class="token keyword">const</span> node = <span class="token keyword">new</span> <span class="token function">NodeOne</span>({
+  frequency: <span class="token number">915</span>, <span class="token comment">// MHz</span>
+  meshId: <span class="token string">'p31-delta'</span>,
+  haptics: <span class="token boolean">true</span>
+});
+
+<span class="token function">node</span>.<span class="token function">on</span>(<span class="token string">'message'</span>, <span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token operator">=></span> {
+  console.<span class="token function">log</span>(<span class="token string">'Received:'</span>, msg);
+});
+
+<span class="token keyword">await</span> node.<span class="token function">start</span>();</code></pre>
+        </section>
+
+        <!-- Expandable section example -->
+        <section aria-labelledby="expandable-heading">
+          <h2 id="expandable-heading" class="section-header">Detailed Topics</h2>
+          <details>
+            <summary>Mesh Routing Protocol (Phenix)</summary>
+            <p>The Phenix Navigator uses a modified AODV (Ad‑hoc On‑Demand Distance Vector) protocol with topology‑aware metric. Each node maintains a routing table with signal strength and path reliability. For full specification, see <a href="/docs/phenix-navigator/routing/">Routing Protocol</a>.</p>
+          </details>
+          <details>
+            <summary>Haptic Feedback Patterns</summary>
+            <p>Node One supports 123 distinct haptic patterns defined in the <code>DRV2605L</code> library. Patterns are grouped into categories: alerts, confirmations, navigation, and data encoding. Refer to the <a href="/docs/node-one/haptics/">Haptics Reference</a> for waveform tables.</p>
+          </details>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <section class="section section-dark" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Documentation Philosophy</span>
+        <h2>Why We Document Everything</h2>
+        <p>Documentation is not optional — it's essential. The mesh grows through knowledge, not through code alone.</p>
+      </div>
+      <div class="why-text">
+        <p><strong>Transparency:</strong> All code is documented. All APIs are documented. All architectures are documented. We don't hide anything. The mesh grows through transparency, not through obscurity.</p>
+        <p><strong>Accessibility:</strong> All documentation is accessible. Clear language. Code examples. Diagrams. The mesh holds for everyone, or it doesn't hold at all.</p>
+        <p><strong>Completeness:</strong> Every function documented. Every parameter explained. Every design decision justified. The mesh grows through understanding, not through mystery.</p>
+        <p><strong>The Beauty:</strong> Just as quantum states exist in superposition until measured, code exists in potential until documented. Documentation is the measurement that collapses the wave function into knowledge. The geometry protects the signal — and documentation makes it accessible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Documentation Tools</span>
+        <h2>How We Write Docs</h2>
+        <p>Markdown for prose. Code comments for inline documentation. Diagrams for architecture. The mesh grows through multiple formats.</p>
+      </div>
+      <div class="why-text">
+        <p><strong>Markdown:</strong> All documentation is written in Markdown. Easy to read. Easy to write. Easy to maintain. The mesh grows through simplicity, not through complexity.</p>
+        <p><strong>Code Comments:</strong> Inline documentation in code. Every function documented. Every complex algorithm explained. The mesh grows through clarity, not through mystery.</p>
+        <p><strong>Diagrams:</strong> Architecture diagrams. Data flow diagrams. System topology diagrams. The mesh grows through visualization, not through text alone.</p>
+        <p><strong>The Beauty:</strong> Just as information theory describes signal transmission, documentation describes knowledge transmission. Good documentation maximizes channel capacity by providing clear information (high S/N) and multiple formats (high B). The geometry protects the message.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="../main.js"></script>
+  <script src="docs.js"></script>
+</body>
+</html>

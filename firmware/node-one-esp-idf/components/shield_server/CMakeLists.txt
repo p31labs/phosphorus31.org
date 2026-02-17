@@ -1,0 +1,18 @@
+idf_component_register(
+    SRCS 
+        "shield_server.c"
+    INCLUDE_DIRS 
+        "include"
+    PRIV_REQUIRES
+        esp_wifi
+        esp_netif
+        esp_http_server
+        spiffs
+        nvs_flash
+        json
+        freertos
+        esp_common
+        esp_timer
+        driver
+        bsp
+)

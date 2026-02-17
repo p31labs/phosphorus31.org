@@ -1,0 +1,613 @@
+# Swarm Intelligence API Specification
+openapi: 3.0.3
+info:
+  title: Swarm Intelligence API
+  description: API specification for the cloud-native Swarm Intelligence platform
+  version: 1.0.0
+  contact:
+    name: Swarm Intelligence Team
+    email: support@swarm.ai
+
+servers:
+  - url: https://swarm-orchestrator-abc123-uc.a.run.app
+    description: Production server
+
+paths:
+  /health:
+    get:
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                  version:
+                    type: string
+                    example: "1.0.0"
+
+  /api/v1/agents:
+    get:
+      summary: List all available agents
+      responses:
+        '200':
+          description: List of agents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Agent'
+
+  /api/v1/agents/{agentId}/execute:
+    post:
+      summary: Execute an agent with specific task
+      parameters:
+        - name: agentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentTask'
+      responses:
+        '200':
+          description: Agent execution result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResult'
+
+  /api/v1/projects:
+    get:
+      summary: List user projects
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+
+    post:
+      summary: Create a new project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+  /api/v1/projects/{projectId}:
+    get:
+      summary: Get project details
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+    put:
+      summary: Update project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdate'
+      responses:
+        '200':
+          description: Project updated successfully
+
+    delete:
+      summary: Delete project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Project deleted successfully
+
+  /api/v1/files:
+    get:
+      summary: List files in project
+      parameters:
+        - name: projectId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: path
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+
+  /api/v1/files/{fileId}:
+    get:
+      summary: Get file details
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+
+  /api/v1/analysis:
+    post:
+      summary: Analyze project or file
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalysisRequest'
+      responses:
+        '200':
+          description: Analysis results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResult'
+
+  /api/v1/cognitive-shield:
+    post:
+      summary: Process email through cognitive shield
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'
+      responses:
+        '200':
+          description: Sanitized email content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SanitizedEmail'
+
+  /api/v1/sync/status:
+    get:
+      summary: Get synchronization status
+      responses:
+        '200':
+          description: Sync status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncStatus'
+
+  /api/v1/hardware/auth:
+    post:
+      summary: Authenticate hardware device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HardwareAuthRequest'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HardwareAuthResponse'
+
+components:
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique agent identifier
+        name:
+          type: string
+          description: Human-readable agent name
+        type:
+          type: string
+          enum: [orchestrator, cognitive-shield, project-analyzer, file-monitor, research, update, repair, organization, performance, security]
+        status:
+          type: string
+          enum: [active, inactive, error]
+        capabilities:
+          type: array
+          items:
+            type: string
+        lastSeen:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+
+    AgentTask:
+      type: object
+      required: [type, payload]
+      properties:
+        type:
+          type: string
+          description: Type of task to execute
+        payload:
+          type: object
+          description: Task-specific parameters
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 5
+        timeout:
+          type: integer
+          description: Maximum execution time in milliseconds
+          default: 300000
+
+    AgentResult:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: ID of the executed task
+        success:
+          type: boolean
+          description: Whether the task completed successfully
+        data:
+          type: object
+          description: Task-specific result data
+        duration:
+          type: integer
+          description: Execution time in milliseconds
+        metadata:
+          type: object
+          properties:
+            agentId:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+            error:
+              type: string
+              description: Error message if task failed
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique project identifier
+        name:
+          type: string
+          description: Project name
+        description:
+          type: string
+          description: Project description
+        path:
+          type: string
+          description: Project file system path
+        status:
+          type: string
+          enum: [active, archived, deleted]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          description: Additional project metadata
+
+    ProjectCreate:
+      type: object
+      required: [name, path]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        path:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+
+    ProjectUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [active, archived, deleted]
+        tags:
+          type: array
+          items:
+            type: string
+
+    File:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        size:
+          type: integer
+        mimeType:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+        projectId:
+          type: string
+        metadata:
+          type: object
+
+    AnalysisRequest:
+      type: object
+      required: [type, target]
+      properties:
+        type:
+          type: string
+          enum: [project, file, directory]
+        target:
+          type: string
+          description: ID or path of the target to analyze
+        depth:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 3
+        includeDependencies:
+          type: boolean
+          default: true
+
+    AnalysisResult:
+      type: object
+      properties:
+        target:
+          type: string
+        type:
+          type: string
+        quality:
+          type: object
+          properties:
+            score:
+              type: number
+              minimum: 0
+              maximum: 100
+            issues:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  severity:
+                    type: string
+                    enum: [low, medium, high, critical]
+                  message:
+                    type: string
+                  location:
+                    type: string
+        architecture:
+          type: object
+          properties:
+            patterns:
+              type: array
+              items:
+                type: string
+            violations:
+              type: array
+              items:
+                type: object
+                properties:
+                  pattern:
+                    type: string
+                  violation:
+                    type: string
+        dependencies:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              version:
+                type: string
+              status:
+                type: string
+                enum: [up-to-date, outdated, vulnerable]
+              vulnerabilities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    severity:
+                      type: string
+                    description:
+                      type: string
+
+    Email:
+      type: object
+      required: [id, from, subject, body]
+      properties:
+        id:
+          type: string
+        from:
+          type: string
+        to:
+          type: array
+          items:
+            type: string
+        subject:
+          type: string
+        body:
+          type: string
+        receivedAt:
+          type: string
+          format: date-time
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              filename:
+                type: string
+              size:
+                type: integer
+              mimeType:
+                type: string
+
+    SanitizedEmail:
+      type: object
+      properties:
+        originalId:
+          type: string
+        bluf:
+          type: string
+          description: Bottom Line Up Front summary
+        sanitizedBody:
+          type: string
+          description: Emotionally neutral content
+        tone:
+          type: string
+          enum: [neutral, positive, negative, urgent]
+        riskLevel:
+          type: string
+          enum: [low, medium, high]
+        suggestedResponse:
+          type: string
+          description: AI-generated response suggestion
+
+    SyncStatus:
+      type: object
+      properties:
+        localStatus:
+          type: string
+          enum: [synced, syncing, error, offline]
+        cloudStatus:
+          type: string
+          enum: [synced, syncing, error, offline]
+        lastSync:
+          type: string
+          format: date-time
+        pendingChanges:
+          type: integer
+          description: Number of pending synchronization operations
+        conflicts:
+          type: integer
+          description: Number of synchronization conflicts
+
+    HardwareAuthRequest:
+      type: object
+      required: [deviceId, challenge]
+      properties:
+        deviceId:
+          type: string
+          description: Hardware device identifier
+        challenge:
+          type: string
+          description: Authentication challenge
+        timestamp:
+          type: string
+          format: date-time
+
+    HardwareAuthResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        token:
+          type: string
+          description: JWT authentication token
+        expiresAt:
+          type: string
+          format: date-time
+        deviceInfo:
+          type: object
+          properties:
+            deviceId:
+              type: string
+            model:
+              type: string
+            firmwareVersion:
+              type: string
+            capabilities:
+              type: array
+              items:
+                type: string
+
+security:
+  - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

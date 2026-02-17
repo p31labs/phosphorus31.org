@@ -75,15 +75,50 @@ ENV/
 *.sqlite
 *.sqlite3
 
-# Backups
-*.backup
+# Runtime data (Shelter accommodation log + backups) — root data/ only so ui/src/data/ is tracked
+/data/
 backup/
 backups/
-
-# Docker
-.dockerignore
+*.backup
 
 # Misc
 *.orig
 .cache/
 .parcel-cache/
+
+# Non-project tools and binaries
+FATXplorerBeta64/
+HxDSetup/
+Rufus/
+flash_download_tool/
+gt911-arduino-main/
+xiaozhi-esp32-*/
+v2.0.5_waveshare*/
+ESP32-S3-Touch-LCD-*/
+temp_xiaozhi/
+New folder/
+New folder.code-workspace
+OpusPhenix/
+omniscio-package/
+digital-centaur-package/
+
+# Binary/media files that shouldn't be in git
+*.zip
+*.docx
+*.rtf
+*.step
+*.jpeg
+*.tar.gz
+cognitive-shield-v2-scaffold.tar.gz
+lg.jpeg
+Quarter+tube+Threaded.step
+
+# Legacy C++ files (not part of current build)
+phenix_unified_*.cpp
+
+# GME DD (personal)
+GME DD/
+
+# IDE agent configs (local)
+.cursor/
+.claude/

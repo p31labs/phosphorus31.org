@@ -1,0 +1,38 @@
+﻿As of January 2026, the xiaozhi-esp32 project has moved to a major new version. The latest stable release is v2.1.0 (released late December 2025), which represents a significant architectural shift from the legacy v1.7.2.
+Below is a summary of the updates and improvements relevant to the Waveshare ESP32-S3 Touch LCD 3.5B.
+1. Major Version Comparison (v1.7.2 vs. v2.1.0)
+The transition from v1 to v2 is a "breaking" update due to a new partition table.
+Feature
+	v1.7.2 (Legacy)
+	v2.1.0 (Latest)
+	Upgrade Path
+	OTA compatible within v1
+	Manual flash required (No OTA from v1 to v2)
+	Framework
+	Standard Websocket/MQTT
+	MCP-based (Model Context Protocol)
+	UI Engine
+	Simple Grid Layout
+	Floating Layer System (optimized for emojis)
+	Stability
+	Maintenance only (until Feb 2026)
+	Active development
+	________________
+
+
+2. Specific Improvements for Waveshare 3.5B
+Recent releases (v2.0.3 through v2.1.0) include several board-specific fixes for the 3.5-inch model:
+* Touch Initialization Fix: Version 2.1.0 includes a specific fix for the touch driver initialization issue that occasionally caused "ghost touches" or total touch failure on the Waveshare 3.5B hardware.
+* Enhanced Power Management: Added dedicated support for the AXP2101 PMIC (Power Management IC) used in this board, improving battery level reporting accuracy and charging status detection.
+* Layered Emoji Support: Starting in v2.0, emojis no longer stretch the top status bar. They are now rendered on a floating layer, which is particularly useful on the 320x480 resolution of the 3.5" screen, allowing for larger, smoother animations.
+* Audio Feedback Refactor: Introduces a "popup flag" for audio feedback, providing better synchronization between the display's visual cues and the ES8311 audio codec on the Waveshare board.
+________________
+
+
+3. General Updates in v2.1.0
+* MCP Protocol Integration: The core has been refactored to support MCP, allowing the device to control smart home peripherals (LEDs, servos, etc.) and perform knowledge searches more efficiently.
+* Custom Assets Generator: A new online web-based tool allows users to generate custom fonts, wake words, and background images specifically tailored to the screen resolution.
+* Blufi Provisioning: Added the Blufi networking protocol (with optional encryption), which makes Wi-Fi setup significantly easier and more secure compared to the old AP mode.
+* Wake Word Stability: Fixed a critical bug where voice wake-up would cause a "panic" crash if debug mode was enabled.
+⚠️ Critical Migration Note
+Because the partition table in v2 is incompatible with v1, you cannot upgrade your Waveshare 3.5B from v1.7.2 to v2.1.0 using the web dashboard or OTA. You must perform a manual flash using a USB-C cable and the ESP-IDF toolset or the provided web-flash tool. Once on the v2 architecture, OTA updates will work as normal.

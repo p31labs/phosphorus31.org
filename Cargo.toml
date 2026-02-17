@@ -1,0 +1,13 @@
+[package]
+name = "phenix_shield"
+version = "0.1.0"
+edition = "2021"
+
+# The "lib" type allows Python to import this as a native module
+[lib]
+name = "phenix_shield"
+crate-type = ["cdylib"]
+
+[dependencies]
+# PyO3 is the bridge between the Python Orchestrator and Rust Core
+pyo3 = { version = "0.20.0", features = ["extension-module"] }

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P³¹ THE GREENHOUSE — App Marketplace</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-void: #050510;
+      --text-primary: #E0E0EE;
+      --text-muted: #7878AA;
+      --green: #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.3);
+      --surface: #12122E;
+      --border: #4A4A7A;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg-void);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    header a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s;
+    }
+
+    header a:hover {
+      color: var(--green);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .controls {
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px var(--green-glow);
+    }
+
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .category-btn {
+      padding: 0.5rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .category-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .category-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--bg-void);
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .apps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .apps-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow);
+      transform: translateY(-2px);
+    }
+
+    .app-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .app-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .app-description {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .app-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .app-category {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-void);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .app-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .app-actions a,
+    .app-actions button {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-open {
+      background: var(--green);
+      color: var(--bg-void);
+    }
+
+    .btn-open:hover {
+      background: #27ae60;
+      transform: scale(1.02);
+    }
+
+    .btn-download {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+
+    .btn-download:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .loading,
+    .error {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+
+    .error {
+      color: #e74c3c;
+    }
+
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>P³¹ THE GREENHOUSE</h1>
+    <a href="https://phosphorus31.org">← Back to phosphorus31.org</a>
+  </header>
+
+  <main>
+    <div class="controls">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search apps by name, description, or tags..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="category-filters" id="categoryFilters">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="compass">Compass</button>
+        <button class="category-btn" data-category="hearth">Hearth</button>
+        <button class="category-btn" data-category="greenhouse">Greenhouse</button>
+        <button class="category-btn" data-category="studio">Studio</button>
+      </div>
+    </div>
+
+    <div id="appsContainer">
+      <div class="loading">Loading apps...</div>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>P31 Labs</strong> — 
+      <a href="https://phosphorus31.org">phosphorus31.org</a> — 
+      It's okay to be a little wonky. 🔺
+    </p>
+  </footer>
+
+  <script>
+    let allApps = [];
+    let filteredApps = [];
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    const categoryFilters = document.getElementById('categoryFilters');
+    const searchInput = document.getElementById('searchInput');
+    const appsContainer = document.getElementById('appsContainer');
+
+    // Category filter buttons
+    categoryFilters.addEventListener('click', (e) => {
+      if (e.target.classList.contains('category-btn')) {
+        document.querySelectorAll('.category-btn').forEach((btn) => {
+          btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        currentCategory = e.target.dataset.category;
+        filterApps();
+      }
+    });
+
+    // Search input
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase().trim();
+      filterApps();
+    });
+
+    // Filter apps
+    function filterApps() {
+      filteredApps = allApps.filter((app) => {
+        // Category filter
+        if (currentCategory !== 'all' && app.category?.toLowerCase() !== currentCategory) {
+          return false;
+        }
+
+        // Search filter
+        if (currentSearch) {
+          const searchable = [
+            app.name,
+            app.description,
+            ...(app.tags || []),
+          ]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          if (!searchable.includes(currentSearch)) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      renderApps();
+    }
+
+    // Render apps
+    function renderApps() {
+      if (filteredApps.length === 0) {
+        appsContainer.innerHTML = `
+          <div class="error">
+            <p>No apps found matching your criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      appsContainer.innerHTML = `
+        <div class="apps-grid">
+          ${filteredApps
+            .map(
+              (app) => `
+            <div class="app-card">
+              <div class="app-icon">${app.icon || '📱'}</div>
+              <div class="app-name">${escapeHtml(app.name)}</div>
+              <div class="app-description">${escapeHtml(app.description || '')}</div>
+              <div class="app-meta">
+                ${app.category ? `<span class="app-category">${escapeHtml(app.category)}</span>` : ''}
+              </div>
+              <div class="app-actions">
+                ${app.url ? `<a href="${escapeHtml(app.url)}" class="btn-open" target="_blank" rel="noopener">Open</a>` : ''}
+                ${app.downloadUrl ? `<a href="${escapeHtml(app.downloadUrl)}" class="btn-download" download>Get This App ↓</a>` : ''}
+              </div>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Load apps.json
+    async function loadApps() {
+      try {
+        const response = await fetch('./apps.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const data = await response.json();
+        allApps = Array.isArray(data) ? data : data.apps || [];
+        filteredApps = allApps;
+        filterApps();
+      } catch (error) {
+        console.error('Failed to load apps:', error);
+        appsContainer.innerHTML = `
+          <div class="error">
+            <p>Apps list unavailable offline.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+              Please check your connection and try again.
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize
+    loadApps();
+  </script>
+</body>
+</html>

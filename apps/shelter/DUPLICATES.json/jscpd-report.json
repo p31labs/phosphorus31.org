@@ -1,0 +1,277 @@
+{
+  "statistics": {
+    "detectionDate": "2026-02-14T15:45:46.182Z",
+    "formats": {
+      "typescript": {
+        "sources": {
+          "src/utils/logger.ts": {
+            "lines": 31,
+            "tokens": 387,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/security/security-middleware.ts": {
+            "lines": 105,
+            "tokens": 935,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/types.ts": {
+            "lines": 57,
+            "tokens": 435,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/store.ts": {
+            "lines": 205,
+            "tokens": 1759,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 176,
+            "percentage": 6.83,
+            "percentageTokens": 10.01,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/server.ts": {
+            "lines": 536,
+            "tokens": 5701,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/retry.ts": {
+            "lines": 108,
+            "tokens": 1053,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 42,
+            "duplicatedTokens": 462,
+            "percentage": 38.89,
+            "percentageTokens": 43.87,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/queue.ts": {
+            "lines": 231,
+            "tokens": 2315,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/ping.ts": {
+            "lines": 124,
+            "tokens": 1137,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/monitoring.ts": {
+            "lines": 139,
+            "tokens": 1263,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/metabolism.ts": {
+            "lines": 190,
+            "tokens": 1495,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/index.ts": {
+            "lines": 45,
+            "tokens": 339,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/filter.ts": {
+            "lines": 148,
+            "tokens": 1281,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/encryption.ts": {
+            "lines": 94,
+            "tokens": 844,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/centaur-client.ts": {
+            "lines": 153,
+            "tokens": 1409,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 2166,
+          "tokens": 20353,
+          "sources": 14,
+          "clones": 2,
+          "duplicatedLines": 28,
+          "duplicatedTokens": 319,
+          "percentage": 1.29,
+          "percentageTokens": 1.57,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 2166,
+      "tokens": 20353,
+      "sources": 14,
+      "clones": 2,
+      "duplicatedLines": 28,
+      "duplicatedTokens": 319,
+      "percentage": 1.29,
+      "percentageTokens": 1.57,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "{\r\n        id: row.id,\r\n        message: row.message,\r\n        priority: row.priority as QueuedMessage['priority'],\r\n        metadata: JSON.parse(row.metadata || '{}'),\r\n        timestamp: row.timestamp,\r\n        status: row.status as QueuedMessage['status'],\r\n      })",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\store.ts",
+        "start": 149,
+        "end": 156,
+        "startLoc": {
+          "line": 149,
+          "column": 2,
+          "position": 1217
+        },
+        "endLoc": {
+          "line": 156,
+          "column": 2,
+          "position": 1305
+        }
+      },
+      "secondFile": {
+        "name": "src\\store.ts",
+        "start": 114,
+        "end": 121,
+        "startLoc": {
+          "line": 114,
+          "column": 2,
+          "position": 849
+        },
+        "endLoc": {
+          "line": 121,
+          "column": 2,
+          "position": 937
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 22,
+      "fragment": "<T>(\r\n    fn: () => Promise<T>,\r\n    context?: string\r\n  ): Promise<T> {\r\n    let lastError: Error | null = null;\r\n    let delay = this.initialDelay;\r\n\r\n    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {\r\n      try {\r\n        return await fn();\r\n      } catch (error) {\r\n        lastError = error instanceof Error ? error : new Error(String(error));\r\n        \r\n        if (attempt === this.maxRetries) {\r\n          this.logger.error(\r\n            `Max retries (${this.maxRetries}) exceeded${context ? ` for ${context}` : ''}`,\r\n            lastError\r\n          );\r\n          throw lastError;\r\n        }\r\n\r\n        // Add jitter: random value between 0.5x and 1.5x of delay",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\retry.ts",
+        "start": 69,
+        "end": 90,
+        "startLoc": {
+          "line": 69,
+          "column": 18,
+          "position": 617
+        },
+        "endLoc": {
+          "line": 90,
+          "column": 59,
+          "position": 848
+        }
+      },
+      "secondFile": {
+        "name": "src\\retry.ts",
+        "start": 32,
+        "end": 53,
+        "startLoc": {
+          "line": 32,
+          "column": 8,
+          "position": 255
+        },
+        "endLoc": {
+          "line": 53,
+          "column": 5,
+          "position": 486
+        }
+      }
+    }
+  ]
+}

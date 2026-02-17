@@ -1,0 +1,10 @@
+[
+  {
+    "id": "member_1",
+    "name": "Protected Member",
+    "relationship": "child",
+    "accessLevel": "full",
+    "createdAt": "2026-02-07T20:36:38.179Z",
+    "updatedAt": "2026-02-07T20:36:38.179Z"
+  }
+]

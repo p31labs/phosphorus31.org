@@ -1,0 +1,10 @@
+## IDF Component Manager Manifest File
+dependencies:
+  idf: ">=5.4"
+  espressif/esp_lcd_axs15231b: "^2.0.2"    # AXS15231B QSPI display + touch
+  espressif/esp_codec_dev: "~1.4.0"         # ES8311 audio codec
+  espressif/esp_lvgl_port: "^2"             # LVGL display/touch integration
+  lvgl/lvgl: ">=9,<10"                      # GUI framework
+  espressif/esp_lcd_touch: "^1"             # Touch abstraction layer
+  esp-idf-lib/mcp23x17: "^1.1.9"           # MCP23017 I2C expander
+  jgromes/radiolib: "^7.2.1"               # RadioLib for SX1262 LoRa driver

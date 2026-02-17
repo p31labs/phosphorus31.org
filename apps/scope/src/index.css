@@ -1,0 +1,313 @@
+:root {
+  --p31-void: #050510;
+  --p31-surface: #0A0A1F;
+  --p31-surface2: #12122E;
+  --p31-surface3: #1A1A3E;
+  --p31-green: #00FF88;
+  --p31-cyan: #00D4FF;
+  --p31-amber: #FFB800;
+  --p31-red: #FF4444;
+  --p31-red-product: #FF00CC;
+  --p31-black: #330000;
+  --p31-text: #E0E0EE;
+  --p31-muted: #7878AA;
+  --p31-data: #E0E0EE;
+  --font-heading: 'Oxanium', system-ui, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --panel-border: rgba(255, 255, 255, 0.04);
+  --panel-header-border: rgba(0, 255, 136, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--p31-void);
+  color: var(--p31-text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+/* Panel base — surface2, 6px radius, 1px border */
+.p31-scope-panel {
+  background: var(--p31-surface2);
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+}
+
+.p31-scope-panel-header {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--p31-green);
+  border-bottom: 1px solid var(--panel-header-border);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+}
+
+/* Scrollbars — 6px, surface3 thumb, void track */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--p31-surface3) var(--p31-void);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--p31-void);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--p31-surface3);
+  border-radius: 3px;
+}
+
+/* Scope main layout: ≥768px four-panel, <768px single column */
+.p31-scope-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 380px);
+  grid-template-rows: 120px minmax(200px, 1fr) auto;
+  gap: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .p31-scope-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+}
+
+/* Voltage meter: never narrower than 160px so gauge and label stay readable */
+.p31-scope-voltage-meter {
+  min-width: 160px;
+}
+
+/* Accommodation log table: horizontal scroll on small viewports (not clipped) */
+.p31-scope-accommodation-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.p31-scope-accommodation-table-wrap table {
+  min-width: 480px;
+}
+
+/* Message card: hover glow + slide-in when new */
+.p31-scope-message-card {
+  transition: box-shadow 200ms ease;
+}
+.p31-scope-message-card:hover {
+  box-shadow: 0 0 0 1px var(--panel-border), 0 0 12px var(--card-glow, rgba(0,255,136,0.2));
+}
+.p31-scope-message-card-enter {
+  animation: p31-slide-in 0.3s ease-out;
+}
+
+@keyframes p31-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes p31-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── P31 Form design system (inputs, buttons, select, textarea) ── */
+:root {
+  --p31-form-surface: #0A0A1F;
+  --p31-form-border: rgba(255, 255, 255, 0.08);
+  --p31-form-focus-glow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+  --p31-form-input-height: 36px;
+  --p31-form-input-height-mobile: 44px;
+  --p31-form-radius: 4px;
+  --p31-form-radius-btn: 6px;
+  --p31-form-placeholder: #4A4A7A;
+}
+
+.p31-input,
+.p31-input[type="date"],
+.p31-input[type="text"],
+.p31-input[type="search"],
+.p31-input[type="number"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: var(--p31-form-input-height);
+  padding: 8px 12px;
+  background: var(--p31-form-surface);
+  border: 1px solid var(--p31-form-border);
+  border-radius: var(--p31-form-radius);
+  color: var(--p31-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.p31-input::placeholder { color: var(--p31-form-placeholder); font-style: italic; }
+.p31-input:focus { outline: none; border-color: var(--p31-green); box-shadow: var(--p31-form-focus-glow); }
+.p31-input:focus-visible { outline: none; box-shadow: var(--p31-form-focus-glow); }
+
+@media (max-width: 767px) {
+  .p31-input, .p31-input[type="date"] { min-height: var(--p31-form-input-height-mobile); }
+}
+
+.p31-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: var(--p31-form-input-height);
+  min-width: 80px;
+  padding: 8px 16px;
+  border-radius: var(--p31-form-radius-btn);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.p31-btn:focus { outline: none; }
+.p31-btn:focus-visible { outline: none; box-shadow: var(--p31-form-focus-glow); }
+
+@media (max-width: 767px) {
+  .p31-btn { min-height: var(--p31-form-input-height-mobile); min-width: 44px; padding: 12px 16px; }
+}
+
+.p31-btn-primary {
+  background: transparent;
+  color: var(--p31-green);
+  border: 1px solid var(--p31-green);
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.15);
+}
+.p31-btn-primary:hover:not(:disabled) {
+  background: rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3), 0 0 24px rgba(0, 255, 136, 0.15);
+}
+.p31-btn-primary:active:not(:disabled) { background: rgba(0, 255, 136, 0.2); transform: scale(0.98); }
+
+.p31-btn-secondary {
+  background: transparent;
+  color: var(--p31-muted);
+  border: 1px solid var(--p31-form-border);
+}
+.p31-btn-secondary:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--p31-text);
+}
+
+.p31-btn-danger {
+  background: transparent;
+  color: var(--p31-red-product);
+  border: 1px solid var(--p31-red-product);
+}
+.p31-btn-danger:hover:not(:disabled) {
+  background: rgba(255, 0, 204, 0.1);
+  box-shadow: 0 0 8px rgba(255, 0, 204, 0.35), 0 0 20px rgba(255, 0, 204, 0.2);
+}
+.p31-btn-danger:active:not(:disabled) { transform: scale(0.98); }
+
+.p31-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.p31-btn:disabled:hover { background: inherit; border-color: inherit; box-shadow: none; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .p31-btn-primary:active:not(:disabled), .p31-btn-danger:active:not(:disabled) { transform: none; }
+}
+
+/* ── PRINT: static snapshot, print-safe colors, no animations ── */
+@media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: #1a1a2e !important;
+  }
+
+  .p31-scope-panel {
+    background: #f8f8f8 !important;
+    border-color: #ccc !important;
+    break-inside: avoid;
+  }
+
+  .p31-scope-panel-header {
+    color: #00994d !important;
+    border-bottom-color: #00994d !important;
+  }
+
+  .p31-scope-voltage-meter [style*="boxShadow"],
+  .p31-scope-voltage-meter [style*="textShadow"] {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .p31-scope-accommodation-table-wrap {
+    overflow: visible;
+  }
+
+  .p31-scope-accommodation-table {
+    font-size: 10pt;
+  }
+
+  .p31-scope-accommodation-table th,
+  .p31-scope-accommodation-table td {
+    color: #1a1a2e !important;
+  }
+
+  .p31-scope-message-card {
+    break-inside: avoid;
+  }
+
+  /* Footer on each printed page */
+  body::after {
+    content: "phosphorus31.org";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.35rem 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.75rem;
+    color: #666;
+    background: white;
+  }
+}

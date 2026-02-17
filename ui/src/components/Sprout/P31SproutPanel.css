@@ -1,0 +1,182 @@
+/* P31 Sprout Panel — kids-first, warm, tap-friendly */
+
+.p31-sprout-panel {
+  position: relative;
+  background: var(--p31-void, #050510);
+  min-height: 100%;
+  color: var(--p31-text, #e8e8f0);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  padding: 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.p31-sprout-title {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--p31-text, #e8e8f0);
+}
+
+.p31-sprout-subtitle {
+  color: var(--p31-text-dim, #9ca3af);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.p31-sprout-safe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  background: rgba(46, 204, 113, 0.08);
+  border: 1px solid rgba(46, 204, 113, 0.25);
+  margin-bottom: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--p31-phosphorus, #2ecc71);
+}
+
+.p31-sprout-card {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 18, 26, 0.6);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.p31-sprout-card-feelings {
+  border-color: rgba(232, 121, 249, 0.2);
+  box-shadow: 0 0 20px rgba(232, 121, 249, 0.05);
+}
+
+.p31-sprout-card-wins {
+  border-color: rgba(46, 204, 113, 0.2);
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.05);
+}
+
+.p31-sprout-card-label {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--p31-love, #e879f9);
+  margin: 0 0 1rem 0;
+  font-family: 'Courier New', Monaco, monospace;
+}
+
+.p31-sprout-card-wins .p31-sprout-card-label {
+  color: var(--p31-phosphorus, #2ecc71);
+}
+
+.p31-sprout-feelings-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.p31-sprout-feeling-btn {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 100px;
+  transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.p31-sprout-feeling-btn:hover {
+  border-color: rgba(232, 121, 249, 0.4);
+  background: rgba(232, 121, 249, 0.08);
+}
+
+.p31-sprout-feeling-btn.active {
+  border-color: var(--p31-love, #e879f9);
+  background: rgba(232, 121, 249, 0.15);
+}
+
+.p31-sprout-feeling-btn:focus-visible {
+  outline: 2px solid var(--p31-phosphorus, #2ecc71);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p31-sprout-feeling-btn {
+    transition: none;
+  }
+}
+
+.p31-sprout-feeling-emoji {
+  font-size: 1.75rem;
+}
+
+.p31-sprout-feeling-label {
+  font-size: 0.75rem;
+}
+
+.p31-sprout-feeling-msg {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(232, 121, 249, 0.08);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: var(--p31-text, #e8e8f0);
+}
+
+.p31-sprout-wins-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--p31-text, #e8e8f0);
+  line-height: 1.8;
+}
+
+.p31-sprout-add-win {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.p31-sprout-win-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.3);
+  color: inherit;
+  font-size: 0.875rem;
+}
+
+.p31-sprout-win-input::placeholder {
+  color: var(--p31-text-dim, #9ca3af);
+}
+
+.p31-sprout-win-input:focus {
+  outline: 2px solid var(--p31-phosphorus, #2ecc71);
+  outline-offset: 0;
+}
+
+.p31-sprout-win-add-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--p31-phosphorus, #2ecc71);
+  background: rgba(46, 204, 113, 0.15);
+  color: var(--p31-phosphorus, #2ecc71);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.p31-sprout-win-add-btn:hover {
+  background: rgba(46, 204, 113, 0.25);
+}
+
+.p31-sprout-footer {
+  font-size: 0.75rem;
+  color: var(--p31-text-dim, #9ca3af);
+  margin-top: 1.5rem;
+}

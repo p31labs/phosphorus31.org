@@ -1,0 +1,275 @@
+/**
+ * P31 Molecule Viewer Styles
+ * Beautiful styles for the P31 tetrahedron visualization
+ */
+
+.p31-molecule-viewer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+  color: white;
+}
+
+.viewer-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  color: white;
+  font-weight: bold;
+}
+
+.control-group select {
+  padding: 8px 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-group select:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.control-button {
+  padding: 10px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.viewer-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  opacity: 0.9;
+}
+
+.info-toggle {
+  padding: 10px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.info-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.molecule-info-panel {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-section {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.info-section h3 {
+  margin: 0 0 10px 0;
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+.info-section p {
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+.info-section ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.info-section li {
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+.viewer-canvas {
+  flex: 1;
+  min-height: 500px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-footer {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  padding: 20px;
+  opacity: 0.9;
+}
+
+.viewer-footer p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.metrics-panel {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.metrics-section h3 {
+  margin: 0 0 15px 0;
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.metric-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.metric-value {
+  color: #4ecdc4;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.selected-info {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 10px;
+  border: 2px solid #667eea;
+}
+
+.selected-info h4 {
+  margin: 0 0 10px 0;
+  color: #667eea;
+}
+
+.selected-info p {
+  margin: 5px 0;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .p31-molecule-viewer {
+    padding: 10px;
+  }
+
+  .viewer-header h1 {
+    font-size: 2rem;
+  }
+
+  .molecule-info-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .p31-molecule-viewer {
+    background: #000;
+  }
+
+  .molecule-info-panel {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+  }
+}

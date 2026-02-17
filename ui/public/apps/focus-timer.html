@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Timer — P31 Compass</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #2ecc71;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+
+    .timer-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 2rem 0;
+    }
+
+    .timer-circle {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .timer-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .timer-bg {
+      fill: none;
+      stroke: #1a1a2e;
+      stroke-width: 8;
+    }
+
+    .timer-progress {
+      fill: none;
+      stroke: #2ecc71;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke 0.3s ease;
+    }
+
+    .timer-progress.amber {
+      stroke: #fbbf24;
+    }
+
+    .timer-progress.red {
+      stroke: #ef4444;
+    }
+
+    .timer-display {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .timer-time {
+      font-size: 3rem;
+      font-weight: 300;
+      font-family: monospace;
+      color: #E0E0EE;
+      margin-bottom: 0.5rem;
+    }
+
+    .timer-label {
+      font-size: 0.9rem;
+      color: #7878AA;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+
+    .interval-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .interval-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .interval-group label {
+      font-size: 0.75rem;
+      color: #7878AA;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .interval-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    button {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a2e;
+      border: 1px solid #2ecc71;
+      color: #2ecc71;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: #2ecc71;
+      color: #050510;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .primary-button {
+      background: #2ecc71;
+      color: #050510;
+      font-weight: 600;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .primary-button:hover {
+      background: #34d399;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .action-buttons button {
+      flex: 1;
+    }
+
+    .snooze-button {
+      background: #1a1a2e;
+      border-color: #fbbf24;
+      color: #fbbf24;
+    }
+
+    .snooze-button:hover {
+      background: #fbbf24;
+      color: #050510;
+    }
+
+    .task-input {
+      width: 100%;
+      background: #1a1a2e;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+    }
+
+    .task-input:focus {
+      outline: none;
+      border-color: #2ecc71;
+    }
+
+    .session-stats {
+      width: 100%;
+      max-width: 400px;
+      background: #1a1a2e;
+      border: 1px solid #2ecc71;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .session-stats h3 {
+      font-size: 0.9rem;
+      color: #7878AA;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-family: monospace;
+      color: #2ecc71;
+      font-weight: 600;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #7878AA;
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 2rem;
+      text-align: center;
+      color: #7878AA;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 480px) {
+      .timer-time {
+        font-size: 2.5rem;
+      }
+
+      .interval-selector {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⏱️ Focus Timer</h1>
+    <p class="subtitle">A flexible timer designed for ADHD brains. Not a pomodoro.</p>
+  </header>
+
+  <div class="timer-container">
+    <div class="timer-circle">
+      <svg class="timer-svg" viewBox="0 0 100 100">
+        <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+        <circle class="timer-progress" id="progressCircle" cx="50" cy="50" r="45" 
+                stroke-dasharray="283" stroke-dashoffset="283"></circle>
+      </svg>
+      <div class="timer-display">
+        <div class="timer-time" id="timeDisplay">00:00</div>
+        <div class="timer-label" id="statusLabel">Ready</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="interval-selector">
+      <div class="interval-group">
+        <label>Focus</label>
+        <div class="interval-buttons">
+          <button onclick="setInterval(10)">10m</button>
+          <button onclick="setInterval(15)">15m</button>
+          <button onclick="setInterval(25)">25m</button>
+          <button onclick="setInterval(45)">45m</button>
+        </div>
+      </div>
+      <div class="interval-group">
+        <label>Break</label>
+        <div class="interval-buttons">
+          <button onclick="setBreak(2)">2m</button>
+          <button onclick="setBreak(5)">5m</button>
+          <button onclick="setBreak(10)">10m</button>
+          <button disabled style="opacity: 0;">—</button>
+        </div>
+      </div>
+    </div>
+
+    <input type="text" class="task-input" id="taskInput" placeholder="What are you working on? (optional)">
+
+    <div class="action-buttons">
+      <button class="primary-button" id="startButton" onclick="startTimer()">Start</button>
+      <button id="pauseButton" onclick="pauseTimer()" style="display: none;">Pause</button>
+      <button id="resumeButton" onclick="resumeTimer()" style="display: none;">Resume</button>
+      <button id="stopButton" onclick="stopTimer()" style="display: none;">Stop</button>
+    </div>
+
+    <button class="snooze-button" id="snoozeButton" onclick="snoozeTimer()" style="display: none;">One more minute</button>
+  </div>
+
+  <div class="session-stats">
+    <h3>Today</h3>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-value" id="sessionCount">0</div>
+        <div class="stat-label">Sessions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="totalMinutes">0</div>
+        <div class="stat-label">Minutes</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+
+  <script>
+    const CIRCUMFERENCE = 2 * Math.PI * 45; // r=45
+    let timerInterval = null;
+    let remainingSeconds = 0;
+    let totalSeconds = 0;
+    let isRunning = false;
+    let isBreak = false;
+    let breakMinutes = 5;
+    let audioContext = null;
+
+    const progressCircle = document.getElementById('progressCircle');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const statusLabel = document.getElementById('statusLabel');
+    const startButton = document.getElementById('startButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const resumeButton = document.getElementById('resumeButton');
+    const stopButton = document.getElementById('stopButton');
+    const snoozeButton = document.getElementById('snoozeButton');
+    const taskInput = document.getElementById('taskInput');
+
+    function setInterval(minutes) {
+      if (isRunning) return;
+      totalSeconds = minutes * 60;
+      remainingSeconds = totalSeconds;
+      isBreak = false;
+      updateDisplay();
+      updateProgress();
+    }
+
+    function setBreak(minutes) {
+      if (isRunning) return;
+      breakMinutes = minutes;
+    }
+
+    function startTimer() {
+      if (totalSeconds === 0) {
+        setInterval(25); // Default to 25 minutes
+      }
+      if (remainingSeconds === 0) return;
+
+      isRunning = true;
+      startButton.style.display = 'none';
+      pauseButton.style.display = 'block';
+      stopButton.style.display = 'block';
+      snoozeButton.style.display = 'none';
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateDisplay();
+        updateProgress();
+
+        if (remainingSeconds <= 0) {
+          completeTimer();
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      pauseButton.style.display = 'none';
+      resumeButton.style.display = 'block';
+    }
+
+    function resumeTimer() {
+      isRunning = true;
+      resumeButton.style.display = 'none';
+      pauseButton.style.display = 'block';
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateDisplay();
+        updateProgress();
+
+        if (remainingSeconds <= 0) {
+          completeTimer();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      remainingSeconds = 0;
+      totalSeconds = 0;
+      updateDisplay();
+      updateProgress();
+      startButton.style.display = 'block';
+      pauseButton.style.display = 'none';
+      resumeButton.style.display = 'none';
+      stopButton.style.display = 'none';
+      snoozeButton.style.display = 'none';
+      progressCircle.classList.remove('amber', 'red');
+      progressCircle.style.stroke = '#2ecc71';
+    }
+
+    function snoozeTimer() {
+      remainingSeconds = 60;
+      totalSeconds = 60;
+      updateDisplay();
+      updateProgress();
+      snoozeButton.style.display = 'none';
+      if (!isRunning) {
+        startTimer();
+      }
+    }
+
+    function updateDisplay() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      
+      if (isBreak) {
+        statusLabel.textContent = 'Break';
+      } else {
+        statusLabel.textContent = isRunning ? 'Focusing' : 'Ready';
+      }
+    }
+
+    function updateProgress() {
+      const progress = totalSeconds > 0 ? (totalSeconds - remainingSeconds) / totalSeconds : 0;
+      const offset = CIRCUMFERENCE * (1 - progress);
+      progressCircle.style.strokeDashoffset = offset;
+
+      // Color shifts: green → amber → red (last 20%)
+      const percentRemaining = remainingSeconds / totalSeconds;
+      progressCircle.classList.remove('amber', 'red');
+      
+      if (percentRemaining <= 0.2 && percentRemaining > 0) {
+        progressCircle.classList.add('red');
+      } else if (percentRemaining <= 0.4 && percentRemaining > 0.2) {
+        progressCircle.classList.add('amber');
+      }
+    }
+
+    function playChime() {
+      try {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.value = 440;
+        oscillator.type = 'sine';
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+      } catch (e) {
+        console.log('Audio not available');
+      }
+    }
+
+    function completeTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      playChime();
+      
+      const task = taskInput.value.trim();
+      const focusedMinutes = Math.floor((totalSeconds - remainingSeconds) / 60);
+      
+      if (!isBreak && focusedMinutes > 0) {
+        saveSession(focusedMinutes, task);
+        updateStats();
+      }
+
+      if (!isBreak) {
+        // Start break
+        isBreak = true;
+        totalSeconds = breakMinutes * 60;
+        remainingSeconds = totalSeconds;
+        statusLabel.textContent = 'Break';
+        updateDisplay();
+        updateProgress();
+        startTimer();
+      } else {
+        // Break complete, reset
+        stopTimer();
+      }
+    }
+
+    function saveSession(minutes, task) {
+      const today = new Date().toISOString().split('T')[0];
+      const sessions = JSON.parse(localStorage.getItem('focusSessions') || '{}');
+      
+      if (!sessions[today]) {
+        sessions[today] = [];
+      }
+      
+      sessions[today].push({
+        minutes,
+        task: task || null,
+        timestamp: new Date().toISOString()
+      });
+      
+      localStorage.setItem('focusSessions', JSON.stringify(sessions));
+    }
+
+    function updateStats() {
+      const today = new Date().toISOString().split('T')[0];
+      const sessions = JSON.parse(localStorage.getItem('focusSessions') || '{}');
+      const todaySessions = sessions[today] || [];
+      
+      const count = todaySessions.length;
+      const totalMinutes = todaySessions.reduce((sum, s) => sum + s.minutes, 0);
+      
+      document.getElementById('sessionCount').textContent = count;
+      document.getElementById('totalMinutes').textContent = totalMinutes;
+    }
+
+    // Initialize
+    updateDisplay();
+    updateStats();
+  </script>
+</body>
+</html>

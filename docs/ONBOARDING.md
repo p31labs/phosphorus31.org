@@ -47,8 +47,8 @@ npm install
 cd ../ui
 npm install
 
-# The Buffer
-cd ../cognitive-shield
+# The Buffer (P31 Shelter)
+cd ../apps/shelter
 npm install
 ```
 
@@ -62,8 +62,8 @@ cd SUPER-CENTAUR
 cp .env.example .env
 # Edit .env with your configuration
 
-# The Buffer
-cd ../cognitive-shield
+# The Buffer (P31 Shelter)
+cd ../apps/shelter
 cp .env.example .env
 # Edit .env with your configuration
 ```
@@ -80,8 +80,8 @@ cd ui
 npm run dev
 
 # Terminal 3 - The Buffer (if needed)
-cd cognitive-shield
-npm run dev
+cd apps/shelter
+npm run start:server
 ```
 
 ## Understanding P31 Architecture
@@ -152,7 +152,7 @@ cd SUPER-CENTAUR && npm test
 phenix-navigator-creator67/
 ├── SUPER-CENTAUR/      # The Centaur (backend)
 ├── ui/                  # The Scope (frontend)
-├── cognitive-shield/    # The Buffer
+├── apps/shelter/        # The Buffer (P31 Shelter)
 ├── firmware/            # Node One
 ├── docs/                # Documentation
 ├── scripts/             # Utility scripts

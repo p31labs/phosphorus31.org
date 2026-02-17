@@ -1,0 +1,7 @@
+https://www.phosphorus31.org/* https://phosphorus31.org/:splat 301
+/favicon.ico /assets/logos/favicon.svg 302
+/guides /docs/ 302
+/guides/ /docs/ 302
+/github https://github.com/p31labs/p31 302
+/donate /donate/ 200
+/zenodo https://doi.org/10.5281/zenodo.18627420 302

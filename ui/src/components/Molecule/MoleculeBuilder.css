@@ -1,0 +1,109 @@
+.molecule-builder {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.builder-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.molecule-info {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.builder-controls {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-button {
+  padding: 0.75rem 1.5rem;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.control-button:hover {
+  background: #4f46e5;
+}
+
+.control-button:focus {
+  outline: 2px solid #2ecc71;
+  outline-offset: 2px;
+}
+
+.control-button-large {
+  font-size: 1.25rem;
+}
+
+.control-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.control-toggle input[type='checkbox'] {
+  cursor: pointer;
+}
+
+.control-toggle input[type='checkbox']:focus {
+  outline: 2px solid #2ecc71;
+  outline-offset: 2px;
+}
+
+.builder-canvas {
+  flex: 1;
+  min-height: 400px;
+  position: relative;
+}
+
+.atom-details {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .control-button {
+    transition: none;
+  }
+}

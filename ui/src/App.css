@@ -1,0 +1,610 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   P31 - THE SCOPE - STYLES
+   Cyberpunk aesthetic with quantum state visualization
+   Phosphorus-31. The biological qubit. The atom in the bone.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* Root App Styles */
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0a0a1a 0%, #020617 50%, #020617 100%);
+}
+
+/* 3D Canvas Layer */
+canvas {
+  display: block;
+}
+
+/* UI Layer - All overlays */
+.ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass through to 3D canvas */
+  z-index: 10;
+}
+
+/* Development Tools Overlay (below VPI to avoid overlap) */
+.dev-tools {
+  position: absolute;
+  top: 240px;
+  right: 20px;
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  pointer-events: auto;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  z-index: 15;
+}
+
+.dev-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.dev-header h3 {
+  margin: 0;
+  color: #00ffff;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dev-header button {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dev-header button:hover {
+  background: #00ffff;
+  color: #020617;
+}
+
+.dev-header button.active {
+  background: #00ffff;
+  color: #020617;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.dev-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-item span:first-child {
+  color: #888888;
+}
+
+.stat-item span:last-child {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* HUD - Heads Up Display */
+.hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  pointer-events: auto;
+}
+
+.hud-panel {
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.hud-row:last-child {
+  margin-bottom: 0;
+}
+
+.hud-label {
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.hud-value {
+  font-weight: bold;
+  text-shadow: 0 0 5px currentColor;
+}
+
+.fabrication-status {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #333333;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+
+.status-label {
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.status-value {
+  color: #ff8800;
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #333333;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffff, #00ff88);
+  width: 0%;
+  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* VPI Overlay - Voxel Processing Interface (top-right, above dev-tools) */
+.vpi-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  pointer-events: auto;
+  z-index: 20;
+  min-width: 200px;
+}
+
+.vpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.vpi-title {
+  color: #00ffff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.vpi-status {
+  color: #ffffff;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.vpi-metrics {
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.metric-row:last-child {
+  margin-bottom: 0;
+}
+
+.metric-label {
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.metric-value {
+  font-weight: bold;
+}
+
+.waveform-container {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #333333;
+}
+
+.waveform {
+  width: 100%;
+  height: 4px;
+  background: #333333;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.wave {
+  height: 100%;
+  width: 0%;
+  transition:
+    width 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glitch Overlay */
+.glitch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 1px,
+    rgba(0, 255, 255, 0.1) 2px
+  );
+  animation: scanlineMove 2s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.digital-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.rain-char {
+  position: absolute;
+  top: -20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #00ffff;
+  opacity: 0.3;
+  animation: rain 3s linear infinite;
+}
+
+@keyframes rain {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.glitch-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  color: #ff0000;
+  text-shadow:
+    2px 0 0 #00ffff,
+    -2px 0 0 #ff0000;
+  animation: glitch 0.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  2% {
+    transform: translate(-48%, -50%);
+  }
+  4% {
+    transform: translate(-52%, -50%);
+  }
+  6% {
+    transform: translate(-50%, -48%);
+  }
+  8% {
+    transform: translate(-50%, -52%);
+  }
+}
+
+.static-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: noise 0.1s infinite;
+  pointer-events: none;
+}
+
+@keyframes noise {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Creation Pipeline */
+.creation-pipeline {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  pointer-events: auto;
+}
+
+/* Action Deck - Bottom control bar (BUILD / VIEW / SLICE / mic / clear / MATERIALIZE) */
+.action-deck {
+  pointer-events: auto;
+}
+
+.pipeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.pipeline-title {
+  color: #00ffff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.pipeline-status {
+  color: #ffffff;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.pipeline-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+.pipeline-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.stage-icon {
+  font-size: 16px;
+}
+
+.stage-label {
+  font-size: 8px;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.stage-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #333333;
+  transition: background 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pipeline-connector {
+  flex: 1;
+  height: 2px;
+  background: #333333;
+  transition: background 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quantum-flow {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.flow-bar {
+  width: 100%;
+  height: 6px;
+  background: #333333;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.flow-fill {
+  height: 100%;
+  width: 0%;
+  transition:
+    width 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flow-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888888;
+}
+
+.fabrication-progress {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid #ff8800;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: #888888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hud {
+    top: 10px;
+    left: 10px;
+  }
+
+  .vpi-overlay {
+    top: 10px;
+    right: 10px;
+  }
+
+  .creation-pipeline {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .dev-tools {
+    top: 220px;
+    right: 10px;
+    font-size: 10px;
+  }
+
+  .hud-panel,
+  .vpi-metrics,
+  .fabrication-status,
+  .quantum-flow,
+  .fabrication-progress {
+    padding: 8px;
+  }
+
+  .hud-row,
+  .metric-row {
+    font-size: 10px;
+  }
+
+  .pipeline-flow {
+    padding: 6px;
+  }
+
+  .stage-label {
+    font-size: 7px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scanlines,
+  .digital-rain,
+  .glitch-text,
+  .static-noise {
+    animation: none;
+  }
+
+  .flow-fill,
+  .progress-fill,
+  .wave {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .hud-panel,
+  .vpi-metrics,
+  .fabrication-status,
+  .quantum-flow,
+  .fabrication-progress {
+    border: 2px solid #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .hud-value,
+  .metric-value {
+    text-shadow: none;
+  }
+}

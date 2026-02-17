@@ -1,0 +1,533 @@
+﻿Technical Design Specification: Project Bubble Shield – A Multi-Sensory Isolation Platform
+
+
+
+
+1.0 Introduction and Systems Architecture
+
+
+The conceptualization and fabrication of the "Bubble Shield" represents a convergence of wearable computing, soft robotics, and advanced signal processing. This device serves as a sensory regulation platform, integrating electro-optical visual occlusion, active psychoacoustic management, and pneumatic deep pressure therapy (DPT) into a unified cranial interface. Designed for an operator with a background in submarine electrical systems, this technical report prioritizes high-availability architecture, fail-safe mechanical design, and the utilization of accessible commercial off-the-shelf (COTS) components adapted for rigorous application. The following analysis decomposes the system into its constituent physics, electronic topologies, and fabrication methodologies, adhering to the stringent reliability standards characteristic of naval engineering while leveraging modern rapid prototyping techniques.
+
+
+1.1 Operational Philosophy and Reliability Standards
+
+
+The design philosophy adopted for the Bubble Shield mirrors the "SUBSAFE" quality assurance program utilized in submarine maintenance, albeit adapted for a non-lethal wearable context. The primary directive is the preservation of user safety and autonomy. In a submarine environment, systems are classified by their criticality to ship buoyancy and life support; similarly, the Bubble Shield’s subsystems are categorized by their potential to cause harm or distress.
+The pneumatic "hug" mechanism, capable of exerting force on the cranium, is classified as a Safety-Critical System. Failure of the control logic must result in a depressurized state (Fail-Open). The visual isolation system, utilizing Polymer Dispersed Liquid Crystal (PDLC) film, defaults to an opaque state upon power loss (Fail-Secure). To mitigate the risk of sensory deprivation during a power casualty (e.g., battery failure while walking), the design necessitates a mechanical override, independent of the electronic state. This mirrors the manual hydraulic overrides found on periscope and mast systems.1
+
+
+1.2 System Block Diagram and Interconnects
+
+
+The Bubble Shield is orchestrated by a central microcontroller unit (MCU) acting as the "Main Control" bus, interfacing with three distinct peripheral subsystems.
+* The Central Nervous System (CNS): An ESP32 dual-core microcontroller serves as the primary arbiter of state. It manages the Bluetooth Low Energy (BLE) stack for telemetry with the "Wonky Sprout OS" mobile application and executes the real-time Proportional-Integral-Derivative (PID) control loops for the pneumatic system.2
+* Subsystem Alpha (Visual): A high-voltage AC inverter circuit driving the PDLC visor. This system is galvanically isolated from the logic rails to prevent high-frequency noise injection.4
+* Subsystem Beta (Auditory): A dedicated Digital Signal Processor (ADAU1701) handling audio mixing, active transparency, and bone conduction equalization. This offloads audio processing from the ESP32, ensuring zero-latency throughput essential for preventing the psychoacoustic "speech jamming" effect.6
+* Subsystem Gamma (Haptic): A pneumatic H-bridge or simplex pump configuration with redundant safety valves, managed by pressure transducers operating on an I2C or analog bus.8
+
+
+1.3 Power Distribution Network (PDN) Topology
+
+
+To prevent motor noise from the pneumatic pumps contaminating the high-fidelity audio stream, a "Star Topology" grounding scheme is required. The system utilizes a 3S Lithium Polymer (LiPo) source (11.1V nominal), split into three regulated domains:
+1. 12V Power Bus: Unregulated or boosted supply for the solenoid valves, air pump motor, and the input stage of the PDLC inverter. This rail tolerates high ripple and transient voltage spikes (inductive kickback).
+2. 5V Analog Bus: A low-noise Linear Dropout Regulator (LDO) supplying the ADAU1701 DSP and the Class-D audio amplifiers. Switching regulators are avoided here to minimize Total Harmonic Distortion (THD).10
+3. 3.3V Logic Bus: Powers the ESP32, MEMS microphones, and environmental sensors.
+________________
+
+
+2.0 Electro-Optical Subsystem: Polymer Dispersed Liquid Crystal (PDLC)
+
+
+The visual isolation mechanism relies on the unique electro-optical properties of PDLC film. Unlike electrochromic glass, which relies on ion migration and transitions over several seconds, PDLC offers millisecond-scale switching speeds, making it suitable for instant sensory relief.
+
+
+2.1 Physics of the Nematic Curvilinear Aligned Phase
+
+
+PDLC film is a composite material consisting of micron-sized droplets of liquid crystal (typically nematic) dispersed within a solid polymer matrix. The film is sandwiched between two sheets of polyethylene terephthalate (PET) coated with a transparent conductive layer of Indium Tin Oxide (ITO).11
+
+
+2.1.1 Optical Scattering Mechanics
+
+
+The functionality of the visor is governed by the index of refraction matching between the liquid crystal droplets ($n_{LC}$) and the polymer matrix ($n_p$).
+* The OFF State (Scattering): In the absence of an electric field, the liquid crystal molecules within the droplets are randomly oriented due to surface anchoring forces at the droplet-polymer interface. This random orientation creates a refractive index mismatch ($n_{LC} \neq n_p$). As incident photons traverse the film, they encounter these boundaries and undergo Mie scattering. This scattering effect diffuses light, rendering the film opaque (milky white) while maintaining high light transmission. This is crucial for the "Bubble Shield" concept: it obscures visual details (privacy/isolation) without creating darkness, which can be claustrophobic.13
+* The ON State (Transmissive): When an alternating electric field (E-field) is applied across the ITO electrodes, the liquid crystal molecules align parallel to the field vector. In this homeotropic alignment, the ordinary refractive index of the liquid crystal ($n_o$) is engineered to match the refractive index of the polymer matrix ($n_p \approx n_o$). This eliminates the optical boundaries, allowing light to pass through with minimal scattering, rendering the visor transparent.12
+
+
+2.1.2 Voltage and Frequency Requirements
+
+
+PDLC films behave electrically as lossy capacitors. They require High Voltage Alternating Current (HVAC) to operate.
+* Voltage Potential: The standard operating voltage is 48V to 60V AC.14 Lower voltages result in a "hazy" transparency because the E-field is insufficient to fully align all liquid crystal molecules against the anchoring forces of the polymer matrix.
+* Direct Current (DC) Prohibition: The application of DC voltage causes electrolytic decomposition of the liquid crystal material and migration of ions to the ITO electrodes, leading to permanent browning and failure of the film. The driver must output a symmetrical AC waveform to ensure a net-zero DC bias over time.4
+* Frequency Constraints: While 50Hz/60Hz is standard, frequencies up to 400Hz are utilized in specialized applications (aviation/marine) to reduce flicker. However, excessive frequency increases the capacitive leakage current ($I_c = 2\pi f C V$), potentially causing dielectric heating and delamination of the film.5
+
+
+2.2 Miniature Inverter Circuit Design
+
+
+Given the wearable nature of the helmet, a heavy iron-core transformer is unfeasible. A solid-state, high-frequency switching topology is required to step up the battery voltage (11.1V) to the required 60V AC.
+
+
+2.2.1 Topology: The 555 Timer Astable Driver
+
+
+A robust and accessible design utilizes the NE555 timer IC, a component familiar to engineering technicians, configured in an astable multivibrator mode.
+* Oscillator Stage: The NE555 is configured to generate a square wave with a roughly 50% duty cycle. The frequency is determined by $f = 1.44 / ((R1 + 2R2) * C)$. For PDLC, we target approximately 60Hz. Using standard values, $R1 = 1k\Omega$, $R2 = 12k\Omega$, and $C = 1\mu F$ yields approximately 57Hz.15
+* Switching Stage: The output (Pin 3) of the 555 drives the gate of a logic-level N-Channel MOSFET (e.g., IRLZ44N). A gate resistor (10-100$\Omega$) dampens ringing.
+* Transformer Stage: The MOSFET drives the low-voltage winding of a small step-up transformer. While custom winding a ferrite toroid is an option, a "hack" utilized in the hobbyist community involves using a small 110V/12V mains transformer in reverse. By pulsing 12V into the 12V winding, the 110V winding produces a high voltage output. Note: Due to the square wave input and lack of iron core mass in small transformers, the output will be non-sinusoidal and likely lower than the theoretical turns ratio suggests due to losses, but sufficient for PDLC alignment.17
+
+
+2.2.2 Advanced Driver: H-Bridge Topology
+
+
+For a more compact and efficient design, specifically to integrate with the "Wonky Sprout OS" for dimming capabilities, a microcontroller-driven H-Bridge is superior.
+* Mechanism: Two pairs of MOSFETs switch the polarity of the 60V DC bus (generated via a separate DC-DC Boost Converter) across the PDLC film.
+* Dimming Control: By applying Pulse Width Modulation (PWM) to the H-Bridge enable lines, the effective RMS voltage seen by the PDLC can be varied. This allows the user to slide a fader in the app and gradually transition the visor from opaque (0V) to clear (60V), rather than a binary snap.19 This feature is psychologically beneficial for gradual sensory re-integration.
+
+
+2.3 Fabrication: Solving the Curvature Problem
+
+
+A critical constraint identified in the research is the inability of PDLC film to conform to compound curves (spheres).20 The film is inelastic; forcing it onto a standard motorcycle bubble visor will result in wrinkles and delamination of the ITO layer.
+
+
+2.3.1 The Cylindrical Approximation
+
+
+To maintain the "Bubble" aesthetic while accommodating material limits, the helmet visor must be designed as a section of a cylinder (single-axis curvature) rather than a sphere.
+* Material Selection: 1mm to 2mm Polycarbonate or PETG sheet.
+* Process: The sheet is cut flat, the PDLC film is laminated onto it while flat (utilizing a clean room environment or "steamy bathroom" method to minimize dust inclusions), and then the assembly is bent into the helmet frame. The PDLC film is strictly placed on the interior surface to protect it from abrasion and UV degradation.22
+
+
+2.3.2 Edge Sealing and Electrical Safety
+
+
+The bus bars (copper strips) connecting the wires to the ITO layer are vulnerable points.
+* Arcing Hazard: 60V AC in the presence of sweat (saline electrolyte) creates a significant arcing and corrosion hazard.
+* Sealing Protocol: The edges must be sealed with a neutral-cure silicone sealant (acid-cure silicone releases acetic acid which attacks ITO). A 3D printed bezel or "trim kit" should cover the wiring connection points, clamping the film mechanically while providing strain relief for the 22AWG silicone-jacketed supply wires.14
+________________
+
+
+3.0 Psychoacoustic Management Subsystem
+
+
+The auditory component aims to replicate the "Transparency Mode" of high-end active noise cancelling (ANC) headphones, allowing the user to mix environmental sound with internal audio streams. However, unlike headphones which seal the ear canal, this system utilizes a hybrid approach suitable for a helmet environment.
+
+
+3.1 Bone Conduction Transduction: Mechanics and Impedance
+
+
+Bone conduction transducers (BCTs) function as electromechanical pistons. They consist of a voice coil suspended in a magnetic field, attached to a mass-spring system. When energized, the mass vibrates, transmitting force through the housing to the user's skull.24
+
+
+3.1.1 Impedance Matching and Mounting
+
+
+The primary failure mode in DIY bone conduction implementations is poor mechanical coupling. The skull presents a high mechanical impedance.
+* The "Floating" Suspension: Rigidly mounting the BCT to the helmet shell is inefficient; it turns the entire helmet into a speaker (air conduction) rather than vibrating the skull. The BCT requires a floating mount with a compliant backing force.
+* Design Solution: A 3D printed housing containing the BCT should be suspended on a TPU (Thermoplastic Polyurethane) flexure or loaded with a memory foam insert. This ensures that when the helmet is donned, the BCT is pressed firmly against the tragus (cartilage in front of the ear) or the mastoid process (bone behind the ear) with approximately 2-5 Newtons of force, regardless of the user's specific head shape.25
+
+
+3.1.2 Amplification Requirements
+
+
+BCTs are notoriously inefficient compared to air drivers. A standard 30mW headphone output is insufficient.
+* Drive Stage: A Class-D amplifier capable of delivering 2W to 3W into an 8-ohm load is required. The MAX98306 or TPA2012 are ideal candidates due to their high efficiency (preserving battery) and small footprint. They operate on the 5V rail, decoupled from the noisy 12V pneumatic rail.27
+
+
+3.2 Digital Signal Processing: The ADAU1701 Architecture
+
+
+To achieve "Transparency Mode"—where the user hears the outside world via microphones processed and fed to the BCTs—latency is the critical variable. Audio latency >20ms creates a disorienting echo. Latency >100ms causes speech jamming (inability to speak fluently). The ESP32, while capable, introduces variable latency due to its RTOS ticks. Therefore, a dedicated hardware DSP is mandated.6
+
+
+3.2.1 The ADAU1701 Signal Processor
+
+
+The Analog Devices ADAU1701 is the industry standard for this class of embedded audio. It features a 28-/56-bit DSP core, two ADCs (Analog-to-Digital Converters), and four DACs (Digital-to-Analog Converters) on a single chip.
+* Program Memory: The chip boots from an external EEPROM. The signal flow is designed graphically in SigmaStudio software and then flashed to the EEPROM. This means the DSP runs autonomously once powered, ensuring stability even if the main ESP32 controller hangs.6
+* Control Interface: The ESP32 communicates with the ADAU1701 via I2C. This allows the "Wonky Sprout OS" to send parameter updates—such as volume, EQ mix ratios, or filter cutoffs—in real-time without interrupting the audio stream.29
+
+
+3.2.2 Signal Flow Design (SigmaStudio Implementation)
+
+
+The internal architecture of the DSP program should follow this routing:
+1. Inputs: Stereo inputs from external MEMS microphones (Analog or I2S).
+2. Noise Gate: A dynamic processing block to silence the microphones when ambient noise is below a threshold (hiss reduction).
+3. Bandpass Filter: Restricting the pass-through audio to the vocal range (300Hz – 3.4kHz). This reduces wind noise (a major issue on helmets) and focuses on speech intelligibility.30
+4. Limiter/Compressor: A hard limiter to protect the user from sudden loud impact noises (clapping, sirens), acting as active hearing protection.31
+5. Mixer: A summing node that blends the processed microphone signal with the Bluetooth audio stream (music/voice assistant) coming from the ESP32.
+6. EQ for Bone Conduction: BCTs have a severe roll-off in high frequencies. A shelving filter or parametric EQ boost at 2kHz-5kHz is necessary to restore clarity to the muffled bone-conducted sound.28
+
+
+3.3 Active Feedback Suppression
+
+
+Placing microphones on the outside of a helmet that vibrates with BCTs creates a mechanical feedback loop. The ADAU1701 allows for the implementation of a Notch Filter or a Frequency Shifter. A frequency shifter moves the output spectrum by a few Hertz (e.g., +5Hz). This breaks the coherent phase relationship required for feedback to build up, allowing for higher gain settings before "squealing" occurs.32
+________________
+
+
+4.0 Pneumatic Haptics: The "Hug" Subsystem
+
+
+The haptic component provides Deep Pressure Therapy (DPT) via a cranial compression system. This system must be fail-safe, as it applies force directly to the user's head.
+
+
+4.1 Physiological Safety Limits
+
+
+The cranial vault is rigid, but the scalp and underlying vasculature are susceptible to ischemia.
+* Target Pressure: DPT generally requires pressures between 10 mmHg and 30 mmHg to stimulate mechanoreceptors without causing pain.
+* Capillary Closing Pressure: The pressure at which blood flow to the skin is occluded is approximately 32 mmHg. Sustained pressure above this leads to tissue necrosis over time.
+* Safety Threshold: The system must effectively limit pressure to a maximum of 50 mmHg (approx. 1 PSI) for short durations, with a software hold target of 20-25 mmHg. A hard mechanical limit of 60 mmHg is required to prevent equipment failure from injuring the user.33
+
+
+4.2 Pneumatic Circuit Topology
+
+
+The pneumatic circuit mimics a Non-Invasive Blood Pressure (NIBP) monitor but is optimized for static holding rather than transient measurement.
+
+
+4.2.1 Component Selection
+
+
+1. The Pump: A 12V Micro Diaphragm Pump. These pumps are positive displacement devices. They are noisy and vibrate significantly.
+   * Isolation: The pump must be mounted in a "cradle" of TPU (printed flexible filament) or suspended by silicone O-rings within the helmet chassis to decouple structure-borne noise from the bone conduction sensors.35
+2. The Valve (Crucial Safety Component): A Normally Open (NO) 12V/5V Solenoid Valve.
+   * Logic: In a de-energized state (power loss, battery death, code crash), the valve is OPEN, venting the bladder to the atmosphere. To inflate, the system must actively energize the valve to CLOSE it. This is the "Fail-Safe" condition essential for a head-mounted compression device.36
+3. The Sensor: An MPS20N0040D pressure transducer. This component typically comes in a Wheatstone bridge configuration. An amplifier/ADC module like the HX710B (often paired with it) provides digital readouts to the ESP32. It has a range of 0-40kPa (0-300 mmHg), covering the target range with high resolution.9
+4. Mechanical Relief Valve: An adjustable spring-loaded check valve placed in parallel with the solenoid. If the software hangs with the pump ON, pressure builds until it overcomes the spring force (set to ~60 mmHg) and vents. This prevents the "crushing" scenario.39
+
+
+4.2.2 The Bladder System
+
+
+Fabricating an airtight bladder from scratch is error-prone.
+* Recommendation: Repurpose a Neonatal or Infant Blood Pressure Cuff Bladder. These are industrially RF-welded, durable, leak-tested, and sized perfectly for the forehead/temple region. They include standard luer-lock connectors for easy tubing integration.41
+* Lumbar Bladders: Alternatively, small inflatable lumbar support bladders from automotive seating are designed for high static loads and durability.43
+
+
+4.3 Control Logic (PID Implementation)
+
+
+The ESP32 manages the pressure via a control loop on Core 1 (Real-time core).
+* Inflation Phase: Valve energized (Closed). Pump driven via PWM (Pulse Width Modulation). The PWM duty cycle acts as the proportional control—slowing the pump as the target pressure is approached to prevent overshoot.
+* Holding Phase: Pump OFF. Valve energized (Closed). The pump's internal check valves prevent backflow, but the solenoid provides the primary seal. The system monitors for leakage (pressure drop) and can "top up" with short pump bursts if necessary (Hysteresis band).
+* Deflation Phase: Valve de-energized (Open). Air vents passively. For faster deflation, a vacuum pump arrangement could be used, but a simple vent is safer and simpler.44
+________________
+
+
+5.0 Embedded Systems & Integration: The "Brain"
+
+
+The integration of these subsystems relies on the ESP32 microcontroller, serving as the bridge between the physical hardware and the "Wonky Sprout OS."
+
+
+5.1 Microcontroller Architecture: ESP32
+
+
+The ESP32-WROOM-32 or ESP32-S3 is selected for its dual-core architecture and extensive peripheral set.
+* Core Allocation:
+   * Core 0 (Protocol Core): Handles the Wi-Fi/BLE stack and background tasks. This ensures that heavy network traffic does not interrupt the safety-critical control loops.
+   * Core 1 (Application Core): Executes the main loop(), reading the pressure sensor, calculating the PID output for the pump, monitoring safety timeouts, and sending I2C commands to the ADAU1701 DSP.3
+* I2S Interface: The ESP32 features a hardware I2S peripheral. This is used to stream Bluetooth audio (received from the phone) directly to the ADAU1701 DSP for mixing. This digital-to-digital link maintains signal integrity.46
+
+
+5.2 Bluetooth Low Energy (BLE) GATT Profile
+
+
+To interface with React Native, a custom Generic Attribute Profile (GATT) Server is implemented on the ESP32. This structured data exchange allows the app to control the helmet's physical parameters.47
+Service UUID: 0000AAAA-0000-1000-8000-00805F9B34FB (Custom 128-bit UUID)
+Characteristics Table:
+Characteristic Name
+	Access
+	Data Type
+	Function
+	VISOR_OPACITY
+	Write
+	UInt8 (0-100)
+	Controls the PWM duty cycle of the PDLC inverter (Dimming).
+	HUG_TARGET
+	Write
+	UInt8 (mmHg)
+	Sets the setpoint for the pneumatic PID loop.
+	HUG_CURRENT
+	Notify
+	UInt8 (mmHg)
+	Streams real-time pressure data to the app graph (200ms interval).
+	AUDIO_MIX
+	Write
+	UInt8 (0-100)
+	Controls the balance between External Mic and Internal Audio (Transparency).
+	SYSTEM_STATE
+	Read/Notify
+	Enum
+	Status flags: IDLE, INFLATING, ERROR_LEAK, LOW_BATTERY.
+	
+
+5.3 React Native Integration ("Wonky Sprout OS")
+
+
+The mobile application acts as the Human-Machine Interface (HMI).
+* Library: react-native-ble-plx is the recommended library for robust BLE handling on both iOS and Android.
+* Data Handling: The app should subscribe to the HUG_CURRENT characteristic notification rather than polling it. This reduces radio congestion and latency.
+* Latency Optimization: For the pressure graph, efficient rendering is key. Using a library like react-native-svg or victory-native is recommended, but care must be taken to decouple the BLE data reception rate from the UI render rate (using a buffer) to prevent UI freezing.49
+________________
+
+
+6.0 Mechanical Design and Fabrication
+
+
+The physical embodiment of the Bubble Shield requires careful consideration of materials and assembly techniques, utilizing 3D printing for the chassis and structural components.
+
+
+6.1 3D Printing Strategy
+
+
+* Material Selection:
+   * Helmet Shell: PETG (Polyethylene Terephthalate Glycol) is superior to PLA for this application. PLA has a low glass transition temperature (~60°C) and will deform if the helmet is left in a car. PETG offers higher thermal resistance, impact toughness, and sufficient flexibility to prevent shattering upon impact. ABS is also viable but prone to warping during printing.51
+   * Internal Mounts: TPU (Thermoplastic Polyurethane) should be used to print vibration dampeners for the pump and the "floating" suspension for the bone conduction transducers.52
+* Design for Assembly (DFA): The helmet should be designed with modular "bays" or internal cassettes for the electronics. Wires should not be glued in place. Instead, print channels with integrated clips or use zip-tie anchors. This facilitates maintenance and component replacement—a lesson drawn from the modularity of industrial systems.53
+
+
+6.2 Wiring Harness and Safety
+
+
+* High Voltage Routing: The 60V AC lines for the PDLC visor must be treated with respect. Use 22AWG Silicone-jacketed wire (high flexibility, high temp). At the hinge of the visor, implement a Service Loop—a loose coil of wire that distributes the bending stress over a length rather than a single point, preventing fatigue breakage (a common failure in automotive door harnesses).14
+* EMI Shielding: The high-frequency switching of the PDLC inverter and the brushes of the pump motor create significant Electromagnetic Interference (EMI). The audio signal cables (microphone lines) must be shielded (braided or foil wrapped) and routed physically distant from the power cables to prevent buzzing or hum in the audio feed.54
+
+
+6.3 Failure Mode and Effects Analysis (FMECA)
+
+
+A submarine-style safety assessment highlights critical failure modes and their mitigations.
+Component
+	Failure Mode
+	Potential Effect
+	Mitigation Strategy
+	Solenoid Valve
+	Mechanical Jam (Closed)
+	Inability to deflate; discomfort.
+	1. Mechanical Pressure Relief Valve (60mmHg).
+
+
+2. Software timeout (Max Inflation Time).
+
+
+3. Manual tubing disconnect (Quick-Release).
+	PDLC Inverter
+	Short Circuit
+	Battery fire; thermal injury.
+	1. 2A Fast-Blow Fuse at battery terminal.
+
+
+2. Thermal cutout switch on inverter heat sink.
+	Visor
+	Power Loss
+	Sudden opacity (Blindness).
+	1. Visor designed with a manual "flip-up" hinge.
+
+
+2. Physical "peep-hole" or gap at the bottom for emergency peripheral vision.
+	Battery
+	Puncture/Impact
+	Thermal Runaway (Fire).
+	1. Battery housed in a rigid, separate hard-shell compartment within the helmet.
+
+
+2. Use of protected LiPo cells (BMS integrated).
+	________________
+
+
+7.0 Conclusion and Recommendations
+
+
+The development of the Bubble Shield is a multidisciplinary challenge that necessitates a rigorous systems engineering approach. The complexity lies not in the individual components—which are accessible COTS parts—but in their integration into a cohesive, safe, and reliable wearable device.
+Critical Path Recommendations for Phase 1 Prototype:
+1. Isolate the Haptics: Build the pneumatic circuit on a breadboard first. Verify the "Fail-Open" safety logic of the Normally Open valve. Calibrate the pressure sensor against a known water column or commercial gauge.
+2. Breadboard the Audio: Configure the ADAU1701 with a basic "Pass-Through" program using SigmaStudio. Verify the I2S link with the ESP32 and confirm latency is imperceptible.
+3. Visor Mock-up: Fabricate the 555-timer inverter. Test it on a small swatch of PDLC film to confirm opacity switching and dimming capability before attempting the complex lamination on a curved surface.
+By adhering to the safety protocols inherent in your engineering background—redundancy, fail-safe defaults, and rigorous isolation of critical systems—the Bubble Shield can transition from a concept to a functional, therapeutic tool.
+
+
+Appendix A: Bill of Materials (BOM) and Component Specifications
+
+
+
+
+Subsystem
+	Component
+	Specification / Part Number
+	Source ID
+	Control
+	MCU
+	ESP32-WROOM-32E or ESP32-S3-DevKit
+	46
+	Visor
+	Film
+	White PDLC Film (Custom Cut)
+	14
+	Visor Driver
+	Timer
+	NE555P (DIP-8)
+	15
+	Visor Driver
+	MOSFET
+	IRLZ44N (Logic Level Gate)
+	56
+	Audio
+	DSP
+	Analog Devices ADAU1701
+	6
+	Audio
+	Amp
+	MAX98306 (3.7W Class D)
+	26
+	Audio
+	Transducer
+	Bone Conduction Transducer (8 Ohm, 1W)
+	24
+	Audio
+	Mic
+	INMP441 (Omnidirectional I2S MEMS)
+	57
+	Haptics
+	Pump
+	12V Micro Diaphragm Air Pump (e.g., 370 Motor)
+	35
+	Haptics
+	Valve
+	Normally Open 12V/5V Solenoid Air Valve
+	36
+	Haptics
+	Sensor
+	MPS20N0040D Pressure Sensor + HX710B ADC
+	9
+	Haptics
+	Safety
+	Mechanical Adjustable Relief Valve (0-5 PSI)
+	40
+	Power
+	Regulator
+	5V Low-Noise LDO (e.g., LD1117V50)
+	10
+	Power
+	Battery
+	3S LiPo (11.1V) 1500mAh+
+	-
+	
+
+Appendix B: Detailed Driver Schematics & Logic
+
+
+
+
+B.1 PDLC Inverter Logic (The 555 Astable)
+
+
+To achieve dimming, the ESP32 controls the duty cycle of the power fed to the 555 timer circuit via a high-side MOSFET switch (PWM).
+* Frequency: Set to ~60Hz.
+* Transformer: A small audio output transformer (e.g., 1k:8 ohm) can be used in reverse (8 ohm side driven by MOSFET) to step up the voltage, provided the power is low.
+
+
+B.2 Pneumatic Control Algorithm (Pseudo-Code)
+
+
+
+
+C++
+
+
+
+
+// Fail-Safe Pressure Maintenance Loop
+void updatePressure() {
+ int currentPressure = readPressureSensor(); // Returns mmHg
+
+ if (BLE_Connected == false |
+
+| Emergency_Stop == true) {
+   digitalWrite(VALVE_PIN, LOW); // DE-ENERGIZE (OPEN) - VENT
+   digitalWrite(PUMP_PIN, LOW);  // STOP PUMP
+   return;
+ }
+
+ if (currentPressure < targetPressure - hysteresis) {
+   digitalWrite(VALVE_PIN, HIGH); // ENERGIZE (CLOSE)
+   analogWrite(PUMP_PIN, 200);    // RUN PUMP (PWM speed)
+ } 
+ else if (currentPressure > targetPressure + hysteresis) {
+   digitalWrite(PUMP_PIN, LOW);   // STOP PUMP
+   digitalWrite(VALVE_PIN, LOW);  // OPEN VALVE (VENT)
+   delay(50);                     // Short "blip" to release pressure
+   digitalWrite(VALVE_PIN, HIGH); // CLOSE VALVE
+ }
+ else {
+   // Holding State
+   digitalWrite(PUMP_PIN, LOW);
+   digitalWrite(VALVE_PIN, HIGH); // Keep Sealed
+ }
+}
+
+Works cited
+1. Engineering Technician 2.docx
+2. Getting Started | Meshtastic, accessed November 23, 2025, https://meshtastic.org/docs/getting-started/
+3. Best way to send Audio Data between ESP32's on same PCB? One PCB, Two ESP32's. - Reddit, accessed November 23, 2025, https://www.reddit.com/r/esp32/comments/gf6s5q/best_way_to_send_audio_data_between_esp32s_on/
+4. DC/AC Power Inverter -12717 - Smart Tint, Inc., accessed November 23, 2025, https://shop.smarttint.com/DCAC-Power-Inverter-_p_12717.html
+5. PDLC Electrochromatic Film / Switchable Glass - Electrical Engineering Stack Exchange, accessed November 23, 2025, https://electronics.stackexchange.com/questions/373488/pdlc-electrochromatic-film-switchable-glass
+6. How to Program WONDOM ADAU1701 DSP Unit with SigmaStudio - Sure Electronics, accessed November 23, 2025, https://store.sure-electronics.com/upload/download/1/How%20to%20Program%20WONDOM%20ADAU1701%20DSP%20Preamp%20with%20SigmaStudio635.pdf
+7. 4. ADAU1701 and SigmaStudio - Audiodevelopers Reborn, accessed November 23, 2025, http://www.audiodevelopers.com/4-adau1701-and-sigmastudio/
+8. DC 5V Normally Closed Micro Electromagnetic Water and Air valve - KitsGuru, accessed November 23, 2025, https://kitsguru.com/products/dc5v-normally-closed-micro-electromagnetic-water-and-air-valve-small-electric-deflation
+9. MPS20N0040D Pressure Sensor Calibration with Arduino - Maker Portal, accessed November 23, 2025, https://makersportal.com/blog/2020/6/4/mps20n0040d-pressure-sensor-calibration-with-arduino
+10. ESP32 Audio Input - MAX4466, MAX9814, SPH0645LM4H, INMP441 | atomic14, accessed November 23, 2025, https://www.atomic14.com/2020/09/12/esp32-audio-input
+11. Master Smart Film DIY: A Step-by-Step Guide to Seamless Installation - Ghost Glass Film, accessed November 23, 2025, https://ghostglassfilm.com/smart-film-diy
+12. What's the difference between PDLC and SPD Smart Glass - Gauzy, accessed November 23, 2025, https://www.gauzy.com/liquid-crystal-spd-smart-glass-whats-the-difference/
+13. PDLC vs. SPD: Understanding the Key Differences in Smart Glass Films, accessed November 23, 2025, https://www.magicglass.com.sg/blog/pdlc-vs-spd-understanding-the-key-differences-in-smart-glass-films/
+14. Smart Tint ® Smart Film ® USA Factory Direct Wholesale, accessed November 23, 2025, https://www.smarttint.com/
+15. Build Your Own 555 Timer : 20 Steps (with Pictures) - Instructables, accessed November 23, 2025, https://www.instructables.com/Build-Your-Own-555-Timer/
+16. How to make Time Delay Circuit Using 555 Timer —, accessed November 23, 2025, https://www.circuits-diy.com/how-to-make-time-delay-circuit-using-555-timer/
+17. Flyback Transformer Driver With 555 Timer : 5 Steps - Instructables, accessed November 23, 2025, https://www.instructables.com/Flyback-Transformer-Driver-With-555-Timer/
+18. Best Ne555 Flyback Driver! Step by Step (easy) - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=LhVx6I140Bk
+19. Arduino PWM: Pulse Width Modulation - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=jvDCoyFLYGs
+20. I built a prototype for smart film based, electronic sun visor system for vehicles. I see this replacing the traditional flip down sun visors used in vehicles today. I have a demo video of me using the prototype and would appreciate some real feedback from car enthusiasts. : r/cars - Reddit, accessed November 23, 2025, https://www.reddit.com/r/cars/comments/4zijwh/i_built_a_prototype_for_smart_film_based/
+21. Curved Switchable Smart Glass| Keep Space Privacy, accessed November 23, 2025, https://ebglass.net/curved-switchable-smart-glass/
+22. How to Cut the Smart Film, accessed November 23, 2025, https://www.magic-film.com/how-to-cut-the-smart-film/
+23. Fixing Smart Film Edges That Won't Stick - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=5IvrFZcu0Fk
+24. Bone Conductor Transducer - BC Robotics, accessed November 23, 2025, https://bc-robotics.com/shop/bone-conductor-transducer/
+25. Wireless Bone Conduction Headset (headphones) : 6 Steps - Instructables, accessed November 23, 2025, https://www.instructables.com/Wireless-Bone-Conduction-Headset-headphones/
+26. 3D Printed Bone Conduction Transducer Box - Adafruit Learning System, accessed November 23, 2025, https://learn.adafruit.com/3d-printed-bone-conduction-transducer-box/overview
+27. Stereo 2.1W Class D Audio Amplifier - TPA2012 ID: 1552 - : Adafruit Industries, Unique & fun DIY electronics and kits - Verical, accessed November 23, 2025, https://www.verical.com/datasheet/adafruit-amplifier-ic-development-tools-1552-5038359.pdf
+28. DIY Bluetooth Speaker on DSP ADAU1701 - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=YEs8QvS9wdU
+29. ADAU1701 Volume Control Using MCU - Q&A - SigmaDSP Processors & SigmaStudio Dev. Tool - EngineerZone, accessed November 23, 2025, https://ez.analog.com/dsp/sigmadsp/f/q-a/66103/adau1701-volume-control-using-mcu
+30. ADAU1701 Noise removal algorithm - Q&A - SigmaDSP Processors & SigmaStudio Dev. Tool - EngineerZone, accessed November 23, 2025, https://ez.analog.com/dsp/sigmadsp/f/q-a/163104/adau1701-noise-removal-algorithm
+31. Automatic gain control using ADAU1701 - Q&A - SigmaDSP Processors & SigmaStudio Dev. Tool - EngineerZone, accessed November 23, 2025, https://ez.analog.com/dsp/sigmadsp/f/q-a/109421/automatic-gain-control-using-adau1701
+32. Notch filter for feedback? - Teensy Forum, accessed November 23, 2025, https://forum.pjrc.com/index.php?threads/notch-filter-for-feedback.74160/
+33. Increased Intracranial Pressure (ICP): Symptoms & Treatment - Cleveland Clinic, accessed November 23, 2025, https://my.clevelandclinic.org/health/diseases/increased-intracranial-pressure-icp
+34. Increased Intracranial Pressure - StatPearls - NCBI Bookshelf - NIH, accessed November 23, 2025, https://www.ncbi.nlm.nih.gov/books/NBK482119/
+35. 5V Air Pump Guide - UAL Creative Computing Institute Wiki, accessed November 23, 2025, https://wiki.cci.arts.ac.uk/books/physical-computing/page/5v-air-pump-guide
+36. Normally Open (N/O) – U.S. Solid, accessed November 23, 2025, https://ussolid.com/collections/normally-open-solenoid-valves-html
+37. Normally Open vs Normally Closed Solenoid Valve | Tameson.com, accessed November 23, 2025, https://tameson.com/pages/normally-open-normally-closed-solenoid-valve
+38. Arduino Pressure Sensor Tutorial | MPS20N0040D, accessed November 23, 2025, https://www.teachmemicro.com/arduino-pressure-sensor-tutorial/
+39. Miniature Pressure Relief Valves | The Lee Company, accessed November 23, 2025, https://www.theleeco.com/products/pressure-relief-valves/
+40. 0-100 PSI CR Series Adjustable Air Pressure Relief Valve - Compressor Source, accessed November 23, 2025, https://compressor-source.com/products/0-100-psi-cr-series-adjustable-air-pressure-relief-valve
+41. Accurate Blood Pressure Readings: Choosing the Right-size Cuff, accessed November 23, 2025, https://clinicalview.gehealthcare.com/poster/accurate-blood-pressure-readings-choosing-right-size-cuff
+42. Adcuff™ Reusable Blood Pressure Cuffs with 2-Tube Luer Connector - Bound Tree Medical, accessed November 23, 2025, https://www.boundtree.com/monitoring-diagnostics/bp-cuffs/adcuff-reusable-2-tube-blood-pressure-cuffs-and-bladder/p/group000632
+43. Deluxe Small Inflatable Lumbar Cushion - Core Products, accessed November 23, 2025, https://www.coreproducts.com/products/inflatable-backrest
+44. How to use a pressure sensor to control an air pump (DC motor) - Arduino Forum, accessed November 23, 2025, https://forum.arduino.cc/t/how-to-use-a-pressure-sensor-to-control-an-air-pump-dc-motor/441650
+45. Air Pressure Sensor to Turn Pump (on/off) - General Guidance - Arduino Forum, accessed November 23, 2025, https://forum.arduino.cc/t/air-pressure-sensor-to-turn-pump-on-off/885628
+46. Inter-IC Sound (I2S) - ESP32 - — ESP-IDF Programming Guide v5.5.1 documentation, accessed November 23, 2025, https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/i2s.html
+47. ESP32 BLE GATT server example - GitHub Gist, accessed November 23, 2025, https://gist.github.com/heiko-r/f284d95141871e12ca0164d9070d61b4
+48. ESP32 BLE Server and Client (Bluetooth Low Energy) - Random Nerd Tutorials, accessed November 23, 2025, https://randomnerdtutorials.com/esp32-ble-server-client/
+49. GitHub - octoco-ltd/ble-react-native, accessed November 23, 2025, https://github.com/octoco-ltd/ble-react-native
+50. React-Native and Bluetooth Low Energy ( BLE ) - Send and Receive Data - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=jeH2QmZ8T14
+51. How to add a see through visor to your 3d printed helmet! - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=SqC_QpFJQpg
+52. Adding Fans and Padding to a 3D Printed Helmet - Viking Mandalorian - Part 3 - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=MombtSNzYhA
+53. Three helmet tutorials: making templates / dishing / simple liner - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=LQMSJBJBZqo
+54. Discrete | DIY-Audio-Heaven - WordPress.com, accessed November 23, 2025, https://diyaudioheaven.wordpress.com/tutorials/amplifiers/solid-state/discrete/
+55. Curved Switchable Glass, accessed November 23, 2025, https://www.magic-film.com/project/curved-switchable-glass/
+56. Simple LED Driver Circuit | PWM | 555 Timer IC - YouTube, accessed November 23, 2025, https://www.youtube.com/watch?v=WsuttXfUOlY
+57. ESP32 Mic Testing With INMP441 and DumbDisplay : 7 Steps (with Pictures) - Instructables, accessed November 23, 2025, https://www.instructables.com/ESP32-Mic-Testing-With-INMP441-and-DumbDisplay/

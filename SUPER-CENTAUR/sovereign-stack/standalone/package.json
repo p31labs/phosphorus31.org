@@ -1,0 +1,30 @@
+{
+  "name": "sovereign-stack-standalone",
+  "version": "1.0.0",
+  "description": "Standalone Sovereign Stack - Simple, Powerful, Local-First Digital Sovereignty",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node serve.js",
+    "serve": "node serve.js",
+    "test": "node test-standalone.js",
+    "dev": "node serve.js",
+    "verify": "node verify-standalone.js"
+  },
+  "keywords": [
+    "sovereignty",
+    "digital-self",
+    "local-first",
+    "autonomy",
+    "mesh"
+  ],
+  "author": "Sovereign Operator",
+  "license": "MIT",
+  "dependencies": {
+    "localforage": "^1.10.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
+}

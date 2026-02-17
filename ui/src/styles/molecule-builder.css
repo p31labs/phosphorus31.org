@@ -1,0 +1,84 @@
+/**
+ * P31 Molecule Builder Styles
+ * Centerpiece styling
+ */
+
+@keyframes quantum-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes quantum-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+  }
+}
+
+.quantum-active {
+  animation: quantum-pulse 2s ease-in-out infinite;
+}
+
+.quantum-glow {
+  animation: quantum-glow 3s ease-in-out infinite;
+}
+
+/* Centerpiece button styling */
+.molecule-builder-centerpiece {
+  position: relative;
+  overflow: hidden;
+}
+
+.molecule-builder-centerpiece::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Quantum text effect */
+.quantum-text {
+  background: linear-gradient(135deg, #00ffff 0%, #ff4000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+/* Glass morphism */
+.glass-panel {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Quantum stat card */
+.quantum-stat {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 64, 0, 0.2) 100%);
+  border: 2px solid rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}

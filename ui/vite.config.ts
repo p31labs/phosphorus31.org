@@ -46,8 +46,8 @@ export default defineConfig({
     cssMinify: true,
     reportCompressedSize: true,
   },
-  // Base path: /web/ for ESP32 SPIFFS; set VITE_BASE_PATH for static hosts (e.g. /p31/ or /)
-  base: process.env.VITE_BASE_PATH ?? '/web/',
+  // Base path: / for web (Cloudflare Pages, local preview). For ESP32 SPIFFS: VITE_BASE_PATH=/web/
+  base: process.env.VITE_BASE_PATH ?? '/',
   plugins: [react()],
   server: {
     fs: {

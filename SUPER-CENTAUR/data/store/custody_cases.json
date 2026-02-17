@@ -1,0 +1,15 @@
+[
+  {
+    "id": "case_001",
+    "caseNumber": "FC-2026-001",
+    "status": "active",
+    "court": "Family Court",
+    "nextHearing": "2026-02-21T20:36:38.179Z",
+    "currentIssues": [
+      "Custody modification",
+      "Visitation schedule"
+    ],
+    "createdAt": "2026-02-07T20:36:38.179Z",
+    "updatedAt": "2026-02-07T20:36:38.179Z"
+  }
+]

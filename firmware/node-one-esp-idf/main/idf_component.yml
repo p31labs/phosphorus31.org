@@ -1,0 +1,7 @@
+## IDF Component Manager Manifest File
+## Main component dependencies
+dependencies:
+  espressif/esp_lvgl_port: "^2"             # LVGL display/touch integration
+  lvgl/lvgl: ">=9,<10"                      # GUI framework
+  esp-idf-lib/mcp23x17: "^1.1.9"           # MCP23017 I2C expander
+  jgromes/radiolib: "^7.2.1"               # RadioLib for SX1262 LoRa driver

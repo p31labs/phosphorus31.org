@@ -1,0 +1,62 @@
+[
+  {
+    "id": "alert_1770496598305_7c9aut",
+    "timestamp": "2026-02-07T20:36:38.305Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-07T20:36:38.305Z",
+    "updatedAt": "2026-02-07T20:36:38.305Z"
+  },
+  {
+    "id": "alert_1770528875152_1s3798",
+    "timestamp": "2026-02-08T05:34:35.152Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-08T05:34:35.152Z",
+    "updatedAt": "2026-02-08T05:34:35.152Z"
+  },
+  {
+    "id": "alert_1770529099677_92jzzm",
+    "timestamp": "2026-02-08T05:38:19.677Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-08T05:38:19.678Z",
+    "updatedAt": "2026-02-08T05:38:19.678Z"
+  },
+  {
+    "id": "alert_1770529335190_ef1oln",
+    "timestamp": "2026-02-08T05:42:15.190Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-08T05:42:15.191Z",
+    "updatedAt": "2026-02-08T05:42:15.191Z"
+  },
+  {
+    "id": "alert_1770800487272_699rra",
+    "timestamp": "2026-02-11T09:01:27.272Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-11T09:01:27.273Z",
+    "updatedAt": "2026-02-11T09:01:27.273Z"
+  },
+  {
+    "id": "alert_1770800497000_mytttn",
+    "timestamp": "2026-02-11T09:01:37.000Z",
+    "severity": "info",
+    "source": "system",
+    "message": "SUPER CENTAUR system started successfully",
+    "acknowledged": false,
+    "createdAt": "2026-02-11T09:01:37.000Z",
+    "updatedAt": "2026-02-11T09:01:37.000Z"
+  }
+]

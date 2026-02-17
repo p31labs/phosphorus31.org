@@ -1,0 +1,93 @@
+# The Scope — Cursor Agent Rules
+
+## Project Context
+
+This is **The Scope** — the dashboard and visualization frontend for P31 assistive technology. It's built on React 18, TypeScript, and Three.js.
+
+## Architecture
+
+### Tetrahedron Nodes
+- `src/nodes/node-a-you/` — Internal state (spoons, regulation)
+- `src/nodes/node-b-them/` — External signals (messages, voltage)
+- `src/nodes/node-c-context/` — Environmental context
+- `src/nodes/node-d-shield/` — Processing display
+
+### Core Principles
+- **Engine files** (`src/engine/`) have ZERO React imports — pure functions only
+- **Stores** (`src/stores/`) don't import other stores — components wire them together
+- **Three.js** components must be lazy-loaded — never block initial render
+- **SpoonMeter** must be visible on every screen
+- **YouAreSafe** must be reachable in one tap from anywhere
+- **prefers-reduced-motion** must disable ALL animation
+
+## Code Style
+
+- **TypeScript strict mode** — No `any` types
+- **Functional components** — Use hooks, not classes
+- **Immutable state** — Use Zustand `set()` correctly
+- **Accessibility first** — ARIA labels, keyboard navigation, screen reader support
+
+## Testing
+
+- **Vitest** for unit tests
+- **React Testing Library** for component tests
+- **Coverage target:** 60% statements minimum
+- **Test files:** `*.test.ts` or `*.test.tsx`
+
+## Build
+
+- **Dev:** `npm run dev`
+- **Build:** `npm run build`
+- **SPIFFS:** `npm run build:spiffs` (for ESP32)
+
+## Common Tasks
+
+### Adding a New Component
+1. Create component in appropriate `nodes/` directory
+2. Add tests in same directory
+3. Ensure accessibility (aria-labels, keyboard nav)
+4. Verify SpoonMeter/YouAreSafe rules if applicable
+
+### Using Stores
+```typescript
+import { useSpoons } from '@/stores/heartbeat.store';
+const spoons = useSpoons();
+```
+
+### Using Engine Functions
+```typescript
+import { calculateVoltage } from '@/engine/voltage-calculator';
+const voltage = calculateVoltage(message);
+```
+
+### Lazy-Loading 3D
+```typescript
+const Component = lazy(() => import('./Component'));
+<Suspense fallback={<div>Loading...</div>}>
+  <Component />
+</Suspense>
+```
+
+## Critical Rules
+
+1. **NO React in engine/** — Pure functions only
+2. **NO store imports in stores** — Components wire stores together
+3. **SpoonMeter on every screen** — Critical for self-regulation
+4. **YouAreSafe one tap away** — Emergency grounding protocol
+5. **prefers-reduced-motion kills ALL animation** — Accessibility requirement
+
+## File Naming
+
+- Components: `PascalCase.tsx`
+- Stores: `*.store.ts`
+- Engine: `kebab-case.ts`
+- Tests: `*.test.tsx` or `*.test.ts`
+
+## Dependencies
+
+- React 18, TypeScript, Vite, Zustand, Three.js
+- See `package.json` for full list
+
+---
+
+**The Scope shows the truth. The Buffer protects from the lie. The mesh holds.** 🔺

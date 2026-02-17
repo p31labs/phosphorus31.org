@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn · P31 Labs</title>
+  <meta name="description" content="Educational resources about P31, assistive technology, mesh networks, and the L.O.V.E. economy.">
+  <meta property="og:title" content="Learn · P31 Labs">
+  <meta property="og:description" content="Educational resources about P31, assistive technology, mesh networks, and the L.O.V.E. economy.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Page‑specific education styles */
+    .learning-paths {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .path-card {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .path-card:hover,
+    .path-card:focus-within {
+      border-color: var(--phosphorus);
+    }
+    .path-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .path-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .path-description {
+      color: var(--white-dim);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .course-card {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .course-card:hover,
+    .course-card:focus-within {
+      border-color: var(--phosphorus);
+    }
+    .course-image {
+      background: var(--void);
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .course-content {
+      padding: 1.5rem;
+    }
+    .course-meta {
+      display: flex;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--white-dim);
+      margin: 0.5rem 0;
+    }
+    .resource-list {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--void-border);
+    }
+    .resource-item:last-child {
+      border-bottom: none;
+    }
+    .resource-icon {
+      font-size: 1.5rem;
+    }
+    .resource-link {
+      color: var(--phosphorus);
+      text-decoration: none;
+    }
+    .resource-link:hover {
+      text-decoration: underline;
+    }
+    .glossary-term {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .glossary-term h3 {
+      margin-bottom: 0.25rem;
+    }
+    .glossary-term p {
+      color: var(--white-dim);
+    }
+    details.faq-item {
+      background: var(--void-up);
+      border: 1px solid var(--void-border);
+      border-radius: 1rem;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+    }
+    details.faq-item summary {
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    details.faq-item summary:focus-visible {
+      outline: 2px solid var(--phosphorus);
+      border-radius: 0.5rem;
+    }
+    details.faq-item[open] {
+      padding-bottom: 1rem;
+    }
+    .video-placeholder {
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Learn</span>
+          <h1>Educational Resources</h1>
+          <p>Guides, tutorials, and references for developers, users, educators, and researchers.</p>
+        </div>
+
+        <!-- Learning Paths -->
+        <section aria-labelledby="paths-heading">
+          <h2 id="paths-heading" class="section-header">Learning Paths</h2>
+          <div class="learning-paths">
+            <div class="path-card">
+              <div class="path-icon">👩‍💻</div>
+              <h3 class="path-title">For Developers</h3>
+              <p class="path-description">Build on P31: firmware, mesh protocols, and APIs.</p>
+              <a href="/docs/guides/developer/" class="btn btn-ghost">Start Coding →</a>
+            </div>
+            <div class="path-card">
+              <div class="path-icon">🧑‍🦯</div>
+              <h3 class="path-title">For Users</h3>
+              <p class="path-description">Using Node One, The Scope, and the LOVE wallet.</p>
+              <a href="/docs/guides/user/" class="btn btn-ghost">Get Started →</a>
+            </div>
+            <div class="path-card">
+              <div class="path-icon">📚</div>
+              <h3 class="path-title">For Educators</h3>
+              <p class="path-description">Lesson plans and accessibility resources.</p>
+              <a href="/docs/guides/educator/" class="btn btn-ghost">Teach →</a>
+            </div>
+            <div class="path-card">
+              <div class="path-icon">🔬</div>
+              <h3 class="path-title">For Researchers</h3>
+              <p class="path-description">Whitepapers, data, and academic collaborations.</p>
+              <a href="/docs/research/" class="btn btn-ghost">Research →</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Courses / Tutorials -->
+        <section aria-labelledby="courses-heading">
+          <h2 id="courses-heading" class="section-header">Courses & Tutorials</h2>
+          <div class="course-grid">
+            <div class="course-card">
+              <div class="course-image">🔧</div>
+              <div class="course-content">
+                <h3>Node One Basics</h3>
+                <p class="course-meta"><span>⏱️ 45 min</span><span>📊 Beginner</span></p>
+                <p class="path-description">Set up your Node One, connect to the mesh, and send your first message.</p>
+                <a href="/learn/node-one-basics/" class="btn btn-ghost">Start Course →</a>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="course-image">📡</div>
+              <div class="course-content">
+                <h3>Mesh Networking 101</h3>
+                <p class="course-meta"><span>⏱️ 60 min</span><span>📊 Intermediate</span></p>
+                <p class="path-description">Understand the Phenix Navigator protocol and routing.</p>
+                <a href="/learn/mesh-101/" class="btn btn-ghost">Start Course →</a>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="course-image">💚</div>
+              <div class="course-content">
+                <h3>LOVE Economy Explained</h3>
+                <p class="course-meta"><span>⏱️ 30 min</span><span>📊 Beginner</span></p>
+                <p class="path-description">Learn about tokens, pools, and Proof of Care.</p>
+                <a href="/learn/love-economy/" class="btn btn-ghost">Start Course →</a>
+              </div>
+            </div>
+            <div class="course-card">
+              <div class="course-image">🎮</div>
+              <div class="course-content">
+                <h3>Building Accessible Games</h3>
+                <p class="course-meta"><span>⏱️ 90 min</span><span>📊 Advanced</span></p>
+                <p class="path-description">Create games with screen reader and switch support.</p>
+                <a href="/learn/accessible-games/" class="btn btn-ghost">Start Course →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Video tutorials (with transcript placeholder) -->
+        <section aria-labelledby="videos-heading">
+          <h2 id="videos-heading" class="section-header">Video Tutorials</h2>
+          <div class="video-placeholder">
+            <p style="margin-bottom: 1rem;">🎥 Video player would appear here (with captions and transcript).</p>
+            <details>
+              <summary>Transcript: Node One Unboxing</summary>
+              <p>Welcome to Node One. In this video we unbox the device, show the buttons, and explain the LED indicators...</p>
+            </details>
+            <details>
+              <summary>Transcript: First Mesh Connection</summary>
+              <p>Follow along as we pair two Node One devices and send a message across the mesh...</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- Downloadable resources -->
+        <section aria-labelledby="resources-heading">
+          <h2 id="resources-heading" class="section-header">Downloadable Resources</h2>
+          <div class="resource-list">
+            <div class="resource-item">
+              <span class="resource-icon">📄</span>
+              <div>
+                <a href="/assets/p31-whitepaper.pdf" download class="resource-link">P31 Whitepaper (PDF)</a>
+                <p style="color: var(--white-dim);">v2.1 · 2.4 MB</p>
+              </div>
+            </div>
+            <div class="resource-item">
+              <span class="resource-icon">📊</span>
+              <div>
+                <a href="/assets/mesh-protocol-spec.pdf" download class="resource-link">Mesh Protocol Specification (PDF)</a>
+                <p style="color: var(--white-dim);">v0.9 · 1.1 MB</p>
+              </div>
+            </div>
+            <div class="resource-item">
+              <span class="resource-icon">📘</span>
+              <div>
+                <a href="/assets/educators-guide.pdf" download class="resource-link">Educator's Guide (PDF)</a>
+                <p style="color: var(--white-dim);">v1.0 · 3.2 MB</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Glossary -->
+        <section aria-labelledby="glossary-heading">
+          <h2 id="glossary-heading" class="section-header">Glossary</h2>
+          <div class="glossary-term">
+            <h3>Node One</h3>
+            <p>The hardware device that acts as a mesh network node, featuring ESP32‑S3, LoRa, and haptics.</p>
+          </div>
+          <div class="glossary-term">
+            <h3>The Buffer</h3>
+            <p>Software layer that processes and buffers signals in real time.</p>
+          </div>
+          <div class="glossary-term">
+            <h3>The Scope</h3>
+            <p>User interface for visualizing mesh data and wallet information.</p>
+          </div>
+          <div class="glossary-term">
+            <h3>Phenix Navigator</h3>
+            <p>The mesh routing protocol based on a modified AODV with topology awareness.</p>
+          </div>
+          <div class="glossary-term">
+            <h3>LOVE Token</h3>
+            <p>Economic token of the P31 ecosystem, earned through Proof of Care.</p>
+          </div>
+          <div class="glossary-term">
+            <h3>Proof of Care</h3>
+            <p>A metric that rewards nodes for contributing to mesh health (uptime, relays, etc.).</p>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section aria-labelledby="faq-heading">
+          <h2 id="faq-heading" class="section-header">Frequently Asked Questions</h2>
+          <details class="faq-item">
+            <summary>Do I need a Node One to participate?</summary>
+            <p>You can explore the documentation and wallet without hardware. To join the mesh network, a Node One is required.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is the technology open source?</summary>
+            <p>Yes, all code and hardware designs are licensed under Apache 2.0. See our <a href="/legal/">Legal page</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I earn LOVE tokens?</summary>
+            <p>By running a Node One and participating in the mesh (relaying messages, maintaining uptime).</p>
+          </details>
+          <details class="faq-item">
+            <summary>What accessibility features are included?</summary>
+            <p>Screen reader support, high contrast mode, switch control, and haptic feedback. See our <a href="/accessibility/">Accessibility statement</a>.</p>
+          </details>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/" aria-current="page">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for education page (though you could add interactive filters later) -->
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "total": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "byCategory": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "topRules": [],
+  "topFiles": []
+}

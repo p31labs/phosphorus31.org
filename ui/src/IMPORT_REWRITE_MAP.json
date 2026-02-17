@@ -1,0 +1,199 @@
+{
+  "rewrites": [
+    {
+      "old_pattern": "../store/shield.store",
+      "new_path": "@/stores/shield.store",
+      "import_type": "named",
+      "export_name": "useShieldStore",
+      "affected_files": [
+        "src/components/UniversalNodeBroadcast.tsx",
+        "src/components/SimulatedAbdicationReport.tsx",
+        "src/components/SettingsPanel.tsx",
+        "src/components/RestorativeReset.tsx",
+        "src/components/PreLaunchSequence.tsx",
+        "src/components/FirstLightVerification.tsx",
+        "src/components/ForensicReconstruction.tsx",
+        "src/components/DeepProcessingQueue.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../store/heartbeat.store",
+      "new_path": "@/stores/heartbeat.store",
+      "import_type": "named",
+      "export_name": "useHeartbeatStore",
+      "affected_files": [
+        "src/components/UniversalNodeBroadcast.tsx",
+        "src/components/SimulatedAbdicationReport.tsx",
+        "src/components/PreLaunchSequence.tsx",
+        "src/components/NodeBroadcast.tsx",
+        "src/components/FirstLightVerification.tsx",
+        "src/components/ForensicReconstruction.tsx",
+        "src/components/DailyCheckIn.tsx",
+        "src/components/GamesHub.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../stores/heartbeat.store",
+      "new_path": "@/stores/heartbeat.store",
+      "import_type": "named",
+      "export_name": "useHeartbeatStore",
+      "affected_files": ["src/components/GamesHub.tsx"]
+    },
+    {
+      "old_pattern": "../stores/shield.store",
+      "new_path": "@/stores/shield.store",
+      "import_type": "named",
+      "export_name": "useShieldStore",
+      "affected_files": []
+    },
+    {
+      "old_pattern": "../stores/phenix.store",
+      "new_path": "@/stores/genesis",
+      "import_type": "named",
+      "export_name": "useGenesisStore",
+      "note": "phenix.store may not exist - check if this should be genesis store",
+      "affected_files": [
+        "src/components/QuantumCore.tsx",
+        "src/components/QuantumBridge.tsx",
+        "src/components/PhenixHardwarePanel.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../services/geodesic-engine",
+      "new_path": "@/engine/geodesic-engine",
+      "import_type": "named",
+      "note": "services/geodesic-engine.ts exists but engine/geodesic-engine.ts is the canonical version",
+      "affected_files": []
+    },
+    {
+      "old_pattern": "@/god.config",
+      "new_path": "@/config/god.config",
+      "import_type": "default",
+      "note": "Consolidate to single location - use @/config/god.config",
+      "affected_files": [
+        "src/nodes/node-b-them/MessageInput.tsx",
+        "src/nodes/node-b-them/VoltageDetector.tsx",
+        "src/components/DailyCheckIn.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../types/checkin.types",
+      "new_path": "@/types/checkin.types",
+      "import_type": "type",
+      "note": "File may not exist - create or remove references",
+      "affected_files": [
+        "src/components/CheckInHistory.tsx",
+        "src/components/CheckInStatusBadge.tsx",
+        "src/components/DailyCheckIn.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../lib/checkin-scoring",
+      "new_path": "@/lib/checkin-scoring",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/CheckInStatusBadge.tsx", "src/components/DailyCheckIn.tsx"]
+    },
+    {
+      "old_pattern": "../../../SUPER-CENTAUR/src/engine/assistive/AssistiveTechnologyManager",
+      "new_path": "REMOVE_OR_REFACTOR",
+      "import_type": "named",
+      "note": "CROSS-REPO IMPORT - INVALID. Must remove or refactor to local implementation",
+      "affected_files": ["src/components/AssistiveTech/AssistiveTechProvider.tsx"]
+    },
+    {
+      "old_pattern": "../config/design-system",
+      "new_path": "@/config/design-system",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": [
+        "src/components/core/SettingsPanel.tsx",
+        "src/components/dev/MathOverlay.tsx",
+        "src/components/games/GamesHub.tsx",
+        "src/components/GamesHub.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../config/cosmic-theme",
+      "new_path": "@/config/cosmic-theme",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": [
+        "src/components/games/BreathingOrb.tsx",
+        "src/components/games/BubblePop.tsx",
+        "src/components/games/ColorSort.tsx",
+        "src/components/games/GamesHub.tsx",
+        "src/components/games/GrandfatherClock.tsx",
+        "src/components/games/PatternTap.tsx",
+        "src/components/GamesHub.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../config/phenix-hardware",
+      "new_path": "@/config/phenix-hardware",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/core/SystemsPanel.tsx"]
+    },
+    {
+      "old_pattern": "../config/genus-entrainment",
+      "new_path": "@/config/genus-entrainment",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/core/SystemsPanel.tsx"]
+    },
+    {
+      "old_pattern": "../config/gensync-prompts",
+      "new_path": "@/config/gensync-prompts",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/core/SystemsPanel.tsx"]
+    },
+    {
+      "old_pattern": "../services/drive-librarian.service",
+      "new_path": "@/services/drive-librarian.service",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/DriveLibrarianDemo.tsx"]
+    },
+    {
+      "old_pattern": "../services/navigator.service",
+      "new_path": "@/services/navigator.service",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/core/SettingsPanel.tsx"]
+    },
+    {
+      "old_pattern": "../lib/family-mesh",
+      "new_path": "@/lib/family-mesh",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": [
+        "src/components/core/FamilyChat.tsx",
+        "src/components/core/FamilyOnboarding.tsx"
+      ]
+    },
+    {
+      "old_pattern": "../lib/fisher-escola-physics",
+      "new_path": "@/lib/fisher-escola-physics",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/CoherenceQuest.tsx"]
+    },
+    {
+      "old_pattern": "../lib/test-payloads",
+      "new_path": "@/lib/test-payloads",
+      "import_type": "named",
+      "note": "File may not exist - create or remove references",
+      "affected_files": ["src/components/FirstLightVerification.tsx"]
+    }
+  ],
+  "notes": {
+    "god_config_consolidation": "Two god.config.ts files exist. Consolidate to src/config/god.config.ts and update all imports to @/config/god.config",
+    "store_exports": "Stores use NAMED exports (useShieldStore, useHeartbeatStore). Update default imports to named imports.",
+    "missing_files": "Several referenced files may not exist. Either create stub files or remove references.",
+    "cross_repo_imports": "AssistiveTechProvider imports from SUPER-CENTAUR - this is invalid. Must refactor.",
+    "external_dependencies": "May need to install: @react-three/rapier, qrcode"
+  },
+  "total_rewrites": 0
+}

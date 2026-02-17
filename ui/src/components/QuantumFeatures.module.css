@@ -1,0 +1,77 @@
+/* QuantumFeatures.module.css - Shared quantum UI elements for all modules */
+
+.quantumBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+  color: #a5f3fc;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px #0ea5e955;
+  font-size: 16px;
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+}
+
+.quantumProgress {
+  height: 8px;
+  border-radius: 4px;
+  background: #334155;
+  flex: 1;
+  margin: 0 12px;
+  overflow: hidden;
+}
+
+.quantumProgressInner {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #38bdf8 0%, #a21caf 100%);
+  transition: width 0.5s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+/* Progress bar width classes */
+.progressBar--0 {
+  width: 0%;
+}
+.progressBar--10 {
+  width: 10%;
+}
+.progressBar--20 {
+  width: 20%;
+}
+.progressBar--30 {
+  width: 30%;
+}
+.progressBar--40 {
+  width: 40%;
+}
+.progressBar--50 {
+  width: 50%;
+}
+.progressBar--60 {
+  width: 60%;
+}
+.progressBar--70 {
+  width: 70%;
+}
+.progressBar--80 {
+  width: 80%;
+}
+.progressBar--90 {
+  width: 90%;
+}
+.progressBar--100 {
+  width: 100%;
+}
+
+.quantumMetric {
+  font-weight: bold;
+  color: #38bdf8;
+  margin-right: 12px;
+}
+
+.quantumIcon {
+  margin-right: 8px;
+  color: #a21caf;
+}

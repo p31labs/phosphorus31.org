@@ -1,0 +1,73 @@
+[
+  {
+    "id": "ch_001",
+    "tier": "seedling",
+    "title": "First Triangle",
+    "description": "Place your first tetrahedron on the build plate.",
+    "objectives": [
+      {
+        "type": "build",
+        "target": 1,
+        "unit": "tetrahedra",
+        "description": "Place 1 tetrahedron"
+      }
+    ],
+    "rewardLove": 10,
+    "coopRequired": false,
+    "coopBonus": 5,
+    "prerequisites": [],
+    "fullerPrinciple": "The tetrahedron is nature's minimum structural system.",
+    "realWorldExample": "Camera tripods use triangulation for stability!",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  },
+  {
+    "id": "ch_002",
+    "tier": "seedling",
+    "title": "Twin Peaks",
+    "description": "Place two connected tetrahedra.",
+    "objectives": [
+      {
+        "type": "build",
+        "target": 2,
+        "unit": "tetrahedra",
+        "description": "Place 2 connected tetrahedra"
+      }
+    ],
+    "rewardLove": 20,
+    "coopRequired": false,
+    "coopBonus": 10,
+    "prerequisites": [
+      "ch_001"
+    ],
+    "fullerPrinciple": "Structures gain strength through triangulated connections.",
+    "realWorldExample": "Roof trusses use connected triangles to span wide spaces!",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  },
+  {
+    "id": "ch_003",
+    "tier": "sprout",
+    "title": "The Rigid Frame",
+    "description": "Build a structure that achieves 100% Maxwell ratio.",
+    "objectives": [
+      {
+        "type": "efficiency",
+        "target": 1,
+        "unit": "ratio",
+        "description": "Achieve Maxwell ratio >= 1.0"
+      }
+    ],
+    "rewardLove": 50,
+    "rewardBadge": "rigid_master",
+    "coopRequired": false,
+    "coopBonus": 25,
+    "prerequisites": [
+      "ch_002"
+    ],
+    "fullerPrinciple": "Maxwell's rule: E >= 3V - 6 guarantees rigidity.",
+    "realWorldExample": "The Eiffel Tower uses this principle for its incredible strength-to-weight ratio!",
+    "createdAt": "2026-02-08T05:34:34.503Z",
+    "updatedAt": "2026-02-08T05:34:34.503Z"
+  }
+]

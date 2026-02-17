@@ -1,0 +1,42 @@
+﻿╔═══════════════════════════════════════════════════════════════════════════╗
+║ PHENIX NAVIGATOR - FIRMWARE CONSTITUTION ║
+║ Governance as Code (Hardware Layer) ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+THE GEOMETRIC IMPERATIVE
+* Tetrahedron (K₄) topology for mesh networking
+* 4 nodes maximum per trust group
+* Graceful degradation: 57.7% capacity on link failure
+THE WHALE SONG PROTOCOL
+* LoRa 915 MHz for resilient communication
+* Optimize for low bandwidth (0.350 kbps)
+* Chirp Spread Spectrum for noise floor operation
+* "The Whale" penetrates where "The Mouse" fails
+HARDWARE SAFETY
+* E-Stop: Always implement emergency shutdown
+* Dead Man Switch: Timeout after inactivity
+* Battery monitoring: AXP2101 telemetry required
+* Thermal protection: Monitor CPU temperature
+FIRMWARE PATTERNS
+* void loop() must never block > 100ms
+* FastLED.show() timing is sacred
+* LoRa interrupt handling: non-blocking
+* Touch calibration: per-rotation adjustment
+SENSORY REGULATION
+* Haptic feedback for all user actions
+* LED status: Blue=Calm, Orange=Alert, Green=OK
+* No sudden brightness changes
+* Breathing animations for idle state
+COMMUNICATION MODES
+* Field Mode: LoRa mesh (off-grid)
+* Docked Mode: NFC handshake for sync
+* Wonky Mode: Vibe beacon broadcasting
+* Ghost Mode: Hardware abstraction for testing
+CONFIGURATION
+* Use #define for hardware pins
+* Centralize magic numbers
+* Document all GPIO assignments
+* Version firmware in boot message
+THE ABDICATION APPLIES
+* No admin backdoors in firmware
+* Keys stored encrypted only
+* Physical security: device must be present

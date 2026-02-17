@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoon Counter — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #f59e0b;
+    }
+    
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .main-display {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .spoon-count {
+      font-size: 4rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      transition: color 0.3s;
+    }
+    
+    .spoon-count.green {
+      color: #00FF88;
+    }
+    
+    .spoon-count.amber {
+      color: #FFB800;
+    }
+    
+    .spoon-count.red {
+      color: #ff4444;
+    }
+    
+    .spoon-label {
+      color: #7878AA;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .spoons-visual {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 2rem 0;
+      min-height: 60px;
+    }
+    
+    .spoon-icon {
+      font-size: 2rem;
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    
+    .spoon-icon.spent {
+      opacity: 0.2;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .control-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      background: transparent;
+      color: #E0E0EE;
+      font-size: 2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s, border-color 0.2s;
+      touch-action: manipulation;
+    }
+    
+    .control-button:hover {
+      border-color: #f59e0b;
+    }
+    
+    .control-button:active {
+      transform: scale(0.95);
+    }
+    
+    .control-button.minus {
+      color: #ff4444;
+    }
+    
+    .control-button.plus {
+      color: #00FF88;
+    }
+    
+    .stats {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #7878AA;
+    }
+    
+    .stat-item {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .stat-label {
+      color: #7878AA;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .history-chart {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0.5rem;
+      height: 100px;
+      margin: 1rem 0;
+    }
+    
+    .chart-bar {
+      width: 20px;
+      background: #7878AA;
+      border-radius: 2px 2px 0 0;
+      transition: background 0.3s;
+      min-height: 4px;
+    }
+    
+    .chart-bar.green {
+      background: #00FF88;
+    }
+    
+    .chart-bar.amber {
+      background: #FFB800;
+    }
+    
+    .chart-bar.red {
+      background: #ff4444;
+    }
+    
+    .settings {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    
+    .settings-button {
+      background: transparent;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: system-ui;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    
+    .settings-button:hover {
+      border-color: #f59e0b;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(5, 5, 16, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: #050510;
+      border: 1px solid #7878AA;
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 300px;
+      width: 90%;
+    }
+    
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #f59e0b;
+    }
+    
+    .modal-content label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #7878AA;
+    }
+    
+    .modal-content input {
+      width: 100%;
+      background: #050510;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-family: system-ui;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+    
+    .modal-button {
+      background: transparent;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: system-ui;
+    }
+    
+    .modal-button.primary {
+      border-color: #f59e0b;
+      color: #f59e0b;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #7878AA;
+      font-size: 0.8rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🥄 Spoon Counter</h1>
+    <p class="subtitle">Track your daily energy with the Spoon Theory model.</p>
+  </header>
+  
+  <div class="main-display">
+    <div class="spoon-label">Spoons left:</div>
+    <div class="spoon-count" id="spoon-count">12</div>
+    <div class="spoons-visual" id="spoons-visual"></div>
+  </div>
+  
+  <div class="controls">
+    <button class="control-button minus" id="minus-btn">−</button>
+    <button class="control-button plus" id="plus-btn">+</button>
+  </div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">Your average:</div>
+      <div class="stat-value" id="average">— spoons/day</div>
+    </div>
+    <div class="stat-item">
+      <div class="history-chart" id="history-chart"></div>
+    </div>
+  </div>
+  
+  <div class="settings">
+    <button class="settings-button" id="settings-btn">Settings</button>
+  </div>
+  
+  <div class="modal" id="settings-modal">
+    <div class="modal-content">
+      <h2>Settings</h2>
+      <label for="max-spoons">Starting spoons per day:</label>
+      <input type="number" id="max-spoons" min="1" max="20" value="12">
+      <div class="modal-actions">
+        <button class="modal-button" id="cancel-btn">Cancel</button>
+        <button class="modal-button primary" id="save-btn">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+  
+  <script>
+    class SpoonCounter {
+      constructor() {
+        this.maxSpoons = 12;
+        this.currentSpoons = 12;
+        this.dailyLog = [];
+        this.init();
+      }
+      
+      init() {
+        this.loadState();
+        this.checkDailyReset();
+        this.render();
+        this.setupEvents();
+      }
+      
+      setupEvents() {
+        document.getElementById('minus-btn').addEventListener('click', () => {
+          this.decrement();
+        });
+        
+        document.getElementById('plus-btn').addEventListener('click', () => {
+          this.increment();
+        });
+        
+        document.getElementById('settings-btn').addEventListener('click', () => {
+          this.showSettings();
+        });
+        
+        document.getElementById('save-btn').addEventListener('click', () => {
+          this.saveSettings();
+        });
+        
+        document.getElementById('cancel-btn').addEventListener('click', () => {
+          this.hideSettings();
+        });
+        
+        // Touch support
+        document.getElementById('minus-btn').addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          this.decrement();
+        });
+        
+        document.getElementById('plus-btn').addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          this.increment();
+        });
+      }
+      
+      decrement() {
+        if (this.currentSpoons > 0) {
+          this.currentSpoons--;
+          this.logChange(-1);
+          this.saveState();
+          this.render();
+        }
+      }
+      
+      increment() {
+        if (this.currentSpoons < this.maxSpoons) {
+          this.currentSpoons++;
+          this.logChange(1);
+          this.saveState();
+          this.render();
+        }
+      }
+      
+      logChange(delta) {
+        const today = new Date().toDateString();
+        const logEntry = {
+          date: today,
+          timestamp: new Date().toISOString(),
+          delta: delta,
+          spoons: this.currentSpoons
+        };
+        
+        // Find today's log or create new
+        let todayLog = this.dailyLog.find(log => log.date === today);
+        if (!todayLog) {
+          todayLog = {
+            date: today,
+            entries: [],
+            finalSpoons: this.maxSpoons
+          };
+          this.dailyLog.push(todayLog);
+        }
+        
+        todayLog.entries.push(logEntry);
+        todayLog.finalSpoons = this.currentSpoons;
+        
+        // Keep only last 7 days
+        this.dailyLog = this.dailyLog.slice(-7);
+      }
+      
+      checkDailyReset() {
+        const today = new Date().toDateString();
+        const lastDate = localStorage.getItem('spoonCounterLastDate');
+        
+        if (lastDate !== today) {
+          // New day - reset to max
+          this.currentSpoons = this.maxSpoons;
+          this.saveState();
+          localStorage.setItem('spoonCounterLastDate', today);
+        }
+      }
+      
+      render() {
+        const countEl = document.getElementById('spoon-count');
+        countEl.textContent = this.currentSpoons;
+        
+        // Color based on spoons
+        countEl.className = 'spoon-count';
+        if (this.currentSpoons > 8) {
+          countEl.classList.add('green');
+        } else if (this.currentSpoons >= 4) {
+          countEl.classList.add('amber');
+        } else {
+          countEl.classList.add('red');
+        }
+        
+        // Render spoon icons
+        const visualEl = document.getElementById('spoons-visual');
+        visualEl.innerHTML = '';
+        for (let i = 0; i < this.maxSpoons; i++) {
+          const icon = document.createElement('div');
+          icon.className = 'spoon-icon';
+          icon.textContent = '🥄';
+          if (i >= this.currentSpoons) {
+            icon.classList.add('spent');
+          }
+          visualEl.appendChild(icon);
+        }
+        
+        // Render history chart
+        this.renderHistoryChart();
+        
+        // Render average
+        this.renderAverage();
+      }
+      
+      renderHistoryChart() {
+        const chartEl = document.getElementById('history-chart');
+        chartEl.innerHTML = '';
+        
+        const last7Days = this.dailyLog.slice(-7);
+        const maxSpoons = Math.max(...last7Days.map(d => d.finalSpoons), this.maxSpoons);
+        
+        // Fill with empty bars if less than 7 days
+        while (last7Days.length < 7) {
+          last7Days.unshift({ finalSpoons: null });
+        }
+        
+        last7Days.forEach(day => {
+          const bar = document.createElement('div');
+          bar.className = 'chart-bar';
+          
+          if (day.finalSpoons !== null && day.finalSpoons !== undefined) {
+            const height = (day.finalSpoons / maxSpoons) * 100;
+            bar.style.height = height + '%';
+            
+            if (day.finalSpoons > 8) {
+              bar.classList.add('green');
+            } else if (day.finalSpoons >= 4) {
+              bar.classList.add('amber');
+            } else {
+              bar.classList.add('red');
+            }
+          } else {
+            bar.style.height = '4px';
+          }
+          
+          chartEl.appendChild(bar);
+        });
+      }
+      
+      renderAverage() {
+        const avgEl = document.getElementById('average');
+        const last7Days = this.dailyLog.filter(d => d.finalSpoons !== null && d.finalSpoons !== undefined);
+        
+        if (last7Days.length === 0) {
+          avgEl.textContent = '— spoons/day';
+          return;
+        }
+        
+        const sum = last7Days.reduce((acc, day) => acc + day.finalSpoons, 0);
+        const avg = (sum / last7Days.length).toFixed(1);
+        avgEl.textContent = `${avg} spoons/day`;
+      }
+      
+      showSettings() {
+        const modal = document.getElementById('settings-modal');
+        const input = document.getElementById('max-spoons');
+        input.value = this.maxSpoons;
+        modal.classList.add('active');
+      }
+      
+      hideSettings() {
+        const modal = document.getElementById('settings-modal');
+        modal.classList.remove('active');
+      }
+      
+      saveSettings() {
+        const input = document.getElementById('max-spoons');
+        const newMax = parseInt(input.value);
+        
+        if (newMax >= 1 && newMax <= 20) {
+          // Adjust current spoons if needed
+          if (this.currentSpoons > newMax) {
+            this.currentSpoons = newMax;
+          }
+          
+          this.maxSpoons = newMax;
+          this.saveState();
+          this.render();
+          this.hideSettings();
+        }
+      }
+      
+      saveState() {
+        const state = {
+          maxSpoons: this.maxSpoons,
+          currentSpoons: this.currentSpoons,
+          dailyLog: this.dailyLog
+        };
+        localStorage.setItem('spoonCounter', JSON.stringify(state));
+      }
+      
+      loadState() {
+        const saved = localStorage.getItem('spoonCounter');
+        if (saved) {
+          try {
+            const state = JSON.parse(saved);
+            this.maxSpoons = state.maxSpoons || 12;
+            this.currentSpoons = state.currentSpoons || this.maxSpoons;
+            this.dailyLog = state.dailyLog || [];
+          } catch (e) {
+            // Invalid state
+          }
+        }
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      new SpoonCounter();
+    });
+  </script>
+</body>
+</html>

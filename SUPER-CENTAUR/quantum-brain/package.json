@@ -1,0 +1,39 @@
+{
+  "name": "quantum-brain",
+  "version": "1.0.0",
+  "description": "Quantum Brain Integration System - Consciousness-driven decision-making and optimization platform",
+  "main": "index.js",
+  "scripts": {
+    "start:decision-engine": "node api/decision-engine.js",
+    "start:consciousness-monitor": "node consciousness/monitor.js",
+    "start:quantum-optimizer": "node quantum-computing/quantum-optimizer.js",
+    "start:real-time-optimizer": "node real-time-optimization/optimizer.js",
+    "start:universal-access": "node universal-intelligence/access.js",
+    "start:integration": "node integration/quantum-brain-integration.js",
+    "start:all": "concurrently \"npm run start:decision-engine\" \"npm run start:consciousness-monitor\" \"npm run start:quantum-optimizer\" \"npm run start:real-time-optimizer\" \"npm run start:universal-access\" \"npm run start:integration\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "quantum",
+    "brain",
+    "consciousness",
+    "ai",
+    "decision-making",
+    "child-protection",
+    "neurodivergent",
+    "economic-revolution"
+  ],
+  "author": "Quantum Brain Team",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "neo4j-driver": "^5.18.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

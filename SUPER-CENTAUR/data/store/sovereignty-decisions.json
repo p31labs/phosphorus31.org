@@ -1,0 +1,90 @@
+[
+  {
+    "id": "core-decisions",
+    "decisions": [
+      {
+        "id": "DATA_TYPE_VALIDATION",
+        "question": "Is this data type acceptable for sovereignty?",
+        "criteria": [
+          "Data is not biometric (no facial recognition, fingerprint, etc.)",
+          "Data is not behavioral tracking or analytics",
+          "Data format is open or convertible to open format",
+          "Data size is manageable for local storage (<1GB)"
+        ],
+        "dependencies": [],
+        "consequenceYes": "Data type approved for sovereignty processing",
+        "consequenceNo": "Data type rejected - incompatible with sovereignty",
+        "priority": 10
+      },
+      {
+        "id": "SOURCE_VALIDATION",
+        "question": "Is this source trusted for sovereignty ingestion?",
+        "criteria": [
+          "Source is user-created content",
+          "Source is verified family member or trusted contact",
+          "Source has explicit data ownership agreement",
+          "Source does not contain third-party tracking"
+        ],
+        "dependencies": [
+          "DATA_TYPE_VALIDATION"
+        ],
+        "consequenceYes": "Source approved for sovereignty ingestion",
+        "consequenceNo": "Source rejected - untrusted or unclear ownership",
+        "priority": 9
+      },
+      {
+        "id": "ENCRYPTION_VALIDATION",
+        "question": "Is this data encrypted end-to-end?",
+        "criteria": [
+          "Data is encrypted client-side before any external transmission",
+          "Encryption keys are user-controlled only",
+          "No plaintext storage on third-party servers",
+          "Encryption algorithm is post-quantum resistant"
+        ],
+        "dependencies": [
+          "DATA_TYPE_VALIDATION",
+          "SOURCE_VALIDATION"
+        ],
+        "consequenceYes": "Encryption approved for sovereignty",
+        "consequenceNo": "Encryption insufficient - requires client-side encryption",
+        "priority": 8
+      },
+      {
+        "id": "LEGAL_COMPLIANCE",
+        "question": "Does this data comply with Wyoming DUNA sovereignty framework?",
+        "criteria": [
+          "Data is personal or family documentation",
+          "Medical records are properly redacted",
+          "No copyrighted material without license",
+          "No illegal or restricted content"
+        ],
+        "dependencies": [
+          "DATA_TYPE_VALIDATION",
+          "SOURCE_VALIDATION"
+        ],
+        "consequenceYes": "Legal compliance approved",
+        "consequenceNo": "Legal issues detected - review required",
+        "priority": 7
+      },
+      {
+        "id": "LOCAL_STORAGE_CAPABILITY",
+        "question": "Can this be stored locally with CRDT sync?",
+        "criteria": [
+          "Data size < 1GB (adjustable based on local storage)",
+          "Data structure is compatible with CRDT algorithms",
+          "Sync conflicts are resolvable automatically",
+          "Offline access is possible"
+        ],
+        "dependencies": [
+          "DATA_TYPE_VALIDATION"
+        ],
+        "consequenceYes": "Local storage capability confirmed",
+        "consequenceNo": "Local storage not feasible - requires alternative approach",
+        "priority": 6
+      }
+    ],
+    "version": "1.0.0",
+    "createdAt": "2026-02-11T09:01:27.251Z",
+    "updatedAt": "2026-02-11T09:01:27.251Z"
+  }
+]

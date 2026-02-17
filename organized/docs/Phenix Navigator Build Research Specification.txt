@@ -1,0 +1,214 @@
+﻿Enterprise Production Build Specification for the Phenix Navigator Sovereign Stack
+1. Executive Summary and Architectural Vision
+The contemporary digital landscape is largely defined by a "Wye" topology—a centralized, hub-and-spoke architecture where user agency, data, and identity are funneled through monopolistic intermediaries. While efficient for service delivery, this topology creates systemic fragility, characterized by the "Floating Neutral" crisis: when the central connection is severed, all dependent nodes suffer catastrophic failure.1 The Phenix Navigator Sovereign Stack represents a radical architectural inversion toward a "Delta" (Mesh) topology. This architecture is isostatic, resilient, and self-sovereign, relying on cryptographic verification and geometric stability rather than administrative authority to maintain consensus and uptime.
+This comprehensive research report outlines the enterprise production specifications for deploying the Phenix Navigator ecosystem. It synthesizes the "Digital Centaur" hardware strategy, the "Sovereign Vault" local-first software architecture, and the "Tetrahedron Protocol" for geometric security. The analysis moves beyond standard DevOps practices to address the unique constraints of building a "Civilizational Life Raft" capable of operating in zero-trust, high-entropy, and disconnected environments, referred to as "Bunker Mode".
+The system architecture is bifurcated into two distinct physical domains to maximize security and minimize the blast radius of compromise. The "Citadel" (The Brain), hosted on a high-compute mobile device such as the Pixel 9 Pro Fold, handles identity, database management via PGLite, and the user interface.3 Conversely, the "Phantom" (The Body) is a dedicated hardware node based on the ESP32-S3 and LoRa SX1262 chipset, responsible for the physical layer (PHY), packet forwarding, and haptic feedback, operating with ephemeral RAM and zero data persistence.3 This separation ensures that even if the physical node is captured, the cryptographic identity and historical data remain secure within the Citadel's encrypted vault.
+This report details the rigorous build systems, code quality standards, security compliance, and infrastructure required to bring this sovereign stack to production readiness. It integrates standard enterprise requirements—such as CI/CD pipelines, role-based access control, and automated testing—with the esoteric necessities of the Phenix protocol, including quantum simulation, entropy harvesting, and neuro-metabolic optimization.
+Architectural Domain
+	Component
+	Technology Stack
+	Primary Function
+	The Citadel (Brain)
+	Mobile Host
+	Pixel 9 Pro Fold, Android, Termux
+	Identity, UI/UX, Local DB (PGLite)
+	The Phantom (Body)
+	Hardware Node
+	ESP32-S3, LoRa SX1262, C++
+	Physical Layer, Packet Forwarding
+	The Vault
+	Database
+	PostgreSQL (WASM), ElectricSQL
+	Sovereign Data Storage, Sync
+	The Mesh
+	Network
+	Reticulum, Meshtastic
+	Metadata-Opaque Communication
+	The Interface
+	Frontend
+	React, Three.js, Vite
+	3D Visualization, Spatial Control
+	________________
+2. Build System & Tooling Strategy
+To support the complex requirements of the Phenix Navigator—specifically the integration of WebAssembly (WASM) for the database layer and hardware interfaces for the radio layer—the build system must be optimized for performance, cache efficiency, and specific browser security headers. The selection of tooling is driven by the need for a "Local-First" development experience that scales to enterprise production without introducing fragility.
+2.1 The Vite-Centric Toolchain
+The architecture standardizes on Vite as the build tool for the frontend "Citadel" application. While Webpack and Turbopack offer robust enterprise features, Vite is selected for its native ES module support, superior Hot Module Replacement (HMR) performance, and simplified configuration for handling Web Workers and WASM binaries, which are critical for the PGLite database implementation.4 Vite's utilization of Rollup for production builds ensures highly optimized static assets, which is essential for the "Bunker Mode" requirement where the application must be loadable from a local file system without external CDNs.
+2.1.1 Cross-Origin Isolation for WASM Performance
+A critical requirement for the Phenix stack is the enabling of SharedArrayBuffer, which allows the PGLite (PostgreSQL WASM) process to communicate efficiently with the main thread and web workers without serialization overhead. In standard browser environments, SharedArrayBuffer is disabled by default to mitigate Spectre/Meltdown vulnerabilities. To permit its use, the build server and production CDN must serve specific response headers.6
+The Vite configuration (vite.config.ts) must forcefully inject the following headers during development and preview modes:
+* Cross-Origin-Opener-Policy: same-origin
+* Cross-Origin-Embedder-Policy: require-corp
+Failure to configure these headers prevents the browser from allocating shared memory, forcing the database into a degraded performance mode or causing complete initialization failure.7 This requirement extends to the production environment; infrastructure deployment scripts (Terraform/Docker) must ensure the serving layer (NGINX, Vercel, or Netlify) includes these headers in every response.
+2.1.2 Worker Configuration and Asset Handling
+The "Digital Centaur" architecture relies heavily on Web Workers to offload heavy cryptographic computations (Ed25519 signing) and database queries from the UI thread to prevent blocking the React render loop. Vite's worker configuration must be tuned for production:
+* Worker Format: Set worker: { format: 'es' } in the Vite config. This ensures workers are bundled as standard ES modules, preventing compatibility issues with modern browsers and allowing for better tree-shaking.9
+* Dependency Exclusion: The PGLite library (@electric-sql/pglite) should be excluded from Vite's dependency optimization (optimizeDeps.exclude) to prevent double-bundling issues with the WASM artifacts.9
+2.2 Multi-Environment Configuration
+The build system must support distinct environments reflecting the system's operational modes. Standard .env files are utilized but managed through a "Geodesic" configuration injection strategy to handle the complexity of cryptographic keys and network endpoints.
+* Development (.env.local): Points to local mock hardware bridges and an in-memory PGLite instance for rapid iteration. It enables "Hot Reloading" of the "Cognitive Shield" logic without restarting the database.
+* Staging (Simulation): Connects to a "Shadow Mesh" running on QEMU-emulated ESP32 nodes to test topology changes without physical radio hardware.1 This environment mimics the latency and packet loss of the LoRa network.
+* Production ("Green Board"): The strict deployment configuration. It enforces the "Horizon of Silence" (disabling debug logs), activates the "Harmonic Linter" rules, and burns the governance logic into the hardware eFuses.3
+* Bunker Mode: A specialized build target that assumes zero internet connectivity. It bundles all necessary documentation, assets, and dependency graphs directly into the application package, increasing bundle size but ensuring total autonomy. This build typically targets the Android file system directly via Termux.1
+2.3 CI/CD Pipelines for Firmware and Software
+The "Forge" uses a unified CI/CD pipeline, likely hosted on GitHub Actions but designed to be portable to a local runner (e.g., Gitea/Drone or Jenkins) to maintain sovereignty.1
+2.3.1 Firmware Pipeline (ESP-IDF)
+For the Phenix Phantom hardware (ESP32-S3), the pipeline executes the following sequence:
+1. Build: Compiles the firmware using the Espressif IoT Development Framework (ESP-IDF). It enables CONFIG_APP_REPRODUCIBLE_BUILD=y to ensure the binary is deterministic, stripping __DATE__ and __TIME__ macros. This allows users to cryptographically verify that the binary matches the source code.1
+2. Test: Runs unit tests using pytest-embedded and QEMU to simulate hardware interactions.1 This includes verifying the "Secure Boot" chain of trust in a virtualized environment.
+3. Sign: Signs the firmware using a production signing key stored in a secure secrets manager (or HSM). This step is critical for Secure Boot v2 compliance.10
+4. Release: Publishes the signed binary, partition table, and OTA data to a release channel (e.g., GitHub Releases or a decentralized IPFS gateway).
+2.3.2 Software Pipeline (Citadel)
+The React-based Citadel application follows a parallel pipeline:
+1. Lint & Audit: Runs the "Harmonic Linter" to check for "Spoon Vampires" (code that consumes excessive battery/cognitive load) and enforces the "Resonance Score" of 0.35.1
+2. Build: Executes vite build with the specific target settings for PWA and WebUSB support.
+3. Test: Runs the Jest/Vitest suite for logic and Playwright for E2E user flows.
+4. Deploy: Pushes the static assets to the distributed file system (IPFS/Arweave) or traditional CDNs, pinning the version hash for immutability.
+________________
+3. Code Quality, Testing, and the Harmonic Linter
+The Phenix project introduces a novel dimension to code quality: "Neuro-Metabolic Efficiency." Code is not just judged on cyclomatic complexity or coverage, but on its impact on the user's cognitive state and device battery life. This requires a shift from standard linting to "Harmonic Linting."
+3.1 The Harmonic Linter and Spoon Cost
+Standard linters (ESLint, Prettier) are augmented with a custom static analysis engine—the Harmonic Linter.1 This tool integrates with the build pipeline to enforce the project's unique "Spoon Theory" operational constraints.
+* Spoon Cost Calculation: The linter assigns a "metabolic cost" to functions based on their complexity and resource usage. A background sync operation might cost 1 "spoon," while a high-intensity video render costs 4. If a module's aggregate cost exceeds the user's daily metabolic surplus (defined in their profile), the build fails. This prevents feature bloat that drains user energy.1
+* Resonance Scoring: The linter measures the ratio of structure to entropy (Halstead Volume), targeting a "Mark 1 Attractor" value (  ). Code that is too rigid (over-engineered) or too chaotic (spaghetti code) is flagged for refactoring. This ensures the codebase remains adaptable ("liquid") rather than brittle.
+3.2 Automated Testing Infrastructure
+The testing strategy employs a "Pyramid of Verification" to ensure reliability across the physical and digital domains.
+   * Unit Testing (Vitest/Jest): Used for testing core logic, specifically the implementation of the Fisher-Escolà statistical distribution for quantum coherence simulation. Vitest is preferred for its speed and native ESM support, aligning with the Vite build system.13
+   * Integration Testing (Pytest-Embedded): Essential for the hardware layer. It verifies that the "Cognitive Shield" logic correctly interprets sensor data from the simulated IMU (Inertial Measurement Unit) inside the QEMU environment. This allows developers to test firmware logic without flashing physical hardware.1
+   * End-to-End (E2E) Testing (Playwright/Cypress): Simulates critical user flows, such as the "Airlock Protocol" (onboarding) and "Admin Redemption" (recovery). It includes accessibility scans (via axe-core) to ensure the dashboard meets the specific needs of neurodivergent users (high contrast, reduced motion). Playwright is generally favored for its ability to handle multiple browser contexts, essential for testing P2P sync between two simulated users.1
+   * SonarQube Analysis: While not explicitly mentioned in the Phenix snippets, standard enterprise practice dictates the use of static analysis tools like SonarQube to catch security vulnerabilities (OWASP Top 10) and code smells that the Harmonic Linter might miss. This would be integrated into the GitHub Actions pipeline to gate pull requests.
+3.3 Security Audits and Dependency Management
+Dependencies are a major vector for supply chain attacks, particularly in a system designed for sovereignty.
+   * Dependency Locking: npm audit and Snyk are used to scan for vulnerabilities. However, the project enforces a stricter policy: no external dependencies are allowed for the core cryptographic primitives or the PGLite engine unless they can be vendored and audited. This "Vendor Everything" approach protects against "left-pad" style incidents.1
+   * License Compliance: The project utilizes the CERN-OHL-S-2.0 (Strongly Reciprocal) license for hardware to prevent commercial enclosure. The software stack checks all dependencies to ensure no conflicting licenses (e.g., GPL incompatibilities) are introduced. Automated tools in the CI pipeline scan package.json against a whitelist of approved licenses (MIT, Apache 2.0, AGPL).3
+________________
+4. Security & Compliance: The Digital Centaur
+The security model of the Phenix Navigator is termed the "Digital Centaur," bifurcating the system into a high-security "Brain" and an expendable "Body." This architecture is designed to withstand physical capture and coercion.
+4.1 The Digital Centaur Architecture
+   * The Brain (Citadel): The user's mobile device (e.g., Pixel 9 Pro Fold) holds the cryptographic identity, the Sovereign Vault (database), and the UI. It is protected by the device's Secure Enclave (Titan M2) and biometric authentication. Data at rest is encrypted using SQLCipher or PGLite's native encryption extensions.3
+   * The Body (Phantom): The external hardware node handles radio communications. It holds no persistent data. Its RAM is ephemeral. If the device is captured, it contains no message logs, contacts, or private keys. The connection between Brain and Body is authenticated via a "Totem Sync" protocol using BLE proximity.3
+4.2 Authentication and SSO
+While the prompt suggests implementing SSO/OAuth2, the Phenix stack rejects centralized identity providers (IdPs) like Google or Facebook for its core operations. Instead, it utilizes Self-Sovereign Identity (SSI) principles.
+   * Decentralized Identifiers (DIDs): Users are identified by DIDs (e.g., did:key:z6Mk...) rooted in their public keys.
+   * WebAuthn/FIDO2: For local access to the Citadel app, the system utilizes WebAuthn to leverage the device's biometrics (FaceID/Fingerprint) without sending biometric data to a server. This creates a passwordless, phishing-resistant entry point.
+   * OIDC Bridge: For enterprise interoperability, the system can act as an OpenID Connect (OIDC) provider. This allows the Phenix identity to be used to sign into legacy enterprise applications, effectively wrapping the sovereign identity in a standard enterprise protocol.17
+4.3 GDPR and Data Privacy
+The "Local-First" architecture fundamentally alters the GDPR compliance landscape.
+   * Data Residency: Since all user data (PGLite) resides on the user's device and is not harvested to a central cloud, the system is inherently compliant with data minimization principles. The user is the data controller.3
+   * Zero-Knowledge Proofs (ZKPs): When interacting with the mesh or external services, the system uses ZKPs to prove eligibility (e.g., "I am a verified member") without revealing the underlying identity or attributes. This satisfies the "Privacy by Design" requirement of GDPR.3
+   * Right to Erasure: The "Abdication Protocol" provides a nuclear option for the Right to Erasure. Executing the protocol cryptographically shreds the private keys and deletes the local database, rendering the data mathematically unrecoverable.1
+________________
+5. Performance & Observability
+Performance in the Phenix ecosystem is measured not just in milliseconds, but in "Spoons" (user energy) and "Coherence" (system stability).
+5.1 Bundle Analysis and Optimization
+To ensure the application loads instantly even in "Bunker Mode" (offline), bundle size is critical.
+   * Bundle Analysis: Tools like webpack-bundle-analyzer (or the Vite equivalent, rollup-plugin-visualizer) are part of the build pipeline. Any bundle exceeding a defined threshold (e.g., 200KB for the initial chunk) triggers a build warning.19
+   * Lazy Loading: React components, especially heavy 3D assets for the "Geodesic Engine," are lazy-loaded using React.lazy and Suspense. The 3D models (GLTF) are compressed with Draco, reducing their size by up to 90% to ensure fast parsing on mobile devices.20
+   * Tree Shaking: Vite's use of Rollup ensures aggressive tree shaking, removing unused exports from libraries like Three.js and lodash, which are common sources of bloat.5
+5.2 Observability in a Sovereign Stack
+Standard cloud observability (Datadog/New Relic) implies data exfiltration, which violates the sovereign model. The Phenix stack uses a "Local-First" observability pattern.
+   * Local Prometheus: A lightweight Prometheus instance runs locally (e.g., in Termux on Android) to scrape metrics from the PGLite database and the Node.js backend. This allows the user to monitor their own system health ("Voltage," "Entropy") without sharing telemetry with a third party.22
+   * Sentry (Optional/Sanitized): For error reporting, Sentry can be used, but with strict PII stripping. The system is configured to only send stack traces for generic crashes, never user data. In "Bunker Mode," Sentry is strictly disabled.1
+   * Grafana Dashboards: Users can view their own system metrics via a local Grafana instance connecting to the local Prometheus. This visualizes the "Heartbeat" of their node—battery levels, mesh connectivity, and database sync status.22
+________________
+6. Infrastructure & Deployment
+The deployment strategy must bridge the gap between "Cloud-Native" scalability and "Bunker-Ready" resilience.
+6.1 Containerization and Orchestration
+   * Docker: The backend services (Sync Server, Signal Server) are containerized using Docker. The Dockerfile is optimized for multi-arch builds (AMD64/ARM64) to support deployment on both cloud servers and local Raspberry Pi nodes.14
+   * Kubernetes (Cloud Mirror): For enterprise-scale deployments (e.g., a community hub), the system uses Kubernetes. Helm charts define the deployment of the ElectricSQL sync engine, the Reticulum transport layer, and the ingress controllers. This allows the mesh to have "Supernodes" that bridge the gap between the physical LoRa mesh and the internet.14
+   * Docker Compose (Local): For individual users, a docker-compose.yml file is provided to spin up the entire stack (Postgres, Electric, Traefik) on a local laptop or home server, ensuring self-hosting capability.24
+6.2 Cloud-Native vs. Edge Deployment
+   * Cloud-Native: AWS ECS or Google Cloud Run can host the "Supernodes" for global reach. These nodes act as high-availability anchors for the mesh.14
+   * Edge/Static Deployment: The Citadel frontend is a static PWA. It is deployed to edge networks like Vercel or Netlify for global low-latency access. However, because it is "Local-First," the PWA can also be served directly from the ESP32's internal SPIFFS filesystem or a local IPFS node, removing the dependency on big tech infrastructure.25
+   * CDN: Cloudflare is used not just for caching, but for its "R2" object storage (S3 compatible) to store encrypted backups of the user's "Sovereign Vault." This provides an off-site recovery mechanism that is encrypted with the user's key before it ever leaves the device.26
+________________
+7. Data & State Management
+The data architecture is the most distinct aspect of the Phenix stack, moving away from REST APIs to a synchronization-based model.
+7.1 Sovereign Vault: PGLite
+   * Engine: PGLite (PostgreSQL in WASM) provides a robust SQL engine inside the client. This supports complex queries, full-text search, and relational integrity that simple key-value stores (IndexedDB) cannot match.3
+   * Storage: Data is persisted to IndexedDB using a VFS (Virtual File System). While slower than direct file access, it ensures browser compatibility.
+   * Sync: ElectricSQL manages the synchronization of data between the local PGLite and external Postgres instances. It replaces the traditional "Fetch/REST" pattern with a "Sync" pattern—the client subscribes to a "Shape" of data, and the engine ensures the local DB is always up to date.29
+7.2 Conflict Resolution: CRDTs and Yjs
+   * Yjs Integration: For collaborative features (shared documents, chat), the system uses Yjs, a CRDT library. Yjs ensures that concurrent edits from multiple users (or the same user on multiple devices) can be merged mathematically without conflicts.2
+   * Vector Clocks: To handle causality in a distributed system, the "Delta Mesh" uses vector clocks. This allows the system to determine the order of events even when devices are offline and clocks are drifted, ensuring that the "State" of the ledger is eventually consistent across the mesh.30
+7.3 State Management Libraries
+   * Zustand: For local, ephemeral UI state (e.g., "is the menu open?"), Zustand is used. It is lightweight and integrates well with the "Digital Centaur" philosophy of minimal overhead.
+   * Reactive Queries: Instead of Redux, the system leverages PGLite's "Live Queries" (via useLiveQuery). React components subscribe directly to SQL queries; when the underlying data changes (via sync or local write), the component re-renders automatically. This eliminates the need for complex reducer logic.32
+________________
+8. 3D Visualization, Hardware Integration, and Voice
+The "Geodesic Engine" is the user's window into the mesh, visualizing invisible network topology as a 3D starfield.
+8.1 React Three Fiber (R3F) Optimization
+Rendering 3D on a mobile battery requires aggressive optimization.
+   * On-Demand Rendering: The <Canvas> is set to frameloop="demand". This stops the render loop when the scene is static, dropping battery usage to near zero. Rendering is explicitly triggered (invalidated) only when data changes or user interaction occurs.33
+   * Instancing: The "Starfield" of mesh nodes uses InstancedMesh. This technique allows the GPU to render thousands of identical node indicators with a single draw call, maintaining 60fps even on mid-range hardware.33
+   * Asset Management: 3D models of the "Phantom" device are optimized using Blender (decimation) and compressed with Draco. They are preloaded (useGLTF.preload) to prevent "pop-in" effects.35
+8.2 Hardware Integration: WebUSB and WebBluetooth
+   * WebUSB: Used for high-speed serial comms with the Phantom. It requires a secure context (HTTPS) and user interaction. The application listens for connect/disconnect events to handle physical unplugging gracefully, switching the UI to "Disconnected" mode immediately.36
+   * Web Speech API: For voice interaction ("Sorcery"), the Web Speech API is used for speech-to-text. To ensure privacy, a local "Wake Word" model runs on the device (using TensorFlow.js or ONNX), only triggering the cloud transcription (or local Whisper model) when the intent is clear.
+   * Haptics: The interface uses the navigator.vibrate API to provide somatic feedback. When a user interacts with a virtual knob in the 3D scene, the phone vibrates to simulate mechanical "clicks," grounding the digital experience in physical sensation.
+________________
+9. Enterprise Features: Governance and Access
+While "Sovereign," the system must support complex organizational structures, mapping "Enterprise" concepts to "DAO" architectures.
+9.1 From RBAC to Cryptographic Access
+   * Role-Based Access Control (RBAC): In a DAO, RBAC is replaced by Token-Gated Access. Possession of a specific NFT or Verifiable Credential (VC) grants permission to access certain "Zones" of the mesh or modify specific database tables.
+   * Multi-Tenancy: The "Sovereign Vault" supports multi-tenancy via Row Level Security (RLS). A single PGLite instance can host data for multiple "Contexts" (e.g., Personal, Family, Community). RLS policies ensure that a query for "Family" data never returns "Community" data unless explicitly authorized.38
+9.2 Audit Logging and Traceability
+   * Immutable Logs: Every critical action (e.g., changing a security setting, transferring assets) is logged to an Append-Only Log in the database. This log is cryptographically chained (Merkle Tree), making it impossible to tamper with history without breaking the chain. This provides a higher level of auditability than standard text logs.2
+   * Governance Traceability: Changes to the system rules (e.g., the "Spoon Cost" threshold) are managed via on-chain governance or signed proposals. This ensures that the evolution of the platform is transparent and traceable to specific cryptographic identities.1
+________________
+10. Disaster Recovery & Scaling
+The system is designed for "High-Entropy" scenarios where cloud providers may fail.
+10.1 Topological Resilience and Scaling
+   * The Tetrahedron (  ): The network scales fractally. Four nodes form a stable "Family Tetrahedron." Four of these form a "Community Cluster." This geometry ensures that the network maintains structural stability (isostatic rigidity) as it grows, avoiding the bottlenecks of centralized hubs.
+   * Ollivier-Ricci Curvature: Routing uses curvature analysis to identify "weak bridges" in the network. Traffic is automatically routed around these fragile points toward "gravity wells" of high connectivity, ensuring the network heals itself under load.
+10.2 Automated Backups and Recovery
+      * Encrypted Incremental Backups: The system performs automated, encrypted incremental backups of the PGLite database to an S3-compatible store (Cloudflare R2) or a local NAS. Encryption occurs before upload, ensuring the cloud provider sees only opaque blobs.26
+      * Blue/Green Deployment (Firmware): The ESP32-S3 supports dual-partition OTA updates (OTA_0, OTA_1). Updates are flashed to the passive partition. If the new firmware fails to boot or pass health checks ("Green Board"), the bootloader automatically rolls back to the previous known-good version, preventing "bricking" of remote devices.10
+10.3 Load Testing
+      * k6 and Artillery: Load testing is performed on the "Supernodes" using k6 to simulate thousands of concurrent WebSocket connections and sync events. This ensures the ElectricSQL sync engine can handle the throughput of a city-scale deployment.24
+      * Shadow Mesh: The "Staging" environment (QEMU mesh) is subjected to "Chaos Monkey" style attacks—randomly killing nodes or severing links—to verify that the "Tetrahedron Protocol" correctly heals the topology without data loss.1
+________________
+11. Conclusion
+The Phenix Navigator Sovereign Stack represents a paradigm shift in enterprise architecture. By synthesizing Local-First data management (PGLite), Geometric Security (Tetrahedron Protocol), and Digital Centaur hardware isolation, it delivers a system that is robust against both digital surveillance and physical infrastructure failure.
+The production specifications detailed in this report—from the Vite/WASM build chain to the Secure Boot v2 hardware workflow—provide a roadmap for deploying this architecture at scale. The integration of Harmonic Linting ensures that the software respects the cognitive limits of its users, while the DAO governance structure ensures the platform remains aligned with the interests of its community. This is not just an application; it is a "Civilizational Life Raft" engineered for the 21st century.
+Status: GREEN BOARD Confidence: 0.998 (High Integrity) Action: EXECUTE PHASE 4 (PRODUCTION DEPLOYMENT) 1
+Works cited
+      1. Phenix Citadel Research Protocol Execution, https://drive.google.com/open?id=1NTxry_vnU9Txgca9FxutybDRSAjnP5A8-vmfx26Z8Uc
+      2. 2026-01-07 - Project Phenix: Deep Research Prompt, https://drive.google.com/open?id=1v4Dvr7nl1JIueQjajmSd_EcIAA-pFRRM6qPg31swCuc
+      3. Phenix Citadel Production & Deployment, https://drive.google.com/open?id=1n0WgLZSpPwtWxoLt4oztZEoAsf4xQ0g4kA05MZjds00
+      4. Optimize Vite Build Time: A Comprehensive Guide - DEV Community, accessed January 31, 2026, https://dev.to/perisicnikola37/optimize-vite-build-time-a-comprehensive-guide-4c99
+      5. Performance | Vite, accessed January 31, 2026, https://vite.dev/guide/performance
+      6. SharedArrayBuffer - JavaScript - MDN Web Docs, accessed January 31, 2026, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer
+      7. Cross-Origin-Isolation with SvelteKit, Vite, and Firebase | Captain Codeman, accessed January 31, 2026, https://www.captaincodeman.com/cross-origin-isolation-with-sveltekit-vite-and-firebase
+      8. How to use WASM build with OPFS and a web worker - SQLite User Forum, accessed January 31, 2026, https://sqlite.org/forum/info/f844a05ed0da5e71857a0605b315a51cb518b983d11024b6e09a23cb99765aac
+      9. Bundler Support | PGlite, accessed January 31, 2026, https://pglite.dev/docs/bundler-support
+      10. Secure Boot v2 - ESP32-S3 - — ESP-IDF Programming Guide v5.5.2 documentation, accessed January 31, 2026, https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/security/secure-boot-v2.html
+      11. RAW_ROOT_1769453484066_RAW_ROOT_1769453464161_Phenix Navigator_ Enterprise Production Build Package for Worldwide Sovereign Deployment (1).pdf, https://drive.google.com/open?id=1MGpIOAsa9-GDws9YZnSUH4iVs4aGIZsU
+      12. Introduction to testing ESP32 code with Pytest - The Gistre Blog, accessed January 31, 2026, https://blog.gistre.epita.fr/posts/brice.parent-2023-09-11-introduction_to_testing_esp32_code_with_pytest/
+      13. 2026-01-13 - Monetizing Intellectual Property Research Strategy, https://drive.google.com/open?id=1byIJL-zasc_Lwepwwr3h_drH8eSi2S30aQxxImXBrsE
+      14. Based on my exploration of your project, I now have a comprehensive understanding of what you've built, https://drive.google.com/open?id=1XLTqCMqQSg6uC-lVRIpu67QUETa-MaPmjJzfbjn8vdA
+      15. electric-sql/pglite: Embeddable Postgres with real-time, reactive bindings. - GitHub, accessed January 31, 2026, https://github.com/electric-sql/pglite
+      16. CERN Open Hardware Licence Version 2 - Strongly Reciprocal | Choose a License, accessed January 30, 2026, https://choosealicense.com/licenses/cern-ohl-s-2.0/
+      17. Biometric authentication with WebAuthn and SSO | Red Hat Developer, accessed January 31, 2026, https://developers.redhat.com/articles/2021/11/09/biometric-authentication-webauthn-and-sso
+      18. Passwordless SSO for Web & Mobile Apps - WWPass, accessed January 31, 2026, https://www.wwpass.com/blog/passwordless-sso-for-web-mobile-apps/
+      19. Optimizing Your React Vite Application: A Guide to Reducing Bundle Size - Shehzad Ahmed, accessed January 30, 2026, https://shaxadd.medium.com/optimizing-your-react-vite-application-a-guide-to-reducing-bundle-size-6b7e93891c96
+      20. Want to increase my page speed by optimizing three js code - Questions, accessed January 31, 2026, https://discourse.threejs.org/t/want-to-increase-my-page-speed-by-optimizing-three-js-code/86976
+      21. Building for Production - Vite, accessed January 31, 2026, https://vite.dev/guide/build
+      22. Get started with Grafana and Prometheus | Grafana documentation, accessed January 30, 2026, https://grafana.com/docs/grafana/latest/fundamentals/getting-started/first-dashboards/get-started-grafana-prometheus/
+      23. Day 14: Advanced Logging and Monitoring with Prometheus, Grafana, and Alertmanager (Termux Edition!) | by Afolabi Abigeal | Medium, accessed January 31, 2026, https://medium.com/@houseofarby/day-14-advanced-logging-and-monitoring-with-prometheus-grafana-and-alertmanager-termux-edition-6ecfa8fe8845
+      24. Observability stack for local development and troubleshooting toolkit - GitHub, accessed January 31, 2026, https://github.com/cbos/observability-toolkit
+      25. React + Vite: The ultimate guide to static application deployment - DEV Community, accessed January 31, 2026, https://dev.to/fab_builder/react-vite-the-ultimate-guide-to-static-application-deployment-cik
+      26. Deploy Postgres Backup to Cloudflare R2 (S3-Compatible) - Railway, accessed January 31, 2026, https://railway.com/deploy/postgres-to-r2-backup
+      27. Effortless Sync from Cloudflare R2 to AWS S3 with RcloneView, accessed January 31, 2026, https://rcloneview.com/support/blog/move-from-cloudflare-r2-to-aws-s3-with-rcloneview
+      28. Benchmarks | PGlite, accessed January 31, 2026, https://pglite.dev/benchmarks
+      29. Sync using ElectricSQL - PGlite, accessed January 31, 2026, https://pglite.dev/docs/sync
+      30. Handling of mobile applications state using Conflict-Free Replicated Data Types - Diva-portal.org, accessed January 31, 2026, https://www.diva-portal.org/smash/get/diva2:1709127/FULLTEXT02.pdf
+      31. Offline vs. Real-Time Sync: Managing Data Conflicts - Adalo, accessed January 31, 2026, https://www.adalo.com/posts/offline-vs-real-time-sync-managing-data-conflicts
+      32. ElectricSQL (@electric-sql.com) - Bluesky, accessed January 30, 2026, https://bsky.app/profile/electric-sql.com
+      33. Scaling performance - React Three Fiber, accessed January 31, 2026, https://r3f.docs.pmnd.rs/advanced/scaling-performance
+      34. Optimization - Wawa Sensei, accessed January 31, 2026, https://wawasensei.dev/courses/react-three-fiber/lessons/optimization
+      35. React-Three-Fiber: Enhancing Scene Quality with Drei + Performance Tips - Medium, accessed January 31, 2026, https://medium.com/@ertugrulyaman99/react-three-fiber-enhancing-scene-quality-with-drei-performance-tips-976ba3fba67a
+      36. Access USB Devices on the Web | Capabilities - Chrome for Developers, accessed January 30, 2026, https://developer.chrome.com/docs/capabilities/usb
+      37. USB: disconnect event - Web APIs | MDN, accessed January 30, 2026, https://developer.mozilla.org/en-US/docs/Web/API/USB/disconnect_event
+      38. PostgreSQL Row-Level Security — A Beginner-Friendly Guide with Real Example - Reddit, accessed January 31, 2026, https://www.reddit.com/r/SQL/comments/1merufb/postgresql_rowlevel_security_a_beginnerfriendly/
+      39. Documentation: 18: 5.9. Row Security Policies - PostgreSQL, accessed January 31, 2026, https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+      40. realchandan/pgbackup: PostgreSQL Incremental Scheduled Backups to S3-Compatible Storage - GitHub, accessed January 31, 2026, https://github.com/realchandan/pgbackup

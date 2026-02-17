@@ -1,0 +1,374 @@
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Stars, Float, Text, Line, Sphere } from '@react-three/drei';
+import * as THREE from 'three';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, Radio, Activity, Terminal, Lock, Cpu, Globe, Zap } from 'lucide-react';
+
+// --- CONSTANTS & PHYSICS ---
+const VERTICES_PER_UNIT = 4;
+const TARGET_DENSITY = 57.7;
+const COLORS = {
+  primary: '#10b981', // Emerald-500
+  secondary: '#eab308', // Gold-500
+  danger: '#ef4444', // Red-500
+  bg: '#000000',
+};
+
+// --- 3D COMPONENTS ---
+
+// The "GatewayOrb" - A stable Tetrahedron representing the Delta Topology
+const GatewayOrb = ({ active, glassBox }) => {
+  const meshRef = useRef();
+  
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    meshRef.current.rotation.x += 0.005;
+    meshRef.current.rotation.y += 0.01;
+    
+    // Pulse effect based on "heartbeat"
+    const t = state.clock.getElapsedTime();
+    const scale = 1 + Math.sin(t * 2) * 0.05;
+    meshRef.current.scale.set(scale, scale, scale);
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+      <group>
+        {/* The Core Tetrahedron */}
+        <mesh ref={meshRef}>
+          <tetrahedronGeometry args={[2, 0]} />
+          <meshStandardMaterial
+            color={active ? COLORS.secondary : COLORS.primary}
+            wireframe={true}
+            emissive={active ? COLORS.secondary : COLORS.primary}
+            emissiveIntensity={2}
+            transparent
+            opacity={0.8}
+          />
+        </mesh>
+        
+        {/* Inner Solid Core */}
+        <mesh scale={[0.5, 0.5, 0.5]}>
+           <tetrahedronGeometry args={[2, 0]} />
+           <meshStandardMaterial 
+              color={COLORS.primary} 
+              emissive={COLORS.primary}
+              emissiveIntensity={0.5}
+              transparent
+              opacity={0.3}
+           />
+        </mesh>
+
+        {/* Glass Box Visualization: Show Packets */}
+        {glassBox && active && (
+           <PacketStream radius={3} color={COLORS.secondary} count={20} />
+        )}
+      </group>
+    </Float>
+  );
+};
+
+// Visualizes data packets moving through the mesh
+const PacketStream = ({ radius, color, count }) => {
+  const packets = useMemo(() => {
+    return new Array(count).fill(0).map(() => ({
+      speed: Math.random() * 0.05 + 0.01,
+      offset: Math.random() * Math.PI * 2,
+      orbit: Math.random() * Math.PI,
+    }));
+  }, [count]);
+
+  const ref = useRef();
+
+  useFrame((state) => {
+    if(!ref.current) return;
+    ref.current.rotation.z -= 0.002;
+  });
+
+  return (
+    <group ref={ref}>
+      {packets.map((p, i) => (
+        <mesh key={i} position={[
+          Math.cos(p.offset) * radius,
+          Math.sin(p.offset) * radius * Math.sin(p.orbit),
+          Math.sin(p.offset) * radius * Math.cos(p.orbit)
+        ]}>
+          <sphereGeometry args={[0.05, 8, 8]} />
+          <meshBasicMaterial color={color} />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+// The "Starfield" - Represents the Wye Topology (Chaos) transforming to Delta (Order)
+const TheSwarm = ({ active, density }) => {
+  const count = 1000;
+  const mesh = useRef();
+  
+  // Initial random positions (Chaos/Wye)
+  const [positions, setPositions] = useState(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 50;     // x
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 50; // y
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 50; // z
+    }
+    return pos;
+  });
+
+  // Target positions (Order/Delta Mesh)
+  const targetPositions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    const radius = 10;
+    for (let i = 0; i < count; i++) {
+      const phi = Math.acos(-1 + (2 * i) / count);
+      const theta = Math.sqrt(count * Math.PI) * phi;
+      pos[i * 3] = radius * Math.cos(theta) * Math.sin(phi);
+      pos[i * 3 + 1] = radius * Math.sin(theta) * Math.sin(phi);
+      pos[i * 3 + 2] = radius * Math.cos(phi);
+    }
+    return pos;
+  }, []);
+
+  useFrame((state) => {
+    if (!mesh.current) return;
+
+    // Phase Transition Logic: Lerp between Chaos and Order based on density
+    const t = active ? 0.02 : 0.005; // Speed of transition
+    const currentPositions = mesh.current.geometry.attributes.position.array;
+    
+    for (let i = 0; i < count; i++) {
+      const ix = i * 3;
+      const iy = i * 3 + 1;
+      const iz = i * 3 + 2;
+
+      // If active (Delta Topology), move towards target sphere
+      // If inactive (Wye Topology), drift randomly
+      if (active && density >= TARGET_DENSITY) {
+        currentPositions[ix] += (targetPositions[ix] - currentPositions[ix]) * t;
+        currentPositions[iy] += (targetPositions[iy] - currentPositions[iy]) * t;
+        currentPositions[iz] += (targetPositions[iz] - currentPositions[iz]) * t;
+      } else {
+         // Drift logic
+         currentPositions[ix] += Math.sin(state.clock.elapsedTime + i) * 0.01;
+      }
+    }
+    mesh.current.geometry.attributes.position.needsUpdate = true;
+    
+    // Rotate the whole swarm slowly
+    mesh.current.rotation.y += 0.001;
+  });
+
+  return (
+    <points ref={mesh}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={active ? 0.15 : 0.1}
+        color={active ? COLORS.primary : '#555'}
+        transparent
+        opacity={active ? 0.8 : 0.4}
+        sizeAttenuation
+      />
+    </points>
+  );
+};
+
+// --- UI COMPONENTS ---
+
+const HUD = ({ active, abdicated, glassBox, density }) => {
+  return (
+    <div className="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between font-mono text-xs md:text-sm text-green-500 select-none">
+      {/* Top Bar */}
+      <div className="flex justify-between items-start">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2 text-xl font-bold tracking-widest text-white">
+            <Shield className="w-6 h-6 text-emerald-500" />
+            GENESIS GATE
+          </div>
+          <div className="flex items-center gap-2 opacity-70">
+             PROTOCOL v1.0 // {active ? "DELTA" : "WYE"} TOPOLOGY
+          </div>
+        </div>
+
+        <div className="flex flex-col items-end gap-1 text-right">
+          <div className="flex items-center gap-2">
+            <span className={active ? "text-emerald-500" : "text-red-500"}>
+              {active ? "SYSTEM LOCKED" : "FLOATING NEUTRAL DETECTED"}
+            </span>
+            <Activity className="w-4 h-4 animate-pulse" />
+          </div>
+          <div>HASH: {active ? "IMMUTABLE" : "DRIFTING"}</div>
+          <div>BLOCK: 19,402,112</div>
+        </div>
+      </div>
+
+      {/* Center Reticle (Glass Box Mode) */}
+      <AnimatePresence>
+        {glassBox && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-emerald-500/30 rounded-full flex items-center justify-center"
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-2 text-emerald-500/50">SIC-POVM SCAN</div>
+            <div className="w-full h-[1px] bg-emerald-500/20 absolute top-1/2"></div>
+            <div className="h-full w-[1px] bg-emerald-500/20 absolute left-1/2"></div>
+            <div className="text-[10px] text-emerald-500/50 mt-32">
+               C = Σ ⟨ψk|ρ|ψk⟩²
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Bottom Bar */}
+      <div className="flex justify-between items-end">
+        <div className="max-w-md">
+           <h3 className="text-white font-bold mb-1 flex items-center gap-2">
+             <Terminal className="w-4 h-4" /> SYSTEM LOG
+           </h3>
+           <div className="h-24 overflow-hidden mask-gradient-b text-emerald-500/80 leading-tight">
+              <p>{">"} Initializing Geodesic Engine...</p>
+              <p>{">"} Wye Topology Detected. Neutral Floating.</p>
+              {active && <p className="text-emerald-400">{">"} PHASE TRANSITION INITIATED.</p>}
+              {active && <p className="text-emerald-400">{">"} Triangle (K3) collapsed. Tetrahedron (K4) formed.</p>}
+              {density > 50 && <p className="text-gold-500">{">"} MESH DENSITY: {density.toFixed(1)}%</p>}
+              {abdicated && <p className="text-red-500">{">"} ADMIN KEYS SHREDDED. DAO ACTIVE.</p>}
+           </div>
+        </div>
+
+        <div className="flex flex-col items-end gap-2">
+           {/* Abdication Status */}
+           <div className={`border ${abdicated ? "border-emerald-500 bg-emerald-500/10" : "border-red-500/50"} px-4 py-2 rounded`}>
+              <div className="text-[10px] uppercase opacity-70">Governance Status</div>
+              <div className="font-bold flex items-center gap-2">
+                 {abdicated ? <Lock className="w-4 h-4"/> : <Lock className="w-4 h-4 text-red-500"/>}
+                 {abdicated ? "ABDICATED" : "CENTRALIZED"}
+              </div>
+              {abdicated && <div className="text-[10px] mt-1 text-emerald-300">Owner: 0x000...dEaD</div>}
+           </div>
+
+           <div className="flex gap-4 text-[10px] opacity-50">
+              <span>LAT: 30.73N</span>
+              <span>LON: 81.54W</span>
+              <span>RFI: ACTIVE</span>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- MAIN APP COMPONENT ---
+
+export default function App() {
+  const [active, setActive] = useState(false); // Has the "Big Bang" happened?
+  const [abdicated, setAbdicated] = useState(false); // Are keys destroyed?
+  const [glassBox, setGlassBox] = useState(false); // Show physics?
+  const [density, setDensity] = useState(24.2); // Mesh density
+
+  // Simulation Loop
+  useEffect(() => {
+    if (active) {
+      const interval = setInterval(() => {
+        setDensity(prev => {
+          if (prev >= 100) return 100;
+          return prev + (Math.random() * 0.5);
+        });
+      }, 50);
+      return () => clearInterval(interval);
+    }
+  }, [active]);
+
+  const handleBigBang = () => {
+    setActive(true);
+    // Simulate abdication sequence slightly after launch
+    setTimeout(() => setAbdicated(true), 3000);
+  };
+
+  return (
+    <div className="w-full h-screen bg-black text-white overflow-hidden relative font-sans">
+      {/* 3D Scene Layer */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
+          <color attach="background" args={['#050505']} />
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#eab308" />
+          
+          <TheSwarm active={active} density={density} />
+          <GatewayOrb active={active} glassBox={glassBox} />
+          
+          <OrbitControls 
+             enableZoom={false} 
+             autoRotate={active} 
+             autoRotateSpeed={0.5} 
+             maxPolarAngle={Math.PI / 1.5}
+             minPolarAngle={Math.PI / 3}
+          />
+        </Canvas>
+      </div>
+
+      {/* HUD Layer */}
+      <HUD active={active} abdicated={abdicated} glassBox={glassBox} density={density} />
+
+      {/* Control Layer (Interactive) */}
+      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4">
+        
+        {!active && (
+          <motion.button
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px #10b981" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleBigBang}
+            className="group relative px-8 py-4 bg-black border border-emerald-500 text-emerald-500 font-bold tracking-[0.2em] rounded-sm overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-emerald-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            INITIATE GENESIS SEQUENCE
+          </motion.button>
+        )}
+
+        <div className="flex gap-2">
+           <button 
+             onClick={() => setGlassBox(!glassBox)}
+             className={`px-4 py-2 border text-xs font-mono rounded flex items-center gap-2 transition-colors ${glassBox ? "bg-emerald-500/20 border-emerald-500 text-emerald-400" : "border-white/20 text-white/50 hover:border-white/50"}`}
+           >
+             <Cpu className="w-3 h-3" /> GLASS BOX MODE
+           </button>
+           
+           <div className="px-4 py-2 border border-white/20 text-xs font-mono rounded flex items-center gap-2 text-white/50">
+             <Radio className={`w-3 h-3 ${active ? "text-emerald-500 animate-pulse" : ""}`} />
+             {active ? "MESH: 915 MHz" : "MESH: OFFLINE"}
+           </div>
+        </div>
+      </div>
+      
+      {/* Intro Overlay */}
+      <AnimatePresence>
+         {!active && (
+            <motion.div 
+               exit={{ opacity: 0, y: -20, pointerEvents: 'none' }}
+               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20 pointer-events-none"
+            >
+               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">
+                  THE FLOATING NEUTRAL
+               </h1>
+               <p className="text-sm md:text-base text-white/60 tracking-[0.5em] uppercase">
+                  System Reference Lost. Awaiting Geometry.
+               </p>
+            </motion.div>
+         )}
+      </AnimatePresence>
+    </div>
+  );
+}

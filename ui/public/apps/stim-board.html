@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stim Board — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #a78bfa;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.875rem;
+    }
+
+    .mute-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.5rem 1rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 6px;
+      color: #E0E0EE;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+
+    .mute-toggle:hover {
+      background: rgba(167, 139, 250, 0.2);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem;
+      background: 
+        linear-gradient(rgba(120, 120, 170, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 120, 170, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .board {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 800px;
+      }
+    }
+
+    .element {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(167, 139, 250, 0.2);
+      transition: border-color 0.2s;
+    }
+
+    .element:hover {
+      border-color: rgba(167, 139, 250, 0.5);
+    }
+
+    .element.toggle {
+      background: rgba(167, 139, 250, 0.1);
+    }
+
+    .element.toggle.on {
+      background: #a78bfa;
+    }
+
+    .element.spinner {
+      background: rgba(167, 139, 250, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner-circle {
+      width: 60%;
+      height: 60%;
+      border: 3px solid #a78bfa;
+      border-top-color: transparent;
+      border-radius: 50%;
+      transition: transform 0.1s linear;
+    }
+
+    .element.pressure {
+      background: rgba(167, 139, 250, 0.1);
+    }
+
+    .pressure-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #a78bfa;
+      height: 0%;
+      transition: height 0.05s linear;
+    }
+
+    .element.slider {
+      background: rgba(167, 139, 250, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-track {
+      width: 80%;
+      height: 4px;
+      background: rgba(167, 139, 250, 0.2);
+      position: relative;
+      border-radius: 2px;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #a78bfa;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: left 0.1s ease-out;
+    }
+
+    .element.ripple {
+      background: rgba(167, 139, 250, 0.1);
+    }
+
+    .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid #a78bfa;
+      pointer-events: none;
+      animation: ripple-expand 0.6s ease-out;
+    }
+
+    @keyframes ripple-expand {
+      from {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      to {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .element.color {
+      background: #a78bfa;
+      transition: background-color 0.3s;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 2rem;
+      text-align: center;
+      color: #7878AA;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="mute-toggle" id="muteToggle">🔊</button>
+    <h1>🎛️ Stim Board</h1>
+    <p class="subtitle">A digital fidget board. No score. No goal.</p>
+  </header>
+
+  <div class="board" id="board"></div>
+
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+
+  <script>
+    const board = document.getElementById('board');
+    const muteToggle = document.getElementById('muteToggle');
+    let muted = false;
+    let audioContext = null;
+
+    const colors = ['#a78bfa', '#f59e0b', '#60a5fa', '#34d399', '#f87171', '#fbbf24'];
+
+    function initAudio() {
+      try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (e) {
+        console.warn('Web Audio API not supported');
+      }
+    }
+
+    function playTone(frequency, duration, type = 'sine') {
+      if (muted || !audioContext) return;
+      
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    function vibrate(pattern = [10]) {
+      if (navigator.vibrate) {
+        navigator.vibrate(pattern);
+      }
+    }
+
+    function createToggle() {
+      const el = document.createElement('div');
+      el.className = 'element toggle';
+      el.onclick = function() {
+        this.classList.toggle('on');
+        playTone(440, 0.1, 'square');
+        vibrate();
+      };
+      return el;
+    }
+
+    function createSpinner() {
+      const el = document.createElement('div');
+      el.className = 'element spinner';
+      const circle = document.createElement('div');
+      circle.className = 'spinner-circle';
+      el.appendChild(circle);
+      
+      let rotation = 0;
+      let isSpinning = false;
+      let velocity = 0;
+      let lastTime = Date.now();
+
+      function update() {
+        if (!isSpinning && velocity === 0) return;
+        
+        const now = Date.now();
+        const delta = (now - lastTime) / 16;
+        lastTime = now;
+
+        if (isSpinning) {
+          velocity = Math.min(velocity + 2, 20);
+        } else {
+          velocity *= 0.95;
+          if (velocity < 0.1) velocity = 0;
+        }
+
+        rotation += velocity * delta;
+        circle.style.transform = `rotate(${rotation}deg)`;
+
+        if (velocity > 0 || isSpinning) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      el.addEventListener('mousedown', () => {
+        isSpinning = true;
+        playTone(220, 0.05, 'sawtooth');
+        vibrate([5]);
+        update();
+      });
+
+      el.addEventListener('mouseup', () => {
+        isSpinning = false;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        isSpinning = false;
+      });
+
+      el.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        isSpinning = true;
+        playTone(220, 0.05, 'sawtooth');
+        vibrate([5]);
+        update();
+      });
+
+      el.addEventListener('touchend', () => {
+        isSpinning = false;
+      });
+
+      return el;
+    }
+
+    function createPressure() {
+      const el = document.createElement('div');
+      el.className = 'element pressure';
+      const fill = document.createElement('div');
+      fill.className = 'pressure-fill';
+      el.appendChild(fill);
+
+      let interval = null;
+
+      function startFill() {
+        let height = 0;
+        interval = setInterval(() => {
+          height += 2;
+          if (height >= 100) {
+            height = 100;
+            clearInterval(interval);
+          }
+          fill.style.height = height + '%';
+        }, 40);
+        playTone(330, 0.1, 'triangle');
+        vibrate([5]);
+      }
+
+      function stopFill() {
+        if (interval) clearInterval(interval);
+        setTimeout(() => {
+          fill.style.height = '0%';
+        }, 100);
+        playTone(220, 0.15, 'sine');
+        vibrate([20]);
+      }
+
+      el.addEventListener('mousedown', startFill);
+      el.addEventListener('mouseup', stopFill);
+      el.addEventListener('mouseleave', stopFill);
+      el.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startFill();
+      });
+      el.addEventListener('touchend', stopFill);
+
+      return el;
+    }
+
+    function createSlider() {
+      const el = document.createElement('div');
+      el.className = 'element slider';
+      const track = document.createElement('div');
+      track.className = 'slider-track';
+      const thumb = document.createElement('div');
+      thumb.className = 'slider-thumb';
+      track.appendChild(thumb);
+      el.appendChild(track);
+
+      let isDragging = false;
+      let currentPos = 50;
+
+      function updatePosition(x) {
+        const rect = track.getBoundingClientRect();
+        const pos = ((x - rect.left) / rect.width) * 100;
+        currentPos = Math.max(0, Math.min(100, pos));
+        
+        if (Math.abs(currentPos - 50) < 2) {
+          currentPos = 50;
+          playTone(440, 0.05, 'sine');
+        }
+        
+        thumb.style.left = currentPos + '%';
+      }
+
+      el.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updatePosition(e.clientX);
+        playTone(330, 0.05, 'square');
+        vibrate([5]);
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          updatePosition(e.clientX);
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      el.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        updatePosition(e.touches[0].clientX);
+        playTone(330, 0.05, 'square');
+        vibrate([5]);
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          updatePosition(e.touches[0].clientX);
+        }
+      });
+
+      document.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+
+      return el;
+    }
+
+    function createRipple() {
+      const el = document.createElement('div');
+      el.className = 'element ripple';
+      
+      el.onclick = function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const circle = document.createElement('div');
+        circle.className = 'ripple-circle';
+        circle.style.left = x + 'px';
+        circle.style.top = y + 'px';
+        this.appendChild(circle);
+        
+        setTimeout(() => circle.remove(), 600);
+        
+        playTone(550, 0.2, 'sine');
+        vibrate([10]);
+      };
+
+      return el;
+    }
+
+    function createColor() {
+      const el = document.createElement('div');
+      el.className = 'element color';
+      let colorIndex = 0;
+      el.style.backgroundColor = colors[colorIndex];
+      
+      el.onclick = function() {
+        colorIndex = (colorIndex + 1) % colors.length;
+        this.style.backgroundColor = colors[colorIndex];
+        playTone(300 + colorIndex * 50, 0.1, 'sine');
+        vibrate();
+      };
+      
+      return el;
+    }
+
+    const types = ['toggle', 'spinner', 'pressure', 'slider', 'ripple', 'color'];
+    const elementCreators = {
+      toggle: createToggle,
+      spinner: createSpinner,
+      pressure: createPressure,
+      slider: createSlider,
+      ripple: createRipple,
+      color: createColor
+    };
+
+    function createBoard() {
+      const isMobile = window.innerWidth < 768;
+      const count = isMobile ? 12 : 16;
+      const elements = [];
+      
+      for (let i = 0; i < count; i++) {
+        const type = types[Math.floor(Math.random() * types.length)];
+        elements.push(elementCreators[type]());
+      }
+      
+      elements.forEach(el => board.appendChild(el));
+    }
+
+    muteToggle.addEventListener('click', () => {
+      muted = !muted;
+      muteToggle.textContent = muted ? '🔇' : '🔊';
+      if (!muted && !audioContext) {
+        initAudio();
+      }
+    });
+
+    board.addEventListener('click', () => {
+      if (!audioContext) {
+        initAudio();
+      }
+    });
+
+    createBoard();
+  </script>
+</body>
+</html>

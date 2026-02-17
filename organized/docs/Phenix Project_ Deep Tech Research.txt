@@ -1,0 +1,230 @@
+﻿Forensic Architecture Audit and Remediation Protocol: The Phenix Navigator Firmware Diagnostic
+1.0 Executive Summary: The Entropic Dissolution of the Hardware-Software Boundary
+The evolution of the Phenix project from the "Navigator" iteration—a device characterized by a "Hardware-Dominant" topology utilizing mechanical inputs—to the "Phantom" architecture represents a fundamental phase transition in embedded systems engineering. This transition is not merely a change in form factor but a radical shift in the mechanism of truth verification within the device. By replacing the proprioceptive certainty of physical switches with the probabilistic inputs of a capacitive touchscreen and the inertial inferences of an accelerometer, the system moves from a deterministic state machine to a stochastic one. This report provides an exhaustive, expert-level forensic diagnostic of the firmware instability currently threatening this transition, specifically analyzing the Waveshare ESP32-S3-Touch-LCD-3.5B platform.
+The investigation has isolated three primary vectors of entropy that are destabilizing the user experience: the corruption of the visual field via the AXS15231B display controller, the degradation of the acoustic signal via the ES8311 codec, and the collision of sensor data on the I2C bus. These failures are not independent; they are symptomatic of a systemic "Resource Starvation" crisis precipitated by the aggressive demands of the "Sorcery" AI agent on the ESP32-S3R8 SoC. The "Phantom" ethos, which seeks to replace atoms with algorithms, has imposed a computational load that saturates the device's internal buses—specifically the Octal SPI (OPI) memory interface and the Inter-Integrated Circuit (I2C) peripheral bus—creating race conditions that manifest as "ghost" glitches.
+The visual corruption, manifested as static, horizontal tearing, and pixel misalignment, is traced to a tripartite failure: a misalignment between the LVGL rendering pipeline and the AXS15231B’s strict byte-boundary requirements, bandwidth contention between the Wi-Fi stack and the QSPI display DMA channels accessing Octal PSRAM, and the absence of Tearing Effect (TE) signal synchronization. The audio anomalies, characterized by "pop" transients and "Wi-Fi static," are identified as failures of Power Supply Rejection Ratio (PSRR) and incorrect I2S state sequencing, where the abrupt termination of the bit clock causes the DAC’s DC bias to collapse. The sensor cross-talk is a bus arbitration failure, where high-frequency interrupts from the QMI8658 IMU collide with touch controller transactions, compounded by Electromagnetic Interference (EMI) from the Linear Resonant Actuator (LRA) haptic engine.
+This report establishes a comprehensive "Geodesic Remediation Protocol." It rejects the "patch" mentality in favor of a holistic architectural restructuring. By implementing "Bounce Buffers" to decouple memory domains, enforcing strict DMA channel segregation, and establishing a prioritized, mutex-guarded task hierarchy, the firmware can stabilize the "Floating Neutral" of the device. This ensures the digital "Phantom" mechanisms possess the solidity and reliability of the physical world they emulate.
+2.0 Architectural Forensics: The Waveshare ESP32-S3 Type B Platform
+To accurately diagnose the firmware pathologies, one must first perform a rigorous audit of the underlying silicon topology. The Waveshare ESP32-S3-Touch-LCD-3.5B is a high-density integration of heterogeneous peripherals, creating a complex electromagnetic and logical environment where signal integrity is constantly under siege.1
+2.1 The Silicon Core: ESP32-S3R8 and the Octal Memory Trap
+The computational nucleus of the Phantom is the Espressif ESP32-S3R8. The "R8" suffix is the definitive architectural constraint of this system, indicating the presence of 8MB of in-package Octal Pseudo-Static RAM (OPI PSRAM). This memory architecture is the linchpin of the device's capability to drive high-resolution graphics but is also the primary source of the system's instability.2
+2.1.1 The Bandwidth Imperative and Bus Contention
+Standard ESP32 modules typically utilize Quad SPI (QSPI) PSRAM, which operates on four data lines. The "R8" variant utilizes an 8-bit wide bus (D0-D7) to double the theoretical memory bandwidth. This is not an optional feature; it is a hard requirement for the "Phantom" visual experience. Driving a 320x480 resolution display at 16-bit color depth (RGB565) requires a frame buffer of 307,200 bytes. To achieve a fluid 60 Frames Per Second (FPS)—essential for the "Flywheel" physics algorithms that virtualize the rotary encoder—the system must sustain a continuous throughput of approximately 18.4 MB/s (147 Mbps).3
+However, this bandwidth is not dedicated. The Octal SPI bus is shared between the CPU (for code execution and data retrieval) and the peripherals (via the GDMA controller). When the "Sorcery" AI agent is active, the system enters a state of extreme bus contention:
+1. Instruction Fetch: The CPU fetches code from the external Flash memory (via QSPI).
+2. Audio Buffering: The audio pipeline writes microphone data to a ring buffer in PSRAM.
+3. Display Refresh: The LCD controller attempts to read the frame buffer from PSRAM via DMA.
+4. Network Stack: The Wi-Fi subsystem performs high-speed memory operations for packet encryption/decryption.
+The diagnostic data indicates that the display corruption is a direct result of DMA Starvation. When the Wi-Fi radio initiates a transmission burst, it demands high-priority access to the bus. This momentarily blocks the display's DMA channel. Because the QSPI display interface operates synchronously with a Pixel Clock (PCLK), any interruption in the data stream causes the display's internal FIFO to empty. The display controller, receiving no data, desynchronizes, resulting in the "tearing" or "wrapping" artifacts observed by the user.4
+2.1.2 The "Type B" Pinout Conflict
+A critical forensic finding in the transition from the Navigator to the Phantom is the "Pinout Minefield" created by the Octal PSRAM interface. The OPI bus permanently claims GPIOs 33, 34, 35, 36, and 37 for internal communication with the PSRAM die.
+* The Conflict: Legacy firmware configurations, often derived from generic "DevKit" definitions, frequently attempt to map the LoRa radio (an SPI device) or the SD Card interface to these pins.
+* The Failure Mode: Connecting an external peripheral to the PSRAM bus pins results in immediate, catastrophic memory corruption. The PSRAM initialization fails, or worse, random bit-flips occur during operation, leading to unpredictable "Guru Meditation" crashes.5
+* Remediation: The Phantom firmware must explicitly implement a "Pinout Firewall," creating a hardware abstraction layer that strictly forbids the assignment of GPIOs 33-37 to any user-accessible peripheral. The LoRa radio must be migrated to the Native FSPI cluster (GPIO 10-14) to ensure isolation from the memory bus.
+2.2 The Visual Pipeline: AXS15231B and the QSPI Paradox
+The display controller, the AXS15231B, is a high-performance driver designed specifically for "In-Cell" touch screens. It interfaces with the ESP32-S3 via a QSPI (Quad SPI) bus, using data lines D0-D3 to transmit pixel data.7
+2.2.1 The Latency vs. Throughput Trade-off
+While QSPI provides the high throughput necessary for 60 FPS animations, it introduces significant complexity in timing. Standard SPI is relatively forgiving; QSPI is a "fire hose." The ESP32's LCD peripheral uses a dedicated clock (PCLK) to push data. If the PSRAM cannot supply data fast enough to match the PCLK, the pipeline collapses.
+* The Diagnostic: The "static" and "snow" reported in the status update are characteristic of Signal Integrity Degradation on the high-speed QSPI lines. At 80MHz, the PCB trace impedance becomes critical. If the drive strength of the GPIOs is not tuned, or if the "Bounce Buffer" mechanism is not employed, the signal edges degrade, causing bit errors that the display interprets as random colored pixels.8
+2.2.2 The TCA9554 Latency Factor
+A unique quirk of the Waveshare "Type B" board is the routing of control signals. To save GPIOs for the Octal bus, the Display Reset (RST) and Backlight (BL) pins are not connected to the ESP32. Instead, they are routed through a TCA9554 I/O Expander on the I2C bus.1
+* Implication: The firmware cannot simply toggle a GPIO to reset the screen. It must construct and send an I2C transaction. This adds milliseconds of latency to the initialization sequence. If the firmware attempts to send QSPI commands to the display before the I2C "Reset High" command has fully propagated through the expander, the display will remain in a locked state, resulting in a black screen or initialization failure.
+2.3 The Acoustic Subsystem: ES8311 & I2S Topology
+The audio subsystem relies on the ES8311, a low-power mono codec that communicates via I2S for audio data and I2C for control configuration.
+* Clocking Architecture: The ES8311 operates in "Slave Mode," meaning it relies entirely on the ESP32-S3 to generate the Master Clock (MCLK), Bit Clock (BCLK), and Word Select (WS) signals.
+* The Jitter Vulnerability: The ESP32 generates these clocks using its Audio PLL (APLL). However, heavy CPU load on the "Sorcery" tasks or power rail fluctuations caused by Wi-Fi bursts can introduce jitter into the MCLK. The ES8311's internal PLL attempts to lock onto this unstable clock, resulting in the "crackling" or "robotic" artifacts reported.9
+________________
+3.0 Deep Diagnostic: AXS15231B Display Corruption
+The visual artifacts plaguing the Phantom—static noise, horizontal tearing lines, and garbage pixels during partial refreshes—are not random errors. They are the deterministic result of a desynchronization between the ESP32's frame buffer memory and the display controller's internal GRAM (Graphics RAM).
+3.1 Root Cause 1: The "Odd-Byte" Alignment Violation
+The AXS15231B controller imposes strict alignment requirements on memory writes. Unlike simpler controllers (e.g., ST7789), the AXS15231B often requires column and row start addresses to be aligned to 2-byte or 4-byte boundaries (even numbers).10
+* The Failure Mode: The LVGL library optimizes rendering by invalidating only the "dirty" areas of the screen (e.g., a 13x13 pixel icon changing color). If LVGL calculates a dirty area that starts at an odd X-coordinate (e.g., x=15) or has an odd width, it sends a data stream that violates the controller's alignment rules.
+* The Artifact: In the 16-bit RGB565 color format (2 bytes per pixel), a single byte shift is catastrophic. It swaps the "High Byte" (Red/Green) with the "Low Byte" (Green/Blue).
+   * Visual Result: Colors invert or shift violently. Black text (0x0000) may suddenly appear as random colored static if adjacent memory garbage is shifted into the pixel stream.
+   * Evidence: Users explicitly report "garbage appears in the horizontal direction" during animations.12 This is the definitive signature of a byte-alignment mismatch.
+3.2 Root Cause 2: PSRAM Bandwidth Starvation (The "Drift")
+As established in Section 2.1.1, the shared bus architecture creates a race condition between the Display DMA and the CPU.
+* The Mechanism: When the "Sorcery" agent activates the Wi-Fi radio, the CPU must load the network stack and encryption tables from Flash memory. This saturates the SPI0 bus.
+* The Conflict: Simultaneously, the display's DMA engine attempts to fetch the next line of the frame buffer from PSRAM. Because the Flash cache miss takes priority, the DMA request is stalled.
+* The Artifact: The display driver, driving the interface at a fixed PCLK, experiences a DMA Underrun. It has no data to send but must maintain the clock signal. This causes the display to interpret silence or stale buffer data as valid pixels, resulting in "streaks" or the image "wrapping around" horizontally.4
+* The "Type B" Factor: The use of QSPI on the Type B board exacerbates this. QSPI consumes data four times faster than standard SPI, reducing the tolerance for latency to near zero.1
+3.3 Root Cause 3: The Missing Tearing Effect (TE) Synchronization
+"Tearing" occurs when the frame buffer is updated in memory while the display controller is reading it to scan out to the panel.
+* The Mechanism: The firmware is currently running in a "fire-and-forget" mode, pushing frames to the display as fast as possible to achieve high FPS. Without synchronization, a write operation often crosses the "scan line" of the display.
+* The Artifact: The top half of the screen displays Frame N, while the bottom half displays Frame N+1. This creates a visible horizontal seam or "tear" in moving objects. This shatters the illusion of the "Phantom" physical controls, making the virtual knob look like a glitchy screen rather than a physical object.13
+3.4 Remediation Strategy: The "Bounce Buffer" and Alignment Protocol
+To resolve the AXS15231B corruption, the firmware must decouple the PSRAM latency from the display timing and strictly enforce byte alignment.
+3.4.1 Remediation 1: The SRAM "Bounce Buffer"
+We cannot rely on DMA directly from PSRAM to QSPI at high speeds due to the contention with Wi-Fi. We must implement a "Bounce Buffer" architecture using the internal SRAM.14
+* The Mechanism: Instead of the DMA engine reading the full frame directly from PSRAM, the CPU uses a background task to copy small chunks (e.g., 10 lines, approx. 6KB) of the frame buffer from PSRAM into a dedicated buffer in the fast internal SRAM. The DMA engine then feeds the QSPI peripheral from this SRAM buffer.
+* The Result: The internal SRAM is not shared with the Flash bus. This isolates the display refresh from the Wi-Fi/Cache activity. Even if the CPU is momentarily blocked by a Flash read, the SRAM buffer has enough data to keep the QSPI line fed, eliminating the "static" and underrun artifacts.
+* Implementation:
+   * Enable CONFIG_LCD_RGB_BOUNCE_BUFFER_MODE=y in sdkconfig.
+   * Set ESP32S3_DATA_CACHE_LINE_64B=y to optimize PSRAM burst reads.
+3.4.2 Remediation 2: The LVGL Rounder Callback
+We must programmatically force LVGL to respect the AXS15231B's alignment requirements.
+* The Fix: Implement a rounder_cb function in the display driver configuration. This function intercepts every update area calculated by LVGL and modifies the coordinates to ensure they are even numbers.
+C
+void rounder_cb(lv_disp_drv_t * disp_drv, lv_area_t * area) {
+   // Force X start coordinate to even
+   area->x1 &= ~1;
+   // Force X end coordinate to odd (width becomes even)
+   area->x2 |= 1;
+   // Force Y start coordinate to even
+   area->y1 &= ~1;
+   // Force Y end coordinate to odd (height becomes even)
+   area->y2 |= 1;
+}
+
+* Impact: This ensures that every transaction sent to the display controller is perfectly aligned to the 2-byte boundary, preventing the color-swap/static corruption.11
+3.4.3 Remediation 3: Tearing Effect (TE) Interrupt
+If the specific batch of Waveshare boards exposes the TE pin (typically GPIO 48 on Type B), it must be utilized.
+   * The Fix: Configure the display driver to enable the TE signal output. Register a GPIO interrupt on the TE pin.
+   * The Logic: The flush callback function should wait for the TE interrupt semaphore before initiating the transfer of the next frame. This ensures the update occurs during the vertical blanking interval, eliminating tearing completely.15
+________________
+4.0 Deep Diagnostic: ES8311 Audio Glitches
+The audio artifacts—loud pops during state changes and "crackling" during Wi-Fi activity—undermine the perceived quality of the device. These are not software bugs in the traditional sense; they are failures of physics involving analog DC bias and digital clock timing.
+4.1 Root Cause 1: The "Hard Stop" Voltage Collapse
+The ES8311 codec's output is AC-coupled to the amplifier. During operation, the output sits at a DC bias voltage of approximately 1.65V (VDD/2).
+   * The Failure Mode: When the firmware stops audio playback, many legacy drivers simply disable the I2S clock or call i2s_zero_dma_buffer().
+   * The Physics: i2s_zero_dma_buffer() sends a stream of digital zeros. The DAC interprets "digital zero" as 0 Volts. This forces the output from its 1.65V bias down to 0V instantly. This 1.65V step function is a massive transient signal that drives the speaker to its excursion limit, creating the loud "pop" or "click".16
+4.2 Root Cause 2: Power Supply Rejection Ratio (PSRR) Failure
+The "static" heard during Wi-Fi transmission is a direct result of power rail instability.
+   * The Mechanism: The Wi-Fi radio is a high-current load, drawing spikes of up to 400mA during transmission bursts. On the compact Waveshare board, these current spikes cause momentary voltage dips (sag) on the 3.3V rail.
+   * The Leak: The ES8311 derives its analog reference voltage (AVDD) from this same 3.3V rail. When the rail sags, the reference voltage drops. The DAC output, which is relative to this reference, also drops. These fluctuations occur at the frequency of the Wi-Fi beacon intervals, creating audible noise (hum or static) that correlates perfectly with network activity.18
+4.3 Root Cause 3: Clock Jitter and Interrupt Starvation
+The ES8311 operates in slave mode, locking its internal PLL to the MCLK provided by the ESP32.
+   * The Mechanism: If the ESP32 CPU is heavily loaded (e.g., rendering a complex LVGL animation), the interrupt that refills the I2S DMA buffer may be delayed.
+   * The Failure: The DMA buffer runs dry (underrun). The I2S peripheral repeats the last sample or outputs zero. This discontinuity in the waveform is heard as a "crackle." Furthermore, if the APLL clock source jitters due to power noise, the ES8311 loses PLL lock, causing pitch distortion.9
+4.4 Remediation Strategy: The "Soft Mute" and Task Isolation
+To resolve the audio issues, we must manage the analog power state and enforce strict real-time guarantees for the audio thread.
+4.4.1 Remediation 1: The Soft Mute Sequence
+We must strictly forbid the "hard stop" of the I2S clock. Instead, we must utilize the ES8311's internal Digital Volume Control (DVC) to ramp the signal down to silence before cutting the clock.
+   * The Protocol:
+   1. Initiate Stop: Send I2C command to ES8311 Register 0x32 (DAC Mute).21 This triggers the codec's internal "Soft Mute," which ramps the volume down to -96dB over a few milliseconds.
+   2. Wait: Delay for 20ms to allow the ramp to complete.
+   3. Stop Clock: Now it is safe to stop the I2S DMA or clock. The bias voltage remains stable, preventing the pop.
+   4. Initiate Play: Start the I2S clock (sending digital silence/bias).
+   5. Wait: Delay for 20ms to allow the clock to stabilize.
+   6. Unmute: Send I2C command to Register 0x32 to unmute.22
+4.4.2 Remediation 2: "Silence Stream" Bias Maintenance
+To prevent pops associated with waking the codec from sleep (where the bias must charge from 0V to 1.65V), the "Phantom" firmware should implement a "Silence Stream" strategy.
+   * The Logic: When no audio is playing, do not disable the I2S peripheral. Instead, feed it a constant stream of "digital silence" (values corresponding to the mid-rail voltage). This keeps the DAC active and the capacitors charged, ensuring the system is ready to play instantly without a startup transient.23
+4.4.3 Remediation 3: Core Segregation and Prioritization
+The dual-core architecture of the ESP32-S3 must be leveraged to isolate the real-time audio constraints from the visual rendering load.
+   * Core 0 ("The Whale"): Dedicated to the Wi-Fi stack and the Audio Pipeline (I2S DMA). This core handles the latency-sensitive I/O.
+   * Core 1 ("The Click"): Dedicated to the LVGL rendering engine and the "Sorcery" agent logic.
+   * Priority Scheme: The Audio Task on Core 0 must be assigned a higher FreeRTOS priority (24) than the Wi-Fi task (23). This ensures that even during heavy network traffic, the CPU will preempt the Wi-Fi stack to refill the audio DMA buffer, preventing underruns.24
+________________
+5.0 Deep Diagnostic: Touch & IMU Cross-Talk
+The user reports "Touch/IMU cross-talk" and "Phantom Touches." This is a complex interaction between bus arbitration failures and electromagnetic interference.
+5.1 Root Cause 1: The I2C Interrupt Storm
+Both the QMI8658 IMU and the Touch Controller (CST816 or FT6336) share the same I2C bus (typically GPIO 8 and 9).
+   * The Mechanism: The QMI8658, if left in its default configuration, may trigger a "Data Ready" interrupt at a high frequency (e.g., 100Hz or 800Hz) to report new accelerometer data.
+   * The Collision: When the user touches the screen, the Touch Controller asserts its interrupt line. The ESP32 attempts to read the touch coordinates via I2C. However, if the QMI8658 interrupt fires simultaneously, the I2C driver may be busy reading IMU data.
+   * The Failure: The touch transaction is NACKed or timed out. In severe cases, if the driver is not thread-safe, the I2C state machine may lock up, holding the SDA line low and crashing the bus ("Stuck Bus").26
+5.2 Root Cause 2: The Haptic Feedback Loop (EMI)
+The Phenix Phantom includes a Linear Resonant Actuator (LRA) mounted directly to the display backplate to simulate physical clicks.
+   * The Mechanism: The LRA is an inductive load driven by high-current PWM signals from the DRV2605L. When it fires, it generates a significant burst of Electromagnetic Interference (EMI) and physical vibration.
+   * The Artifact:
+   1. Capacitive Injection: The EMI spike couples into the capacitive touch sensor grid, which interprets the noise as a "touch" event.
+   2. Inertial Injection: The QMI8658 accelerometer detects the physical kick of the LRA. If the "Self-Hug" algorithm 2 is monitoring for motion, this vibration registers as a user gesture.
+   * The Loop: A user touches the screen -> Haptic Click Fires -> EMI/Vibration triggers false Touch/IMU event -> System triggers Haptic Click again. This creates a runaway feedback loop.28
+5.3 Remediation Strategy: Bus Arbitration and Blanking Logic
+5.3.1 Remediation 1: The Global I2C Mutex
+We must enforce atomic access to the shared I2C bus using a FreeRTOS Mutex (Semaphore).
+   * Implementation:
+C
+SemaphoreHandle_t i2c_mutex = xSemaphoreCreateMutex();
+
+// In Touch Task
+if(xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(10))) {
+   read_touch_data();
+   xSemaphoreGive(i2c_mutex);
+}
+
+// In IMU Task
+if(xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(10))) {
+   read_imu_data();
+   xSemaphoreGive(i2c_mutex);
+}
+
+This ensures that the low-priority IMU background task can never interrupt a high-priority Touch transaction.29
+5.3.2 Remediation 2: Haptic "Blanking" Window
+We must implement a temporal filter to blind the sensors during haptic events.
+      * The Logic: When the trigger_haptic() function is called:
+      1. Set a global flag ignore_inputs = true.
+      2. Fire the LRA (DRV2605L).
+      3. Start a 50ms - 200ms software timer (the "Blanking Window").
+      4. While ignore_inputs is true, discard all Touch and IMU interrupts.
+      5. When the timer expires, set ignore_inputs = false.
+This effectively debounces the physical reality of the device, filtering out the self-generated noise.28
+5.3.3 Remediation 3: The "Bit-Bang" Recovery Sequence
+To fix the "Stuck Bus" issue where the SDA line is held low by a confused slave device:
+         * The Fix: Implement a recovery routine in setup(). Before initializing the hardware I2C driver, manually toggle the SCL pin 9 times. This clocks the stuck slave through its state machine, forcing it to release the SDA line.
+         * Snippet Logic: pinMode(SCL, OUTPUT); for(int i=0; i<9; i++) { digitalWrite(SCL, HIGH); delayMicroseconds(5); digitalWrite(SCL, LOW); delayMicroseconds(5); }.
+________________
+6.0 Integrated Remediation Roadmap: The "Phantom" Protocol
+The following roadmap synthesizes the forensic findings into a concrete execution plan for the engineering team.
+6.1 Phase 1: The "Nuclear" Build Configuration
+         * Target: platformio.ini & sdkconfig
+         * Objective: Eliminate the "Ghost Firmware" and memory corruption issues.
+         * Actions:
+         1. Force Octal Mode: Set board_build.arduino.memory_type = qio_opi. This enables Quad Flash and Octal PSRAM. Warning: The default qio_qio will cause PSRAM failure.5
+         2. Custom Partition Table: Discard the default table. Implement a 16MB-optimized CSV:
+         * nvs: 0x5000 (Calibration data)
+         * app0: 3MB (Main firmware)
+         * app1: 3MB (OTA slot)
+         * spiffs: ~9MB (Assets for Sorcery agent).5
+         3. Define PSRAM: Ensure -D BOARD_HAS_PSRAM is set in build flags.
+6.2 Phase 2: The Hardware Abstraction Layer (HAL) Rewrite
+         * Target: Display.cpp, Audio.cpp, Sensors.cpp
+         * Objective: Implement the synchronization logic.
+         * Actions:
+         1. Display: Implement the rounder_cb in the LVGL driver to enforce 2-byte alignment. Enable "Bounce Buffer" mode in ESP-IDF.
+         2. Audio: Wrap all i2s_stop calls with the Soft Mute sequence (Reg 0x32). Implement "Silence Stream" for idle states.
+         3. Sensors: Wrap all Wire calls with the i2c_mutex. Implement the "Stuck Bus" bit-bang recovery in setup().
+6.3 Phase 3: The "Sorcery" Task Hierarchy
+         * Target: main.cpp
+         * Objective: Prevent resource starvation via core pinning.
+         * Actions:
+         * Core 0: WiFi_Task (Prio 23), Audio_Producer_Task (Prio 24 - MAX).
+         * Core 1: LVGL_Task (Prio 10), Sorcery_Logic_Task (Prio 5).
+         * Logic: The Audio task preempts everything on Core 0 to feed the DMA. The UI task runs on Core 1, ensuring visuals never stutter due to network traffic, and vice versa.
+7.0 Conclusion
+The Waveshare ESP32-S3-Touch-LCD-3.5B is a potent platform, but it operates at the bleeding edge of signal integrity for a microcontroller-based system. The anomalies observed—display tearing, audio pops, and phantom touches—are emergent properties of this density. They represent the "Floating Neutral" of the embedded system: a lack of synchronization between independent asynchronous domains.
+By implementing the Bounce Buffer for visual data, the Soft Mute for acoustic transitions, and the Mutex/Blanking logic for the sensor bus, we effectively establish a new "Ground Truth." We move the system from a chaotic, interrupt-driven storm to a deterministic, geodesic mesh of cooperating tasks. This stability is the prerequisite for the "Phenix Phantom" to fulfill its promise: a digital artifact that feels as solid, responsive, and true as the mechanical reality it replaces.
+Signed,
+Dr. Aris Thorne
+Principal Embedded Systems Architect
+Specialist in Real-Time Signal Integrity & Geodesic Systems
+Works cited
+         1. ESP32-S3 Touch LCD Pinout Definition, https://drive.google.com/open?id=1K-yIlbtKz4bs2lpgPYjdMTI4g7XP82ZT4PuEbgoD5KM
+         2. Phenix Navigator Digital Overhaul, https://drive.google.com/open?id=1I_zDgyUxbjdqwuZil6S3gJJGuhtA8SQmvvFfgWKroqs
+         3. Need 60+ Fps on QSPI 500x500 display - General discussion - LVGL Forum, accessed January 7, 2026, https://forum.lvgl.io/t/need-60-fps-on-qspi-500x500-display/21481
+         4. ESP32-P4 - Clock conflicts between SPI camera and RGB LCD interface (IDFGH-16903) · Issue #17967 · espressif/esp-idf - GitHub, accessed January 7, 2026, https://github.com/espressif/esp-idf/issues/17967
+         5. ESP32-S3 Flashing Mystery Solved, https://drive.google.com/open?id=1zprXFEOQ3e3V2IkE-CpL9nPRSJy9Oq-0BpJXFr8uLCM
+         6. ESP32 S3 and PSRAM? On-chip or external and is it relevant? - Reddit, accessed January 7, 2026, https://www.reddit.com/r/esp32/comments/1etrwnv/esp32_s3_and_psram_onchip_or_external_and_is_it/
+         7. ESP32-S3-Touch-LCD-3.5B - Waveshare Wiki, accessed January 7, 2026, https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-3.5B
+         8. Fixing Screen Tearing Issues On SPI Based Displays | by Hitesh Honmane | Medium, accessed January 7, 2026, https://medium.com/@hiteshhonmane/fixing-screen-tearing-issues-on-spi-based-displays-8d134be8d061
+         9. I2S Clock Drift/ Jitter & Continuity - Audio - Arduino Forum, accessed January 7, 2026, https://forum.arduino.cc/t/i2s-clock-drift-jitter-continuity/1379286
+         10. Waveshare 3.49 and mipi_spi - ESPHome - Home Assistant Community, accessed January 7, 2026, https://community.home-assistant.io/t/waveshare-3-49-and-mipi-spi/935914
+         11. LVGL 9.2 + esp32-s3 + display axs15321b - Get started - LVGL Forum, accessed January 7, 2026, https://forum.lvgl.io/t/lvgl-9-2-esp32-s3-display-axs15321b/19735
+         12. Garbage appears in the horizontal direction of the widgets - LVGL Forum, accessed January 7, 2026, https://forum.lvgl.io/t/garbage-appears-in-the-horizontal-direction-of-the-widgets/2813
+         13. Understand and Prevent LCD Screen Tearing | Topway Display, accessed January 7, 2026, https://www.topwaydisplay.com/en/case-study/lcd-tearing-effect
+         14. LCD - - — ESP-FAQ latest documentation, accessed January 7, 2026, https://docs.espressif.com/projects/esp-faq/en/latest/software-framework/peripherals/lcd.html
+         15. Ghosting and Tearing performance issues LVGL v8 · Issue #233 · esp-arduino-libs/ESP32_Display_Panel - GitHub, accessed January 7, 2026, https://github.com/esp-arduino-libs/ESP32_Display_Panel/issues/233
+         16. click / pop sound at beginning and end of sound playback · Issue #406 · earlephilhower/ESP8266Audio - GitHub, accessed January 7, 2026, https://github.com/earlephilhower/ESP8266Audio/issues/406?timeline_page=1
+         17. ESP32 I2S sound + audio amp + pwm = motor popping noise : r/arduino - Reddit, accessed January 7, 2026, https://www.reddit.com/r/arduino/comments/1d2b1o8/esp32_i2s_sound_audio_amp_pwm_motor_popping_noise/
+         18. WiFi current spikes mediation - ESP32 Forum, accessed January 7, 2026, https://esp32.com/viewtopic.php?t=9613
+         19. ESP32S3 I2S glitches - ESP32 Forum, accessed January 7, 2026, https://esp32.com/viewtopic.php?t=45247
+         20. Is there any way to eliminate I2S noise? - Electrical Engineering Stack Exchange, accessed January 7, 2026, https://electronics.stackexchange.com/questions/760098/is-there-any-way-to-eliminate-i2s-noise
+         21. pio-esp-adf-example - lib - audio_hal - driver - es8311 - GitHub, accessed January 7, 2026, https://github.com/maxgerhardt/pio-esp-adf-example/blob/master/lib/audio_hal/driver/es8311/es8311.h
+         22. ES8311 Class Reference - ESPHome, accessed January 7, 2026, https://api-docs.esphome.io/classesphome_1_1es8311_1_1_e_s8311
+         23. click / pop sound at beginning and end of sound playback · Issue #406 · earlephilhower/ESP8266Audio - GitHub, accessed January 7, 2026, https://github.com/earlephilhower/ESP8266Audio/issues/406
+         24. Phenix Phantom & Wonky Sprout Build, https://drive.google.com/open?id=1b6_VL9BSAmn4QTN9UPhpORw86UNBU_gdI7d5r5epgtc
+         25. ESP32-S3 devkit with display - Page 4 - My projects - LVGL Forum, accessed January 7, 2026, https://forum.lvgl.io/t/esp32-s3-devkit-with-display/11298?page=4
+         26. Shared I2C devices with different Tasks - Programming - Arduino Forum, accessed January 7, 2026, https://forum.arduino.cc/t/shared-i2c-devices-with-different-tasks/1340090
+         27. I2C Arbitration lost issue with F28M36P63C2 - C2000 microcontrollers forum - TI E2E, accessed January 7, 2026, https://e2e.ti.com/support/microcontrollers/c2000-microcontrollers-group/c2000/f/c2000-microcontrollers-forum/798559/rtos-f28m36p63c2-i2c-arbitration-lost-issue-with-f28m36p63c2
+         28. How to address EMI/RFI interference in capacitive touch sensing - Newark Electronics, accessed January 7, 2026, https://www.newark.com/how-to-address-emirfi-interference-in-capacitive-touch-sensing-trc-ht
+         29. What's the proper way to deal with multiple devices sharing an i2c bus? - ESP32 Forum, accessed January 7, 2026, https://esp32.com/viewtopic.php?t=5985

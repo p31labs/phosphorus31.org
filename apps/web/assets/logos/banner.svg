@@ -1,0 +1,28 @@
+﻿<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bannerGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a0a0f"/><stop offset="50%" stop-color="#0d1510"/><stop offset="100%" stop-color="#0a0a0f"/></linearGradient>
+    <filter id="glowB"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+  <rect width="800" height="200" fill="url(#bannerGrad)"/>
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#4fffaa" stroke-width="0.2" opacity="0.06"/>
+  <line x1="400" y1="0" x2="400" y2="200" stroke="#4fffaa" stroke-width="0.2" opacity="0.06"/>
+  <circle cx="120" cy="45" r="1" fill="#4fffaa" opacity="0.15"/>
+  <circle cx="680" cy="160" r="1.5" fill="#4fffaa" opacity="0.1"/>
+  <circle cx="350" cy="30" r="0.8" fill="#00d4ff" opacity="0.12"/>
+  <circle cx="550" cy="170" r="1" fill="#00d4ff" opacity="0.08"/>
+  <circle cx="90" cy="150" r="0.6" fill="#ff9f43" opacity="0.1"/>
+  <circle cx="720" cy="50" r="0.8" fill="#ff9f43" opacity="0.08"/>
+  <line x1="120" y1="45" x2="350" y2="30" stroke="#4fffaa" stroke-width="0.3" opacity="0.04"/>
+  <line x1="550" y1="170" x2="680" y2="160" stroke="#00d4ff" stroke-width="0.3" opacity="0.04"/>
+  <rect x="240" y="35" width="68" height="82" rx="3" fill="none" stroke="#4fffaa" stroke-width="0.8" opacity="0.5"/>
+  <text x="250" y="52" font-family="'JetBrains Mono', monospace" font-size="9" fill="#4fffaa" opacity="0.4">15</text>
+  <text x="274" y="92" font-family="'Instrument Serif', serif" font-size="55" fill="#4fffaa" text-anchor="middle" filter="url(#glowB)">P</text>
+  <text x="274" y="112" font-family="'JetBrains Mono', monospace" font-size="7" fill="#4fffaa" text-anchor="middle" opacity="0.3">30.974</text>
+  <text x="330" y="73" font-family="'Sora', sans-serif" font-size="32" font-weight="300" fill="#e8e8ed" letter-spacing="1">P31 Labs</text>
+  <text x="330" y="100" font-family="'Sora', sans-serif" font-size="14" font-weight="200" fill="#9ca3af" letter-spacing="0.5">Assistive technology for neurodivergent minds</text>
+  <line x1="330" y1="118" x2="600" y2="118" stroke="#4fffaa" stroke-width="0.3" opacity="0.1"/>
+  <text x="330" y="140" font-family="'JetBrains Mono', monospace" font-size="8" fill="#4fffaa" letter-spacing="3" opacity="0.35">HARDWARE Â· SOFTWARE Â· PROTOCOL</text>
+  <rect x="330" y="155" width="30" height="3" rx="1.5" fill="#4fffaa" opacity="0.12"/>
+  <rect x="365" y="155" width="30" height="3" rx="1.5" fill="#ff9f43" opacity="0.08"/>
+  <rect x="400" y="155" width="30" height="3" rx="1.5" fill="#00d4ff" opacity="0.06"/>
+</svg>

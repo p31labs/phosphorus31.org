@@ -1,0 +1,4 @@
+## IDF Component Manager Manifest File
+## LoRa Radio component dependencies
+dependencies:
+  jgromes/radiolib: "^7.2.1"               # RadioLib for SX1262 LoRa driver

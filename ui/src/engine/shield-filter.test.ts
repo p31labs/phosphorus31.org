@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { filterMessage } from './shield-filter';
+import * as filterPatterns from './filter-patterns';
+import * as voltageCalculator from './voltage-calculator';
 
 // Mock dependencies
 vi.mock('./filter-patterns', () => ({
@@ -18,6 +20,7 @@ vi.mock('./filter-patterns', () => ({
 vi.mock('./voltage-calculator', () => ({
   calculateVoltage: vi.fn((content: string) => {
     if (content.includes('very high voltage')) return { score: 9, level: 'high' };
+    if (content.includes('high threat') && content.includes('high voltage')) return { score: 9, level: 'high' };
     if (content.includes('high voltage')) return { score: 7, level: 'high' };
     if (content.includes('medium voltage')) return { score: 5, level: 'medium' };
     return { score: 2, level: 'low' };
@@ -52,7 +55,14 @@ describe('ShieldFilter', () => {
   });
 
   it('blocks high voltage messages with high severity threats', () => {
-    const result = filterMessage('high voltage message with high threat patterns');
+    // Force voltage >= 8 and high severity so implementation takes block branch (not sanitize)
+    vi.mocked(voltageCalculator.calculateVoltage).mockReturnValueOnce({
+      score: 9,
+      category: 'high',
+      factors: [],
+    });
+    vi.mocked(filterPatterns.hasHighSeverityThreats).mockReturnValueOnce(true);
+    const result = filterMessage('message with high threat');
     expect(result.recommendation).toBe('block');
     expect(result.shouldBlock).toBe(true);
   });

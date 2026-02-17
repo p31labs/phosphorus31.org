@@ -1,0 +1,85 @@
+/**
+ * P31 Form design system — global form styles for Scope/Buffer UI
+ * Inputs, buttons, select, textarea: surface1, green focus glow, Space Mono
+ */
+
+:root {
+  --p31-form-surface: #0A0A1F;
+  --p31-form-border: rgba(255, 255, 255, 0.08);
+  --p31-form-focus-glow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+  --p31-form-text: #E0E0EE;
+  --p31-form-placeholder: #4A4A7A;
+  --p31-form-input-height: 36px;
+  --p31-form-input-height-mobile: 44px;
+  --p31-form-radius: 4px;
+  --p31-form-radius-btn: 6px;
+  --p31-form-secondary: #7878AA;
+  --p31-form-danger: #FF00CC;
+}
+
+/* Buttons — used by BufferDashboard and other components */
+.p31-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--p31-form-input-height);
+  min-width: 80px;
+  padding: 8px 16px;
+  border-radius: var(--p31-form-radius-btn);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.p31-btn:focus { outline: none; }
+.p31-btn:focus-visible { outline: none; box-shadow: var(--p31-form-focus-glow); }
+
+@media (max-width: 767px) {
+  .p31-btn { min-height: var(--p31-form-input-height-mobile); min-width: 44px; padding: 12px 16px; }
+}
+
+.p31-btn-primary {
+  background: transparent;
+  color: #00FF88;
+  border: 1px solid #00FF88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.15);
+}
+.p31-btn-primary:hover:not(:disabled) {
+  background: rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3), 0 0 24px rgba(0, 255, 136, 0.15);
+}
+.p31-btn-primary:active:not(:disabled) { background: rgba(0, 255, 136, 0.2); transform: scale(0.98); }
+
+.p31-btn-secondary {
+  background: transparent;
+  color: var(--p31-form-secondary);
+  border: 1px solid var(--p31-form-border);
+}
+.p31-btn-secondary:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--p31-form-text);
+}
+
+.p31-btn-danger {
+  background: transparent;
+  color: var(--p31-form-danger);
+  border: 1px solid var(--p31-form-danger);
+}
+.p31-btn-danger:hover:not(:disabled) {
+  background: rgba(255, 0, 204, 0.1);
+  box-shadow: 0 0 8px rgba(255, 0, 204, 0.35), 0 0 20px rgba(255, 0, 204, 0.2);
+}
+.p31-btn-danger:active:not(:disabled) { transform: scale(0.98); }
+
+.p31-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.p31-btn:disabled:hover { background: inherit; border-color: inherit; box-shadow: none; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .p31-btn-primary:active:not(:disabled), .p31-btn-danger:active:not(:disabled) { transform: none; }
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Google Workspace Connector · P31 Sync · P31 Labs</title>
+  <meta name="description" content="P31 Sync connects the P31 stack to Google Workspace — Drive, Gmail, Calendar, Sheets, Apps Script. One coherence layer for your tools.">
+  <meta property="og:title" content="Quantum Google Workspace Connector · P31 Labs">
+  <meta property="og:description" content="P31 Sync connects Compass, Hearth, Greenhouse, and Studio to Google Workspace. Entangle all your nodes in one place.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400&family=Space+Mono:wght@400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400&family=Space+Mono:wght@400&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .connector-hero {
+      text-align: center;
+      padding: 3rem 0 2rem;
+    }
+    .connector-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 0.5rem;
+    }
+    .connector-hero .badge {
+      display: inline-block;
+      background: rgba(46, 204, 113, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .suite-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .suite-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .suite-card:hover {
+      border-color: rgba(46, 204, 113, 0.5);
+    }
+    .suite-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .suite-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .suite-card p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin: 0;
+    }
+    .entangle-diagram {
+      background: rgba(46, 204, 113, 0.06);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+    }
+    .entangle-diagram strong { color: #2ecc71; }
+    .cta-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .cta-box .btn { margin: 0; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav aria-label="Main navigation" class="nav-bar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="nav-logo-mark" aria-hidden="true">P<sup>31</sup></span>
+        <span class="nav-logo-text">P³¹ LABS</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#products">Products</a>
+        <a href="/#science">Science</a>
+        <a href="/connector/" aria-current="page">Connector</a>
+        <a href="/about/">About</a>
+        <a href="https://github.com/p31labs" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="connector-hero">
+          <span class="badge">P31 SYNC · +1 LAYER</span>
+          <h1>Quantum Google Workspace Connector</h1>
+          <p class="hero-sub">One coherence layer for Drive, Gmail, Calendar, and Sheets. Entangle all your nodes without leaving the tools you use every day.</p>
+        </div>
+
+        <div class="section-header">
+          <span class="section-label">What It Connects</span>
+          <h2>Google Workspace Suite</h2>
+          <p>P31 Entangle (Apps Script) and P31 Sync tie the P31 stack to your existing Google account. No new logins. Your data stays in your Drive; coherence flows through one backend.</p>
+        </div>
+
+        <div class="suite-grid">
+          <div class="suite-card">
+            <div class="icon" aria-hidden="true">📧</div>
+            <h3>Gmail</h3>
+            <p>Buffer integration · voltage check before inbox</p>
+          </div>
+          <div class="suite-card">
+            <div class="icon" aria-hidden="true">📁</div>
+            <h3>Drive</h3>
+            <p>Backup, docs, accommodation log</p>
+          </div>
+          <div class="suite-card">
+            <div class="icon" aria-hidden="true">📅</div>
+            <h3>Calendar</h3>
+            <p>Events and rhythm sync</p>
+          </div>
+          <div class="suite-card">
+            <div class="icon" aria-hidden="true">📊</div>
+            <h3>Sheets</h3>
+            <p>Dashboard, spoon economy, coherence</p>
+          </div>
+          <div class="suite-card">
+            <div class="icon" aria-hidden="true">◇</div>
+            <h3>Apps Script</h3>
+            <p>P31 Entangle · nightly pulse, automation</p>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-label">How It Fits</span>
+          <h2>The Tetrahedron + Sync</h2>
+          <p>Four product nodes (Compass, Hearth, Greenhouse, Studio) plus one sync layer. The connector is the +1 — it doesn’t replace your apps; it entangles them.</p>
+        </div>
+
+        <div class="entangle-diagram">
+          <strong>Compass</strong> (direction) ↔ Sync ↔ Drive &amp; Calendar<br>
+          <strong>Hearth</strong> (energy) ↔ Sync ↔ Sheets (spoon economy, LOVE)<br>
+          <strong>Greenhouse</strong> (growth) ↔ Sync ↔ Drive (Clearing, docs)<br>
+          <strong>Studio</strong> (creation) ↔ Sync ↔ Drive &amp; Gmail<br>
+          <strong>Buffer / Shelter</strong> ↔ Sync ↔ Accommodation log, Gmail voltage
+        </div>
+
+        <div class="section-header">
+          <span class="section-label">Docs &amp; Setup</span>
+          <h2>Get Started</h2>
+          <p>Setup is documented in the repo: Google Drive folder structure, Apps Script deployment, and env config. The connector runs in your Workspace — no P31 server required for basic sync.</p>
+        </div>
+
+        <div class="cta-box">
+          <a href="/docs/" class="btn btn-primary">Docs</a>
+          <a href="https://github.com/p31labs" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The mesh holds.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/connector/">Connector</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node Zero</a>
+        <a href="/donate/">Donate</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+      </div>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>

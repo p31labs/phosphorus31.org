@@ -1,0 +1,19 @@
+{
+  "name": "@p31/game-integration",
+  "version": "0.1.0",
+  "description": "Quantum Hello World → Game Engine integration. Molecule = Player, Covenant = Vesting, Dome = Structure[0], Mesh = Colyseus.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@p31/protocol": "*"
+  },
+  "license": "Apache-2.0",
+  "author": "P31 Labs"
+}

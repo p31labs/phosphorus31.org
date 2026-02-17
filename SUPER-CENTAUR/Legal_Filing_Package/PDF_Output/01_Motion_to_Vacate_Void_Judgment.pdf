@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Legal Document</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Legal Document</h1>
+</header>
+<h1 id="in-the-superior-court-of-camden-county">IN THE SUPERIOR COURT OF
+CAMDEN COUNTY</h1>
+<h1 id="state-of-georgia">STATE OF GEORGIA</h1>
+<p>CHRISTYN E. JOHNSON, Plaintiff,</p>
+<ol start="22" type="a">
+<li></li>
+</ol>
+<p>WILLIAM R. JOHNSON, Defendant.</p>
+<p>CIVIL ACTION FILE NO. 2025CV936</p>
+<p><strong>DEFENDANT’S VERIFIED MOTION TO VACATE VOID JUDGMENT
+(FRAUD/UNAUTHORIZED AUTHENTICATION)</strong></p>
+<p>COMES NOW, William R. Johnson, Defendant Pro Se, and respectfully
+submits this Motion to Vacate the Order of October 23, 2025, which is
+VOID AB INITIO due to extrinsic fraud and unauthorized
+authentication.</p>
+<h2 id="i.-jurisdictional-grounds">I. JURISDICTIONAL GROUNDS</h2>
+<p>This Court has jurisdiction pursuant to O.C.G.A. § 9-11-60(d)(2),
+which provides that a judgment is void when “the court rendering
+judgment had no jurisdiction of the subject matter, or of the parties,
+or acted in excess of its statutory authority.”</p>
+<h2 id="ii.-factual-background">II. FACTUAL BACKGROUND</h2>
+<h3 id="a.-the-fraudulent-authentication-zombie-authority">A. The
+Fraudulent Authentication (“Zombie Authority”)</h3>
+<ol type="1">
+<li><strong>Termination of Attorney Authority (October 19,
+2025)</strong>
+<ul>
+<li>Defendant terminated attorney Joseph East via email dated October
+19, 2025</li>
+<li>Termination was for cause, citing material breaches of Georgia Rules
+of Professional Conduct</li>
+<li>Termination was immediate and unequivocal</li>
+</ul></li>
+<li><strong>Court Acknowledgment of Termination (October 20,
+2025)</strong>
+<ul>
+<li>Superior Court of Camden County signed Withdrawal Order on October
+20, 2025</li>
+<li>Attorney East’s credentials were officially revoked by the
+Court</li>
+<li>No residual authority remained with terminated attorney</li>
+</ul></li>
+<li><strong>Actual Knowledge by Opposing Counsel (October 21,
+2025)</strong>
+<ul>
+<li>Defendant served “Notification of No Counsel” on Plaintiff’s
+counsel, Jennifer McGhan</li>
+<li>McGhan was placed on actual notice that Defendant was proceeding Pro
+Se</li>
+<li>McGhan acknowledged receipt of this notification</li>
+</ul></li>
+<li><strong>Fraudulent Use of Revoked Credentials (October 23,
+2025)</strong>
+<ul>
+<li>Despite knowing of the termination, McGhan presented “Consent Order”
+to Court</li>
+<li>Order bore signature of terminated attorney Joseph East</li>
+<li>McGhan falsely represented that terminated attorney had authority to
+consent</li>
+</ul></li>
+</ol>
+<h3 id="b.-the-fraud-standard-lewis-v.-uselton">B. The Fraud Standard
+(<em>Lewis v. Uselton</em>)</h3>
+<p>Under <em>Lewis v. Uselton</em>, 202 Ga. App. 875 (1992), reliance on
+a signature known to be unauthorized constitutes extrinsic fraud
+sufficient to void a judgment.</p>
+<p><strong>Analysis:</strong> - McGhan had actual knowledge of attorney
+termination - McGhan knowingly used revoked credentials - The “Consent”
+signature was a spoofed authentication - The Order is a corrupted file
+with no legal validity</p>
+<h2 id="iii.-legal-argument">III. LEGAL ARGUMENT</h2>
+<h3 id="a.-void-judgment-standard">A. Void Judgment Standard</h3>
+<p>A judgment is void when procured by fraud that prevents a party from
+fully presenting their case. <em>O.C.G.A. § 9-11-60(d)(2)</em>. The
+fraud here is extrinsic - it occurred outside the adversarial process
+and prevented Defendant from having any representation at all.</p>
+<h3 id="b.-zombie-authority-doctrine">B. “Zombie Authority”
+Doctrine</h3>
+<p>The continued use of terminated attorney credentials constitutes a
+“Man-in-the-Middle” attack on due process. Once authority is revoked,
+any subsequent actions using those credentials are legally null.</p>
+<h3 id="c.-jurisdictional-defect">C. Jurisdictional Defect</h3>
+<p>The October 23, 2025 Order suffers from fundamental jurisdictional
+defects: 1. No valid party representation (terminated attorney) 2.
+Fraudulent authentication of consent 3. Violation of due process
+rights</p>
+<h2 id="iv.-relief-requested">IV. RELIEF REQUESTED</h2>
+<p>WHEREFORE, Defendant respectfully requests this Honorable Court:</p>
+<ol type="1">
+<li><strong>VACATE</strong> the Order of October 23, 2025 as VOID AB
+INITIO</li>
+<li><strong>DECLARE</strong> that the Order has no legal effect
+whatsoever</li>
+<li><strong>RESTORE</strong> the case to its pre-October 23, 2025
+status</li>
+<li><strong>GRANT</strong> such other relief as the Court deems just and
+proper</li>
+</ol>
+<h2 id="v.-verification">V. VERIFICATION</h2>
+<p>I, William R. Johnson, being duly sworn, depose and say that I am the
+Defendant in this action; that I have read the foregoing Motion; that
+the facts stated therein are true and correct to the best of my
+knowledge, information, and belief.</p>
+<hr />
+<p>William R. Johnson Defendant Pro Se 401 Powderhorn Road Saint Marys,
+GA 31558 (912) 227-4980 willyj1587@gmail.com</p>
+<p>SWORN AND SUBSCRIBED before me this _____ day of __________,
+2026.</p>
+<hr />
+<p>Notary Public My Commission Expires: ___________</p>
+<h2 id="vi.-certificate-of-service">VI. CERTIFICATE OF SERVICE</h2>
+<p>I hereby certify that a true and correct copy of the foregoing Motion
+has been furnished via email to:</p>
+<p>Jennifer L. McGhan, Esq. McGhan Law, LLC 575 E. King Avenue
+Kingsland, GA 31548 jenn@mcghanlaw.com</p>
+<p>This _____ day of __________, 2026.</p>
+<hr />
+<p>William R. Johnson Defendant Pro Se</p>
+</body>
+</html>

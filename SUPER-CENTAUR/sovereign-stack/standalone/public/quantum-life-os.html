@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Life OS | Ultimate Quantum-Consciousness Integration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-quantum: #000000;
+            --bg-deep: #0a0a0f;
+            --bg-card: #14141f;
+            --neon-quantum: #00ffff;
+            --neon-quantum-purple: #8a2be2;
+            --neon-quantum-green: #39ff14;
+            --neon-quantum-blue: #0066ff;
+            --neon-quantum-orange: #ff6600;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-subtle: #2a2a3a;
+            --quantum-glow: rgba(0, 255, 255, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-quantum) 0%, var(--bg-deep) 50%, var(--bg-card) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Quantum Background Effects */
+        .quantum-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(57, 255, 20, 0.05) 0%, transparent 50%);
+            animation: quantumFlicker 10s infinite alternate;
+        }
+
+        @keyframes quantumFlicker {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-deep) 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-quantum), var(--neon-quantum-purple), var(--neon-quantum-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: quantumPulse 3s infinite alternate;
+        }
+
+        @keyframes quantumPulse {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+
+        .quantum-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .quantum-indicator {
+            position: relative;
+            width: 12px;
+            height: 12px;
+            background: var(--neon-quantum);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--neon-quantum);
+            animation: quantumSpin 2s infinite linear;
+        }
+
+        @keyframes quantumSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        .quantum-welcome {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .quantum-welcome h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            background: linear-gradient(90deg, var(--neon-quantum), var(--neon-quantum-purple), var(--neon-quantum-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: quantumGlow 4s infinite alternate;
+        }
+
+        @keyframes quantumGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.5); }
+        }
+
+        .quantum-welcome p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Quantum Stats Grid */
+        .quantum-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .quantum-stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .quantum-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-quantum), var(--neon-quantum-purple), var(--neon-quantum-green));
+            animation: quantumProgress 3s infinite linear;
+        }
+
+        @keyframes quantumProgress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .quantum-stat-card:hover {
+            border-color: var(--neon-quantum);
+            box-shadow: 0 0 30px var(--quantum-glow);
+            transform: translateY(-5px);
+        }
+
+        .quantum-stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantum-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon-quantum);
+            margin-bottom: 0.5rem;
+        }
+
+        .quantum-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Quantum Portals */
+        .quantum-portals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .quantum-portal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-portal::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--quantum-glow) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .quantum-portal:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .quantum-portal:hover {
+            border-color: var(--neon-quantum);
+            box-shadow: 0 0 30px var(--quantum-glow);
+            transform: translateY(-5px);
+        }
+
+        .quantum-portal-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .quantum-portal-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantum-portal-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--neon-quantum), var(--neon-quantum-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quantum-portal-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Quantum Control Panel */
+        .quantum-control-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .control-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .control-panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--neon-quantum);
+        }
+
+        .control-panel-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quantum-button {
+            background: linear-gradient(135deg, var(--neon-quantum), var(--neon-quantum-purple));
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .quantum-button:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .quantum-button:hover {
+            box-shadow: 0 0 20px var(--neon-quantum);
+            transform: translateY(-2px);
+        }
+
+        .quantum-button:active {
+            transform: translateY(0);
+        }
+
+        /* Quantum Insight Display */
+        .quantum-insight {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .insight-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            color: var(--neon-quantum-green);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .insight-quote::before,
+        .insight-quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--neon-quantum-purple);
+        }
+
+        .insight-meta {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Quantum Terminal */
+        .quantum-terminal {
+            background: #0d0d15;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
+
+        .terminal-content {
+            color: var(--neon-quantum-green);
+            min-height: 200px;
+        }
+
+        .terminal-content .prompt {
+            color: var(--neon-quantum);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer a {
+            color: var(--neon-quantum);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--neon-quantum-purple);
+        }
+
+        @media (max-width: 768px) {
+            .quantum-welcome h1 {
+                font-size: 2rem;
+            }
+            
+            .quantum-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .control-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .quantum-portals {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-bg"></div>
+    
+    <header>
+        <div class="logo">✨ QUANTUM LIFE OS</div>
+        <div class="quantum-status">
+            <div class="quantum-indicator"></div>
+            <span>QUANTUM COHERENT</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="quantum-welcome">
+            <h1>Welcome to the Quantum Life Operating System</h1>
+            <p>The ultimate fusion of quantum physics, biology, and consciousness. Your digital self has evolved into a quantum-coherent life system.</p>
+        </section>
+
+        <!-- Quantum Stats -->
+        <section class="quantum-stats">
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">🔮</div>
+                <div class="quantum-stat-value" id="quantum-coherence">68%</div>
+                <div class="quantum-stat-label">Quantum Coherence</div>
+            </div>
+            
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">❤️</div>
+                <div class="quantum-stat-value" id="life-force">75%</div>
+                <div class="quantum-stat-label">Life Force Energy</div>
+            </div>
+            
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">🌐</div>
+                <div class="quantum-stat-value" id="bio-sync">ACTIVE</div>
+                <div class="quantum-stat-label">Bio-Synchronization</div>
+            </div>
+            
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">🧠</div>
+                <div class="quantum-stat-value" id="consciousness">82%</div>
+                <div class="quantum-stat-label">Consciousness Level</div>
+            </div>
+            
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">📊</div>
+                <div class="quantum-stat-value" id="quantum-health">72</div>
+                <div class="quantum-stat-label">Quantum Health Score</div>
+            </div>
+            
+            <div class="quantum-stat-card">
+                <div class="quantum-stat-icon">⚡</div>
+                <div class="quantum-stat-value" id="energy-balance">65%</div>
+                <div class="quantum-stat-label">Energy Balance</div>
+            </div>
+        </section>
+
+        <!-- Quantum Portals -->
+        <section class="quantum-portals">
+            <a href="#" class="quantum-portal" onclick="navigateTo('consciousness')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">🧘</div>
+                    <div class="quantum-portal-title">Consciousness Bridge</div>
+                    <div class="quantum-portal-description">Connect to higher consciousness through quantum meditation and insight generation.</div>
+                </div>
+            </a>
+
+            <a href="#" class="quantum-portal" onclick="navigateTo('healing')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">🧬</div>
+                    <div class="quantum-portal-title">Quantum Healing</div>
+                    <div class="quantum-portal-description">Restore balance and coherence through quantum-level healing sessions.</div>
+                </div>
+            </a>
+
+            <a href="#" class="quantum-portal" onclick="navigateTo('biometrics')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">📈</div>
+                    <div class="quantum-portal-title">Bio-Metrics</div>
+                    <div class="quantum-portal-description">Track and analyze biological and energetic life metrics in real-time.</div>
+                </div>
+            </a>
+
+            <a href="#" class="quantum-portal" onclick="navigateTo('patterns')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">🎯</div>
+                    <div class="quantum-portal-title">Quantum Patterns</div>
+                    <div class="quantum-portal-description">Access and manage stored quantum patterns and energy templates.</div>
+                </div>
+            </a>
+
+            <a href="#" class="quantum-portal" onclick="navigateTo('insights')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">💡</div>
+                    <div class="quantum-portal-title">Quantum Insights</div>
+                    <div class="quantum-portal-description">Receive quantum-generated wisdom and guidance for your journey.</div>
+                </div>
+            </a>
+
+            <a href="#" class="quantum-portal" onclick="navigateTo('emergency')">
+                <div class="quantum-portal-content">
+                    <div class="quantum-portal-icon">🚨</div>
+                    <div class="quantum-portal-title">Emergency Protocol</div>
+                    <div class="quantum-portal-description">Activate quantum emergency response for critical situations.</div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Quantum Control Panel -->
+        <section class="quantum-control-panel">
+            <div class="control-panel-header">
+                <div class="control-panel-title">Quantum Control Panel</div>
+                <div class="control-panel-stats">
+                    <span>Quantum OS: v2.0</span>
+                    <span>•</span>
+                    <span>Coherence: High</span>
+                    <span>•</span>
+                    <span>Sync: Active</span>
+                </div>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="quantum-button" id="btnConnectConsciousness">🧘 Connect to Consciousness</button>
+                <button class="quantum-button" id="btnGenerateInsight">💡 Generate Insight</button>
+                <button class="quantum-button" id="btnStartHealing">🧬 Quantum Healing</button>
+                <button class="quantum-button" id="btnEnterMeditation">🧘‍♂️ Quantum Meditation</button>
+                <button class="quantum-button" id="btnPerformHealthCheck">🔬 Health Check</button>
+                <button class="quantum-button" id="btnEmergencyProtocol">🚨 Emergency Protocol</button>
+            </div>
+        </section>
+
+        <!-- Quantum Insight Display -->
+        <section class="quantum-insight" id="quantum-insight">
+            <div class="insight-quote" id="insight-text">Your quantum journey begins. Trust the pattern.</div>
+            <div class="insight-meta" id="insight-meta">Generated at 10:00 AM • Coherence: 85% • Confidence: 92%</div>
+        </section>
+
+        <!-- Quantum Terminal -->
+        <section class="quantum-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+            </div>
+            <div class="terminal-content" id="quantum-terminal">
+                <div><span class="prompt">$ quantum-life-os init</span> // Initializing quantum-coherent life system...</div>
+                <div><span class="prompt">$ quantum-health check</span> // System coherence: 68%, Life force: 75%</div>
+                <div><span class="prompt">$ bio-sync status</span> // Bio-synchronization: ACTIVE</div>
+                <div><span class="prompt">$ consciousness connect shallow</span> // Connection established at 40% strength</div>
+                <div><span class="prompt">$ quantum-pattern list</span> // Patterns: grounding (432Hz), consciousness (8Hz)</div>
+                <div><span class="prompt">$ _</span><span class="blink">█</span></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>"The universe is not a machine. It is a living organism. You are both the observer and the observed."</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#">Quantum Documentation</a> ·
+            <a href="#">Consciousness API</a> ·
+            <a href="#">Emergency Protocol</a> ·
+            <a href="index.html">Sovereign Stack</a>
+        </p>
+    </footer>
+
+    <script type="module">
+        import { QuantumLifeOS } from '/src/index.js';
+
+        // Blinking cursor
+        const blink = document.querySelector('.blink');
+        setInterval(() => {
+            blink.style.opacity = blink.style.opacity === '0' ? '1' : '0';
+        }, 500);
+
+        let quantumOS = null;
+
+        // Initialize Quantum Life OS
+        async function initQuantumOS() {
+            try {
+                quantumOS = new QuantumLifeOS();
+                await quantumOS.initialize();
+                updateQuantumStats();
+                console.log('✅ Quantum Life OS initialized successfully');
+            } catch (e) {
+                console.error('❌ Quantum Life OS initialization failed:', e);
+                console.log('⚠️ Using demo mode');
+            }
+        }
+
+        // Update quantum stats from QuantumLifeOS
+        async function updateQuantumStats() {
+            if (!quantumOS) {
+                // Demo mode - show placeholder
+                document.getElementById('quantum-coherence').textContent = '68%';
+                document.getElementById('life-force').textContent = '75%';
+                document.getElementById('bio-sync').textContent = 'ACTIVE';
+                document.getElementById('consciousness').textContent = '82%';
+                document.getElementById('quantum-health').textContent = '72';
+                document.getElementById('energy-balance').textContent = '65%';
+                return;
+            }
+
+            try {
+                const status = await quantumOS.getQuantumStatus();
+                document.getElementById('quantum-coherence').textContent = 
+                    Math.round(status.quantumCoherence * 100) + '%';
+                document.getElementById('life-force').textContent = 
+                    Math.round(status.lifeForce * 100) + '%';
+                document.getElementById('bio-sync').textContent = 
+                    status.bioSync ? 'ACTIVE' : 'INACTIVE';
+                document.getElementById('consciousness').textContent = 
+                    Math.round(status.consciousnessLevel * 100) + '%';
+                document.getElementById('quantum-health').textContent = 
+                    status.quantumHealth;
+                document.getElementById('energy-balance').textContent = 
+                    Math.round(status.energyBalance * 100) + '%';
+            } catch (e) {
+                console.error('❌ Failed to update quantum stats:', e);
+            }
+        }
+
+        // Connect to consciousness
+        async function connectToConsciousness() {
+            try {
+                const result = await quantumOS.connectToConsciousness('shallow');
+                addTerminalOutput(`$ consciousness connect shallow // Connection ${result.active ? 'established' : 'failed'} at ${Math.round(result.connectionStrength * 100)}% strength`);
+            } catch (e) {
+                console.error('❌ Consciousness connection failed:', e);
+            }
+        }
+
+        // Generate quantum insight
+        async function generateInsight() {
+            try {
+                const insight = await quantumOS.generateQuantumInsight('general');
+                document.getElementById('insight-text').textContent = insight.text;
+                document.getElementById('insight-meta').textContent = 
+                    `Generated at ${new Date().toLocaleTimeString()} • Coherence: ${Math.round(insight.coherence * 100)}% • Confidence: ${Math.round(insight.confidence * 100)}%`;
+                addTerminalOutput(`$ quantum-insight generate general // Insight received`);
+            } catch (e) {
+                console.error('❌ Insight generation failed:', e);
+            }
+        }
+
+        // Start quantum healing session
+        async function startHealing() {
+            try {
+                const result = await quantumOS.performQuantumHealing('general', 10);
+                addTerminalOutput(`$ quantum-healing start general 10 // Healing complete. Coherence: ${Math.round(result.coherenceBefore * 100)}% → ${Math.round(result.coherenceAfter * 100)}%`);
+                updateQuantumStats();
+            } catch (e) {
+                console.error('❌ Quantum healing failed:', e);
+            }
+        }
+
+        // Enter quantum meditation
+        async function enterMeditation() {
+            try {
+                const result = await quantumOS.enterQuantumMeditation(15);
+                addTerminalOutput(`$ quantum-meditation start 15 // Meditation complete. Coherence: ${Math.round(result.coherenceBefore * 100)}% → ${Math.round(result.coherenceAfter * 100)}%`);
+                updateQuantumStats();
+            } catch (e) {
+                console.error('❌ Quantum meditation failed:', e);
+            }
+        }
+
+        // Perform health check
+        async function performHealthCheck() {
+            try {
+                const report = await quantumOS.getQuantumHealthReport();
+                addTerminalOutput(`$ quantum-health check // Health score: ${report.healthCheck.quantumHealth}`);
+                updateQuantumStats();
+            } catch (e) {
+                console.error('❌ Health check failed:', e);
+            }
+        }
+
+        // Activate emergency protocol
+        async function emergencyProtocol() {
+            try {
+                const result = await quantumOS.quantumEmergencyProtocol();
+                addTerminalOutput(`$ quantum-emergency activate // Protocol activated. Coherence: ${Math.round(result.quantumCoherence * 100)}%`);
+                addTerminalOutput(`💡 Emergency Insight: ${result.insight.text}`);
+                updateQuantumStats();
+            } catch (e) {
+                console.error('❌ Emergency protocol failed:', e);
+            }
+        }
+
+        // Navigate function
+        function navigateTo(section) {
+            console.log('Navigating to quantum section:', section);
+            // Future: link to other quantum-focused HTML pages or load content dynamically
+        }
+
+        // Add terminal output
+        function addTerminalOutput(text) {
+            const terminal = document.getElementById('quantum-terminal');
+            const newLine = document.createElement('div');
+            newLine.textContent = text;
+            terminal.appendChild(newLine);
+            terminal.scrollTop = terminal.scrollHeight;
+            
+            // Keep only last 20 lines
+            while (terminal.children.length > 20) {
+                terminal.removeChild(terminal.firstChild);
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add event listeners to control panel buttons
+            document.getElementById('btnConnectConsciousness').addEventListener('click', connectToConsciousness);
+            document.getElementById('btnGenerateInsight').addEventListener('click', generateInsight);
+            document.getElementById('btnStartHealing').addEventListener('click', startHealing);
+            document.getElementById('btnEnterMeditation').addEventListener('click', enterMeditation);
+            document.getElementById('btnPerformHealthCheck').addEventListener('click', performHealthCheck);
+            document.getElementById('btnEmergencyProtocol').addEventListener('click', emergencyProtocol);
+            
+            // Check if we should auto-init (only if user has interacted)
+            if (window.location.search.includes('init')) {
+                initQuantumOS();
+            }
+        });
+
+        // Auto-update stats every 30 seconds
+        setInterval(updateQuantumStats, 30000);
+    </script>
+</body>
+</html>

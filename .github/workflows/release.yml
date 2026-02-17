@@ -1,0 +1,37 @@
+# P31 Release — GitHub Release + Zenodo archive on version tag
+# Push tag v* (e.g. git tag v1.0.0 && git push origin v1.0.0)
+# Zenodo auto-archives when connected at https://zenodo.org/account/settings/github/
+name: P31 Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract changelog
+        id: changelog
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          if [ -f CHANGELOG.md ]; then
+            BODY=$(sed -n "/## \[${VERSION}\]/,/## \[/p" CHANGELOG.md | head -n -1 || true)
+          else
+            BODY="Release v${VERSION}. See repository for details."
+          fi
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: ${{ steps.changelog.outputs.body }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

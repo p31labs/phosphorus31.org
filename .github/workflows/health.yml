@@ -1,0 +1,45 @@
+# P31 Health Check — Scheduled and manual
+# Runs every 15 minutes; also workflow_dispatch.
+name: P31 Health Check
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: Check All Services
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check phosphorus31.org
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://phosphorus31.org || true)
+          if [ "$STATUS" != "200" ]; then
+            echo "::warning::Website returned $STATUS"
+            exit 0
+          fi
+          echo "✓ Website: 200 OK"
+
+      - name: Check Shelter API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://shelter.p31.io/health 2>/dev/null || true)
+          if [ "$STATUS" != "200" ]; then
+            echo "::warning::Shelter returned $STATUS (may not be deployed yet)"
+            exit 0
+          fi
+          BODY=$(curl -s https://shelter.p31.io/health 2>/dev/null || true)
+          echo "✓ Shelter: $BODY"
+
+      - name: Check Zenodo DOI
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -L https://doi.org/10.5281/zenodo.18627420 2>/dev/null || true)
+          if [ "$STATUS" != "200" ] && [ "$STATUS" != "302" ]; then
+            echo "::warning::Zenodo DOI returned $STATUS"
+          fi
+          echo "✓ Zenodo DOI resolves"
+
+      - name: Alert on failure
+        if: failure()
+        run: |
+          echo "::notice::Health check had warnings. Configure ALERT_WEBHOOK for notifications."

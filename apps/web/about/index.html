@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · P31 Labs</title>
+  <meta name="description" content="Mission, team, history, and values of P31 Labs — assistive technology for neurodivergent minds.">
+  <meta property="og:title" content="About · P31 Labs">
+  <meta property="og:description" content="Mission, team, history, and values of P31 Labs — assistive technology for neurodivergent minds.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Page‑specific about styles */
+    .mission-statement {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      padding: 2rem;
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 2rem;
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+    .mission-statement p {
+      font-style: italic;
+      color: #e2e8f0;
+    }
+    .founder-story {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: start;
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
+    .founder-image {
+      text-align: center;
+    }
+    .founder-image img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 1rem;
+      border: 2px solid #2ecc71;
+    }
+    .founder-quote {
+      font-size: 1.1rem;
+      border-left: 4px solid #2ecc71;
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      color: #94a3b8;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .value-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .value-card:hover {
+      border-color: #2ecc71;
+    }
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .value-card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .history-timeline {
+      margin: 3rem 0;
+      position: relative;
+    }
+    .history-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #2ecc71, #60a5fa);
+      opacity: 0.3;
+    }
+    .history-item {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+    }
+    .history-item::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      top: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: #2ecc71;
+      border: 2px solid #050510;
+    }
+    .history-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2ecc71;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .team-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2ecc71, #60a5fa);
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #050510;
+      font-weight: 600;
+    }
+    .team-role {
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      margin: 0.5rem 0;
+    }
+    .contact-section {
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 3rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-email {
+      font-size: 1.2rem;
+      color: #2ecc71;
+      text-decoration: none;
+      border-bottom: 1px dashed currentColor;
+    }
+    .contact-email:hover {
+      border-bottom-style: solid;
+    }
+    @media (max-width: 768px) {
+      .founder-story {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .founder-quote {
+        border-left: none;
+        border-top: 4px solid #2ecc71;
+        padding-left: 0;
+        padding-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/connector/">Connector</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/" aria-current="page">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">About</span>
+          <h1>P31 Labs</h1>
+          <p>Building assistive technology for neurodivergent minds — rooted in science, privacy, and community.</p>
+        </div>
+
+        <!-- Mission statement -->
+        <div class="mission-statement">
+          <p>"We believe that technology should adapt to the human mind, not the other way around. P31 Labs creates tools that respect neurodiversity, protect privacy, and enable connection through resilient mesh networks."</p>
+        </div>
+
+        <!-- Founder story -->
+        <section aria-labelledby="founder-heading">
+          <h2 id="founder-heading" class="section-header">Founder Story</h2>
+          <div class="founder-story">
+            <div class="founder-image">
+              <!-- Placeholder; replace with actual image later -->
+              <div style="width: 100%; max-width: 250px; height: 250px; background: linear-gradient(135deg, #0f1a14, #0a0a0f); border-radius: 1rem; border: 2px solid #2ecc71; display: flex; align-items: center; justify-content: center; color: #2ecc71; font-size: 4rem;">🔺</div>
+            </div>
+            <div>
+              <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Will</h3>
+              <p style="color: #94a3b8; font-family: 'JetBrains Mono', monospace; margin-bottom: 1rem;">Founder & Chief Scientist · NODE ZERO</p>
+              <p>Will is a neurodivergent engineer and physicist who experienced firsthand the gaps in assistive technology. After 16 years as a DoD civilian submarine electrician specializing in power distribution systems, they founded P31 Labs to build tools that are open, private, and truly helpful.</p>
+              <div class="founder-quote">
+                "I wanted to create a network that couldn't be controlled by any single entity — a mesh that protects the signal, no matter what. The geometry protects the signal."
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Core values -->
+        <section aria-labelledby="values-heading">
+          <h2 id="values-heading" class="section-header">Core Values</h2>
+          <div class="values-grid">
+            <div class="value-card">
+              <div class="value-icon">🔺</div>
+              <h3>Delta Topology</h3>
+              <p>Resilient, decentralised mesh networks that grow stronger with each node.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">🛡️</div>
+              <h3>Privacy‑First</h3>
+              <p>No tracking, no data harvesting. Your signal is yours alone.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">🌐</div>
+              <h3>Universal Accessibility</h3>
+              <p>Designed for neurodivergent minds, but useful for everyone.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">💚</div>
+              <h3>G.O.D. Protocol</h3>
+              <p>Generative, Open, Decentralised — the foundation of our economy.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">🔷</div>
+              <h3>The Mesh Holds</h3>
+              <p>Trust in the network, trust in each other.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- History timeline -->
+        <section aria-labelledby="history-heading">
+          <h2 id="history-heading" class="section-header">History</h2>
+          <div class="history-timeline">
+            <div class="history-item">
+              <div class="history-year">2023</div>
+              <h3>Idea born</h3>
+              <p>Will sketches the first concepts of a mesh network for assistive technology.</p>
+            </div>
+            <div class="history-item">
+              <div class="history-year">2024</div>
+              <h3>First prototype</h3>
+              <p>ESP32-based node with basic LoRa communication proves the concept.</p>
+            </div>
+            <div class="history-item">
+              <div class="history-year">2025</div>
+              <h3>Fiscal sponsorship</h3>
+              <p>P31 Labs joins The Hack Foundation as a 501(c)(3) project.</p>
+            </div>
+            <div class="history-item">
+              <div class="history-year">2026</div>
+              <h3>Public launch</h3>
+              <p>Documentation, roadmap, and first production run announced.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Team (placeholder) -->
+        <section aria-labelledby="team-heading">
+          <h2 id="team-heading" class="section-header">Team</h2>
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-avatar">🔺</div>
+              <h3>Will</h3>
+              <div class="team-role">Founder, Chief Scientist</div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">⚡</div>
+              <h3>Community Contributors</h3>
+              <div class="team-role">Open Source Developers</div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">🌿</div>
+              <h3>Board (Recruiting)</h3>
+              <div class="team-role">Governance & Strategy</div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">💬</div>
+              <h3>Community</h3>
+              <div class="team-role">Users & Testers</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Press mentions / contact -->
+        <section aria-labelledby="contact-heading" class="contact-section">
+          <div>
+            <h2 id="contact-heading" style="font-size: 1.5rem; margin: 0;">Press & Contact</h2>
+            <p style="color: #94a3b8; margin: 0.5rem 0 0;">For interviews, partnerships, or questions:</p>
+          </div>
+          <div>
+            <a href="mailto:will@phosphorus31.org" class="contact-email">will@phosphorus31.org</a><br>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">🔺 PGP fingerprint: 2E8C 1A3F 9D72 4B11</span>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/connector/">Connector</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for about page -->
+</body>
+</html>

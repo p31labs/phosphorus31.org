@@ -50,7 +50,9 @@ JWT_SECRET=your-secret-key
 SESSION_SECRET=your-session-secret
 ```
 
-## The Buffer (cognitive-shield)
+## The Buffer (P31 Shelter — apps/shelter)
+
+The Buffer backend lives in `apps/shelter/`. It uses SQLite for message buffer and accommodation log, and optional Redis for the message queue.
 
 ### Redis
 
@@ -74,6 +76,13 @@ MAX_BATCH_SIZE=100              # Maximum messages per batch
 PRIORITY_QUEUE_ENABLED=true      # Enable priority queue
 ```
 
+### Accommodation log (LAUNCH-04)
+
+```bash
+# Directory for accommodation.db and backups/ (default: ./data)
+ACCOMMODATION_DB_DIR=./data
+```
+
 ### Server
 
 ```bash
@@ -81,13 +90,28 @@ PORT=4000
 NODE_ENV=development
 ```
 
-## The Scope (ui)
+## Wiring: Shelter ↔ Scope ↔ Sprout
 
-### API Configuration
+From repo root, **`npm run dev`** starts all three:
+
+| App     | Default URL           | Env (override when Shelter uses fallback port) |
+|---------|------------------------|-------------------------------------------------|
+| Shelter | http://localhost:4000 | `PORT` (tries 4001–4010 if 4000 in use)        |
+| Scope   | Vite e.g. :5176       | `VITE_SHELTER_URL` (Scope + ui)                 |
+| Sprout  | Vite e.g. :5177       | `VITE_WS_URL` (e.g. ws://localhost:4001/ws)    |
+
+- **Scope** and **ui** use `VITE_SHELTER_URL` or `VITE_BUFFER_URL` for the Buffer API (default `http://localhost:4000`).
+- **Sprout** uses `VITE_WS_URL` for the Buffer WebSocket (default `ws://localhost:4000/ws`).
+- If Shelter logs a different port (e.g. 4001), set the same base in Scope/Sprout `.env` or the app won’t connect.
+
+## The Scope (ui) and apps/scope
+
+### Buffer (Shelter) and API
 
 ```bash
-VITE_API_URL=http://localhost:3000
-VITE_WS_URL=ws://localhost:3000
+VITE_SHELTER_URL=http://localhost:4000   # or VITE_BUFFER_URL (ui)
+VITE_WS_URL=ws://localhost:4000/ws      # Sprout WebSocket to Buffer
+VITE_API_URL=http://localhost:3000      # Centaur when used
 ```
 
 ### Environment

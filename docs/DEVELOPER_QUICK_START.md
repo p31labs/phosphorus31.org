@@ -25,8 +25,8 @@ cd SUPER-CENTAUR && npm install && npm run dev
 # 3. Start The Scope (frontend) - new terminal
 cd ui && npm install && npm run dev
 
-# 4. Start The Buffer (communication processing) - new terminal
-cd cognitive-shield && npm install && npm run dev
+# 4. Start The Buffer (P31 Shelter) - new terminal
+cd apps/shelter && npm install && npm run start:server
 
 # 5. Open browser
 # http://localhost:5173
@@ -43,7 +43,7 @@ cd cognitive-shield && npm install && npm run dev
 |-----------|--------|------|---------|
 | **The Centaur** | `SUPER-CENTAUR/` | 3000 | Backend AI protocol |
 | **The Scope** | `ui/` | 5173 | Dashboard/UI |
-| **The Buffer** | `cognitive-shield/` | 4000 | Communication processing |
+| **The Buffer (P31 Shelter)** | `apps/shelter/` | 4000 | Communication processing |
 | **Node One** | `firmware/` | N/A | Hardware (ESP32-S3) |
 
 ---
@@ -98,7 +98,7 @@ See [GOD_CONFIG Reference](god-config.md) for details.
 phenix-navigator-creator67/
 ├── SUPER-CENTAUR/     # The Centaur (backend)
 ├── ui/                 # The Scope (frontend)
-├── cognitive-shield/  # The Buffer (processing)
+├── apps/shelter/      # The Buffer (P31 Shelter)
 ├── firmware/          # Node One (hardware)
 ├── docs/              # Documentation
 └── config/            # Configuration templates

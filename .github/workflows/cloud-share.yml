@@ -1,0 +1,71 @@
+# P31 Cloud Share — Sync build + docs to cloud storage after CI
+# Trigger: push to main, or workflow_dispatch. Optional: set RCLONE_CONFIG to enable.
+name: P31 Cloud Share
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cloud-share-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build for Cloud Share
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build
+      - run: npm run build:web
+      - run: cd apps/shelter && npm run build
+      - name: Prepare cloud-share bundle
+        run: |
+          mkdir -p _cloud_share/scope _cloud_share/shelter _cloud_share/web _cloud_share/docs
+          [ -d ui/dist ] && cp -r ui/dist/* _cloud_share/scope/ || true
+          [ -d apps/shelter/dist ] && cp -r apps/shelter/dist/* _cloud_share/shelter/ || true
+          [ -d apps/web/dist ] && cp -r apps/web/dist/* _cloud_share/web/ || true
+          [ -d docs ] && cp -r docs/* _cloud_share/docs/ || true
+          [ -f README.md ] && cp README.md _cloud_share/ || true
+          echo "P31 Cloud Share — ${{ github.sha }} — ${{ github.event.head_commit.timestamp }}" > _cloud_share/build_info.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloud-share-bundle
+          path: _cloud_share/
+
+  sync:
+    name: Sync to Cloud
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Download bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: cloud-share-bundle
+      - name: Sync to cloud (rclone)
+        env:
+          RCLONE_CONFIG_BASE64: ${{ secrets.RCLONE_CONFIG }}
+          RCLONE_REMOTE: ${{ vars.RCLONE_REMOTE || 'p31' }}
+          RCLONE_REMOTE_PATH: ${{ vars.RCLONE_REMOTE_PATH || 'P31/builds' }}
+        run: |
+          if [ -z "$RCLONE_CONFIG_BASE64" ]; then
+            echo "RCLONE_CONFIG secret not set. Cloud share sync skipped."
+            echo "To enable: add secret RCLONE_CONFIG (base64-encoded rclone config)."
+            exit 0
+          fi
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_BASE64" | base64 -d > ~/.config/rclone/rclone.conf
+          curl -fsS https://rclone.org/install.sh | sudo bash
+          rclone version
+          DEST="${RCLONE_REMOTE}:${RCLONE_REMOTE_PATH}"
+          rclone copy . "${DEST}/${{ github.sha }}" --progress --verbose
+          rclone copy . "${DEST}/latest" --progress --verbose
+          echo "Synced to ${DEST}/${{ github.sha }} and ${DEST}/latest"
+        continue-on-error: true

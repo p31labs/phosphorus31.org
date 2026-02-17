@@ -1,0 +1,55 @@
+
+> cognitive-shield@1.0.0 build
+> vite build
+
+vite v7.3.0 building client environment for production...
+transforming...
+Γ£ô 2366 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                        1.08 kB Γöé gzip:   0.55 kB
+dist/assets/index-DVtwGum5.css                         4.25 kB Γöé gzip:   1.43 kB
+dist/assets/chevron-right-BOxG40Nq.js                  0.13 kB Γöé gzip:   0.14 kB
+dist/assets/infinity-B0WattNy.js                       0.17 kB Γöé gzip:   0.17 kB
+dist/assets/circle-x-DEL5AISF.js                       0.21 kB Γöé gzip:   0.18 kB
+dist/assets/globe-B_swm2D3.js                          0.24 kB Γöé gzip:   0.19 kB
+dist/assets/zustand-DBIwTkIK.js                        0.33 kB Γöé gzip:   0.24 kB
+dist/assets/hammer-DnZjWbhC.js                         0.40 kB Γöé gzip:   0.28 kB
+dist/assets/waves-BRSN03OK.js                          0.43 kB Γöé gzip:   0.22 kB
+dist/assets/volume-2-CcLBWWzS.js                       1.11 kB Γöé gzip:   0.57 kB
+dist/assets/tetrahedron-math-CIcGrLv2.js               2.45 kB Γöé gzip:   0.94 kB
+dist/assets/TetrahedronProtocol-CPoOcsoo.js            5.51 kB Γöé gzip:   1.97 kB
+dist/assets/UniversalNodeBroadcast-BtMmA-pN.js         9.08 kB Γöé gzip:   2.99 kB
+dist/assets/FeatureShowcase-D9mPWJhP.js               10.54 kB Γöé gzip:   4.10 kB
+dist/assets/KenosisCheck-D4YkphSR.js                  10.79 kB Γöé gzip:   2.94 kB
+dist/assets/BreathEngine-Cjf8umM6.js                  11.64 kB Γöé gzip:   4.02 kB
+dist/assets/FamilyConstellation-xfMWDURr.js           11.87 kB Γöé gzip:   3.90 kB
+dist/assets/ForensicReconstruction-DmVCuHLd.js        11.99 kB Γöé gzip:   3.27 kB
+dist/assets/LoveLetterProtocol-CVrVV_pr.js            12.16 kB Γöé gzip:   4.05 kB
+dist/assets/Frequencies-bnsqqobt.js                   12.71 kB Γöé gzip:   4.56 kB
+dist/assets/SonicShield-CLX_t8Zx.js                   13.23 kB Γöé gzip:   4.33 kB
+dist/assets/FirstLightVerification-CwwY_9uI.js        13.24 kB Γöé gzip:   3.83 kB
+dist/assets/MathematicsDashboard-CCOLOnsb.js          13.70 kB Γöé gzip:   3.95 kB
+dist/assets/ModuleManager-BbuV56nA.js                 15.24 kB Γöé gzip:   3.16 kB
+dist/assets/PreLaunchSequence-zY2KKPBS.js             17.52 kB Γöé gzip:   4.20 kB
+dist/assets/TheStory-Dt4R37zg.js                      17.90 kB Γöé gzip:   7.38 kB
+dist/assets/ModuleDashboard-l__mcu0p.js               18.29 kB Γöé gzip:   5.24 kB
+dist/assets/Grimoire-B0ASqBBL.js                      19.25 kB Γöé gzip:   5.74 kB
+dist/assets/FAQ-BgL17O-q.js                           19.34 kB Γöé gzip:   7.96 kB
+dist/assets/SomaticRegulation-D3Y_674Q.js             19.64 kB Γöé gzip:   5.13 kB
+dist/assets/NerdLab-C5NAMAXM.js                       20.62 kB Γöé gzip:   6.72 kB
+dist/assets/SurvivalGuide-xj4g8rqc.js                 22.34 kB Γöé gzip:   5.92 kB
+dist/assets/SimulatedAbdicationReport-DrNv9Vt0.js     23.11 kB Γöé gzip:   5.80 kB
+dist/assets/CalibrationReport-B9gCX1MS.js             23.51 kB Γöé gzip:   6.67 kB
+dist/assets/MeshMaintenance-CwJaTTGz.js               26.30 kB Γöé gzip:   6.09 kB
+dist/assets/GeodesicManifesto-DHv7C--c.js             28.00 kB Γöé gzip:   7.91 kB
+dist/assets/ModuleMaker-DTNpe9__.js                   35.02 kB Γöé gzip:  12.31 kB
+dist/assets/peerjs-B65bVB1U.js                        87.84 kB Γöé gzip:  23.93 kB
+dist/assets/index-C3oJhgrS.js                        173.79 kB Γöé gzip:  46.03 kB
+dist/assets/three-Dks93YEU.js                      1,209.04 kB Γöé gzip: 347.81 kB
+Γ£ô built in 8.51s
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

@@ -102,6 +102,7 @@ ui/
 
 - **World Builder** — Code (P31 language) or visual mode; geodesic analysis (stability, Maxwell's rule, weak points); coherence HUD.
 - **Colyseus (optional)** — Multiplayer sync. Set `VITE_COLYSEUS_URL` in `.env` (see `.env.example`). Install `colyseus.js` for the client; run the Colyseus server from `../server` with the GeodesicRoom.
+- **P31 Shelter (Buffer) (optional)** — Scope Tasks/Health use the Buffer API. Set `VITE_SHELTER_URL` or `VITE_BUFFER_URL` in `.env` (default: `http://localhost:4000`). See `README_SCOPE_AND_DEMO.md` for run instructions.
 - **Geodesic WASM (optional)** — From repo root: `cd geodesic-engine && wasm-pack build --target web`, then copy `pkg/` to `ui/src/geodesic-engine`. The app uses JS `engine/structure-analysis.ts` by default; you can switch the hook to the WASM module for heavier workloads.
 
 ## 🔧 Configuration
@@ -166,6 +167,11 @@ Interactive debugging tools that:
    ```bash
    npm run preview
    ```
+
+5. **Run tests**
+   - **Unit tests (default):** `npm test` — runs Vitest; excludes integration and a few component tests (React 18/19 monorepo conflict). From repo root: `npm run test:scope` runs this.
+   - **Integration tests (mocked):** `npm run test:integration` — 58 tests (scope-buffer, scope-centaur, scope-node-one, end-to-end); no live server required.
+   - **Excluded component tests:** `node-a-you/*.test.tsx`, `node-b-them/*.test.tsx`, `CognitiveFlow.test.tsx`, `P31MoleculeViewer.test.tsx` are excluded from the default run. To run them, temporarily remove their patterns from `vitest.config.ts` `exclude` (may require resolving React version in workspace).
 
 ## 📊 Performance Features
 

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound Garden — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      overflow-x: hidden;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-top: 1rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #a78bfa;
+    }
+    
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .garden-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+    }
+    
+    .hex-pattern {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sound-circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s, opacity 0.3s;
+      font-size: 0.8rem;
+      font-weight: 600;
+      touch-action: none;
+    }
+    
+    .sound-circle.active {
+      opacity: 1;
+    }
+    
+    .sound-circle.inactive {
+      opacity: 0.4;
+    }
+    
+    .sound-circle:active {
+      transform: scale(0.95);
+    }
+    
+    .sound-circle.pulsing {
+      animation: pulse 1s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    /* Hex positions */
+    .rain { top: 0; left: 50%; transform: translateX(-50%); color: #3b82f6; }
+    .thunder { top: 75px; left: 0; color: #7A27FF; }
+    .wind { top: 75px; right: 0; color: #00D4FF; }
+    .birds { bottom: 75px; left: 0; color: #00FF88; }
+    .fire { bottom: 75px; right: 0; color: #FFB800; }
+    .waves { bottom: 0; left: 50%; transform: translateX(-50%); color: #14b8a6; }
+    
+    .volume-indicator {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: #7878AA;
+      white-space: nowrap;
+    }
+    
+    .status {
+      text-align: center;
+      min-height: 3rem;
+      padding: 1rem;
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+    
+    .status.active {
+      color: #E0E0EE;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    
+    button {
+      background: transparent;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: system-ui;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    
+    button:hover {
+      border-color: #a78bfa;
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+    
+    select {
+      background: #050510;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-family: system-ui;
+      font-size: 0.9rem;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #7878AA;
+      font-size: 0.8rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎵 Sound Garden</h1>
+    <p class="subtitle">Ambient soundscapes you grow yourself.</p>
+  </header>
+  
+  <div class="garden-container">
+    <div class="hex-pattern">
+      <div class="sound-circle rain inactive" data-sound="rain">
+        Rain
+        <div class="volume-indicator">100%</div>
+      </div>
+      <div class="sound-circle thunder inactive" data-sound="thunder">
+        Thunder
+        <div class="volume-indicator">100%</div>
+      </div>
+      <div class="sound-circle wind inactive" data-sound="wind">
+        Wind
+        <div class="volume-indicator">100%</div>
+      </div>
+      <div class="sound-circle birds inactive" data-sound="birds">
+        Birds
+        <div class="volume-indicator">100%</div>
+      </div>
+      <div class="sound-circle fire inactive" data-sound="fire">
+        Fire
+        <div class="volume-indicator">100%</div>
+      </div>
+      <div class="sound-circle waves inactive" data-sound="waves">
+        Waves
+        <div class="volume-indicator">100%</div>
+      </div>
+    </div>
+    
+    <div class="status" id="status">Tap a circle to start growing your garden.</div>
+    
+    <div class="controls">
+      <select id="timer">
+        <option value="0">No timer</option>
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="60">60 minutes</option>
+      </select>
+      <button id="stop-all">Stop All</button>
+    </div>
+  </div>
+  
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+  
+  <script>
+    class SoundGarden {
+      constructor() {
+        this.audioContext = null;
+        this.sounds = {};
+        this.volumes = {};
+        this.activeSounds = new Set();
+        this.timerId = null;
+        this.init();
+      }
+      
+      init() {
+        // Load saved state
+        this.loadState();
+        
+        // Initialize audio context
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Setup circles
+        document.querySelectorAll('.sound-circle').forEach(circle => {
+          const soundType = circle.dataset.sound;
+          this.volumes[soundType] = this.volumes[soundType] || 1.0;
+          
+          // Tap to toggle
+          circle.addEventListener('click', () => this.toggleSound(soundType));
+          
+          // Drag for volume
+          let isDragging = false;
+          let startY = 0;
+          let startVolume = 0;
+          
+          circle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            startY = e.touches[0].clientY;
+            startVolume = this.volumes[soundType];
+          });
+          
+          circle.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const deltaY = startY - e.touches[0].clientY;
+            const newVolume = Math.max(0, Math.min(1, startVolume + deltaY / 200));
+            this.setVolume(soundType, newVolume);
+          });
+          
+          circle.addEventListener('touchend', () => {
+            isDragging = false;
+            this.saveState();
+          });
+          
+          // Mouse drag
+          circle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startY = e.clientY;
+            startVolume = this.volumes[soundType];
+            e.preventDefault();
+          });
+          
+          document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaY = startY - e.clientY;
+            const newVolume = Math.max(0, Math.min(1, startVolume + deltaY / 200));
+            this.setVolume(soundType, newVolume);
+          });
+          
+          document.addEventListener('mouseup', () => {
+            if (isDragging) {
+              isDragging = false;
+              this.saveState();
+            }
+          });
+          
+          // Update volume display
+          this.updateVolumeDisplay(soundType);
+        });
+        
+        // Timer
+        document.getElementById('timer').addEventListener('change', (e) => {
+          this.setTimer(parseInt(e.target.value));
+        });
+        
+        // Stop all
+        document.getElementById('stop-all').addEventListener('click', () => {
+          this.stopAll();
+        });
+        
+        // Update status
+        this.updateStatus();
+      }
+      
+      toggleSound(type) {
+        if (this.activeSounds.has(type)) {
+          this.stopSound(type);
+        } else {
+          this.startSound(type);
+        }
+        this.updateStatus();
+        this.saveState();
+      }
+      
+      startSound(type) {
+        if (this.activeSounds.has(type)) return;
+        
+        this.activeSounds.add(type);
+        const circle = document.querySelector(`[data-sound="${type}"]`);
+        circle.classList.remove('inactive');
+        circle.classList.add('active');
+        
+        let source;
+        
+        switch(type) {
+          case 'rain':
+            source = this.createRain();
+            break;
+          case 'thunder':
+            source = this.createThunder();
+            break;
+          case 'wind':
+            source = this.createWind();
+            break;
+          case 'birds':
+            source = this.createBirds();
+            break;
+          case 'fire':
+            source = this.createFire();
+            break;
+          case 'waves':
+            source = this.createWaves();
+            break;
+        }
+        
+        if (source) {
+          this.sounds[type] = source;
+          this.updatePulse();
+        }
+      }
+      
+      stopSound(type) {
+        if (!this.activeSounds.has(type)) return;
+        
+        this.activeSounds.delete(type);
+        const circle = document.querySelector(`[data-sound="${type}"]`);
+        circle.classList.remove('active', 'pulsing');
+        circle.classList.add('inactive');
+        
+        if (this.sounds[type]) {
+          this.sounds[type].stop();
+          delete this.sounds[type];
+        }
+        
+        this.updatePulse();
+      }
+      
+      stopAll() {
+        this.activeSounds.forEach(type => this.stopSound(type));
+        this.updateStatus();
+        this.saveState();
+      }
+      
+      createRain() {
+        const bufferSize = 4096;
+        const noise = this.audioContext.createScriptProcessor(bufferSize, 0, 1);
+        const bandpass = this.audioContext.createBiquadFilter();
+        bandpass.type = 'bandpass';
+        bandpass.frequency.value = 800;
+        bandpass.Q.value = 0.5;
+        
+        noise.onaudioprocess = (e) => {
+          const output = e.outputBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = (Math.random() * 2 - 1) * this.volumes.rain;
+          }
+        };
+        
+        noise.connect(bandpass);
+        bandpass.connect(this.audioContext.destination);
+        return { stop: () => noise.disconnect() };
+      }
+      
+      createThunder() {
+        const oscillator = this.audioContext.createOscillator();
+        const gain = this.audioContext.createGain();
+        const envelope = this.audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 60;
+        
+        gain.gain.value = 0;
+        envelope.gain.value = this.volumes.thunder;
+        
+        oscillator.connect(gain);
+        gain.connect(envelope);
+        envelope.connect(this.audioContext.destination);
+        
+        oscillator.start();
+        
+        const burst = () => {
+          gain.gain.cancelScheduledValues(this.audioContext.currentTime);
+          gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+          gain.gain.linearRampToValueAtTime(0.3, this.audioContext.currentTime + 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 2);
+          
+          const nextDelay = 8000 + Math.random() * 12000;
+          setTimeout(burst, nextDelay);
+        };
+        
+        burst();
+        
+        return {
+          stop: () => {
+            oscillator.stop();
+            gain.disconnect();
+            envelope.disconnect();
+          }
+        };
+      }
+      
+      createWind() {
+        const bufferSize = 4096;
+        const noise = this.audioContext.createScriptProcessor(bufferSize, 0, 1);
+        const lfo = this.audioContext.createOscillator();
+        const lfoGain = this.audioContext.createGain();
+        const gain = this.audioContext.createGain();
+        
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.15;
+        lfoGain.gain.value = 0.3;
+        gain.gain.value = this.volumes.wind;
+        
+        // Brown noise (integrated white noise)
+        let lastValue = 0;
+        noise.onaudioprocess = (e) => {
+          const output = e.outputBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            lastValue = (lastValue + (Math.random() * 2 - 1) * 0.02);
+            lastValue *= 0.98;
+            output[i] = lastValue;
+          }
+        };
+        
+        lfo.connect(lfoGain);
+        lfoGain.connect(gain.gain);
+        noise.connect(gain);
+        gain.connect(this.audioContext.destination);
+        lfo.start();
+        
+        return {
+          stop: () => {
+            lfo.stop();
+            noise.disconnect();
+            gain.disconnect();
+          }
+        };
+      }
+      
+      createBirds() {
+        const chirp = () => {
+          const oscillator = this.audioContext.createOscillator();
+          const gain = this.audioContext.createGain();
+          
+          oscillator.type = 'sine';
+          oscillator.frequency.value = 2000 + Math.random() * 2000;
+          gain.gain.value = 0;
+          gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+          gain.gain.linearRampToValueAtTime(this.volumes.birds * 0.2, this.audioContext.currentTime + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
+          
+          oscillator.connect(gain);
+          gain.connect(this.audioContext.destination);
+          oscillator.start();
+          oscillator.stop(this.audioContext.currentTime + 0.1);
+          
+          const nextDelay = 1000 + Math.random() * 4000;
+          setTimeout(chirp, nextDelay);
+        };
+        
+        chirp();
+        
+        return {
+          stop: () => {
+            // Clear timeouts by storing them
+            if (this.birdTimeout) clearTimeout(this.birdTimeout);
+          }
+        };
+      }
+      
+      createFire() {
+        const bufferSize = 4096;
+        const noise = this.audioContext.createScriptProcessor(bufferSize, 0, 1);
+        const gain = this.audioContext.createGain();
+        
+        // Pink noise approximation
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        
+        noise.onaudioprocess = (e) => {
+          const output = e.outputBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            b3 = 0.86650 * b3 + white * 0.3104856;
+            b4 = 0.55000 * b4 + white * 0.5329522;
+            b5 = -0.7616 * b5 - white * 0.0168980;
+            const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+            b6 = white * 0.115926;
+            
+            // Random crackle modulation
+            const crackle = 1 + (Math.random() - 0.5) * 0.3;
+            output[i] = pink * crackle * this.volumes.fire * 0.1;
+          }
+        };
+        
+        gain.gain.value = 1;
+        noise.connect(gain);
+        gain.connect(this.audioContext.destination);
+        
+        return {
+          stop: () => noise.disconnect()
+        };
+      }
+      
+      createWaves() {
+        const bufferSize = 4096;
+        const noise = this.audioContext.createScriptProcessor(bufferSize, 0, 1);
+        const lfo = this.audioContext.createOscillator();
+        const lfoGain = this.audioContext.createGain();
+        const gain = this.audioContext.createGain();
+        
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.08;
+        lfoGain.gain.value = 0.4;
+        gain.gain.value = this.volumes.waves;
+        
+        // Brown noise
+        let lastValue = 0;
+        noise.onaudioprocess = (e) => {
+          const output = e.outputBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            lastValue = (lastValue + (Math.random() * 2 - 1) * 0.02);
+            lastValue *= 0.98;
+            output[i] = lastValue;
+          }
+        };
+        
+        lfo.connect(lfoGain);
+        lfoGain.connect(gain.gain);
+        noise.connect(gain);
+        gain.connect(this.audioContext.destination);
+        lfo.start();
+        
+        return {
+          stop: () => {
+            lfo.stop();
+            noise.disconnect();
+            gain.disconnect();
+          }
+        };
+      }
+      
+      setVolume(type, volume) {
+        this.volumes[type] = volume;
+        this.updateVolumeDisplay(type);
+        
+        // Update active sound gain if playing
+        if (this.sounds[type] && this.sounds[type].updateVolume) {
+          this.sounds[type].updateVolume(volume);
+        }
+      }
+      
+      updateVolumeDisplay(type) {
+        const circle = document.querySelector(`[data-sound="${type}"]`);
+        const indicator = circle.querySelector('.volume-indicator');
+        indicator.textContent = Math.round(this.volumes[type] * 100) + '%';
+      }
+      
+      updatePulse() {
+        // Simple pulse based on active sounds
+        document.querySelectorAll('.sound-circle').forEach(circle => {
+          if (circle.classList.contains('active')) {
+            circle.classList.add('pulsing');
+          } else {
+            circle.classList.remove('pulsing');
+          }
+        });
+      }
+      
+      updateStatus() {
+        const statusEl = document.getElementById('status');
+        const active = Array.from(this.activeSounds);
+        
+        if (active.length === 0) {
+          statusEl.textContent = 'Tap a circle to start growing your garden.';
+          statusEl.classList.remove('active');
+        } else {
+          const names = active.map(s => s.charAt(0).toUpperCase() + s.slice(1));
+          let text = names[0];
+          if (names.length === 2) {
+            text = `${names[0]} and ${names[1]}`;
+          } else if (names.length > 2) {
+            text = `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`;
+          }
+          statusEl.textContent = `${text} ${active.length === 1 ? 'is' : 'are'} growing.`;
+          statusEl.classList.add('active');
+        }
+      }
+      
+      setTimer(minutes) {
+        if (this.timerId) {
+          clearTimeout(this.timerId);
+          this.timerId = null;
+        }
+        
+        if (minutes > 0) {
+          this.timerId = setTimeout(() => {
+            this.stopAll();
+            alert('Your garden session has ended.');
+          }, minutes * 60 * 1000);
+        }
+      }
+      
+      saveState() {
+        const state = {
+          volumes: this.volumes,
+          active: Array.from(this.activeSounds)
+        };
+        localStorage.setItem('soundGarden', JSON.stringify(state));
+      }
+      
+      loadState() {
+        const saved = localStorage.getItem('soundGarden');
+        if (saved) {
+          try {
+            const state = JSON.parse(saved);
+            this.volumes = state.volumes || {};
+            // Don't auto-start sounds, user must tap
+          } catch (e) {
+            // Invalid state
+          }
+        }
+        
+        // Initialize defaults
+        ['rain', 'thunder', 'wind', 'birds', 'fire', 'waves'].forEach(type => {
+          if (!this.volumes[type]) {
+            this.volumes[type] = 1.0;
+          }
+        });
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      new SoundGarden();
+    });
+  </script>
+</body>
+</html>

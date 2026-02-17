@@ -1,0 +1,84 @@
+# AUTOMATED PDF CONVERSION INSTRUCTIONS
+
+## QUICK START
+
+### 1. RUN THE CONVERSION SCRIPT
+Double-click the file: `convert_to_pdfs.bat`
+
+This will automatically:
+- Convert all 18 documents to court-ready PDFs
+- Apply proper formatting (Georgia font, 1.5 spacing, 1" margins)
+- Save all PDFs to the `PDF_Output` folder
+- Display completion status
+
+### 2. WHAT THE SCRIPT DOES
+- **Checks for Pandoc** - Ensures Pandoc is installed
+- **Creates PDF_Output folder** - Organizes all converted files
+- **Converts all documents** - Uses court-appropriate formatting
+- **Names files correctly** - Numbered for easy reference
+- **Displays summary** - Shows all created files
+
+### 3. IF PANDOC IS NOT INSTALLED
+If you get an error about Pandoc not being found:
+
+1. **Download Pandoc:** https://pandoc.org/installing.html
+2. **Install Pandoc** (follow installation instructions)
+3. **Re-run the script** by double-clicking `convert_to_pdfs.bat`
+
+### 4. AFTER CONVERSION
+The script will create these files in `PDF_Output/`:
+
+**Motions (5 files):**
+- 01_Motion_to_Vacate_Void_Judgment.pdf
+- 02_Motion_to_Seal_and_Redact.pdf
+- 03_Motion_for_TSP_Loss_Allocation.pdf
+- 04_Motion_for_Medical_Device_Protection.pdf
+- 05_Motion_for_Forensic_Accounting.pdf
+
+**Supporting Documents (2 files):**
+- 06_Verification_Page.pdf
+- 07_Exhibit_Index.pdf
+
+**Exhibits (10 files):**
+- 08_Exhibit_A_Welch_Refund.pdf
+- 09_Exhibit_B_Hypoparathyroidism.pdf
+- 10_Exhibit_C_ASD_Diagnosis.pdf
+- 11_Exhibit_D_ADHD_Diagnosis.pdf
+- 12_Exhibit_E_Camden_Behavioral_Wellness.pdf
+- 13_Exhibit_F_Termination_Email.pdf
+- 14_Exhibit_G_Void_Consent_Order.pdf
+- 15_Exhibit_H_ADA_Accommodation.pdf
+- 16_Exhibit_I_Technical_Manual.pdf
+- 17_Exhibit_J_Tetrahedron_Protocol.pdf
+
+**Instructions (1 file):**
+- 18_Complete_Filing_Instructions.pdf
+
+### 5. NEXT STEPS
+1. **Review PDFs** - Check all documents for accuracy
+2. **Print 3 copies** - Make 3 copies of each PDF for court filing
+3. **File with court** - Submit to Camden County Superior Court
+4. **Serve opposing counsel** - Send copies to Jennifer L. McGhan
+
+### 6. TROUBLESHOOTING
+
+**If the script doesn't run:**
+- Right-click `convert_to_pdfs.bat` and select "Run as administrator"
+- Ensure you have write permissions to the folder
+
+**If PDFs don't generate:**
+- Check that Pandoc is properly installed
+- Verify all .md files exist in the same folder
+- Look for error messages in the command window
+
+**If formatting looks wrong:**
+- The script uses standard court formatting (Georgia 12pt, 1.5 spacing)
+- All PDFs are optimized for court filing requirements
+
+### 7. CONTACT
+If you encounter issues:
+- Check that Pandoc is installed and in your system PATH
+- Ensure all .md files are present in the Legal_Filing_Package folder
+- Verify you have write permissions to create the PDF_Output folder
+
+**Ready to run?** Double-click `convert_to_pdfs.bat` to start the automated conversion!

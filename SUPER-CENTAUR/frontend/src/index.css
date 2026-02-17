@@ -1,0 +1,511 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  :root {
+    /* Quantum Theme (Default) - Dark Mode / Glassmorphism */
+    --bg-page: #0f172a;
+    --bg-card: #1e293b;
+    --bg-sidebar: #0f172a;
+    --bg-input: #334155;
+    --bg-surface: rgba(255, 255, 255, 0.05);
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+
+    --primary: #3b82f6;
+    --secondary: #8b5cf6;
+    --accent: #ec4899;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    --border: #334155;
+    --border-subtle: rgba(255, 255, 255, 0.1);
+
+    /* Shapes */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* Effects */
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --transform-hover: translateY(-2px);
+
+    /* Focus ring */
+    --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
+
+  [data-theme='clarity'] {
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f1f5f9;
+    --bg-input: #ffffff;
+    --bg-surface: rgba(0, 0, 0, 0.03);
+
+    --text-main: #0f172a;
+    --text-muted: #475569;
+
+    --primary: #2563eb;
+    --secondary: #4f46e5;
+    --accent: #db2777;
+
+    --border: #cbd5e0;
+    --border-subtle: rgba(0, 0, 0, 0.08);
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --transform-hover: translateY(-1px);
+    --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.5);
+  }
+
+  [data-theme='wonky'] {
+    --bg-page: #F3E8FF;
+    --bg-card: #ffffff;
+    --bg-sidebar: #E9D5FF;
+    --bg-input: #ffffff;
+    --bg-surface: rgba(124, 58, 237, 0.05);
+
+    --text-main: #1a1a1a;
+    --text-muted: #4b5563;
+
+    --primary: #7c3aed;
+    --secondary: #a3e635;
+    --accent: #f472b6;
+
+    --border: #000000;
+    --border-subtle: rgba(0, 0, 0, 0.15);
+
+    --radius-sm: 0.75rem;
+    --radius-md: 1.5rem;
+    --radius-lg: 2rem;
+    --radius-xl: 3rem;
+
+    --shadow-card: 6px 6px 0px 0px #000000;
+    --transform-hover: translate(-4px, -4px) rotate(1deg);
+    --focus-ring: 0 0 0 3px rgba(124, 58, 237, 0.5);
+  }
+
+  html {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Constrain all SVG icons by default */
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* ============================================
+   SKIP NAVIGATION (Accessibility)
+   ============================================ */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  z-index: 9999;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) 0;
+  transition: top 0.2s ease;
+}
+.skip-nav:focus {
+  top: 0;
+}
+
+/* ============================================
+   SCREEN READER ONLY
+   ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   EXPLICIT UTILITY CLASSES
+   ============================================ */
+.bg-page { background-color: var(--bg-page); }
+.bg-card { background-color: var(--bg-card); }
+.bg-sidebar { background-color: var(--bg-sidebar); }
+.bg-surface { background-color: var(--bg-surface); }
+.text-main { color: var(--text-main); }
+.text-muted { color: var(--text-muted); }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-accent { color: var(--accent); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-error { color: var(--error); }
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-accent { background-color: var(--accent); }
+.border-border { border-color: var(--border); }
+.border-subtle { border-color: var(--border-subtle); }
+
+/* ============================================
+   COMPONENT CLASSES: Cards
+   ============================================ */
+.ui-card,
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.5rem;
+}
+
+.ui-card:hover,
+.card:hover {
+  transform: var(--transform-hover);
+}
+
+[data-theme='wonky'] .card {
+  border: 2px solid #000000;
+}
+
+/* ============================================
+   COMPONENT CLASSES: Buttons
+   ============================================ */
+.ui-button,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ui-button:hover,
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.ui-button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-accent:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ui-button:disabled,
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+[data-theme='wonky'] .ui-button,
+[data-theme='wonky'] .btn-primary,
+[data-theme='wonky'] .btn-secondary,
+[data-theme='wonky'] .btn-accent {
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+[data-theme='wonky'] .ui-button:active,
+[data-theme='wonky'] .btn-primary:active,
+[data-theme='wonky'] .btn-secondary:active,
+[data-theme='wonky'] .btn-accent:active {
+  box-shadow: 0px 0px 0px 0px #000000;
+  transform: translate(4px, 4px);
+}
+
+/* ============================================
+   COMPONENT CLASSES: Inputs
+   ============================================ */
+.ui-input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.ui-input:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-color: var(--primary);
+}
+
+.ui-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme='wonky'] .ui-input {
+  border: 2px solid #000000;
+}
+
+/* ============================================
+   TEXT EFFECTS
+   ============================================ */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   STATUS BADGES
+   ============================================ */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-active {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-error {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-pending {
+  background-color: var(--bg-surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ============================================
+   PROGRESS BAR (Semantic)
+   ============================================ */
+.progress-bar {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--bg-surface);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  color: var(--text-main);
+  font-size: 0.875rem;
+  min-width: 280px;
+  max-width: 420px;
+  animation: toast-in 0.3s ease forwards;
+}
+
+/* Force toast SVG icons to a sane size */
+.toast svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.toast-exit {
+  animation: toast-out 0.3s ease forwards;
+}
+
+.toast-success { border-left: 4px solid var(--success); }
+.toast-error { border-left: 4px solid var(--error); }
+.toast-warning { border-left: 4px solid var(--warning); }
+.toast-info { border-left: 4px solid var(--primary); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   RESPONSIVE SIDEBAR
+   ============================================ */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* ============================================
+   TERMINAL VIEW (Observer Dashboard)
+   ============================================ */
+.terminal-container {
+  background-color: #000000;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.15);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.terminal-scanlines {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+}

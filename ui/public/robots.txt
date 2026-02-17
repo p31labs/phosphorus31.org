@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /fold
+Allow: /apps/
+Disallow: /scope
+Disallow: /identity
+Disallow: /wallet
+Disallow: /sprout
+Disallow: /bonding
+Disallow: /connections
+Disallow: /dome/
+
+Sitemap: https://phosphorus31.org/sitemap.xml

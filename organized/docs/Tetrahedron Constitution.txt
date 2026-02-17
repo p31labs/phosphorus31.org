@@ -1,0 +1,12 @@
+﻿The Tetrahedron Constitution
+Version: 1.0 // Hash:    Isostatic
+Article I: Authority
+Authority in this mesh does not reside in a person, server, or cloud. Authority resides exclusively in the Geometry.
+Article II: The Invariant
+The connection is defined by Parameter   .
+* If   , the bond is self-healing (Autopoietic).
+* If   , the bond is entropic and must be re-negotiated through physical presence.
+Article III: Sovereignty
+No node shall share a reference frame with a centralized power. All time-synchronization and polarization framing shall be relative and background-independent.
+Article IV: Privacy
+Privacy is enforced by physics, not policy. The Cognitive Shield shall strip emotional entropy to preserve the operator's autonomic nervous system.

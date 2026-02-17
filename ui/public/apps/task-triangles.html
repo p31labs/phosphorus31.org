@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Triangles — P31 Labs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #f59e0b;
+    }
+
+    .subtitle {
+      color: #7878AA;
+      font-size: 1rem;
+    }
+
+    .input-section {
+      margin-bottom: 3rem;
+    }
+
+    .main-input {
+      width: 100%;
+      padding: 1.5rem;
+      font-size: 1.25rem;
+      background: rgba(120, 120, 170, 0.1);
+      border: 2px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      color: #E0E0EE;
+      text-align: center;
+      font-family: system-ui;
+    }
+
+    .main-input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .main-input::placeholder {
+      color: #7878AA;
+    }
+
+    .triangle-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      height: 450px;
+      margin: 2rem auto;
+      display: none;
+    }
+
+    .triangle-container.active {
+      display: block;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .vertex {
+      position: absolute;
+      width: 200px;
+    }
+
+    .vertex.top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .vertex.bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+
+    .vertex.bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+
+    .vertex-label {
+      font-size: 0.875rem;
+      color: #7878AA;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .vertex-input {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(120, 120, 170, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 6px;
+      color: #E0E0EE;
+      font-family: system-ui;
+      font-size: 0.9rem;
+    }
+
+    .vertex-input:focus {
+      outline: none;
+      border-color: #f59e0b;
+    }
+
+    .vertex-checkbox {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .vertex-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #f59e0b;
+    }
+
+    .vertex-checkbox label {
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: #7878AA;
+    }
+
+    .success-message {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #f59e0b;
+      margin-top: 2rem;
+      display: none;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .history-section {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(120, 120, 170, 0.2);
+    }
+
+    .history-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #f59e0b;
+    }
+
+    .history-list {
+      list-style: none;
+    }
+
+    .history-item {
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: rgba(120, 120, 170, 0.05);
+      border-radius: 6px;
+      border-left: 3px solid #f59e0b;
+    }
+
+    .history-task {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .history-steps {
+      font-size: 0.875rem;
+      color: #7878AA;
+      margin-left: 1rem;
+    }
+
+    .history-steps li {
+      margin-bottom: 0.25rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #7878AA;
+      font-style: italic;
+      margin-top: 3rem;
+      display: none;
+    }
+
+    .empty-state.active {
+      display: block;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 3rem;
+      text-align: center;
+      color: #7878AA;
+      font-size: 0.875rem;
+    }
+
+    .glow {
+      filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.6));
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔺 Task Triangles</h1>
+    <p class="subtitle">Break impossible tasks into three steps. The minimum stable structure.</p>
+  </header>
+
+  <div class="input-section">
+    <input 
+      type="text" 
+      class="main-input" 
+      id="mainInput"
+      placeholder="What feels impossible right now?"
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="triangle-container" id="triangleContainer">
+    <svg id="triangleSVG" viewBox="0 0 500 450">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <polygon id="triangleFill" points="250,50 100,400 400,400" fill="none" stroke="none" opacity="0.3"/>
+      <line id="line1" x1="250" y1="50" x2="100" y2="400" stroke="#f59e0b" stroke-width="2" opacity="0" stroke-dasharray="5,5"/>
+      <line id="line2" x1="100" y1="400" x2="400" y2="400" stroke="#f59e0b" stroke-width="2" opacity="0" stroke-dasharray="5,5"/>
+      <line id="line3" x1="400" y1="400" x2="250" y2="50" stroke="#f59e0b" stroke-width="2" opacity="0" stroke-dasharray="5,5"/>
+    </svg>
+
+    <div class="vertex top">
+      <div class="vertex-label">First tiny step</div>
+      <input type="text" class="vertex-input" id="step1" placeholder="Step 1">
+      <div class="vertex-checkbox">
+        <input type="checkbox" id="check1">
+        <label for="check1">Done</label>
+      </div>
+    </div>
+
+    <div class="vertex bottom-left">
+      <div class="vertex-label">Second tiny step</div>
+      <input type="text" class="vertex-input" id="step2" placeholder="Step 2">
+      <div class="vertex-checkbox">
+        <input type="checkbox" id="check2">
+        <label for="check2">Done</label>
+      </div>
+    </div>
+
+    <div class="vertex bottom-right">
+      <div class="vertex-label">Third tiny step</div>
+      <input type="text" class="vertex-input" id="step3" placeholder="Step 3">
+      <div class="vertex-checkbox">
+        <input type="checkbox" id="check3">
+        <label for="check3">Done</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-message" id="successMessage">
+    You did the thing. 🔺
+  </div>
+
+  <div class="history-section" id="historySection">
+    <h2 class="history-title">Completed Triangles</h2>
+    <ul class="history-list" id="historyList"></ul>
+  </div>
+
+  <div class="empty-state active" id="emptyState">
+    Every sequoia was once a seed.
+  </div>
+
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+
+  <script>
+    const mainInput = document.getElementById('mainInput');
+    const triangleContainer = document.getElementById('triangleContainer');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const check1 = document.getElementById('check1');
+    const check2 = document.getElementById('check2');
+    const check3 = document.getElementById('check3');
+    const successMessage = document.getElementById('successMessage');
+    const historyList = document.getElementById('historyList');
+    const historySection = document.getElementById('historySection');
+    const emptyState = document.getElementById('emptyState');
+    const triangleFill = document.getElementById('triangleFill');
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    const line3 = document.getElementById('line3');
+
+    let currentTask = null;
+
+    function loadHistory() {
+      const history = JSON.parse(localStorage.getItem('taskTriangles') || '[]');
+      if (history.length === 0) {
+        historySection.style.display = 'none';
+        emptyState.classList.add('active');
+      } else {
+        historySection.style.display = 'block';
+        emptyState.classList.remove('active');
+        historyList.innerHTML = '';
+        history.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'history-item';
+          li.innerHTML = `
+            <div class="history-task">${escapeHtml(item.task)}</div>
+            <ol class="history-steps">
+              <li>${escapeHtml(item.steps[0])}</li>
+              <li>${escapeHtml(item.steps[1])}</li>
+              <li>${escapeHtml(item.steps[2])}</li>
+            </ol>
+          `;
+          historyList.appendChild(li);
+        });
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function updateTriangle() {
+      const checked1 = check1.checked;
+      const checked2 = check2.checked;
+      const checked3 = check3.checked;
+
+      line1.style.opacity = (checked1 && checked2) ? '1' : '0';
+      line2.style.opacity = (checked2 && checked3) ? '1' : '0';
+      line3.style.opacity = (checked3 && checked1) ? '1' : '0';
+
+      if (checked1 && checked2 && checked3) {
+        triangleFill.setAttribute('fill', '#f59e0b');
+        triangleFill.setAttribute('filter', 'url(#glow)');
+        triangleFill.style.opacity = '0.3';
+        successMessage.classList.add('active');
+        
+        setTimeout(() => {
+          saveToHistory();
+          resetTriangle();
+        }, 2000);
+      } else {
+        triangleFill.setAttribute('fill', 'none');
+        triangleFill.setAttribute('filter', 'none');
+        successMessage.classList.remove('active');
+      }
+    }
+
+    function saveToHistory() {
+      const history = JSON.parse(localStorage.getItem('taskTriangles') || '[]');
+      history.unshift({
+        task: currentTask,
+        steps: [step1.value, step2.value, step3.value],
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('taskTriangles', JSON.stringify(history));
+      loadHistory();
+    }
+
+    function resetTriangle() {
+      mainInput.value = '';
+      step1.value = '';
+      step2.value = '';
+      step3.value = '';
+      check1.checked = false;
+      check2.checked = false;
+      check3.checked = false;
+      triangleContainer.classList.remove('active');
+      currentTask = null;
+      updateTriangle();
+    }
+
+    mainInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && mainInput.value.trim()) {
+        currentTask = mainInput.value.trim();
+        triangleContainer.classList.add('active');
+        step1.focus();
+      }
+    });
+
+    check1.addEventListener('change', updateTriangle);
+    check2.addEventListener('change', updateTriangle);
+    check3.addEventListener('change', updateTriangle);
+
+    loadHistory();
+  </script>
+</body>
+</html>

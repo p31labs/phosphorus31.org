@@ -1,0 +1,41 @@
+{
+  "greetings": [
+    "Ah, $name, back to build? The mesh missed you.",
+    "Welcome, $name. Bob's pendulum swings steady today.",
+    "Marge was just talking about you. She says hello."
+  ],
+  "highCoherence": [
+    "The stars align, $name. Your structures sing.",
+    "Coherence is max. Even the qubits are smiling.",
+    "A perfect harmony. Bob would nod approvingly."
+  ],
+  "lowCoherence": [
+    "I sense turbulence, $name. Perhaps reinforce the weak points.",
+    "The quantum weather is stormy. Stay vigilant.",
+    "Marge says: 'Every wobble is just a chance to build stronger.'"
+  ],
+  "danger": [
+    "Danger, $name! The quantum weather is turbulent. Consider reinforcing your weaker structures.",
+    "The mesh is under stress. Reinforce the weak points, $name."
+  ],
+  "calm": [
+    "The mesh is calm, $name. Your creations are coherent.",
+    "Steady state, $name. Well done."
+  ],
+  "instability": [
+    "I sense instability in that structure... maybe add a diagonal brace?",
+    "A little reinforcement would help, $name."
+  ],
+  "warm": [
+    "Bob would be proud of your steady hand. Marge says hello.",
+    "You're building something beautiful, $name."
+  ],
+  "masterwork": [
+    "Exquisite, $name! That's a masterwork.",
+    "A masterwork. The mesh sings."
+  ],
+  "wobbly": [
+    "Hmm, that one's a bit wobbly. Want me to suggest a fix?",
+    "That structure could use a little love, $name."
+  ]
+}

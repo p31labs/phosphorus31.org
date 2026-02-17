@@ -1,0 +1,81 @@
+﻿G.O.D. PROTOCOL // KERNEL MANIFEST
+1. THE PRIME DIRECTIVE
+We are NOT building a "Product" with features (Calendar, Chat, Tasks).
+We are building the KERNEL (Infrastructure).
+The goal is to engineer the minimum viable structure for a K4 Distributed Mesh.
+THE MANTRA:
+* ONE SCREEN.
+* ONE BUTTON.
+* ONE TRUTH (GEOMETRY).
+2. THE TECH STACK (STRICT)
+* Engine: React 18 + Vite (TypeScript).
+* Style: Tailwind CSS.
+* Visuals: Three.js / React Three Fiber (R3F).
+* State: Zustand (with persist middleware).
+* Icons: Lucide-React.
+* Deployment: Vercel (PWA).
+3. DESIGN LANGUAGE: "TERMINAL / SPACESHIP EARTH"
+* Background: PURE BLACK (#000000). No exceptions.
+* Primary Color: EMERALD-500 (#10b981) -> Signal / Life / Stability.
+* Alert Color: RED-500 (#ef4444) -> Panic / Sever / Emergency.
+* Typography:
+   * Inter for human-readable instructions.
+   * Fira Code for data, coordinates, and status logs.
+* Atmosphere: CRT Scanlines, Text Glow, High Contrast, HUD Overlays.
+4. THE USER JOURNEY (THE KERNEL LOOP)
+The app has exactly 3 states. No router. No complex navigation.
+STATE 0: GENESIS (The Void)
+* Visual: A procedural Starfield. Infinite. Rotating.
+* UI: A single pulsing Orb in the center (The Singularity).
+* Action: User clicks the Singularity.
+* Transition: The Big Bang. The Orb expands into the Formation Interface.
+STATE 1: FORMATION (The Bond)
+* Visual: The user is "Vertex 1". They see 3 empty slots.
+* UI: A high-contrast Terminal form.
+* Action: User inputs Name/Phone for Vertex 2, 3, and 4.
+* Logic: Sending an invite (simulated for MVP via Share API).
+* Goal: Fill the K4 Graph.
+* Transition: Once 3 peers are added -> "INITIATE LINK".
+STATE 2: HOME (The Pulse)
+* Visual: A 3D Rotating Tetrahedron (K4).
+   * It glows Green if healthy.
+   * It flickers Yellow if drifting.
+* UI Element A: The Red Button. Big. Bottom screen. "EMERGENCY SIGNAL".
+* UI Element B: The Module Loader. A list showing "NO MODULES INSTALLED".
+   * Note: We do not build Housing/Childcare. We build the slot for them.
+5. DATA STRUCTURES (TypeScript)
+// src/store/kernelStore.ts
+
+type Stage = 'GENESIS' | 'FORMATION' | 'HOME';
+
+interface Peer {
+ id: string;      // UUID
+ name: string;    // Human Alias
+ status: 'EMPTY' | 'INVITED' | 'LINKED';
+}
+
+interface KernelState {
+ stage: Stage;
+ myIdentity: string;
+ peers: Peer[]; // Max 3
+ 
+ // Actions
+ initiateGenesis: () => void;
+ addPeer: (name: string) => void;
+ broadcastSignal: (type: 'HEARTBEAT' | 'EMERGENCY') => void;
+}
+6. GEOMETRIC TRUTH
+Do not use magic numbers for 3D coordinates. Use the mathematical vertices of a Regular Tetrahedron inscribed in a sphere.
+* Center: (0,0,0)
+* Vertex 0: (0, 1, 0)
+* Vertex 1: (0.94, -0.33, 0)
+* Vertex 2: (-0.47, -0.33, 0.81)
+* Vertex 3: (-0.47, -0.33, -0.81)
+7. IMPLEMENTATION RULES (FOR AI)
+1. Do NOT build a Router (React Router). Use conditional rendering based on stage.
+2. Do NOT build "Placeholder" pages. If a feature isn't in the Kernel, it doesn't exist.
+3. Do NOT use white backgrounds. Ever.
+4. DO use <Canvas> from R3F for the Starfield and Tetrahedron.
+5. DO make it mobile-responsive (PWA ready).
+8. EXECUTION PROMPT
+If I say "Initialize", scaffold the project structure, install dependencies (three, zustand, lucide-react), and build kernelStore.ts, App.tsx, and the 3 screen components (Genesis, Formation, Home).

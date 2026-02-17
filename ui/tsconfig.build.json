@@ -1,0 +1,48 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": [
+    "src/main.tsx",
+    "src/routes/**/*",
+    "src/views/**/*",
+    "src/components/QuantumHelloWorld/**/*",
+    "src/components/SonicMolecule.tsx",
+    "src/components/Waveform.tsx",
+    "src/components/MeshLayout.tsx",
+    "src/components/PosnerHome.tsx",
+    "src/components/PosnerNav.tsx",
+    "src/components/Starfield.tsx",
+    "src/components/ErrorBoundary/**/*",
+    "src/components/FrictionLog.tsx",
+    "src/components/SafeHarbor.tsx",
+    "src/components/InverseDashboard.tsx",
+    "src/components/OverloadGuard.tsx",
+    "src/lib/p31-storage.ts",
+    "src/lib/game-client.ts",
+    "src/lib/resonance-engine.ts",
+    "src/lib/ambient-engine.ts",
+    "src/lib/ai-provider.ts",
+    "src/lib/exhibit-a.ts",
+    "src/lib/haptics.ts",
+    "src/lib/chemistry.ts",
+    "src/types/bonding.ts",
+    "src/core/**/*",
+    "src/services/meshAdapter.ts",
+    "src/config/p31-icons.ts",
+    "src/data/**/*",
+    "src/vite-env.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.*",
+    "src/**/*.stories.*",
+    "src/**/__tests__/**",
+    "src/views/StudioView.tsx",
+    "src/components/StudioCanvas.tsx",
+    "src/App.tsx",
+    "src/App_old.tsx"
+  ]
+}

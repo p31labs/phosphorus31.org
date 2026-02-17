@@ -1,0 +1,12 @@
+[
+  {
+    "amount": 500,
+    "description": "Test income",
+    "type": "income",
+    "date": "2026-02-07T20:40:34.847Z",
+    "status": "completed",
+    "id": "tra_1770496834847_76p3w6",
+    "createdAt": "2026-02-07T20:40:34.847Z",
+    "updatedAt": "2026-02-07T20:40:34.847Z"
+  }
+]

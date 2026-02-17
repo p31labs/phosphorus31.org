@@ -1,0 +1,663 @@
+/**
+ * Math Area Styles
+ * Beautiful, accessible styles for the math area
+ */
+
+.math-area {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+.math-area-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.math-area-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.math-area-subtitle {
+  font-size: 1.1rem;
+  margin: 10px 0 0 0;
+  opacity: 0.9;
+}
+
+/* Mode Selector */
+.mode-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.mode-button {
+  padding: 12px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.mode-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mode-button.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+/* Calculator */
+.calculator-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-display {
+  background: #1a1a1a;
+  color: white;
+  font-size: 2.5rem;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: right;
+  margin-bottom: 15px;
+  font-family: 'Courier New', monospace;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow-x: auto;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-button {
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.calc-button.number {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.calc-button.number:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.calc-button.operator {
+  background: #667eea;
+  color: white;
+}
+
+.calc-button.operator:hover {
+  background: #5568d3;
+  transform: scale(1.05);
+}
+
+.calc-button.function {
+  background: #95a5a6;
+  color: white;
+}
+
+.calc-button.function:hover {
+  background: #7f8c8d;
+  transform: scale(1.05);
+}
+
+.calc-button.equals {
+  background: #4ecdc4;
+  color: white;
+}
+
+.calc-button.equals:hover {
+  background: #45b7aa;
+  transform: scale(1.05);
+}
+
+.calc-button.zero {
+  grid-column: span 2;
+}
+
+/* Number Line */
+.number-line-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 0 auto;
+  max-width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.number-line-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.number-line-controls button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #667eea;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.number-line-controls button:hover {
+  background: #5568d3;
+  transform: scale(1.1);
+}
+
+.number-input {
+  padding: 15px;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100px;
+}
+
+.number-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 20px 0;
+  overflow-x: auto;
+}
+
+.number-line-tick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+  position: relative;
+}
+
+.tick-mark {
+  width: 2px;
+  height: 20px;
+  background: #333;
+  margin-bottom: 5px;
+}
+
+.number-line-tick.active .tick-mark {
+  background: #667eea;
+  height: 40px;
+  width: 4px;
+}
+
+.number-line-tick.zero .tick-mark {
+  background: #ff6b6b;
+  height: 30px;
+  width: 3px;
+}
+
+.tick-label {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.number-line-tick.active .tick-label {
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+/* Shapes */
+.shapes-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 0 auto;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.shape-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.shape-button {
+  padding: 15px 25px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shape-button:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.shape-button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.shape-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  background: #f5f5f5;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.shape-canvas {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: white;
+}
+
+/* Counting */
+.counting-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  margin: 0 auto;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.counting-display {
+  margin-bottom: 40px;
+}
+
+.count-number {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.count-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.count-item {
+  font-size: 2rem;
+  animation: pop 0.3s ease-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.counting-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.count-button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  background: #667eea;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.count-button:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+}
+
+.count-button.reset {
+  background: #95a5a6;
+}
+
+.count-button.reset:hover {
+  background: #7f8c8d;
+}
+
+/* Problems */
+.problems-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  margin: 0 auto;
+  max-width: 700px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.score-display {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 15px;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.score-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.problem-display {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.problem-question {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.answer-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.answer-button {
+  padding: 20px;
+  border: 3px solid #667eea;
+  border-radius: 15px;
+  background: white;
+  color: #667eea;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.answer-button:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: scale(1.05);
+}
+
+.answer-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.answer-input {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.answer-text-input {
+  padding: 20px;
+  border: 3px solid #667eea;
+  border-radius: 15px;
+  font-size: 2rem;
+  text-align: center;
+  width: 200px;
+}
+
+.submit-button {
+  padding: 15px 40px;
+  border: none;
+  border-radius: 15px;
+  background: #4ecdc4;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #45b7aa;
+  transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback {
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+  animation: slideIn 0.3s ease-out;
+}
+
+.feedback.correct {
+  background: #4ecdc4;
+  color: white;
+}
+
+.feedback.incorrect {
+  background: #ff6b6b;
+  color: white;
+}
+
+.problem-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.problem-type-button {
+  padding: 12px 20px;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  background: white;
+  color: #667eea;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.problem-type-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Games */
+.games-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.game-card h3 {
+  font-size: 1.8rem;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.game-card p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.math-area-footer {
+  text-align: center;
+  color: white;
+  margin-top: 40px;
+  padding: 20px;
+  opacity: 0.9;
+}
+
+.math-area-footer p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .math-area {
+    padding: 10px;
+  }
+
+  .math-area-header h1 {
+    font-size: 2rem;
+  }
+
+  .mode-selector {
+    flex-direction: column;
+  }
+
+  .mode-button {
+    width: 100%;
+  }
+
+  .calculator-container {
+    max-width: 100%;
+  }
+
+  .answer-options {
+    grid-template-columns: 1fr;
+  }
+
+  .games-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mode-button,
+  .calc-button,
+  .answer-button,
+  .game-card {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .math-area {
+    background: #000;
+  }
+
+  .calculator-container,
+  .number-line-container,
+  .shapes-container,
+  .counting-container,
+  .problems-container {
+    background: #fff;
+    border: 2px solid #000;
+  }
+}

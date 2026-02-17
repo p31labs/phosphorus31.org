@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sovereignty | Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-deep: #0a0a0f;
+            --bg-card: #14141f;
+            --neon-cyan: #00f5ff;
+            --neon-green: #00ff41;
+            --neon-purple: #b400ff;
+            --neon-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-subtle: #2a2a3a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-deep) 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .welcome p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .portal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .portal-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .portal-card .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .portal-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portal-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Quick Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+        }
+
+        .stat-box .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Command Line */
+        .terminal {
+            background: #0d0d15;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
+
+        .terminal-content {
+            color: var(--neon-green);
+        }
+
+        .terminal-content .prompt {
+            color: var(--neon-cyan);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .welcome h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">▲ SIMPLE SOVEREIGNTY</div>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>SYSTEM ACTIVE</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="welcome">
+            <h1>Welcome Home, Operator</h1>
+            <p>The Floating Neutral is grounded. You are now in the Sovereign Stack.</p>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-row">
+            <div class="stat-box">
+                <div class="value" id="sovereignty-level">30%</div>
+                <div class="label">Sovereignty Level</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="metabolic-status">STABLE</div>
+                <div class="label">Metabolic Status</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="legal-shield">ACTIVE</div>
+                <div class="label">Legal Shield</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">4</div>
+                <div class="label">Tetrahedron Vertices</div>
+            </div>
+        </section>
+
+        <!-- Portal Grid -->
+        <section class="portal-grid">
+            <a href="mission-control.html" class="portal-card">
+                <div class="icon">🚀</div>
+                <h3>Mission Control</h3>
+                <p>Founder node access. Token economy and gamified operations.</p>
+            </a>
+
+            <a href="#" class="portal-card" onclick="navigateTo('family')">
+                <div class="icon">🏠</div>
+                <h3>Family Tetrahedron</h3>
+                <p>Trustee protocols, health tracking, and caregiver coordination.</p>
+            </a>
+
+            <a href="#" class="portal-card" onclick="navigateTo('medical')">
+                <div class="icon">🩺</div>
+                <h3>Medical Evidence</h3>
+                <p>Clinical validation, ADA accommodations, and device specs.</p>
+            </a>
+
+            <a href="#" class="portal-card" onclick="navigateTo('command')">
+                <div class="icon">🎛️</div>
+                <h3>Geodesic Command</h3>
+                <p>System status, navigation, and operational dashboards.</p>
+            </a>
+
+            <a href="quantum-life-os.html" class="portal-card">
+                <div class="icon">✨</div>
+                <h3>Quantum Life OS</h3>
+                <p>Quantum-coherent life operating system with consciousness integration.</p>
+            </a>
+
+            <a href="#" class="portal-card" onclick="navigateTo('quantum')">
+                <div class="icon">🔐</div>
+                <h3>Quantum Finance</h3>
+                <p>Stealth addresses, market tomography, and asset protection.</p>
+            </a>
+
+            <a href="#" class="portal-card" onclick="navigateTo('legal')">
+                <div class="icon">⚖️</div>
+                <h3>Court Defense</h3>
+                <p>Legal filings, motions, and forensic documentation.</p>
+            </a>
+        </section>
+
+        <!-- Terminal -->
+        <section class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+            </div>
+            <div class="terminal-content" id="terminal-output">
+                <div><span class="prompt">$ soverignty init</span> // Initializing stack...</div>
+                <div><span class="prompt">$ status check</span> // System operational</div>
+                <div><span class="prompt">$ cat manifest.json</span></div>
+                <div>{</div>
+                <div>  "operator": "William R. Johnson",</div>
+                <div>  "status": "GRounded",</div>
+                <div>  "protocol": "TETRAHEDRON_V1",</div>
+                <div>  "legal_shield": "USCR_25.3_ACTIVE",</div>
+                <div>  "devices": ["Phenix Navigator", "Cognitive Shield"]</div>
+                <div>}</div>
+                <div><span class="prompt">$ _</span><span class="blink">█</span></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>"Structure determines performance. Grounding determines connection."</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#">Documentation</a> ·
+            <a href="#">API Keys</a> ·
+            <a href="#">Emergency Protocol</a>
+        </p>
+    </footer>
+
+    <script type="module">
+        import { SovereignStack } from '/src/index.js';
+
+        // Blinking cursor
+        const blink = document.querySelector('.blink');
+        setInterval(() => {
+            blink.style.opacity = blink.style.opacity === '0' ? '1' : '0';
+        }, 500);
+
+        let stack = null;
+
+        // Initialize Sovereign Stack
+        async function initSovereignty() {
+            try {
+                stack = new SovereignStack();
+                await stack.initialize();
+                updateStats();
+            } catch (e) {
+                console.log('Sovereign Stack not initialized - using demo mode');
+            }
+        }
+
+        // Update stats from SovereignStack
+        async function updateStats() {
+            if (!stack) {
+                // Demo mode - show placeholder
+                document.getElementById('sovereignty-level').textContent = '30%';
+                document.getElementById('metabolic-status').textContent = 'STABLE';
+                document.getElementById('legal-shield').textContent = 'ACTIVE';
+                return;
+            }
+
+            try {
+                const status = await stack.getStatus();
+                document.getElementById('sovereignty-level').textContent = 
+                    status.sovereigntyLevel + '/100';
+                document.getElementById('legal-shield').textContent = 
+                    status.grounded ? 'ACTIVE' : 'PENDING';
+            } catch (e) {
+                console.log('Stats unavailable');
+            }
+        }
+
+        // Navigate function
+        function navigateTo(section) {
+            console.log('Navigating to:', section);
+            // Future: link to other HTML pages or load content dynamically
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if we should auto-init (only if user has interacted)
+            if (window.location.search.includes('init')) {
+                initSovereignty();
+            }
+        });
+
+        // Auto-update stats every 30 seconds
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>

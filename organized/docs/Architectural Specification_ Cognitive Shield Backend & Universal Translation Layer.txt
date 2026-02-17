@@ -1,0 +1,200 @@
+﻿Architectural Specification for the Cognitive Shield: A Quantum-Secure Communication Backend and Universal Translation Layer
+1. Executive Summary and Theoretical Framework
+The "Cognitive Shield" backend is designed not merely as a message router but as an industrial-grade isolation transformer for social interactions. To mitigate the "Floating Neutral" condition—where unbounded emotional voltage destabilizes a group—the architecture enforces a strict decoupling of the message's arrival (Physics) from its interpretation (Poetics).
+This specification details the implementation of the "Delta Topology" backend using FastAPI for orchestration, Redis Streams as the durable "Catcher's Mitt" for signal buffering, PostgreSQL with Row-Level Security (RLS) for the immutable "L.O.V.E. Ledger," and Ollama for privacy-centric, local-first artificial intelligence.1 The system is anchored in physical reality through a Hardware Root of Trust utilizing the NXP SE050 secure element.2
+________________
+2. The Physics of Signal Processing: The "Catcher's Mitt" Architecture
+The "Catcher's Mitt" is the system's first line of defense. Its primary function is to arrest the velocity of incoming "emotional projectiles" (raw text), holding them in a suspended state (Vacuum) to prevent the "Machine Gun Effect"—rapid-fire fragmented messages that spike receiver cortisol.4
+2.1 Redis Streams as the Durable Neutral Ground
+Unlike ephemeral Pub/Sub mechanisms, Redis Streams provides a durable, append-only log that persists data even during consumer failures or "Airplane Mode" disconnects.6
+Stream Topology:
+We utilize a hierarchical key structure to ensure isolation between different "Tetrahedrons" (groups of 4 nodes) and "Dyads" (pairs).
+* Key Pattern: stream:dyad:{tetrahedron_id}:{dyad_id}
+* Rationale: This topology acts as an "isolation transformer," ensuring that high-voltage traffic in one relationship does not impact the latency or processing of another.8
+Ingestion (XADD):
+The FastAPI producer pushes encrypted payloads to the stream.
+
+
+Python
+
+
+
+
+# Conceptual Ingestion Logic
+await redis.xadd(
+   name=f"stream:dyad:{tetrahedron_id}:{dyad_id}",
+   fields={
+       "ver": "v1.0",
+       "s_id": sender_node_id,
+       "ts_client": client_timestamp,
+       "enc_payload": encrypted_bytes,  # ChaCha20-Poly1305
+       "sig_hw": ecdsa_signature,       # NXP SE050 Signature
+   },
+   id="*" # Auto-generate ID (Timestamp-Sequence)
+)
+
+2.2 The "Elevator Algorithm" for Temporal Aggregation
+To implement the 60-Second Batching Window, we employ an "Elevator Algorithm" approach. The consumer does not process messages immediately upon arrival. Instead, it waits for a "quiet period" or a maximum buffer limit, similar to an elevator waiting for the last passenger.9
+Debounce Logic:
+1. State Tracking: A lightweight Redis key buffer:state:{dyad_id} tracks the last_message_ts and message_count.
+2. The Flush Check: A background worker (using asyncio or Celery) checks the stream state every few seconds.2
+   * Condition A (Silence): If current_time - last_message_ts >= 60s, close the window and process the batch.
+   * Condition B (Overflow): If message_count > 15 (critical mass), force a flush immediately to prevent memory pressure.9
+This aggregation allows the LLM to analyze a coherent paragraph of thought rather than fragmented sentences, significantly improving the quality of the "Bottom Line Up Front" (BLUF) summary.
+2.3 Reliability via Consumer Groups and PEL
+To guarantee "At-Least-Once" delivery, we utilize Redis Consumer Groups (XGROUP).
+* Group Name: group:cognitive_shield
+* Mechanism: Workers claim messages using XREADGROUP. These messages enter the Pending Entries List (PEL) and remain there until explicitly acknowledged (XACK).6
+* Autopoiesis (Self-Healing): A "Janitor" process periodically scans the PEL for "stale" messages (e.g., pending > 5 minutes) owned by dead workers. It uses XCLAIM to reassign these messages to healthy workers, ensuring no emotional signal is ever lost.11
+________________
+3. The Universal Translation Layer: Ollama & Pydantic Integration
+The "Universal Translation Layer" executes the VPI Protocol (Vacuum, Pressure, Impregnation). It strips the "voltage" (emotional charge) from the message and re-encodes it into a format the receiver can metabolize.1
+3.1 Local-First Intelligence Strategy
+We bypass centralized APIs (OpenAI/Anthropic) in favor of Ollama running locally or on a private Edge node (via Tailscale Funnel). This ensures "Zero-Knowledge" architecture regarding the content of the user's private thoughts.13
+3.2 Structured Outputs with Pydantic
+To prevent LLM hallucinations and enforce the "Constitutional" guardrails, we bind the LLM output to a strict schema using Pydantic validation.14
+The Cognitive Payload Schema:
+
+
+Python
+
+
+
+
+from pydantic import BaseModel, Field
+
+class CognitivePayload(BaseModel):
+   summary_bluf: str = Field(..., description="Neutral, factual Bottom Line Up Front summary.")
+   emotional_valence: float = Field(..., ge=0.0, le=1.0, description="Normalized voltage (0=Zen, 1=High Voltage).")
+   urgency_score: int = Field(..., ge=1, le=10, description="Objective temporal urgency.")
+   triggers_detected: list[str] = Field(default_factory=list, description="List of psychological triggers identified (e.g., 'Guilt', 'Ultimatum').")
+   suggested_response_tone: str = Field(..., description="Recommended tone for response (e.g., 'Firm boundaries').")
+
+Implementation Pattern: The backend sends the raw text to Ollama with the schema definition. We utilize a retry loop that catches pydantic.ValidationError. If validation fails (e.g., malformed JSON), the system feeds the error back to Ollama ("You missed field 'urgency_score', fix it") to self-correct.16
+3.3 VPI Prompt Engineering
+The prompt is constructed dynamically based on the receiver's "HumanOS" profile (e.g., "Logic-dominant" vs. "Empathy-dominant").
+* Vacuum: "You are a Cognitive Shield. Ingest the following raw text. Do not reply to it. Hold it."
+* Pressure: "Analyze the emotional voltage. Identify manipulative patterns or cognitive distortions."
+* Impregnation: "Rewrite the core message into a factual summary. Remove emotive adjectives. Format as the JSON schema provided."
+________________
+4. The L.O.V.E. Ledger: PostgreSQL Schema & Data Modeling
+The L.O.V.E. Ledger (Ledger of Value and Exchange) provides the "Proof of Care." It is an immutable log of interactions, scored and signed, serving as the "Credit Report" for the relationship.18
+4.1 Schema Design
+We utilize a normalized schema optimized for graph traversal and event sourcing.
+Core Tables:
+1. nodes: Represents actors (Users). Stores public keys (genesis_key_pub) and "HumanOS" settings.
+2. dyads: Represents the link between two nodes. Contains the cached current_voltage and trust_score.
+3. care_ledger: The append-only event log.20
+   * id: UUID (Primary Key).
+   * dyad_id: UUID (Foreign Key, Partition Key).
+   * event_type: ENUM ('MESSAGE', 'repair_attempt', 'voltage_spike').
+   * enc_payload: BYTEA (PGP/ChaCha20 encrypted content).21
+   * metadata: JSONB (The Pydantic analysis from Ollama).
+   * hw_signature: BYTEA (The NXP SE050 signature).
+4.2 Privacy by Design: Row-Level Security (RLS)
+We implement PostgreSQL RLS to enforce isolation at the database engine level. This ensures that even if the API layer is compromised, a user cannot query data belonging to a Dyad they are not part of.22
+
+
+SQL
+
+
+
+
+-- Example RLS Policy
+CREATE POLICY dyad_isolation ON care_ledger
+USING (
+   dyad_id IN (
+       SELECT id FROM dyads 
+       WHERE node_a_id = current_user_id() 
+          OR node_b_id = current_user_id()
+   )
+);
+
+4.3 Encryption at Rest (pgcrypto)
+To solve the "Black Box Trust Paradox," we encrypt the raw message content (enc_payload) using pgcrypto or application-level encryption keys derived from the user's hardware token. The metadata (voltage score, summary) remains in plaintext (but RLS protected) to allow for analytical queries and "Relationship Health" dashboards.21
+________________
+5. Hardware Root of Trust: NXP SE050 Verification
+The Phenix Navigator (hardware device) anchors the system. The backend must verify that every "Care Event" originated from a physical user confirming their intent, not a bot.1
+5.1 Verification Logic
+The NXP SE050 uses the NIST P-256 (secp256r1) curve. The backend uses the Python cryptography library to verify the ECDSA signature attached to the message headers.25
+
+
+Python
+
+
+
+
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives import hashes
+
+def verify_hardware_signature(public_key_pem: bytes, signature: bytes, payload: bytes):
+   """
+   Verifies the ECDSA signature from the Phenix Navigator (SE050).
+   Throws InvalidSignature on failure.
+   """
+   public_key = serialization.load_pem_public_key(public_key_pem)
+   public_key.verify(
+       signature,
+       payload,
+       ec.ECDSA(hashes.SHA256())
+   )
+
+5.2 The "Genesis Gate" Abdication Protocol
+For high-stakes operations like "Abdication" (transitioning a group from centralized admin to peer-to-peer mesh), the system enforces a Two-Man Rule.
+1. Trigger: An endpoint /abdicate is called.
+2. Check: The backend queries the care_ledger. The "Sovereignty Score" (calculated from consistent, low-voltage interactions) must be   .1
+3. Signature: The request must include a specific signature from the "Genesis Key" (a master key stored in the SE050 of the group creator).
+4. Execution: If valid, the backend rotates the encryption keys, destroying the admin's ability to decrypt the group's history, effectively "burning the bridge" to centralization.
+________________
+6. Implementation Strategy
+6.1 Monorepo Structure (Branch <3)
+The project utilizes a Python Monorepo managed by Poetry or uv to share the "God Config" (constants, Pydantic models) across services.27
+
+
+
+
+
+
+/cognitive-shield
+├── packages/
+│   ├── core/           # GOD_CONFIG, Pydantic Models (Shared Constitution)
+│   ├── ledger/         # Postgres Models, RLS Migrations
+│   ├── communication/  # Redis Streams & Ollama Clients
+│   └── firmware/       # C++ Headers generated from Python Config
+├── services/
+│   ├── api/            # FastAPI Application
+│   └── worker/         # Background Message Processor
+
+6.2 Infrastructure: Sovereign Edge
+The backend is deployed via Docker Compose on a local node (e.g., Mac Studio or Raspberry Pi). Tailscale Funnel exposes the secure endpoints to the user's mobile device, creating a private, encrypted tunnel that bypasses the public cloud, ensuring total sovereignty over the social graph data.1
+7. Conclusion
+This architecture implements a "Cognitive Bridge" by rigorously applying systems engineering to social dynamics. By combining the temporal buffering of Redis Streams, the semantic filtering of Ollama, the immutable memory of PostgreSQL, and the physical truth of the NXP SE050, we construct a communication system capable of withstanding the "Floating Neutral" of modern digital interaction.
+Works cited
+   1. 2026-01-21 - Cognitive_Shield_Ultimate_Checklist_v3.docx, https://drive.google.com/open?id=1W1aeRZnb3rW6B7baMh6EtEQW5mJho9Lt
+   2. Celery and Background Tasks. Using FastAPI with long running tasks | by Hitoruna | Medium, accessed January 28, 2026, https://medium.com/@hitorunajp/celery-and-background-tasks-aebb234cae5d
+   3. 3840 - Cryptographic Module Validation Program | CSRC, accessed January 28, 2026, https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/3840
+   4. Redis Streams Decoded: 15 Questions That Changed How I Think About Message Queues, accessed January 28, 2026, https://medium.com/@pur4v/redis-streams-decoded-15-questions-that-changed-how-i-think-about-message-queues-24bd0dbe3189
+   5. A vertical monorepo architecture for FastAPI client-server codebases, accessed January 28, 2026, https://sqr-075.lsst.io/
+   6. Streaming LLM Output Using Redis Streams, accessed January 28, 2026, https://redis.io/tutorials/howtos/solutions/streams/streaming-llm-output/
+   7. Redis Streams and the Unified Log - Brandur, accessed January 28, 2026, https://brandur.org/redis-streams
+   8. FastAPI + Redis Streams, Sans Regret | by Codastra - Medium, accessed January 28, 2026, https://medium.com/@2nick2patel2/fastapi-redis-streams-sans-regret-20be11016111
+   9. Question about how to use Redis for a seemingly unusual producer/consumer use case - Reddit, accessed January 28, 2026, https://www.reddit.com/r/redis/comments/1b49fuz/question_about_how_to_use_redis_for_a_seemingly/
+   10. Background Tasks with FastAPI Background Tasks and Celery + Redis - FastAPI Beyond CRUD (Part 20) - YouTube, accessed January 28, 2026, https://www.youtube.com/watch?v=eAHAKowv6hk
+   11. Batch processing based on Redis Stream - GitHub, accessed January 28, 2026, https://github.com/KissPeter/redis-streams
+   12. FastAPI + Redis Streams for Sagas: Exactly-Once Orchestration Without a Message Broker, accessed January 28, 2026, https://medium.com/@2nick2patel2/fastapi-redis-streams-for-sagas-exactly-once-orchestration-without-a-message-broker-7ce84db6bcba
+   13. FastAPI and Ollama - Getting Response with HTMX - (3/4) - YouTube, accessed January 28, 2026, https://www.youtube.com/watch?v=El_-vCpxmTQ
+   14. AG UI: Validation errors when using reasoning models with Ollama (gpt-oss and qwen3) · Issue #2766 - GitHub, accessed January 28, 2026, https://github.com/pydantic/pydantic-ai/issues/2766
+   15. Structured outputs · Ollama Blog, accessed January 28, 2026, https://ollama.com/blog/structured-outputs
+   16. Structured Outputs - Ollama's documentation, accessed January 28, 2026, https://docs.ollama.com/capabilities/structured-outputs
+   17. Ollama can't return structured output · Issue #877 · pydantic/pydantic-ai - GitHub, accessed January 28, 2026, https://github.com/pydantic/pydantic-ai/issues/877
+   18. Ledger Implementation in PostgreSQL - Paul Gross, accessed January 28, 2026, https://www.pgrs.net/2025/03/24/pgledger-ledger-implementation-in-postgresql/
+   19. How to Build a Custom Ledger System: A Comprehensive Guide | by Mahammad Khalilov, accessed January 28, 2026, https://medium.com/@mahammadkhalilov/how-to-build-a-custom-ledger-system-a-comprehensive-guide-838c73ca512d
+   20. Event Sourcing with PostgreSQL - Medium, accessed January 28, 2026, https://medium.com/@tobyhede/event-sourcing-with-postgresql-28c5e8f211a2
+   21. PostgreSQL pgcrypto — Secure Data Without Leaving SQL | by Nishith Singh - Medium, accessed January 28, 2026, https://medium.com/@nishith.explorer/postgresql-pgcrypto-secure-data-without-leaving-sql-22eac1ae1251
+   22. Multi-tenant data isolation with PostgreSQL Row Level Security | AWS Database Blog, accessed January 28, 2026, https://aws.amazon.com/blogs/database/multi-tenant-data-isolation-with-postgresql-row-level-security/
+   23. Designing the most performant Row Level Security schema in Postgres | by Caleb Brewer, accessed January 28, 2026, https://cazzer.medium.com/designing-the-most-performant-row-level-security-strategy-in-postgres-a06084f31945
+   24. Building a Secure and Production-Ready Authentication System with FastAPI: Architecture & Encryption | by Hemant Kumar | Python in Plain English, accessed January 28, 2026, https://python.plainenglish.io/building-a-secure-and-production-ready-authentication-system-with-fastapi-architecture-ea97bb94f402
+   25. How to sign and verify signature with ecdsa in python - Stack Overflow, accessed January 28, 2026, https://stackoverflow.com/questions/34451214/how-to-sign-and-verify-signature-with-ecdsa-in-python
+   26. practical-cryptography-for-developers-book/digital-signatures/ecdsa-sign-verify-examples.md at master - GitHub, accessed January 28, 2026, https://github.com/rubenbase/practical-cryptography-for-developers-book/blob/master/digital-signatures/ecdsa-sign-verify-examples.md
+   27. Mastering Python Monorepos: A Practical Guide - DEV Community, accessed January 28, 2026, https://dev.to/ctrix/mastering-python-monorepos-a-practical-guide-2b4
+   28. Example of extensive and production-grade for a Python based monorepo - GitHub, accessed January 28, 2026, https://github.com/haicheviet/python-monorepo

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensory Check — P31 Compass</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #2ecc71;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+
+    .main-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .channel {
+      margin-bottom: 2.5rem;
+    }
+
+    .channel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .channel-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #E0E0EE;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: monospace;
+    }
+
+    .channel-value {
+      font-size: 0.875rem;
+      color: #7878AA;
+      font-family: monospace;
+    }
+
+    .slider-container {
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    .slider-track {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(to right, #ec4899 0%, #f59e0b 50%, #2ecc71 50%, #f59e0b 100%, #ec4899 100%);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .slider-track::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #7878AA;
+      transform: translateX(-50%);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #7878AA;
+      margin-top: 0.5rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #2ecc71;
+      border: 2px solid #050510;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      background: #34d399;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #2ecc71;
+      border: 2px solid #050510;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.1);
+      background: #34d399;
+    }
+
+    .recommendation {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #1a1a2e;
+      border-left: 3px solid #2ecc71;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: #E0E0EE;
+      line-height: 1.6;
+    }
+
+    .recommendation.empty {
+      border-color: #7878AA;
+      color: #7878AA;
+      font-style: italic;
+    }
+
+    .save-button {
+      width: 100%;
+      background: #2ecc71;
+      color: #050510;
+      border: none;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 2rem 0;
+      transition: all 0.2s ease;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .save-button:hover {
+      background: #34d399;
+    }
+
+    .save-button:active {
+      transform: scale(0.98);
+    }
+
+    .summary {
+      background: #1a1a2e;
+      border: 1px solid #2ecc71;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .summary-title {
+      font-size: 1rem;
+      color: #2ecc71;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: monospace;
+    }
+
+    .summary-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #E0E0EE;
+    }
+
+    .history {
+      margin-top: 3rem;
+    }
+
+    .history-title {
+      font-size: 1rem;
+      color: #7878AA;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: monospace;
+    }
+
+    .history-item {
+      background: #1a1a2e;
+      border: 1px solid #1a1a2e;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .history-date {
+      font-size: 0.75rem;
+      color: #7878AA;
+      margin-bottom: 0.75rem;
+      font-family: monospace;
+    }
+
+    .history-sparklines {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+    }
+
+    .sparkline-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .sparkline-label {
+      font-size: 0.6rem;
+      color: #7878AA;
+      text-transform: uppercase;
+    }
+
+    .sparkline {
+      width: 100%;
+      height: 30px;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      text-align: center;
+      color: #7878AA;
+      font-size: 0.875rem;
+      border-top: 1px solid #1a1a2e;
+    }
+
+    @media (max-width: 640px) {
+      .history-sparklines {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌡️ Sensory Check</h1>
+    <p class="subtitle">Quick sensory assessment. What does your body need right now?</p>
+  </header>
+
+  <div class="main-content">
+    <div id="channelsContainer">
+      <!-- Channels will be rendered here -->
+    </div>
+
+    <button class="save-button" onclick="saveCheckIn()">Save Check-in</button>
+
+    <div class="summary" id="summaryContainer">
+      <div class="summary-title">Summary</div>
+      <div class="summary-text" id="summaryText">Adjust sliders to see your summary.</div>
+    </div>
+
+    <div class="history" id="historyContainer">
+      <div class="history-title">Last 7 Check-ins</div>
+      <div id="historyItems"></div>
+    </div>
+  </div>
+
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+
+  <script>
+    const channels = [
+      { id: 'visual', name: 'VISUAL' },
+      { id: 'auditory', name: 'AUDITORY' },
+      { id: 'tactile', name: 'TACTILE' },
+      { id: 'olfactory', name: 'OLFACTORY' },
+      { id: 'movement', name: 'MOVEMENT' }
+    ];
+
+    const recommendations = {
+      visual: {
+        under: [
+          'Try brighter lighting or natural light',
+          'Add visual interest to your space',
+          'Use colorful objects or art'
+        ],
+        over: [
+          'Dim the lights or use softer bulbs',
+          'Reduce visual clutter',
+          'Use blue-light filters or sunglasses'
+        ]
+      },
+      auditory: {
+        under: [
+          'Play calming music or nature sounds',
+          'Try white noise or pink noise',
+          'Listen to a podcast or audiobook'
+        ],
+        over: [
+          'Use noise-cancelling headphones',
+          'Find a quieter space',
+          'Try earplugs or ear defenders'
+        ]
+      },
+      tactile: {
+        under: [
+          'Use a weighted blanket or lap pad',
+          'Try fidget toys or textured objects',
+          'Wear comfortable, soft clothing'
+        ],
+        over: [
+          'Remove tight or scratchy clothing',
+          'Avoid rough textures',
+          'Use soft, smooth fabrics'
+        ]
+      },
+      olfactory: {
+        under: [
+          'Try calming scents like lavender',
+          'Use essential oils or candles',
+          'Open a window for fresh air'
+        ],
+        over: [
+          'Avoid strong perfumes or chemicals',
+          'Use unscented products',
+          'Find a well-ventilated space'
+        ]
+      },
+      movement: {
+        under: [
+          'Take a short walk or stretch',
+          'Do gentle movement exercises',
+          'Try rocking or swaying'
+        ],
+        over: [
+          'Sit or lie down comfortably',
+          'Reduce physical activity',
+          'Try deep breathing or stillness'
+        ]
+      }
+    };
+
+    const channelsContainer = document.getElementById('channelsContainer');
+    const summaryText = document.getElementById('summaryText');
+    const historyItems = document.getElementById('historyItems');
+
+    let currentValues = {
+      visual: 50,
+      auditory: 50,
+      tactile: 50,
+      olfactory: 50,
+      movement: 50
+    };
+
+    function renderChannels() {
+      channelsContainer.innerHTML = '';
+      
+      channels.forEach(channel => {
+        const channelDiv = document.createElement('div');
+        channelDiv.className = 'channel';
+        
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'channel-header';
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'channel-name';
+        nameDiv.textContent = channel.name;
+        
+        const valueDiv = document.createElement('div');
+        valueDiv.className = 'channel-value';
+        valueDiv.id = `${channel.id}Value`;
+        valueDiv.textContent = 'Comfortable';
+        
+        headerDiv.appendChild(nameDiv);
+        headerDiv.appendChild(valueDiv);
+        
+        const sliderContainer = document.createElement('div');
+        sliderContainer.className = 'slider-container';
+        
+        const trackDiv = document.createElement('div');
+        trackDiv.className = 'slider-track';
+        
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = '0';
+        slider.max = '100';
+        slider.value = '50';
+        slider.id = `${channel.id}Slider`;
+        slider.addEventListener('input', (e) => {
+          const value = parseInt(e.target.value);
+          currentValues[channel.id] = value;
+          updateChannelValue(channel.id, value);
+          updateRecommendation(channel.id, value);
+          updateSummary();
+        });
+        
+        const labelsDiv = document.createElement('div');
+        labelsDiv.className = 'slider-labels';
+        labelsDiv.innerHTML = '<span>Under</span><span>Over</span>';
+        
+        sliderContainer.appendChild(trackDiv);
+        sliderContainer.appendChild(slider);
+        sliderContainer.appendChild(labelsDiv);
+        
+        const recDiv = document.createElement('div');
+        recDiv.className = 'recommendation';
+        recDiv.id = `${channel.id}Rec`;
+        recDiv.textContent = 'Adjust slider for recommendations';
+        recDiv.classList.add('empty');
+        
+        channelDiv.appendChild(headerDiv);
+        channelDiv.appendChild(sliderContainer);
+        channelDiv.appendChild(recDiv);
+        channelsContainer.appendChild(channelDiv);
+      });
+    }
+
+    function updateChannelValue(channelId, value) {
+      const valueEl = document.getElementById(`${channelId}Value`);
+      if (value < 40) {
+        valueEl.textContent = 'Under';
+        valueEl.style.color = '#ec4899';
+      } else if (value > 60) {
+        valueEl.textContent = 'Over';
+        valueEl.style.color = '#ec4899';
+      } else {
+        valueEl.textContent = 'Comfortable';
+        valueEl.style.color = '#2ecc71';
+      }
+    }
+
+    function updateRecommendation(channelId, value) {
+      const recEl = document.getElementById(`${channelId}Rec`);
+      const recs = recommendations[channelId];
+      
+      if (value < 40) {
+        const randomRec = recs.under[Math.floor(Math.random() * recs.under.length)];
+        recEl.textContent = randomRec;
+        recEl.classList.remove('empty');
+      } else if (value > 60) {
+        const randomRec = recs.over[Math.floor(Math.random() * recs.over.length)];
+        recEl.textContent = randomRec;
+        recEl.classList.remove('empty');
+      } else {
+        recEl.textContent = 'You\'re comfortable here.';
+        recEl.classList.add('empty');
+      }
+    }
+
+    function updateSummary() {
+      const comfortable = Object.values(currentValues).filter(v => v >= 40 && v <= 60).length;
+      const under = Object.values(currentValues).filter(v => v < 40).length;
+      const over = Object.values(currentValues).filter(v => v > 60).length;
+      
+      let summary = '';
+      
+      if (comfortable === 5) {
+        summary = 'You\'re mostly comfortable across all channels.';
+      } else {
+        const needsAttention = [];
+        Object.entries(currentValues).forEach(([id, value]) => {
+          if (value < 40 || value > 60) {
+            const channel = channels.find(c => c.id === id);
+            needsAttention.push(channel.name.toLowerCase());
+          }
+        });
+        
+        if (needsAttention.length > 0) {
+          summary = `You're mostly comfortable. ${needsAttention.map(n => n.charAt(0).toUpperCase() + n.slice(1)).join(', ')} ${needsAttention.length === 1 ? 'needs' : 'need'} attention.`;
+        } else {
+          summary = 'You\'re mostly comfortable across all channels.';
+        }
+      }
+      
+      summaryText.textContent = summary;
+    }
+
+    function saveCheckIn() {
+      const checkIn = {
+        timestamp: new Date().toISOString(),
+        values: { ...currentValues }
+      };
+      
+      const history = JSON.parse(localStorage.getItem('sensoryCheckIns') || '[]');
+      history.unshift(checkIn);
+      
+      // Keep only last 7
+      if (history.length > 7) {
+        history.pop();
+      }
+      
+      localStorage.setItem('sensoryCheckIns', JSON.stringify(history));
+      
+      // Reset sliders
+      channels.forEach(channel => {
+        const slider = document.getElementById(`${channel.id}Slider`);
+        slider.value = '50';
+        currentValues[channel.id] = 50;
+        updateChannelValue(channel.id, 50);
+        updateRecommendation(channel.id, 50);
+      });
+      
+      updateSummary();
+      renderHistory();
+      
+      // Visual feedback
+      const button = document.querySelector('.save-button');
+      const originalText = button.textContent;
+      button.textContent = 'Saved! ✓';
+      button.style.background = '#34d399';
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = '#2ecc71';
+      }, 2000);
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('sensoryCheckIns') || '[]');
+      
+      if (history.length === 0) {
+        historyItems.innerHTML = '<div style="color: #7878AA; font-style: italic; text-align: center; padding: 2rem;">No check-ins yet.</div>';
+        return;
+      }
+      
+      historyItems.innerHTML = '';
+      
+      history.forEach(checkIn => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'history-item';
+        
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'history-date';
+        const date = new Date(checkIn.timestamp);
+        dateDiv.textContent = date.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+          month: 'short', 
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        const sparklinesDiv = document.createElement('div');
+        sparklinesDiv.className = 'history-sparklines';
+        
+        channels.forEach(channel => {
+          const container = document.createElement('div');
+          container.className = 'sparkline-container';
+          
+          const label = document.createElement('div');
+          label.className = 'sparkline-label';
+          label.textContent = channel.name.substring(0, 3);
+          
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.className = 'sparkline';
+          svg.setAttribute('viewBox', '0 0 100 30');
+          
+          const value = checkIn.values[channel.id];
+          const x = (value / 100) * 100;
+          const color = value < 40 ? '#ec4899' : value > 60 ? '#ec4899' : '#2ecc71';
+          
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', '0');
+          line.setAttribute('y1', '15');
+          line.setAttribute('x2', '100');
+          line.setAttribute('y2', '15');
+          line.setAttribute('stroke', '#1a1a2e');
+          line.setAttribute('stroke-width', '2');
+          
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('cx', x.toString());
+          dot.setAttribute('cy', '15');
+          dot.setAttribute('r', '4');
+          dot.setAttribute('fill', color);
+          
+          svg.appendChild(line);
+          svg.appendChild(dot);
+          
+          container.appendChild(label);
+          container.appendChild(svg);
+          sparklinesDiv.appendChild(container);
+        });
+        
+        itemDiv.appendChild(dateDiv);
+        itemDiv.appendChild(sparklinesDiv);
+        historyItems.appendChild(itemDiv);
+      });
+    }
+
+    // Initialize
+    renderChannels();
+    updateSummary();
+    renderHistory();
+  </script>
+</body>
+</html>

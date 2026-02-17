@@ -1,0 +1,177 @@
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  min-width: 320px;
+  max-width: 480px;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+  margin-bottom: 12px;
+}
+
+.toast.success {
+  border-left: 4px solid #4ade80;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(17, 17, 17, 0.95));
+}
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(17, 17, 17, 0.95));
+}
+
+.toast.warning {
+  border-left: 4px solid #fbbf24;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(17, 17, 17, 0.95));
+}
+
+.toast.info {
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(17, 17, 17, 0.95));
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.toast.success .icon {
+  color: #4ade80;
+}
+
+.toast.error .icon {
+  color: #ef4444;
+}
+
+.toast.warning .icon {
+  color: #fbbf24;
+}
+
+.toast.info .icon {
+  color: #3b82f6;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.message {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressFill {
+  height: 100%;
+  background: currentColor;
+  animation: progress var(--duration, 5s) linear forwards;
+  border-radius: 0 0 12px 12px;
+}
+
+.toast.success .progressFill {
+  background: #4ade80;
+}
+
+/* Allow pause via inline style animationPlayState */
+.toast.error .progressFill {
+  background: #ef4444;
+}
+
+.toast.warning .progressFill {
+  background: #fbbf24;
+}
+
+.toast.info .progressFill {
+  background: #3b82f6;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Quantum glow effect */
+.toast:hover {
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(74, 222, 128, 0.2);
+}
+
+.toast.success:hover {
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(74, 222, 128, 0.3);
+}
+
+.toast.error:hover {
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.toast.warning:hover {
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.toast.info:hover {
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(59, 130, 246, 0.3);
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104721957",
+    "amount": 50,
+    "description": "Test reward",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:01.969Z",
+    "id": "wal_1771104721969_8bwdw8",
+    "createdAt": "2026-02-14T21:32:01.969Z",
+    "updatedAt": "2026-02-14T21:32:01.969Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104721998",
+    "amount": 10,
+    "description": "Reward 1",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:01.998Z",
+    "id": "wal_1771104721998_0xxxq8",
+    "createdAt": "2026-02-14T21:32:01.998Z",
+    "updatedAt": "2026-02-14T21:32:01.998Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104721998",
+    "amount": 20,
+    "description": "Reward 2",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:02.001Z",
+    "id": "wal_1771104722001_nsdzq1",
+    "createdAt": "2026-02-14T21:32:02.001Z",
+    "updatedAt": "2026-02-14T21:32:02.001Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104722123",
+    "amount": 10,
+    "description": "Challenge reward",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:02.124Z",
+    "id": "wal_1771104722124_7m6y46",
+    "createdAt": "2026-02-14T21:32:02.124Z",
+    "updatedAt": "2026-02-14T21:32:02.124Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104722123",
+    "amount": 5,
+    "description": "Build reward",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:02.200Z",
+    "id": "wal_1771104722200_wv1ql6",
+    "createdAt": "2026-02-14T21:32:02.200Z",
+    "updatedAt": "2026-02-14T21:32:02.200Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104722123",
+    "amount": 15,
+    "description": "Another challenge",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:02.209Z",
+    "id": "wal_1771104722209_aytq1i",
+    "createdAt": "2026-02-14T21:32:02.209Z",
+    "updatedAt": "2026-02-14T21:32:02.209Z"
+  },
+  {
+    "fromWalletId": "wallet_test_member_1771104722229",
+    "toWalletId": "wallet_to_member_1771104722229",
+    "amount": 25,
+    "description": "Test transfer",
+    "type": "transfer",
+    "timestamp": "2026-02-14T21:32:02.230Z",
+    "id": "wal_1771104722230_xvbq6t",
+    "createdAt": "2026-02-14T21:32:02.230Z",
+    "updatedAt": "2026-02-14T21:32:02.230Z"
+  },
+  {
+    "fromWalletId": "system",
+    "toWalletId": "wallet_test_member_1771104722297",
+    "amount": 10,
+    "description": "Test reward",
+    "type": "reward",
+    "timestamp": "2026-02-14T21:32:02.298Z",
+    "id": "wal_1771104722298_nd5j5q",
+    "createdAt": "2026-02-14T21:32:02.298Z",
+    "updatedAt": "2026-02-14T21:32:02.298Z"
+  }
+]

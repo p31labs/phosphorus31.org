@@ -1,0 +1,325 @@
+﻿Technical Report: Forensic Analysis of Firmware Persistence and Boot Anomalies in Waveshare ESP32-S3-Touch-LCD-3.5B Systems
+1. Executive Summary
+This report delivers a comprehensive technical analysis of a critical failure mode observed in the Waveshare ESP32-S3-Touch-LCD-3.5B development environment. The reported issue involves the persistent execution of obsolete firmware revisions despite ostensibly successful flash operations using standard tools such as esptool and PlatformIO. The user, an embedded systems developer, has correctly identified that the anomaly is "100 percent not a hardware issue," a conclusion supported by the deterministic behavior of the ESP32-S3R8 bootloader architecture under specific partition and memory configuration mismatches.
+The investigation identifies a confluence of three distinct architectural mechanisms that create the observed "ghost firmware" phenomenon. First, the OTA Data Partition (otadata) priority inversion mechanism creates a logical lock where the bootloader is directed to a secondary partition (app1 or ota_1) containing the old firmware, ignoring the newly flashed binary residing in the factory slot (app0). Second, a Memory Interface Configuration Mismatch between the ESP32-S3R8's Octal SPI (OPI) PSRAM and the build environment's default Quad SPI (QSPI) settings causes immediate memory access violations (LoadProhibited exceptions) upon boot. This triggers the ESP32's Watchdog Timer (WDT) rollback protection, which automatically reverts the active boot partition to the last known good image—reinforcing the user's perception that the old firmware has "returned." Third, the AXP2101 Power Management IC (PMIC) retains its register state across soft resets; if the new firmware fails to explicitly initialize the display power rails via I2C, the screen remains dark, mimicking a boot failure.
+This document provides an exhaustive breakdown of the ESP32-S3R8 memory hierarchy, the specific peripheral requirements of the Waveshare board (including the AXS15231B display controller and AXP2101 PMIC), and the ESP-IDF partition logic. It concludes with a definitive remediation protocol involving a "nuclear" flash erasure to reset the otadata state, the implementation of a custom 16MB partition scheme, and the precise platformio.ini configuration required to stabilize the OPI PSRAM interface.
+________________
+2. Hardware Architecture and Systems Context
+To resolve the firmware persistence issue, it is necessary to deconstruct the underlying hardware architecture of the Waveshare ESP32-S3-Touch-LCD-3.5B. This device is not a standard generic ESP32 module; it is a complex integration of high-performance peripherals that imposes strict constraints on memory mapping and General Purpose Input/Output (GPIO) utilization. The interactions between the core processor, the high-density PSRAM, and the specialized display controller create a fragile ecosystem where default configurations lead to the precise instability described in the user query.
+2.1 The Core Processor: ESP32-S3R8 Architecture
+The heart of the system is the ESP32-S3R8 System-on-Chip (SoC).1 Understanding the nomenclature is critical to solving the memory access errors.
+* S3: Denotes the Xtensa® 32-bit LX7 dual-core processor architecture, capable of 240MHz clock speeds, with native vector instructions for AI acceleration.
+* R8: Indicates 8MB of Octal SPI (OPI) PSRAM integrated into the package (System-in-Package or SiP).
+Unlike the standard ESP32-S3-WROOM-1 modules which often use Quad SPI (QSPI) PSRAM, the R8 variant utilizes an Octal SPI (OPI) interface. This interface uses eight data lines (D0-D7) plus clock and chip-select signals to double the data throughput compared to QSPI. This is essential for driving high-resolution displays like the 320x480 panel on this board, which requires significant frame buffering bandwidth.
+However, the R8 architecture introduces a critical constraint: GPIO Mapping. The OPI interface consumes a specific set of GPIO pins for the memory bus. If the firmware is compiled with standard QIO (Quad I/O) settings for PSRAM instead of OPI, the memory controller will attempt to communicate with the PSRAM using only four lines. The PSRAM, expecting an Octal protocol, will fail to initialize or return garbage data. The application will technically "boot" (start executing instructions from Flash), but any attempt to allocate memory in the external heap (e.g., malloc for the display buffer or LVGL objects) will result in a null pointer dereference or a LoadProhibited exception—exactly matching the user's reported backtrace error.3
+2.2 Flash Memory Subsystem: The 16MB NOR Flash
+The board is equipped with an external 16MB NOR Flash chip, identified as the W25Q128JVSIQ.1
+* Capacity: 16MB (128 Megabits).
+* Interface: Quad SPI (QSPI).
+A critical architectural nuance is the disparity between the Flash interface (Quad) and the PSRAM interface (Octal). The ESP32-S3 memory controller handles these distinct buses simultaneously, but the bootloader and the application image header must strictly define the mode for each memory type. A mismatch—such as configuring the Flash for OPI mode when the physical chip only supports QSPI—will render the device unbootable. Conversely, configuring the PSRAM for QSPI when it is wired for OPI may cause it to function at reduced speeds or, more likely, fail calibration during boot, leading to the instability described.
+The user's report that "Blink Sketch works perfectly" 3 is a significant diagnostic clue. A simple Blink sketch fits entirely within the internal SRAM (512KB) and does not attempt to initialize the external PSRAM. Therefore, it bypasses the memory misconfiguration. As soon as the user flashes a "larger firmware" (which inevitably uses PSRAM for heap), the system crashes, triggering the WDT and potentially a rollback.
+2.3 The Display Subsystem: AXS15231B Controller
+The visual interface is driven by the AXS15231B LCD controller 5, communicating via a QSPI interface.
+* Resolution: 320 x 480 pixels.
+* Color Depth: 16-bit or 18-bit (up to 262K colors).
+* Interface Topology: QSPI (Quad SPI) for data, I2C for configuration/touch.
+The use of QSPI for the display allows for much higher frame rates than standard SPI, as it transmits 4 bits per clock cycle. However, this adds complexity to the GPIO allocation. The QSPI data lines (D0-D3) for the display must be distinct from the QSPI data lines for the Flash memory, and the OPI data lines for the PSRAM. In high-density designs like the ESP32-S3R8, pin muxing is complex. If the firmware's board definition does not precisely match the schematic's pin assignment, the display initialization command will fail, or worse, writing to the display might inadvertently trigger a signal on the flash bus, causing a crash.
+Data Bandwidth Requirements:
+Driving a 320x480 display at 16-bit color requires a frame buffer of approximately 300KB (320 * 480 * 2 bytes). While a single buffer can fit in internal SRAM, modern GUI libraries like LVGL (Light and Versatile Graphics Library) typically utilize double buffering to prevent tearing, requiring ~600KB or more. This necessitates the use of PSRAM. If the PSRAM is unstable due to the configuration mismatch discussed in 2.1, the GUI stack will crash immediately upon initialization, leading to the boot loop.
+2.4 Power Management: AXP2101 Intelligence
+The board includes an AXP2101 Power Management IC (PMIC).1 This chip controls the voltages for the core, peripherals, and specifically the backlight and LCD logic voltages.
+* Mechanism: The ESP32-S3 communicates with the AXP2101 via I2C (Pins SDA:8, SCL:9 typically) to enable or disable specific power rails (LDOs/DC-DC converters).
+* Persistence Factor: The AXP2101 is an "intelligent" power manager. It retains its register configuration as long as input power (Battery or USB) is present. It does not necessarily reset to a default "ON" state when the ESP32 resets via the RST button.
+* Insight: If a previous firmware version (the "old" firmware) turned off the backlight to save power, and the "new" firmware assumes the backlight is on by default (and thus lacks the code to explicitly enable the AXP2101 LDOs), the screen will remain black. A user flashing the new firmware will see a black screen and assume the flash failed or the board is dead. They might even revert to the old firmware (which has the AXP enable code), confirming their bias that "only the old firmware works."
+________________
+3. The Bootloader Ecosystem and Partition Logic
+The user's primary symptom—"boots old firmware after flashing" despite a verified write—is a classic manifestation of the ESP-IDF Partition Table Priority Mechanism. To understand why the board rejects the new code, we must analyze the bootloader's decision matrix, which governs which binary is loaded into RAM.
+3.1 The Partition Table Architecture
+The ESP32 flash storage is divided into logical partitions defined by a partition table located at offset 0x8000.7 This table serves as the map for the bootloader. A standard partition table typically defines:
+1. Factory App: The default firmware location (often at 0x10000).
+2. OTA_0 / OTA_1: Slots for Over-the-Air updates.
+3. NVS: Non-Volatile Storage for preferences and WiFi credentials.
+4. OTADATA: A specialized partition (type data, subtype ota) that stores the boot index.
+For a 16MB device like the Waveshare board, relying on the default "4MB with SPIFFS" partition table is a critical error. The default table only addresses the first 4MB of the chip. Any attempt to write or read beyond this address without a custom partition table will result in data truncation or overlapping, where the filesystem might overwrite the firmware code.
+3.2 The OTADATA Priority Inversion Mechanism
+The otadata partition is the "traffic controller" of the boot process. It is a small (8KB) sector that holds a sequence number (seq) and a state flag for the OTA partitions.8
+The Mechanism of Failure:
+1. Initial State: The device is running a firmware that supports OTA. It effectively downloads an update to the ota_1 partition.
+2. State Change: The OTA library updates the otadata partition to indicate: "Active Partition: ota_1" (Sequence Number: 1).
+3. The User Action: The user, encountering a bug, decides to manually flash a new firmware via USB (UART). Standard esptool commands or IDE "Upload" buttons typically target the Factory partition or OTA_0 (offset 0x10000 typically).
+4. The Conflict: The flash operation successfully writes the new binary to 0x10000. The user sees "Hash of data verified".10 The physical bits on the flash are updated.
+5. The Boot Decision: Upon reset, the Second Stage Bootloader reads the partition table. It finds the otadata partition. It reads the data: "Active Partition: ota_1". The bootloader logic dictates that it must respect the otadata directive unless the partition is marked invalid.
+6. The Result: The bootloader ignores the newly flashed firmware at 0x10000. Instead, it jumps to the address of ota_1 (e.g., 0x300000). If the old firmware is still resident there (because the user didn't perform a full chip erase), the old firmware boots. The user perceives this as the flash "failing" to take effect.
+Why this explains the "Ghosting":
+The user explicitly stated: "Once I flash the buggy firmware, even reverting to previous working builds won't fix the reboot".3 This is consistent with a corrupted or "stuck" otadata state. If the "buggy" firmware set a flag in otadata or NVS that persists across soft reboots, simply overwriting the app binary partition is insufficient. The metadata controlling the boot selection remains pointing to a location that effectively overrides the manual flash.
+3.3 The Rollback Protection Trap
+The ESP32-S3 supports an "App Rollback" feature for reliability. When a new OTA image is booted, it is initially marked as ESP_OTA_IMG_PENDING_VERIFY. The application is expected to run a self-test and call esp_ota_mark_app_valid_cancel_rollback().9
+The Failure Chain:
+1. The user flashes a new firmware to ota_1.
+2. The bootloader attempts to boot ota_1.
+3. The Crash: The new firmware attempts to initialize the PSRAM with incorrect settings (e.g., QIO instead of OPI). The memory controller locks up, or a pointer references invalid memory.
+4. The Watchdog: The Core 1 Watchdog Timer (WDT) detects the hang and triggers a system reset.
+5. The Rollback: The bootloader detects that the new app reset without marking itself valid. After a predefined number of attempts (usually 1-3), the bootloader marks ota_1 as ESP_OTA_IMG_ABORTED and automatically reverts the boot pointer to the previous known good partition (ota_0 or Factory).
+6. The Observation: The user sees the device reboot a few times (often too fast to see on serial monitor if USB CDC is slow to enumerate) and then settle on the "old" firmware. The user concludes the new firmware was never written, when in fact it was written, executed, failed, and was actively rejected by the system's safety mechanisms.
+________________
+4. Root Cause Analysis: The "Ghost Firmware" Phenomenon
+Based on the synthesis of the user's report and the detailed architectural context, we can distill the failure into three interacting root causes that must be addressed simultaneously.
+4.1 Primary Cause: Partition Table & OTADATA Misalignment
+The user is likely utilizing a default partition scheme (e.g., "Default 4MB with SPIFFS") on a 16MB board. This creates two problems:
+1. Addressing Limits: A 4MB partition table cannot address the upper 12MB of the 16MB flash.
+2. OTA Persistence: As detailed in Section 3.2, the otadata partition is retaining a pointer to a partition index that the user is not updating via their manual flash method.
+4.2 Secondary Cause: PSRAM/Flash Mode Mismatch
+The Waveshare ESP32-S3-Touch-LCD-3.5B requires the following build flags for stability:
+* Flash Mode: QIO (Quad I/O)
+* PSRAM Mode: OPI (Octal I/O)
+* Macro: BOARD_HAS_PSRAM
+If the user is compiling with the generic "ESP32S3 Dev Module" settings in Arduino/PlatformIO without explicitly setting board_build.arduino.memory_type = qio_opi 11, the startup code will attempt to initialize the PSRAM using the wrong protocol. This results in a hardware exception (LoadProhibited) immediately upon the first PSRAM access (usually display buffer allocation). This crash triggers the rollback mechanism described in 3.3.
+4.3 Tertiary Cause: AXP2101 Power Rail Lockout
+The AXP2101 PMIC maintains its state as long as a battery or USB power is connected. If a previous "old" firmware configured the PMIC to a specific state (e.g., turning off the display backlight to save power), and the "new" firmware assumes default power-on states (and skips explicit PMIC initialization), the display will remain dark. The firmware might be running perfectly, but without visual feedback, the user assumes the device is dead or stuck.
+________________
+5. Detailed Remediation Protocol
+The solution requires a structured approach to dismantle the persistence mechanism (erase otadata), configure the memory interfaces correctly (OPI/QIO), and ensure the partition table matches the hardware capacity (16MB).
+5.1 Step 1: The "Nuclear" Option – Total Flash Erasure
+Standard flashing does not erase the entire chip; it only overwrites the specific sectors required for the new binary. To fix the otadata persistence and remove any "ghost" partitions, a full chip erase is mandatory.12 This is the only way to guarantee that the bootloader has no "memory" of previous OTA states.
+Method:
+Using esptool.py (which comes with PlatformIO and Arduino IDE). Note that COMx should be replaced with the actual port (e.g., /dev/ttyACM0 or COM3).
+
+
+Bash
+
+
+
+
+esptool.py --chip esp32s3 --port COMx erase_flash
+
+Why this is critical: This command writes 0xFF to every address in the 16MB flash. It destroys the Partition Table, the NVS (WiFi passwords), the OTADATA (boot selection), and all App partitions. It returns the chip to a blank slate, forcing the bootloader to rely solely on the new partition table and factory app we will flash next.
+5.2 Step 2: Constructing the 16MB Partition Scheme
+The standard "Huge App" partition scheme in Arduino is designed for 4MB flash. We must create a custom CSV for the 16MB flash to fully utilize the hardware and prevent overlapping errors. This custom table ensures that the application partitions are large enough (3MB) to hold firmware with complex assets (fonts, images) and that the SPIFFS/FATFS partition utilizes the remaining space.
+Action: Create a file named partitions.csv in the root of your project directory (same level as platformio.ini).
+Recommended 16MB Partition Layout 15:
+Name
+	Type
+	SubType
+	Offset
+	Size
+	Flags
+	Description
+	nvs
+	data
+	nvs
+	0x9000
+	0x5000
+	
+
+	Non-Volatile Storage (WiFi, Config)
+	otadata
+	data
+	ota
+	0xE000
+	0x2000
+	
+
+	OTA Selection Data (Critical)
+	app0
+	app
+	ota_0
+	0x10000
+	0x300000
+	
+
+	Factory/Main App (3MB)
+	app1
+	app
+	ota_1
+	0x310000
+	0x300000
+	
+
+	OTA Update Slot (3MB)
+	spiffs
+	data
+	spiffs
+	0x610000
+	0x900000
+	
+
+	File System (Images/Assets) (~9MB)
+	coredump
+	data
+	coredump
+	0xF10000
+	0x10000
+	
+
+	Crash Dump Storage
+	Insight: By explicitly defining app0 and app1 with large sizes and placing otadata at the standard location, we ensure that subsequent OTA updates have space to function, but the fresh install will populate app0. The spiffs partition is sized to fill the remainder of the chip up to the 16MB boundary (minus coredump).
+5.3 Step 3: PlatformIO Configuration (The Fix)
+The platformio.ini file controls the build process. It must be configured to match the S3R8 architecture precisely. Using a generic board definition without flags is the primary cause of the memory crashes.
+Target Configuration (platformio.ini):
+
+
+Ini, TOML
+
+
+
+
+[env:waveshare_esp32s3_touch_lcd_35]
+platform = espressif32
+board = esp32-s3-devkitc-1
+framework = arduino
+
+; -------------------------------------------------------------------------
+; CRITICAL: Memory Configuration for S3R8 (8MB Octal PSRAM + 16MB Quad Flash)
+; -------------------------------------------------------------------------
+; Sets the build macros to enable PSRAM and specific cache workarounds
+build_flags = 
+   -D BOARD_HAS_PSRAM
+   -D ARDUINO_USB_MODE=1 
+   -D ARDUINO_USB_CDC_ON_BOOT=1 
+   -mfix-esp32-psram-cache-issue
+   ; Define specific pins for the Waveshare board if needed by libraries
+   -D LV_CONF_INCLUDE_SIMPLE
+
+; Forces the memory type. "qio_opi" = Quad Flash, Octal PSRAM
+board_build.arduino.memory_type = qio_opi
+
+; -------------------------------------------------------------------------
+; Flash & Partition Configuration
+; -------------------------------------------------------------------------
+; Use the custom 16MB partition file created in Step 5.2
+board_build.partitions = partitions.csv
+
+; Define the total flash size for esptool
+board_upload.flash_size = 16MB
+board_upload.maximum_size = 16777216
+
+; Flash Mode: QIO (Quad I/O) is required for performance, 80MHz speed
+board_build.flash_mode = qio
+board_build.f_flash = 80000000L
+
+; -------------------------------------------------------------------------
+; Upload & Monitor Settings
+; -------------------------------------------------------------------------
+monitor_speed = 115200
+upload_speed = 921600
+
+Detailed Analysis of Settings:
+* board_build.arduino.memory_type = qio_opi: This is the specific "magic string" for Arduino ESP32 core v2.0+ that configures the bootloader to initialize Octal PSRAM but Quad Flash. Without opi, PSRAM fails. Without qio, Flash is slow or fails.11
+* ARDUINO_USB_CDC_ON_BOOT=1: The Waveshare board uses the native USB port for upload. If this is 0, Serial.print goes to the UART pins (TX/RX), not the USB-C cable. This solves the "dead board" symptom where the user sees no output.10
+* board_upload.maximum_size: Explicitly setting this prevents the uploader from truncating the binary or warning about size limits based on the default 4MB definition.
+5.4 Step 4: Firmware Logic - Preventing the "Black Screen" Ghost
+Even with the correct flash, if the firmware doesn't turn on the power to the LCD via the AXP2101, the device will look dead.
+Required Initialization Code:
+The user must include the XPowersLib (or similar) to wake the PMIC. The I2C pins for this board are generally SDA=8 and SCL=9.
+
+
+C++
+
+
+
+
+#include <Wire.h>
+#include <XPowersLib.h> // Dependency for AXP2101
+
+XPowersAXP2101 PMU;
+
+// I2C Pins for Waveshare ESP32-S3-Touch-LCD-3.5B
+#define I2C_SDA 8
+#define I2C_SCL 9
+
+void setup() {
+   Serial.begin(115200);
+   // Wait for USB Serial to enumerate (critical for debugging S3 native USB)
+   delay(3000); 
+   Serial.println("System Booting...");
+   
+   // Initialize I2C for PMIC
+   Wire.begin(I2C_SDA, I2C_SCL); 
+
+   if (!PMU.begin(Wire, AXP2101_SLAVE_ADDRESS, I2C_SDA, I2C_SCL)) {
+       Serial.println("Failed to initialize power management!");
+   } else {
+       // CRITICAL: Turn on the display backlight voltage (BLDO1/2 usually)
+       // and the logic voltage (ALDO). 
+       // Note: Specific rail names depend on schematic, usually ALDO1/BLDO1 on Waveshare
+       PMU.enablePowerOutput(XPOWERS_ALDO1); // Logic
+       PMU.enablePowerOutput(XPOWERS_BLDO1); // Backlight
+       // Set backlight brightness (if supported)
+       PMU.setPowerChannelVoltage(XPOWERS_BLDO1, 3300); // 3.3V
+       Serial.println("Power Management Initialized. Backlight ON.");
+   }
+   
+   // PSRAM Check
+   if(psramFound()){
+       Serial.printf("PSRAM Found: %d bytes\n", ESP.getPsramSize());
+   } else {
+       Serial.println("PSRAM NOT FOUND - Check build flags!");
+   }
+}
+
+________________
+6. Technical Deep Dive: Memory Interface Dynamics
+6.1 The QIO vs. OPI Conflict
+The ESP32-S3 allows flexible pin mapping (IOMUX), but high-speed memory interfaces are strictly bound to specific pads.
+* Flash (W25Q128): Uses SPID, SPIQ, SPIWP, SPIHD, CLK, CS. In QIO mode, all 4 data lines (D0-D3) are used for address and data transfer.
+* PSRAM (R8): Uses Octal mode. This requires 8 data lines (D0-D7).
+The Conflict: The user might assume "QIO" applies to everything. However, if the build system is set to qio_qio (Quad Flash, Quad PSRAM), the system will attempt to drive the PSRAM with only 4 lines. The R8 PSRAM expects Octal commands. The handshake fails. The allocation of large buffers (for the LCD) returns a pointer to invalid memory range or triggers a bus error. The ESP32-S3's exception handler catches this (Guru Meditation Error: Core 1 panic'ed), dumps the backtrace, and resets.
+If this happens inside the setup() loop before the Serial port is initialized or before the otadata "valid" flag is confirmed, the rollback mechanism described in Section 3.3 triggers, reverting to the old firmware.
+6.2 The AXS15231B QSPI Driver Constraints
+The AXS15231B is a specialized controller. Unlike standard SPI (MOSI/MISO), QSPI allows 4-bit parallel data transfer for pixels.
+* Pins: The Waveshare wiki 19 defines specific GPIOs for the LCD data bus (DB0-DB3).
+* Insight: These pins must not overlap with the Strapping Pins (GPIO 0, 45, 46) or the JTAG pins if debugging is active.
+* Impact: If the user code initializes the LCD on pins that conflict with the Flash interface (rare but possible if using custom pin definitions), the flash becomes unreadable immediately after LCD init, causing a crash. The provided platformio.ini and library defaults for the Waveshare board usually manage this, provided the correct board variant is selected.
+Comparison of Memory Interface Modes:
+Mode
+	Pins Used
+	Throughput (Theoretical)
+	Use Case
+	Waveshare S3 Requirement
+	DIO
+	2 (D0, D1)
+	Low
+	Legacy Flash
+	Compatible (Slow)
+	QIO
+	4 (D0-D3)
+	High
+	Standard Flash
+	Required for Flash
+	OPI
+	8 (D0-D7)
+	Very High
+	PSRAM (R8)
+	Required for PSRAM
+	The build system must be explicitly told to mix these modes (qio_opi). Standard generic configurations often default to qio_qio or dio_dio, both of which are fatal for the R8 PSRAM integration.
+________________
+7. Strategic Recommendations for Production
+To prevent recurrence of this issue in a development or production environment, the following practices are recommended:
+1. Standardize the Build Environment: Do not rely on ad-hoc IDE settings. Use platformio.ini or sdkconfig to strictly define the partition table and flash modes.
+2. Implement Versioning in Serial Output: Always print a firmware version string and compilation timestamp in setup(): Serial.println("Firmware v1.2 Build: " __DATE__ " " __TIME__);. This is the only reliable way to confirm which binary is running, avoiding the "ghost" confusion.
+3. Force Factory Boot During Dev: During active development, standard flashing writes to app0. To disable OTA confusion, one can erase the otadata partition during every upload by adding a custom script or flag, or simply by using the erase_flash command whenever partition tables are modified.
+4. Use "USB CDC On Boot": For S3 boards using the native USB port, this flag is non-negotiable. Without it, the loss of USB enumeration during a crash loop makes the board unrecoverable without entering bootloader mode manually (holding BOOT + Reset).
+________________
+8. Conclusion
+The inability of the Waveshare ESP32-S3-Touch-LCD-3.5B to execute new firmware is a software configuration failure, not a hardware defect. It stems from a misalignment between the physical memory architecture (Octal PSRAM/Quad Flash) and the software build configuration, exacerbated by the persistence of the OTA Data partition which prioritizes older, valid boot slots over newly flashed factory images.
+By performing a full chip erase to clear the otadata directive, implementing a valid 16MB partition scheme, and strictly enforcing qio_opi memory modes in the build system, the device will return to nominal operation. The detailed remediation steps provided in Section 5 serve as the definitive solution path for this issue.
+Works cited
+1. ESP32-S3-Touch-LCD-3.5B - Waveshare Wiki, accessed January 7, 2026, https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-3.5B
+2. ESP32-S3-Touch-LCD-3.5 - Waveshare Wiki, accessed January 7, 2026, https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-3.5
+3. [ESP32-S3] Continuous Reboot After Flashing Larger Firmware – Tried Everything, accessed January 7, 2026, https://esp32.com/viewtopic.php?t=45944
+4. ESP32-S3 continuous reboot after flashing larger firmware - Arduino Stack Exchange, accessed January 7, 2026, https://arduino.stackexchange.com/questions/98730/esp32-s3-continuous-reboot-after-flashing-larger-firmware
+5. ESP32-S3 3.5inch Capacitive Touch Display Development Board Type B, 320×480 Pixels, IPS Panel, 262K Color, QSPI Interface, Onboard Camera Interface, Supports Wi-Fi and Bluetooth 5, ESP32 With Display | ESP32-S3-Touch-LCD-3.5B - Waveshare, accessed January 7, 2026, https://www.waveshare.com/esp32-s3-touch-lcd-3.5b.htm
+6. ESP32-S3 3.5inch Capacitive Touch Display Development Board, 320×480 Pixels, IPS Panel, 262K Color, Onboard Camera Interface, Supports Wi-Fi and Bluetooth 5, ESP32 With Display | ESP32-S3-Touch-LCD-3.5 - Waveshare, accessed January 7, 2026, https://www.waveshare.com/esp32-s3-touch-lcd-3.5.htm
+7. Partition Tables - ESP32-S3 - — ESP-IDF Programming Guide v5.5.2 documentation, accessed January 7, 2026, https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/partition-tables.html
+8. Partition Tables - ESP32-S3 - — ESP-IDF Programming Guide v4.4.2 documentation, accessed January 7, 2026, https://docs.espressif.com/projects/esp-idf/en/v4.4.2/esp32s3/api-guides/partition-tables.html
+9. ESP32 OTA and Rollbacks - What happens under the hood? - Blog - waynejohnson.net, accessed January 7, 2026, https://blog.waynejohnson.net/doku.php/esp32_ota
+10. Troubleshooting - ESP32-S3 - — esptool latest documentation - Espressif Systems, accessed January 7, 2026, https://docs.espressif.com/projects/esptool/en/latest/esp32s3/troubleshooting.html
+11. Which board to select for ESP32-S3-WROOM in PlatformIO? - Stack Overflow, accessed January 7, 2026, https://stackoverflow.com/questions/77467177/which-board-to-select-for-esp32-s3-wroom-in-platformio
+12. Flash Firmware Flashing and Erasing - Waveshare Wiki, accessed January 7, 2026, https://www.waveshare.com/wiki/Flash_Firmware_Flashing_and_Erasing
+13. ESP32 module firmware flash successful, but old firmware remains. - Reddit, accessed January 7, 2026, https://www.reddit.com/r/esp32/comments/1m7nqlx/esp32_module_firmware_flash_successful_but_old/
+14. Basic Commands - ESP32-S3 - — esptool latest documentation, accessed January 7, 2026, https://docs.espressif.com/projects/esptool/en/latest/esp32s3/esptool/basic-commands.html
+15. ESP32-S3 partition tables and optimizing memory for Arduino IDE 2.x - Reddit, accessed January 7, 2026, https://www.reddit.com/r/esp32/comments/1gnlp9h/esp32s3_partition_tables_and_optimizing_memory/
+16. Partition Table/Option for 16MB flash (and 32MB flash) · Issue #6495 · espressif/arduino-esp32 - GitHub, accessed January 7, 2026, https://github.com/espressif/arduino-esp32/issues/6495
+17. arduino-esp32/tools/partitions/app3M_fat9M_16MB.csv at master - GitHub, accessed January 7, 2026, https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/app3M_fat9M_16MB.csv
+18. Flashing Troubleshooting - ESP32-S3 - — ESP-IDF Programming Guide v5.5.2 documentation - Espressif Systems, accessed January 7, 2026, https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/get-started/flashing-troubleshooting.html
+19. ESP32-S3-Touch-LCD-4.3B - Waveshare Wiki, accessed January 7, 2026, https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4.3B

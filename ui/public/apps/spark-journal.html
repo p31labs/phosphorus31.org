@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spark Journal — P31 Greenhouse</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #050510;
+      color: #E0E0EE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #1a1a2e;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #34d399;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #7878AA;
+      font-size: 0.9rem;
+    }
+
+    .search-container {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #1a1a2e;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #1a1a2e;
+      border: 1px solid #7878AA;
+      color: #E0E0EE;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #34d399;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .journal-textarea {
+      width: 100%;
+      flex: 1;
+      min-height: 400px;
+      background: #050510;
+      border: none;
+      color: #E0E0EE;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      resize: none;
+      padding: 0;
+    }
+
+    .journal-textarea:focus {
+      outline: none;
+    }
+
+    .journal-textarea::placeholder {
+      color: #7878AA;
+    }
+
+    .entries-container {
+      display: none;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .entries-container.active {
+      display: flex;
+    }
+
+    .entry {
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #1a1a2e;
+    }
+
+    .entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry-date {
+      font-size: 0.75rem;
+      color: #34d399;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      font-family: monospace;
+    }
+
+    .entry-content {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #E0E0EE;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .entry-content .highlight {
+      background: #34d399;
+      color: #050510;
+      padding: 0.1em 0.2em;
+      border-radius: 0.2em;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #7878AA;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-top: 1px solid #1a1a2e;
+      margin-top: 2rem;
+    }
+
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.75rem;
+      color: #7878AA;
+      font-family: monospace;
+    }
+
+    .export-button {
+      background: #1a1a2e;
+      border: 1px solid #34d399;
+      color: #34d399;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .export-button:hover {
+      background: #34d399;
+      color: #050510;
+    }
+
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: #7878AA;
+      font-size: 0.875rem;
+      border-top: 1px solid #1a1a2e;
+    }
+
+    @media (max-width: 640px) {
+      .main-content {
+        padding: 1rem;
+      }
+
+      .controls {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ Spark Journal</h1>
+    <p class="subtitle">Capture thoughts before they disappear. No pressure. No structure.</p>
+  </header>
+
+  <div class="search-container" id="searchContainer" style="display: none;">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search entries...">
+  </div>
+
+  <div class="main-content">
+    <textarea 
+      class="journal-textarea" 
+      id="journalTextarea" 
+      placeholder="The page is patient. It will wait."
+      autofocus
+    ></textarea>
+
+    <div class="entries-container" id="entriesContainer">
+      <!-- Entries will be rendered here -->
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="stats">
+      <span id="entryCount">0 entries</span>
+      <span id="wordCount">0 words</span>
+      <span id="charCount">0 chars</span>
+    </div>
+    <button class="export-button" onclick="exportMarkdown()">Export Markdown</button>
+  </div>
+
+  <footer>
+    P31 Labs — phosphorus31.org — It's okay to be a little wonky. 🔺
+  </footer>
+
+  <script>
+    const journalTextarea = document.getElementById('journalTextarea');
+    const entriesContainer = document.getElementById('entriesContainer');
+    const searchInput = document.getElementById('searchInput');
+    const searchContainer = document.getElementById('searchContainer');
+    const entryCountEl = document.getElementById('entryCount');
+    const wordCountEl = document.getElementById('wordCount');
+    const charCountEl = document.getElementById('charCount');
+
+    let autoSaveTimer = null;
+    let entries = [];
+
+    // Load entries from localStorage
+    function loadEntries() {
+      const stored = localStorage.getItem('sparkJournal');
+      if (stored) {
+        entries = JSON.parse(stored);
+        renderEntries();
+        updateStats();
+      }
+    }
+
+    // Auto-save with debounce
+    function scheduleAutoSave() {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        const content = journalTextarea.value.trim();
+        if (content) {
+          saveEntry(content);
+        }
+      }, 5000);
+    }
+
+    // Save entry with date header
+    function saveEntry(content) {
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+      const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      
+      // Check if today's entry exists
+      const todayEntry = entries.find(e => e.date === today);
+      
+      if (todayEntry) {
+        // Append to today's entry
+        todayEntry.content = content;
+        todayEntry.updated = now.toISOString();
+      } else {
+        // Create new entry
+        entries.unshift({
+          date: today,
+          dateDisplay: formatDate(now),
+          content: content,
+          created: now.toISOString(),
+          updated: now.toISOString()
+        });
+      }
+      
+      localStorage.setItem('sparkJournal', JSON.stringify(entries));
+      renderEntries();
+      updateStats();
+    }
+
+    function formatDate(date) {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    // Render entries (newest first)
+    function renderEntries(searchTerm = '') {
+      entriesContainer.innerHTML = '';
+      
+      if (entries.length === 0 && !searchTerm) {
+        entriesContainer.innerHTML = '<div class="empty-state">The page is patient. It will wait.</div>';
+        entriesContainer.classList.add('active');
+        return;
+      }
+
+      let filteredEntries = entries;
+      if (searchTerm) {
+        filteredEntries = entries.filter(entry => 
+          entry.content.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      if (filteredEntries.length === 0) {
+        entriesContainer.innerHTML = '<div class="empty-state">No entries found.</div>';
+        entriesContainer.classList.add('active');
+        return;
+      }
+
+      filteredEntries.forEach(entry => {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'entry';
+        
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'entry-date';
+        dateDiv.textContent = entry.dateDisplay;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'entry-content';
+        
+        if (searchTerm) {
+          contentDiv.innerHTML = highlightText(entry.content, searchTerm);
+        } else {
+          contentDiv.textContent = entry.content;
+        }
+        
+        entryDiv.appendChild(dateDiv);
+        entryDiv.appendChild(contentDiv);
+        entriesContainer.appendChild(entryDiv);
+      });
+
+      entriesContainer.classList.add('active');
+      journalTextarea.style.display = searchTerm ? 'none' : 'block';
+    }
+
+    function highlightText(text, term) {
+      const regex = new RegExp(`(${term})`, 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function updateStats() {
+      const allText = entries.map(e => e.content).join(' ');
+      const words = allText.trim() ? allText.trim().split(/\s+/).length : 0;
+      const chars = allText.length;
+      
+      entryCountEl.textContent = `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}`;
+      wordCountEl.textContent = `${words} words`;
+      charCountEl.textContent = `${chars} chars`;
+    }
+
+    function exportMarkdown() {
+      if (entries.length === 0) {
+        alert('No entries to export.');
+        return;
+      }
+
+      let markdown = '# Spark Journal Export\n\n';
+      markdown += `*Exported on ${new Date().toLocaleString()}*\n\n`;
+      markdown += '---\n\n';
+
+      entries.forEach(entry => {
+        markdown += `## ${entry.dateDisplay}\n\n`;
+        markdown += entry.content + '\n\n';
+        markdown += '---\n\n';
+      });
+
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `spark-journal-${new Date().toISOString().split('T')[0]}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Event listeners
+    journalTextarea.addEventListener('input', () => {
+      scheduleAutoSave();
+      updateStats();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.trim();
+      if (term) {
+        renderEntries(term);
+      } else {
+        renderEntries();
+        journalTextarea.style.display = 'block';
+      }
+    });
+
+    // Show search when there are entries
+    function toggleSearch() {
+      if (entries.length > 0) {
+        searchContainer.style.display = 'block';
+      } else {
+        searchContainer.style.display = 'none';
+      }
+    }
+
+    // Initialize
+    loadEntries();
+    toggleSearch();
+    
+    // Update search visibility when entries change
+    const originalRenderEntries = renderEntries;
+    renderEntries = function(...args) {
+      originalRenderEntries(...args);
+      toggleSearch();
+    };
+
+    // Load today's entry into textarea if it exists
+    const today = new Date().toISOString().split('T')[0];
+    const todayEntry = entries.find(e => e.date === today);
+    if (todayEntry) {
+      journalTextarea.value = todayEntry.content;
+    }
+  </script>
+</body>
+</html>

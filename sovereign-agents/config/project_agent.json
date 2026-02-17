@@ -1,0 +1,27 @@
+{
+    "name": "Project Agent (Archivist)",
+    "target_directory": "C:/MASTER_PROJECT",
+    "scan_frequency_seconds": 3600,
+    "rules": {
+        "categorize": [
+            {"pattern": "*.py", "category": "python_source"},
+            {"pattern": "*.js", "category": "javascript_source"},
+            {"pattern": "*.tsx", "category": "react_component"},
+            {"pattern": "README.md", "category": "documentation"}
+        ],
+        "scrub": {
+            "enabled": true,
+            "mode": "report_only",
+            "patterns": [
+                "API_KEY=...",
+                "SECRET=..."
+            ]
+        },
+        "rename": {
+            "enabled": false
+        },
+        "move": {
+            "enabled": false
+        }
+    }
+}

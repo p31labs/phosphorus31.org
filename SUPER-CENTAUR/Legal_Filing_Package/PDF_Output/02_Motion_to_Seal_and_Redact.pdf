@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Legal Document</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Legal Document</h1>
+</header>
+<h1 id="in-the-superior-court-of-camden-county">IN THE SUPERIOR COURT OF
+CAMDEN COUNTY</h1>
+<h1 id="state-of-georgia">STATE OF GEORGIA</h1>
+<p>CHRISTYN E. JOHNSON, Plaintiff,</p>
+<ol start="22" type="a">
+<li></li>
+</ol>
+<p>WILLIAM R. JOHNSON, Defendant.</p>
+<p>CIVIL ACTION FILE NO. 2025CV936</p>
+<p><strong>DEFENDANT’S VERIFIED MOTION TO SEAL RECORD AND REDACT MINOR’S
+PII (OPSEC PROTOCOL)</strong></p>
+<p>COMES NOW, William R. Johnson, Defendant Pro Se, and respectfully
+submits this Motion to Seal and Redact all documents containing the full
+names and personally identifiable information of the minor children in
+this case.</p>
+<h2 id="i.-introduction">I. INTRODUCTION</h2>
+<p>This Motion seeks to protect the privacy and safety of the minor
+children, Sebastian Johnson (DOB: 2016) and Willow Johnson (DOB: 2016),
+who are innocent third parties in this litigation. The public disclosure
+of their full names and personal information creates an unacceptable
+risk of identity theft, data commodification, and potential harm in the
+digital age.</p>
+<h2 id="ii.-jurisdictional-authority">II. JURISDICTIONAL AUTHORITY</h2>
+<p>This Court has inherent authority to seal court records and protect
+the privacy of minor children pursuant to: - Uniform Superior Court Rule
+21 (Privacy Protection) - Georgia Code § 19-7-11 (Records of Juvenile
+Proceedings) - Georgia Code § 19-9-77 (Records of Juvenile Proceedings)
+- Inherent judicial authority to protect vulnerable parties</p>
+<h2 id="iii.-factual-background">III. FACTUAL BACKGROUND</h2>
+<h3 id="a.-minor-childrens-status">A. Minor Children’s Status</h3>
+<p>The minor children, Sebastian Johnson and Willow Johnson, are
+innocent third parties who: 1. Have no legal capacity to consent to
+public disclosure of their personal information 2. Are not parties to
+this litigation 3. Have fundamental privacy rights that must be
+protected 4. Are particularly vulnerable to identity theft and online
+exploitation</p>
+<h3 id="b.-current-privacy-breach">B. Current Privacy Breach</h3>
+<p>The current court record contains numerous documents that expose the
+children’s full names and personal information, including: - Pleadings
+and motions - Financial affidavits - Medical records - School records -
+Any other documents containing the children’s full names</p>
+<h3 id="c.-risk-assessment">C. Risk Assessment</h3>
+<p>In the current digital environment, public disclosure of minor
+children’s PII creates significant risks: 1. <strong>Identity
+Theft</strong>: Children are prime targets for identity theft due to
+their clean credit histories 2. <strong>Data Commodification</strong>:
+Personal information is bought and sold by data brokers 3.
+<strong>Online Predation</strong>: Public records can be accessed by
+individuals with malicious intent 4. <strong>Future Harm</strong>:
+Digital footprints created now can affect the children’s future
+opportunities</p>
+<h2 id="iv.-legal-argument">IV. LEGAL ARGUMENT</h2>
+<h3 id="a.-childrens-privacy-rights">A. Children’s Privacy Rights</h3>
+<p>Georgia courts recognize that children have fundamental privacy
+rights that must be protected. <em>In re Doe</em>, 290 Ga. 40 (2011).
+The state has a compelling interest in protecting children from harm,
+including the harm caused by inappropriate disclosure of personal
+information.</p>
+<h3 id="b.-public-interest-in-privacy">B. Public Interest in
+Privacy</h3>
+<p>The public interest strongly favors protecting children’s privacy
+over any minimal public benefit from accessing their personal
+information. The children are not public figures, and their personal
+information serves no legitimate public purpose.</p>
+<h3 id="c.-uniform-superior-court-rule-21-compliance">C. Uniform
+Superior Court Rule 21 Compliance</h3>
+<p>Uniform Superior Court Rule 21.1 provides that “the court may, upon
+motion, order that any document or portion thereof be sealed if the
+court finds that the public interest in access to the document or
+portion thereof is outweighed by the interest in keeping the document or
+portion thereof confidential.”</p>
+<p>The factors to consider include: 1. Whether disclosure would create a
+clear danger of physical harm 2. Whether disclosure would create a clear
+danger of financial harm 3. Whether the information is already publicly
+available 4. Whether the information involves minors</p>
+<p>All factors strongly favor sealing in this case.</p>
+<h2 id="v.-relief-requested">V. RELIEF REQUESTED</h2>
+<p>WHEREFORE, Defendant respectfully requests this Honorable Court:</p>
+<ol type="1">
+<li><strong>SEAL</strong> all documents in the court record that contain
+the full names and PII of Sebastian Johnson and Willow Johnson</li>
+<li><strong>ORDER</strong> that all future filings redact the children’s
+full names, using only initials (S.J. and W.J.)</li>
+<li><strong>DIRECT</strong> the Clerk of Court to maintain sealed copies
+of all affected documents</li>
+<li><strong>PROHIBIT</strong> any party from filing documents containing
+the children’s full names without prior court approval</li>
+<li><strong>GRANT</strong> such other relief as the Court deems just and
+proper</li>
+</ol>
+<h2 id="vi.-verification">VI. VERIFICATION</h2>
+<p>I, William R. Johnson, being duly sworn, depose and say that I am the
+Defendant in this action; that I have read the foregoing Motion; that
+the facts stated therein are true and correct to the best of my
+knowledge, information, and belief.</p>
+<hr />
+<p>William R. Johnson Defendant Pro Se 401 Powderhorn Road Saint Marys,
+GA 31558 (912) 227-4980 willyj1587@gmail.com</p>
+<p>SWORN AND SUBSCRIBED before me this _____ day of __________,
+2026.</p>
+<hr />
+<p>Notary Public My Commission Expires: ___________</p>
+<h2 id="vii.-certificate-of-service">VII. CERTIFICATE OF SERVICE</h2>
+<p>I hereby certify that a true and correct copy of the foregoing Motion
+has been furnished via email to:</p>
+<p>Jennifer L. McGhan, Esq. McGhan Law, LLC 575 E. King Avenue
+Kingsland, GA 31548 jenn@mcghanlaw.com</p>
+<p>This _____ day of __________, 2026.</p>
+<hr />
+<p>William R. Johnson Defendant Pro Se</p>
+</body>
+</html>

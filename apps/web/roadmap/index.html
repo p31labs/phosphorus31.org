@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap · P31 Labs</title>
+  <meta name="description" content="Current status, upcoming milestones, and long‑term vision for P31 Labs.">
+  <meta property="og:title" content="Roadmap · P31 Labs">
+  <meta property="og:description" content="Current status, upcoming milestones, and long‑term vision for P31 Labs.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="../assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Page‑specific roadmap styles */
+    .roadmap-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+    .filter-btn {
+      background: #0A0A1F;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 8px 16px;
+      min-height: 36px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #7878AA;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      background: rgba(0, 255, 136, 0.2);
+      border-color: #00FF88;
+    }
+    .filter-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+    }
+    .filter-btn.active {
+      background: rgba(0, 255, 136, 0.1);
+      border-color: #00FF88;
+      color: #00FF88;
+    }
+    .timeline {
+      position: relative;
+      margin: 3rem 0;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #2ecc71, #60a5fa, #2ecc71);
+      opacity: 0.3;
+    }
+    .milestone {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 2rem;
+    }
+    .milestone::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      top: 1rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: #2ecc71;
+      border: 2px solid #050510;
+      box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.3);
+    }
+    .milestone.complete::before { background: #2ecc71; }
+    .milestone.in-progress::before { background: #60a5fa; animation: pulse 1.5s infinite; }
+    .milestone.planned::before { background: #94a3b8; }
+    .milestone.future::before { background: #475569; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(96, 165, 250, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .milestone.in-progress::before {
+        animation: none;
+      }
+    }
+
+    .milestone-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+      transition: border-color 0.2s;
+    }
+    .milestone-card:focus-within,
+    .milestone-card:hover {
+      border-color: #2ecc71;
+    }
+    .milestone-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .milestone-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-complete { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+    .status-in-progress { background: rgba(96, 165, 250, 0.2); color: #60a5fa; border: 1px solid #60a5fa; }
+    .status-planned { background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid #94a3b8; }
+    .status-future { background: rgba(71, 85, 105, 0.2); color: #94a3b8; border: 1px solid #475569; }
+
+    .milestone-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .milestone-tag {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+    }
+    .progress-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .progress-item {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      padding: 1.2rem;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 0.8rem;
+      background: #1e293b;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 0.5rem 0 0.2rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2ecc71, #60a5fa);
+      border-radius: 1rem;
+      width: 0%;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .no-milestones {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      display: none;
+    }
+    .no-milestones.visible { display: block; }
+    .last-updated {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/" aria-current="page">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Development</span>
+          <h1>Roadmap</h1>
+          <p>Current status, upcoming milestones, and long‑term vision for P31 Labs. The geometry protects the signal.</p>
+        </div>
+
+        <!-- Last updated -->
+        <div class="last-updated">
+          <span>Last updated: <time datetime="2026-02-15">February 15, 2026</time></span>
+        </div>
+
+        <!-- Progress bars for major initiatives -->
+        <div class="progress-section">
+          <div class="progress-item">
+            <h3>Node One Production</h3>
+            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+              <div class="progress-fill" style="width: 65%;"></div>
+            </div>
+            <div class="progress-label">
+              <span>65% complete</span>
+              <span>🚧 In Progress</span>
+            </div>
+          </div>
+          <div class="progress-item">
+            <h3>Mesh Network Deployment</h3>
+            <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+              <div class="progress-fill" style="width: 25%;"></div>
+            </div>
+            <div class="progress-label">
+              <span>25% complete</span>
+              <span>📋 Planned</span>
+            </div>
+          </div>
+          <div class="progress-item">
+            <h3>L.O.V.E. Economy</h3>
+            <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+              <div class="progress-fill" style="width: 80%;"></div>
+            </div>
+            <div class="progress-label">
+              <span>80% complete</span>
+              <span>✅ Near completion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter buttons -->
+        <div class="roadmap-filters" role="group" aria-label="Filter milestones by component">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="node-one">Node One</button>
+          <button class="filter-btn" data-filter="buffer">The Buffer</button>
+          <button class="filter-btn" data-filter="scope">The Scope</button>
+          <button class="filter-btn" data-filter="phenix">Phenix Navigator</button>
+          <button class="filter-btn" data-filter="economy">L.O.V.E. Economy</button>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline" id="milestone-timeline" role="list" aria-label="Milestone timeline">
+          <!-- Milestone 1 -->
+          <div class="milestone complete" data-component="node-one,phenix" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q1 2025</span>
+                <span class="status-badge status-complete">✅ Complete</span>
+              </div>
+              <h3>Initial Concept & Whitepaper</h3>
+              <p>Foundational research and publication of the P31 protocol whitepaper. Established core principles: delta topology, G.O.D. protocol, and assistive focus.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">Node One</span>
+                <span class="milestone-tag">Phenix Navigator</span>
+              </div>
+              <a href="/docs/phenix-navigator/" class="btn btn-ghost">Read Whitepaper →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="milestone complete" data-component="node-one" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q2 2025</span>
+                <span class="status-badge status-complete">✅ Complete</span>
+              </div>
+              <h3>Node One Prototype v0.1</h3>
+              <p>First working prototype based on ESP32‑S3 with basic LoRa mesh and haptic feedback. Successfully transmitted data over 500m.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">Node One</span>
+              </div>
+              <a href="/node-one/" class="btn btn-ghost">View Hardware →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="milestone complete" data-component="buffer" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q3 2025</span>
+                <span class="status-badge status-complete">✅ Complete</span>
+              </div>
+              <h3>The Buffer Alpha</h3>
+              <p>Real‑time data processing and signal buffering software released. Includes noise filtering and packet prioritization.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">The Buffer</span>
+              </div>
+              <a href="/docs/buffer/" class="btn btn-ghost">View Docs →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 4 -->
+          <div class="milestone complete" data-component="economy" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q4 2025</span>
+                <span class="status-badge status-complete">✅ Complete</span>
+              </div>
+              <h3>L.O.V.E. Economy Whitepaper</h3>
+              <p>Published economic model: LOVE tokens, Proof of Care, and dual‑pool distribution (Sovereignty 50% / Performance 50%).</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">L.O.V.E. Economy</span>
+              </div>
+              <a href="/docs/love-economy/" class="btn btn-ghost">Read Paper →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 5 -->
+          <div class="milestone in-progress" data-component="node-one" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q1 2026</span>
+                <span class="status-badge status-in-progress">🚧 In Progress</span>
+              </div>
+              <h3>Node One Production Run</h3>
+              <p>Manufacturing of first 1000 units. Finalising FCC/CE certifications and enclosure design. Estimated shipping: April 2026.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">Node One</span>
+              </div>
+              <a href="/node-one/#production" class="btn btn-ghost">Production Details →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 6 -->
+          <div class="milestone in-progress" data-component="phenix" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q1 2026</span>
+                <span class="status-badge status-in-progress">🚧 In Progress</span>
+              </div>
+              <h3>Phenix Navigator Beta</h3>
+              <p>Mesh routing protocol implementation in beta. Testing topology‑aware metrics and self‑healing algorithms.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">Phenix Navigator</span>
+              </div>
+              <a href="/docs/phenix-navigator/" class="btn btn-ghost">Protocol Spec →</a>
+            </div>
+          </div>
+
+          <!-- Milestone 7 -->
+          <div class="milestone planned" data-component="buffer,scope" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q2 2026</span>
+                <span class="status-badge status-planned">📋 Planned</span>
+              </div>
+              <h3>Public Mesh Beta</h3>
+              <p>Launch of public testnet with The Buffer and The Scope. Users can participate in mesh network and earn test LOVE tokens.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">The Buffer</span>
+                <span class="milestone-tag">The Scope</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 8 -->
+          <div class="milestone planned" data-component="scope" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q3 2026</span>
+                <span class="status-badge status-planned">📋 Planned</span>
+              </div>
+              <h3>The Scope Interface v1</h3>
+              <p>First stable release of the user interface for visualizing mesh health, wallet, and accessibility features.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">The Scope</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 9 -->
+          <div class="milestone future" data-component="economy" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">Q4 2026</span>
+                <span class="status-badge status-future">🔮 Future</span>
+              </div>
+              <h3>LOVE Token Launch</h3>
+              <p>Mainnet deployment of LOVE tokens on Base L2. Initial distribution to early testers and contributors.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">L.O.V.E. Economy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 10 -->
+          <div class="milestone future" data-component="node-one,phenix,buffer,scope" role="listitem">
+            <div class="milestone-card">
+              <div class="milestone-header">
+                <span class="milestone-date">2027+</span>
+                <span class="status-badge status-future">🔮 Future</span>
+              </div>
+              <h3>Full Mesh Deployment</h3>
+              <p>Global deployment of Node One devices, enabling a resilient, privacy‑first mesh network for assistive technology.</p>
+              <div class="milestone-tags">
+                <span class="milestone-tag">All Components</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No results message -->
+        <div class="no-milestones" id="no-milestones-message" aria-live="polite">
+          No milestones match the selected filter. Try another component.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+  <script src="roadmap.js"></script>
+</body>
+</html>

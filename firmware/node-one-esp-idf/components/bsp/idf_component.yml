@@ -1,0 +1,4 @@
+## IDF Component Manager Manifest File
+## BSP component dependencies
+dependencies:
+  espressif/esp_lcd_axs15231b: "^2.0.2"    # AXS15231B QSPI display + touch

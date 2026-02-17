@@ -1,0 +1,4 @@
+## IDF Component Manager Manifest File
+## Audio Engine component dependencies
+dependencies:
+  espressif/esp_codec_dev: "~1.4.0"         # ES8311 audio codec

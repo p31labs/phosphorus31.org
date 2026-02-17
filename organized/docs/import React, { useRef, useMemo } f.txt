@@ -1,0 +1,328 @@
+import React, { useRef, useMemo } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Line, Sphere, Float } from '@react-three/drei';
+import * as THREE from 'three';
+
+// GEOMETRIC TRUTH: Regular Tetrahedron inscribed in unit sphere
+const VERTICES = [
+  new THREE.Vector3(0, 1, 0),                    // 0: TOP (You)
+  new THREE.Vector3(0.943, -0.333, 0),           // 1: RIGHT
+  new THREE.Vector3(-0.471, -0.333, 0.816),      // 2: LEFT FRONT
+  new THREE.Vector3(-0.471, -0.333, -0.816)      // 3: LEFT BACK
+];
+
+const EDGES = [[0,1], [0,2], [0,3], [1,2], [2,3], [3,1]];
+
+interface Props {
+  count: number; // How many nodes are filled? (1-4)
+  status: 'FORMING' | 'LOCKED' | 'EMERGENCY';
+}
+
+export const TetrahedronVisualizer: React.FC<Props> = ({ count, status }) => {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const config = useMemo(() => {
+    switch (status) {
+      case 'LOCKED': return { color: '#10b981', speed: 0.005 };
+      case 'EMERGENCY': return { color: '#ef4444', speed: 0.02 };
+      default: return { color: '#10b981', speed: 0.002 };
+    }
+  }, [status]);
+
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += config.speed;
+    
+    // Breathing effect
+    const t = state.clock.getElapsedTime();
+    const scale = 1 + Math.sin(t * (status === 'EMERGENCY' ? 10 : 2)) * 0.02;
+    groupRef.current.scale.set(scale, scale, scale);
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={0.2} floatIntensity={0.1}>
+      <group ref={groupRef}>
+        {/* NODES */}
+        {VERTICES.map((pos, i) => {
+          const isActive = i < count;
+          return (
+            <group key={i} position={pos}>
+              {/* Core Node */}
+              <Sphere args={[0.08, 32, 32]}>
+                <meshStandardMaterial 
+                  color={isActive ? config.color : '#1f2937'} 
+                  emissive={isActive ? config.color : '#000000'}
+                  emissiveIntensity={isActive ? 2 : 0}
+                  toneMapped={false}
+                />
+              </Sphere>
+              {/* Ghost Field for Empty Slots */}
+              {!isActive && (
+                <Sphere args={[0.08, 8, 8]}>
+                  <meshBasicMaterial color="#064e3b" wireframe transparent opacity={0.3} />
+                </Sphere>
+              )}
+            </group>
+          );
+        })}
+
+        {/* EDGES */}
+        {EDGES.map(([start, end], i) => {
+          const isConnected = start < count && end < count;
+          return (
+             <Line
+              key={i}
+              points={[VERTICES[start], VERTICES[end]]}
+              color={isConnected ? config.color : '#064e3b'}
+              lineWidth={isConnected ? 2 : 1}
+              transparent
+              opacity={isConnected ? 0.6 : 0.1}
+            />
+          );
+        })}
+      </group>
+    </Float>
+  );
+};
+
+import { useKernelStore } from './logic/store/kernelStore';
+import { GenesisScreen } from './components/screens/GenesisScreen';
+import { FormationScreen } from './components/screens/FormationScreen'; // New
+import { HomeScreen } from './components/screens/HomeScreen';           // New
+
+export default function App() {
+  const stage = useKernelStore((s) => s.stage);
+
+  return (
+    <div className="relative w-screen h-screen bg-god-bg text-god-green font-mono overflow-hidden">
+      <div className="absolute inset-0 z-[9999] crt-scanline" />
+      <main className="relative z-10 w-full h-full">
+        {stage === 'GENESIS' && <GenesisScreen />}
+        {stage === 'FORMATION' && <FormationScreen />}
+        {stage === 'HOME' && <HomeScreen />}
+      </main>
+    </div>
+  );
+}
+
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface Peer {
+  id: string;
+  name: string;
+  phone: string;
+  status: 'INVITED' | 'LINKED';
+}
+
+interface KernelState {
+  stage: 'GENESIS' | 'FORMATION' | 'HOME';
+  peers: Peer[];
+  
+  // Actions
+  startFormation: () => void;
+  addPeer: (name: string, phone: string) => void;
+  completeFormation: () => void;
+  reset: () => void; // For debugging
+}
+
+export const useKernelStore = create<KernelState>()(
+  persist(
+    (set) => ({
+      stage: 'GENESIS',
+      peers: [],
+
+      startFormation: () => set({ stage: 'FORMATION' }),
+      
+      addPeer: (name, phone) => set((state) => ({
+        peers: [...state.peers, { 
+          id: Math.random().toString(36).substr(2, 9),
+          name, 
+          phone, 
+          status: 'INVITED' 
+        }]
+      })),
+
+      completeFormation: () => set({ stage: 'HOME' }),
+      
+      reset: () => set({ stage: 'GENESIS', peers: [] })
+    }),
+    { name: 'god-kernel-v1' }
+  )
+);
+
+import React, { useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Plus, Shield, Check } from 'lucide-react';
+import { useKernelStore } from '../../logic/store/kernelStore';
+import { TetrahedronVisualizer } from '../geometry/TetrahedronVisualizer';
+
+export const FormationScreen: React.FC = () => {
+  const { peers, addPeer, finalizeStructure } = useKernelStore();
+  const [input, setInput] = useState('');
+
+  const handleAdd = () => {
+    if (input.trim()) {
+      addPeer(input.trim());
+      setInput('');
+    }
+  };
+
+  const isFull = peers.length >= 3;
+
+  return (
+    <div className="absolute inset-0 bg-god-bg flex flex-col">
+      
+      {/* 1. VISUALIZER (Top Half) */}
+      <div className="h-[45vh] relative border-b border-god-green/20">
+        <Canvas camera={{ position: [0, 0, 4] }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} color="#10b981" />
+          {/* Count = 1 (You) + peers */}
+          <TetrahedronVisualizer count={1 + peers.length} status="FORMING" />
+        </Canvas>
+        
+        {/* HUD Overlay */}
+        <div className="absolute top-4 left-4 p-2">
+          <h2 className="text-xs font-bold tracking-[0.2em] text-god-green glow-text">FORMATION</h2>
+          <div className="text-[10px] font-mono text-god-green/50 mt-1">
+            NODES: {1 + peers.length}/4
+          </div>
+        </div>
+      </div>
+
+      {/* 2. TERMINAL (Bottom Half) */}
+      <div className="flex-1 p-6 flex flex-col font-mono">
+        
+        {/* Peer List */}
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center justify-between p-3 border border-god-green/50 bg-god-green/10 rounded-sm">
+            <span className="text-xs text-god-green font-bold">VERTEX 01 (YOU)</span>
+            <Shield className="w-3 h-3 text-god-green" />
+          </div>
+          
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`flex items-center justify-between p-3 border rounded-sm transition-all ${peers[i] ? 'border-god-green/30 text-god-green' : 'border-god-dim border-dashed text-god-dim'}`}>
+              <span className="text-xs">{peers[i] ? `VERTEX 0${i+2}: ${peers[i].alias.toUpperCase()}` : `VERTEX 0${i+2}: [EMPTY]`}</span>
+              {peers[i] && <Check className="w-3 h-3" />}
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        {!isFull && (
+          <div className="flex gap-2 mb-6">
+            <input 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="ENTER ALIAS..."
+              className="flex-1 bg-black border-b border-god-green/30 p-2 text-xs text-god-green focus:outline-none focus:border-god-green placeholder-god-dim font-mono"
+              onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
+            />
+            <button 
+              onClick={handleAdd}
+              className="px-4 py-2 border border-god-green/30 text-god-green hover:bg-god-green/10 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Finalize Action */}
+        {isFull && (
+          <button 
+            onClick={finalizeStructure}
+            className="mt-auto w-full py-4 bg-god-green text-black font-bold tracking-[0.2em] text-xs hover:bg-white transition-colors animate-pulse"
+          >
+            INITIATE LINK
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Starfield } from '../geometry/Starfield';
+import { TheSingularity } from '../geometry/TheSingularity';
+import { useKernelStore } from '../../store/kernelStore';
+
+export const GenesisScreen: React.FC = () => {
+  const startFormation = useKernelStore(s => s.startFormation);
+
+  return (
+    <div className="absolute inset-0 bg-black">
+      
+      {/* 1. THE VOID */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 4] }}>
+          <Starfield />
+          <ambientLight intensity={0.5} />
+          <TheSingularity onClick={startFormation} />
+        </Canvas>
+      </div>
+
+      {/* 2. THE PROMPT */}
+      <div className="absolute bottom-20 w-full text-center pointer-events-none">
+        <h1 className="text-2xl font-bold text-emerald-500 glow-text tracking-widest mb-2">G.O.D.</h1>
+        <p className="text-[10px] font-mono text-emerald-500/50 tracking-[0.2em]">
+          GEODESIC OPERATIONS DAEMON
+        </p>
+        <div className="mt-8 animate-pulse text-xs font-mono text-emerald-500">
+          [TOUCH THE SINGULARITY]
+        </div>
+      </div>
+    </div>
+  );
+};
+
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import { AlertTriangle, Grid, Plus } from 'lucide-react';
+import { TetrahedronVisualizer } from '../geometry/TetrahedronVisualizer';
+
+export const HomeScreen: React.FC = () => {
+  return (
+    <div className="absolute inset-0 bg-god-bg flex flex-col font-mono overflow-hidden">
+      
+      {/* 1. THE STRUCTURE (Visualizer) */}
+      <div className="h-[40vh] relative border-b border-god-green/20">
+        <div className="absolute top-4 left-4 z-10">
+          <h1 className="text-xs font-bold tracking-widest text-god-green glow-text">TETRAHEDRON 001</h1>
+          <p className="text-[8px] text-god-green/60 mt-1">STATUS: STABLE</p>
+        </div>
+        
+        <Canvas camera={{ position: [0, 0, 4] }}>
+          <TetrahedronVisualizer count={4} status="LOCKED" />
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} color="#10b981" />
+        </Canvas>
+      </div>
+
+      {/* 2. THE SEVER (Emergency Button) */}
+      <div className="p-6">
+        <button className="w-full py-6 bg-god-red/10 border border-god-red/50 rounded flex items-center justify-center gap-3 group active:scale-95 transition-all">
+          <AlertTriangle className="w-5 h-5 text-god-red group-hover:animate-ping" />
+          <span className="text-god-red font-bold tracking-[0.2em] text-xs">EMERGENCY SIGNAL</span>
+        </button>
+      </div>
+
+      {/* 3. THE CONTAINER (Module Loader) */}
+      <div className="flex-1 bg-god-green/5 p-6 border-t border-god-green/20 overflow-y-auto">
+        <div className="flex items-center gap-2 mb-6 opacity-50 text-god-green">
+          <Grid className="w-3 h-3" />
+          <span className="text-[10px] tracking-widest">ACTIVE MODULES</span>
+        </div>
+
+        {/* Empty State - The "Slot" */}
+        <div className="border border-dashed border-god-green/20 rounded p-8 flex flex-col items-center justify-center text-center opacity-60 hover:opacity-100 hover:border-god-green/40 transition-all cursor-pointer group">
+          <Plus className="w-6 h-6 mb-2 text-god-green/50 group-hover:text-god-green" />
+          <span className="text-[10px] font-bold text-god-green">BROWSE MODULES</span>
+          <span className="text-[8px] text-god-green/50 mt-1">NO MODULES INSTALLED</span>
+        </div>
+      </div>
+      
+    </div>
+  );
+};

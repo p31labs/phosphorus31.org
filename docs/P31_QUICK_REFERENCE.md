@@ -75,7 +75,7 @@ red: 30
 phenix-navigator-creator67/
 ├── SUPER-CENTAUR/     # The Centaur
 ├── ui/                 # The Scope
-├── cognitive-shield/  # The Buffer
+├── apps/shelter/      # The Buffer (P31 Shelter)
 ├── firmware/          # Node One
 ├── docs/              # Documentation
 └── config/            # Configuration

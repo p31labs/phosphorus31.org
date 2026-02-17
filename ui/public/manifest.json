@@ -1,0 +1,16 @@
+{
+  "name": "P31 Labs — Assistive Technology",
+  "short_name": "P31",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#050510",
+  "background_color": "#050510",
+  "description": "The atom in the bone. Open-source assistive technology for neurodivergent individuals.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+Date,Account,Transaction Type,Description,Amount,Balance,Category,Notes
+2025-08-17,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.84,2315.84,Income,Military Salary
+2025-08-18,7022011352,Withdrawal,Netflix.Com,7.99,2307.85,Subscription,Entertainment
+2025-08-18,7022011352,Withdrawal,Camden CO School N,13.50,2294.35,Education,School Fees
+2025-08-18,7022011352,Withdrawal,Syf-Payltr,15.26,2279.09,Loan Payment,Credit Line
+2025-08-18,7022011352,Withdrawal,Burger King,20.44,2258.65,Food,Dining
+2025-08-18,7022011352,Withdrawal,Affirm * Pay,28.64,2230.01,Loan Payment,Installment
+2025-08-18,7022011352,Withdrawal,Prosper He*,36.36,2193.65,Loan Payment,Personal Loan
+2025-08-18,7022011352,Withdrawal,GEICO *auto,53.20,2140.45,Insurance,Auto Insurance
+2025-08-19,7022011352,Withdrawal,Camden CO School N,13.50,2126.95,Education,School Fees
+2025-08-19,7022011352,Withdrawal,Microsoft*ultimate,21.39,2105.56,Software,Microsoft Services
+2025-08-19,7022011352,Withdrawal,Prosper He*,25.00,2080.56,Loan Payment,Personal Loan
+2025-08-19,7022011352,Withdrawal,GEICO *auto,12.64,2067.92,Insurance,Auto Insurance
+2025-08-21,7022011352,Withdrawal,Municipal Online P,11.25,2056.67,Utilities,City Services
+2025-08-21,7022011352,Withdrawal,Affirm * Pay,15.38,2041.29,Loan Payment,Installment
+2025-08-21,7022011352,Withdrawal,Affirm * Pay,25.00,2016.29,Loan Payment,Installment
+2025-08-21,7022011352,Withdrawal,Ppy*camden Behavio,33.61,1982.68,Medical,Healthcare
+2025-08-21,7022011352,Withdrawal,City Of ST Marys,60.27,1922.41,Government,City Fees
+2025-08-22,7022011352,Withdrawal,Dollar General,38.07,1884.34,Retail,Groceries
+2025-08-22,7022011352,Transfer,Transfer To Credit Card,263.55,1620.79,Transfer,Credit Card Payment
+2025-08-25,7022011352,Withdrawal,Affirm * Pay,32.14,1588.65,Loan Payment,Installment
+2025-08-25,7022011352,Withdrawal,Affirm * Pay,53.24,1535.41,Loan Payment,Installment
+2025-08-25,7022011352,Withdrawal,Affirm * Pay,73.67,1461.74,Loan Payment,Installment
+2025-08-26,7022011352,Withdrawal,Camden CO School N,13.50,1448.24,Education,School Fees
+2025-09-02,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.83,3764.07,Income,Military Salary
+2025-09-02,7022011352,Transfer,Transfer To Checking,50.00,3714.07,Transfer,Account Transfer
+2025-09-02,7022011352,Withdrawal,Google *relay For,16.00,3698.07,Technology,Google Services
+2025-09-02,7022011352,Withdrawal,GA Driver Svcs Onl,13.50,3684.57,Government,DMV Fees
+2025-09-02,7022011352,Withdrawal,Camden CO School N,14.45,3670.12,Education,School Fees
+2025-09-02,7022011352,Withdrawal,McDonalds,17.61,3652.51,Food,Dining
+2025-09-02,7022011352,Withdrawal,GA Corporate Regis,10.00,3642.51,Government,Business Registration
+2025-09-03,7022011352,Withdrawal,Camden CO School N,13.50,3629.01,Education,School Fees
+2025-09-04,7022011352,Withdrawal,Affirm * Pay,20.59,3608.42,Loan Payment,Installment
+2025-09-10,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.83,5924.25,Income,Military Salary
+2025-09-11,7022011352,Transfer,Transfer To Checking,50.00,5874.25,Transfer,Account Transfer
+2025-09-12,7022011352,Transfer,Transfer To Credit Card,15.00,5859.25,Transfer,Credit Card Payment
+2025-09-15,7022011352,Deposit,Shadow Fiduciary - Allan F Jamison,1147.59,7006.84,Unexplained,Family Support
+2025-09-15,7022011352,Withdrawal,Netflix.Com,7.99,6998.85,Subscription,Entertainment
+2025-09-15,7022011352,Withdrawal,Pizza Hut,46.00,6952.85,Food,Dining
+2025-09-15,7022011352,Withdrawal,Pnm*aqua Finance I,80.00,6872.85,Loan Payment,Installment
+2025-09-16,7022011352,Transfer,Transfer To Checking,190.00,6682.85,Transfer,Account Transfer
+2025-09-16,7022011352,Transfer,Transfer To Checking,1147.59,5535.26,Transfer,Account Transfer
+2025-09-16,7022011352,Withdrawal,Camden Behavioral,25.00,5510.26,Medical,Healthcare
+2025-09-17,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.84,7826.10,Income,Military Salary
+2025-09-18,7022011352,Withdrawal,Netflix.Com,7.99,7818.11,Subscription,Entertainment
+2025-09-18,7022011352,Withdrawal,Camden CO School N,13.50,7804.61,Education,School Fees
+2025-09-18,7022011352,Withdrawal,Syf-Payltr,15.26,7789.35,Loan Payment,Credit Line
+2025-09-18,7022011352,Withdrawal,Burger King,20.44,7768.91,Food,Dining
+2025-09-18,7022011352,Withdrawal,Affirm * Pay,28.64,7740.27,Loan Payment,Installment
+2025-09-18,7022011352,Withdrawal,Prosper He*,36.36,7703.91,Loan Payment,Personal Loan
+2025-09-18,7022011352,Withdrawal,GEICO *auto,53.20,7650.71,Insurance,Auto Insurance
+2025-09-19,7022011352,Withdrawal,Camden CO School N,13.50,7637.21,Education,School Fees
+2025-09-19,7022011352,Withdrawal,Microsoft*ultimate,21.39,7615.82,Software,Microsoft Services
+2025-09-19,7022011352,Withdrawal,Prosper He*,25.00,7590.82,Loan Payment,Personal Loan
+2025-09-19,7022011352,Withdrawal,GEICO *auto,12.64,7578.18,Insurance,Auto Insurance
+2025-09-21,7022011352,Withdrawal,Municipal Online P,11.25,7566.93,Utilities,City Services
+2025-09-21,7022011352,Withdrawal,Affirm * Pay,15.38,7551.55,Loan Payment,Installment
+2025-09-21,7022011352,Withdrawal,Affirm * Pay,25.00,7526.55,Loan Payment,Installment
+2025-09-21,7022011352,Withdrawal,Ppy*camden Behavio,33.61,7492.94,Medical,Healthcare
+2025-09-21,7022011352,Withdrawal,City Of ST Marys,60.27,7432.67,Government,City Fees
+2025-09-22,7022011352,Withdrawal,Dollar General,38.07,7394.60,Retail,Groceries
+2025-09-22,7022011352,Transfer,Transfer To Credit Card,263.55,7131.05,Transfer,Credit Card Payment
+2025-09-25,7022011352,Withdrawal,Affirm * Pay,32.14,7098.91,Loan Payment,Installment
+2025-09-25,7022011352,Withdrawal,Affirm * Pay,53.24,7045.67,Loan Payment,Installment
+2025-09-25,7022011352,Withdrawal,Affirm * Pay,73.67,6972.00,Loan Payment,Installment
+2025-09-26,7022011352,Withdrawal,Camden CO School N,13.50,6958.50,Education,School Fees
+2025-10-01,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.84,9274.34,Income,Military Salary
+2025-10-01,7022011352,Transfer,Transfer To Checking,50.00,9224.34,Transfer,Account Transfer
+2025-10-01,7022011352,Withdrawal,Google *relay For,16.00,9208.34,Technology,Google Services
+2025-10-01,7022011352,Withdrawal,GA Driver Svcs Onl,13.50,9194.84,Government,DMV Fees
+2025-10-01,7022011352,Withdrawal,Camden CO School N,14.45,9180.39,Education,School Fees
+2025-10-01,7022011352,Withdrawal,McDonalds,17.61,9162.78,Food,Dining
+2025-10-01,7022011352,Withdrawal,GA Corporate Regis,10.00,9152.78,Government,Business Registration
+2025-10-03,7022011352,Withdrawal,Camden CO School N,13.50,9139.28,Education,School Fees
+2025-10-04,7022011352,Withdrawal,Affirm * Pay,20.59,9118.69,Loan Payment,Installment
+2025-10-10,7022011352,Deposit,DFAS-Cleveland Fed Salary,2315.83,11434.52,Income,Military Salary
+2025-10-11,7022011352,Transfer,Transfer To Checking,50.00,11384.52,Transfer,Account Transfer
+2025-10-12,7022011352,Transfer,Transfer To Credit Card,15.00,11369.52,Transfer,Credit Card Payment
+2025-10-15,7022011352,Deposit,Shadow Fiduciary - Allan F Jamison,1147.59,12517.11,Unexplained,Family Support
+2025-10-15,7022011352,Withdrawal,Netflix.Com,7.99,12509.12,Subscription,Entertainment
+2025-10-15,7022011352,Withdrawal,Pizza Hut,46.00,12463.12,Food,Dining
+2025-10-15,7022011352,Withdrawal,Pnm*aqua Finance I,80.00,12383.12,Loan Payment,Installment
+2025-10-16,7022011352,Transfer,Transfer To Checking,190.00,12193.12,Transfer,Account Transfer
+2025-10-16,7022011352,Transfer,Transfer To Checking,1147.59,11045.53,Transfer,Account Transfer
+2025-10-16,7022011352,Withdrawal,Camden Behavioral,25.00,11020.53,Medical,Healthcare
+
+2025-08-18,7139455344,Withdrawal,Patreon* Membershi,8.56,1143.74,Subscription,Entertainment
+2025-08-18,7139455344,Withdrawal,Kinscape,25.00,1118.74,Retail,Online Purchase
+2025-08-18,7139455344,Withdrawal,Dollar General,51.28,1067.46,Retail,Groceries
+2025-08-21,7139455344,Withdrawal,Sp Numakers,39.00,1028.46,Retail,Online Purchase
+2025-08-21,7139455344,Withdrawal,Carddealerpro.Com,9.63,1018.83,Retail,Online Purchase
+2025-08-29,7139455344,Withdrawal,Pp*adobe Inc,41.55,977.28,Software,Adobe Services
+2025-08-29,7139455344,Withdrawal,Pp*adobe Inc,6.99,970.29,Software,Adobe Services
+2025-08-29,7139455344,Withdrawal,Dollar General,29.99,940.30,Retail,Groceries
+2025-09-02,7139455344,Withdrawal,ST Marys Tobacco &,16.00,924.30,Retail,Tobacco
+2025-09-02,7139455344,Withdrawal,Dollar General,16.10,908.20,Retail,Groceries
+2025-09-02,7139455344,Withdrawal,Dollar General,16.91,891.29,Retail,Groceries
+2025-09-02,7139455344,Withdrawal,Paypal *physicalad,25.76,865.53,Online Purchase,PayPal
+2025-09-02,7139455344,Withdrawal,Paypal *shopify,38.01,827.52,Online Purchase,Shopify
+2025-09-02,7139455344,Withdrawal,ST Marys Tobacco &,90.00,737.52,Retail,Tobacco
+2025-09-03,7139455344,Withdrawal,Mdc*okefenoke Remc,13.00,724.52,Utilities,Electricity
+2025-09-11,7139455344,Withdrawal,Dollar General,13.10,711.42,Retail,Groceries
+2025-09-11,7139455344,Withdrawal,Dollar General,24.98,686.44,Retail,Groceries
+2025-09-12,7139455344,Withdrawal,Dollar General,28.65,657.79,Retail,Groceries
+2025-09-15,7139455344,Withdrawal,Paypal *shopify,9.00,648.79,Online Purchase,Shopify
+2025-09-15,7139455344,Withdrawal,Google *life360 ST,14.99,633.80,Technology,Google Services
+2025-09-15,7139455344,Withdrawal,Dollar General,33.99,599.81,Retail,Groceries
+2025-09-16,7139455344,Withdrawal,Camden Behavioral,25.00,574.81,Medical,Healthcare
+
+2025-09-26,7022011360,Deposit,Stripe, Inc.,1423.12,1423.12,Income,Online Income
+2025-09-29,7022011360,Transfer,Transfer From Checking,100.00,1523.12,Transfer,Account Transfer
+2025-10-06,7022011360,Deposit,Zelle CR Facebookconsumer,493.81,2016.93,Income,Online Income
+2025-10-15,7022011360,Deposit,Shadow Fiduciary - Allan F Jamison,1147.59,3164.52,Unexplained,Family Support
+
+2025-09-29,7139455344,Withdrawal,Joe East Law,26.84,407.97,Legal Fees,Attorney Payment
+2025-10-15,7022011352,Withdrawal,Joe East Law,25.00,5510.26,Legal Fees,Attorney Payment
+2025-10-15,7022011352,Withdrawal,Joe East Law,25.00,5485.26,Legal Fees,Attorney Payment
+2025-10-15,7022011352,Withdrawal,Courtrecords.US,26.33,5458.93,Court Fees,Court Records
+2025-10-09,7022011352,Withdrawal,Notarize Dba Proof,25.00,1734.83,Legal Fees,Notary Services

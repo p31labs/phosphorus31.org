@@ -1,0 +1,135 @@
+/* P31 Scope — molecular layer components */
+
+/* P31 motion: 3s breathe cycle for ambient glow pulse */
+@keyframes scope-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope-pulse-animated {
+    animation: none !important;
+  }
+}
+
+.scope-dashboard .scope-logo-p31 {
+  color: #2ecc71;
+  text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope-glow-badge,
+  .scope-fid-transition,
+  .scope-spectrum-peak {
+    transition: none !important;
+  }
+}
+
+/* Scope skeleton loaders — pulse 0.3 → 0.6 → 0.3, 1.5s ease-in-out */
+.scope-skeleton-card .scope-skeleton-line,
+.scope-skeleton-row .scope-skeleton-line {
+  animation: scope-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scope-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope-skeleton-card .scope-skeleton-line,
+  .scope-skeleton-row .scope-skeleton-line {
+    animation: none !important;
+    opacity: 0.4;
+  }
+}
+
+/* ── Scope dashboard PRINT: static snapshot, print-safe colors ── */
+@media print {
+  .scope-dashboard * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+  }
+
+  .scope-dashboard {
+    background: white !important;
+    color: #1a1a2e !important;
+  }
+
+  .scope-dashboard header {
+    background: white !important;
+    border-bottom: 1px solid #ccc;
+    color: #1a1a2e;
+  }
+
+  .scope-logo-p31 {
+    color: #00994d !important;
+    text-shadow: none !important;
+  }
+
+  /* Voltage as simple labeled value */
+  .scope-dashboard [aria-label="Voltage meter"],
+  .scope-dashboard .p31-scope-voltage-meter {
+    background: #f8f8f8 !important;
+    border: 1px solid #ccc;
+  }
+
+  /* Message queue: list with print-safe voltage badges */
+  .scope-dashboard .text-green-400,
+  .scope-dashboard .text-green-500 {
+    color: #00994d !important;
+  }
+  .scope-dashboard .text-amber-400 {
+    color: #b8860b !important;
+  }
+  .scope-dashboard .text-red-400 {
+    color: #c00 !important;
+  }
+  .scope-dashboard .text-gray-400,
+  .scope-dashboard .text-gray-500 {
+    color: #1a1a2e !important;
+  }
+
+  /* Hide nav, particle field, animations for print */
+  .scope-dashboard aside,
+  .scope-dashboard [class*="Octahedral"],
+  .scope-dashboard [class*="SpectrumBar"],
+  .scope-dashboard [class*="PosnerBackground"] {
+    display: none !important;
+  }
+  .scope-dashboard [class*="FractalZUI"] canvas {
+    visibility: hidden;
+  }
+
+  /* Page breaks between major sections */
+  .scope-dashboard section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Footer on each printed page */
+  .scope-dashboard::after {
+    content: "phosphorus31.org";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.35rem 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.75rem;
+    color: #666;
+    background: white;
+  }
+}

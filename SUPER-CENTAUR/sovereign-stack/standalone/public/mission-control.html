@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | Wonky Sprout</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;700&display=swap');
+
+        :root {
+            --bg-deep: #0a0a1a;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff41;
+            --neon-blue: #00ffff;
+            --neon-gold: #ffd700;
+            --card-bg: #1a1a2e;
+            --text-light: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 20%);
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.9) 0%, transparent 100%);
+        }
+
+        .pixel-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            margin-top: 0.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+        }
+
+        /* Token Display */
+        .token-banner {
+            background: linear-gradient(45deg, #2a1a3e, #1a2a4e);
+            border: 4px dashed var(--neon-gold);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .token-amount {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: var(--neon-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .token-label {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Character Cards */
+        .characters {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .char-card {
+            background: var(--card-bg);
+            border: 3px solid var(--text-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 280px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .char-card:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .char-card.willow {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .char-card.sebastian {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .char-avatar {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .char-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .char-title {
+            color: var(--neon-blue);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .char-stats {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.75rem;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-bar {
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .stat-fill.pink { background: var(--neon-pink); }
+        .stat-fill.green { background: var(--neon-green); }
+
+        /* Mission Buttons */
+        .missions {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .mission-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--neon-blue);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .mission-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-pink), #8b00ff);
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            box-shadow: 0 4px 0 #4b0082;
+        }
+
+        .mission-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #4b0082;
+        }
+
+        .mission-btn:hover {
+            box-shadow: 0 6px 0 #4b0082, 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .mission-btn .emoji {
+            margin-right: 0.5rem;
+        }
+
+        .mission-reward {
+            float: right;
+            color: var(--neon-gold);
+        }
+
+        /* Secret Base */
+        .base {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .base-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .base-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .base-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .base-item:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .rule {
+            color: var(--neon-green);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            margin-top: 1rem;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--neon-green); }
+            to { text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+
+        @media (max-width: 600px) {
+            .pixel-title { font-size: 1.3rem; }
+            .characters { padding: 1rem; }
+            .char-card { width: 100%; max-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="pixel-title">🚀 WONKY SPROUT</div>
+        <div class="subtitle">>>> MISSION CONTROL <<<</div>
+    </header>
+
+    <!-- Token Banner -->
+    <div class="token-banner">
+        <div class="token-amount">10,000</div>
+        <div class="token-label">🪙 GENESIS TOKENS</div>
+    </div>
+
+    <!-- Character Cards -->
+    <section class="characters">
+        <!-- Willow Card -->
+        <div class="char-card willow">
+            <div class="char-avatar">🦄</div>
+            <div class="char-name" style="color: var(--neon-pink);">WILLOW</div>
+            <div class="char-title">Chief Creative Officer</div>
+            <div class="char-stats">
+                <div class="stat-row">
+                    <span>Creativity</span>
+                    <span style="color: var(--neon-pink);">100%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill pink" style="width: 100%;"></div>
+                </div>
+                <div class="stat-row">
+                    <span>Vision</span>
+                    <span style="color: var(--neon-blue);">90%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill pink" style="width: 90%;"></div>
+                </div>
+                <div class="stat-row">
+                    <span>✨ Special</span>
+                    <span>Vibe Check</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sebastian Card -->
+        <div class="char-card sebastian">
+            <div class="char-avatar">⚡</div>
+            <div class="char-name" style="color: var(--neon-green);">SEBASTIAN</div>
+            <div class="char-title">Chief Spark Officer</div>
+            <div class="char-stats">
+                <div class="stat-row">
+                    <span>Energy</span>
+                    <span style="color: var(--neon-green);">∞%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill green" style="width: 100%;"></div>
+                </div>
+                <div class="stat-row">
+                    <span>Speed</span>
+                    <span style="color: var(--neon-blue);">100%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill green" style="width: 100%;"></div>
+                </div>
+                <div class="stat-row">
+                    <span>⚡ Special</span>
+                    <span>Hyper Boost</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missions -->
+    <section class="missions">
+        <div class="mission-title">📋 CURRENT MISSIONS</div>
+        
+        <button class="mission-btn" onclick="completeMission('energy')">
+            <span class="emoji">🔋</span> Charge Dad's Brain
+            <span class="mission-reward">+500 🪙</span>
+        </button>
+        
+        <button class="mission-btn" onclick="completeMission('vibes')">
+            <span class="emoji">✨</span> Spread Good Vibes
+            <span class="mission-reward">+300 🪙</span>
+        </button>
+        
+        <button class="mission-btn" onclick="completeMission('patience')">
+            <span class="emoji">🧘</span> Practice Patience
+            <span class="mission-reward">+400 🪙</span>
+        </button>
+        
+        <button class="mission-btn" onclick="completeMission('helping')">
+            <span class="emoji">🤝</span> Help with Chores
+            <span class="mission-reward">+600 🪙</span>
+        </button>
+    </section>
+
+    <!-- Secret Base -->
+    <section class="base">
+        <div class="base-title">🎮 YOUR SECRET BASE</div>
+        <div class="base-grid">
+            <div class="base-item" title="Robux Shop">🪙</div>
+            <div class="base-item" title="Pizza Place">🍕</div>
+            <div class="base-item" title="Lego Set">🧱</div>
+            <div class="base-item" title="Gaming Zone">🎮</div>
+            <div class="base-item" title="Movie Night">🎬</div>
+            <div class="base-item" title="Ice Cream">🍦</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Welcome to the company, Founding Nodes! 🌟</p>
+        <p style="margin-top: 0.5rem; color: #888;">Built with 💜 by Dad</p>
+        <div class="rule">★ IT'S OKAY TO BE A LITTLE WONKY ★</div>
+    </footer>
+
+    <script>
+        let tokens = 10000;
+
+        function completeMission(mission) {
+            const rewards = {
+                'energy': 500,
+                'vibes': 300,
+                'patience': 400,
+                'helping': 600
+            };
+            
+            const reward = rewards[mission];
+            tokens += reward;
+            
+            // Update display
+            document.querySelector('.token-amount').textContent = tokens.toLocaleString();
+            
+            // Visual feedback
+            const btn = event.target.closest('.mission-btn');
+            btn.style.transform = 'scale(0.95)';
+            btn.innerHTML = `<span class="emoji">✅</span> DONE! +${reward} 🪙`;
+            btn.style.background = 'linear-gradient(135deg, #00ff41, #00cc33)';
+            btn.disabled = true;
+            
+            // Celebration
+            setTimeout(() => {
+                alert(`🎉 MISSION COMPLETE! You earned ${reward} tokens!`);
+            }, 100);
+        }
+
+        // Add floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                font-size: 1rem;
+                pointer-events: none;
+                animation: floatUp 3s forwards;
+                z-index: 1000;
+            `;
+            particle.textContent = ['✨', '🌟', '💫', '⭐'][Math.floor(Math.random() * 4)];
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '100vh';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 3000);
+        }
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Random sparkle
+        setInterval(createParticle, 2000);
+    </script>
+</body>
+</html>

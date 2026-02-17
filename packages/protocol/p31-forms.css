@@ -1,0 +1,365 @@
+/**
+ * P31 Form Design System
+ * Single source of truth for all form elements: Scope, Web, Shelter, Buffer UI.
+ * Import after tokens.css: @import '@p31/protocol/tokens.css'; @import '@p31/protocol/p31-forms.css';
+ */
+
+/* ── Form tokens (alias from tokens or override for forms) ── */
+:root {
+  --p31-form-surface: #0A0A1F;
+  --p31-form-border: rgba(255, 255, 255, 0.08);
+  --p31-form-focus-border: #00FF88;
+  --p31-form-focus-glow: 0 0 0 1px #00FF88, 0 0 12px rgba(0, 255, 136, 0.25);
+  --p31-form-text: #E0E0EE;
+  --p31-form-placeholder: #4A4A7A;
+  --p31-form-input-height: 36px;
+  --p31-form-input-height-mobile: 44px;
+  --p31-form-font: 'Space Mono', monospace;
+  --p31-form-font-size: 13px;
+  --p31-form-radius: 4px;
+  --p31-form-radius-btn: 6px;
+  --p31-form-padding-x: 12px;
+  --p31-form-padding-y: 8px;
+  --p31-form-btn-font: 11px;
+  --p31-form-btn-spacing: 2px;
+  --p31-form-secondary-text: #7878AA;
+  --p31-form-danger: #FF00CC;
+  --p31-form-danger-glow: 0 0 8px rgba(255, 0, 204, 0.35), 0 0 20px rgba(255, 0, 204, 0.2);
+  --p31-form-option-bg: #12122E;
+}
+
+/* ── Reset browser defaults (no blue/purple focus rings) ── */
+.p31-input,
+.p31-textarea,
+.p31-select,
+.p31-btn,
+.p31-search-input,
+input.p31-input,
+textarea.p31-textarea,
+select.p31-select,
+button.p31-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: var(--p31-form-font);
+}
+
+.p31-input:focus,
+.p31-textarea:focus,
+.p31-select:focus,
+.p31-btn:focus,
+.p31-search-input:focus {
+  outline: none;
+}
+
+.p31-input:focus-visible,
+.p31-textarea:focus-visible,
+.p31-select:focus-visible,
+.p31-btn:focus-visible,
+.p31-search-input:focus-visible {
+  outline: none;
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+/* ── INPUT FIELDS ── */
+.p31-input,
+input.p31-input,
+.p31-input[type="text"],
+.p31-input[type="email"],
+.p31-input[type="search"],
+.p31-input[type="number"] {
+  display: block;
+  width: 100%;
+  min-height: var(--p31-form-input-height);
+  padding: var(--p31-form-padding-y) var(--p31-form-padding-x);
+  background: var(--p31-form-surface);
+  border: 1px solid var(--p31-form-border);
+  border-radius: var(--p31-form-radius);
+  color: var(--p31-form-text);
+  font-size: var(--p31-form-font-size);
+  font-family: var(--p31-form-font);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.p31-input::placeholder {
+  color: var(--p31-form-placeholder);
+  font-style: italic;
+}
+
+.p31-input:focus,
+.p31-input:focus-visible {
+  border-color: var(--p31-form-focus-border);
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+@media (max-width: 767px) {
+  .p31-input,
+  input.p31-input {
+    min-height: var(--p31-form-input-height-mobile);
+  }
+}
+
+/* Date inputs — same as text, native calendar OK */
+.p31-input[type="date"],
+.p31-input--date {
+  color-scheme: dark;
+}
+
+/* ── TEXTAREA ── */
+.p31-textarea,
+textarea.p31-textarea {
+  display: block;
+  width: 100%;
+  min-height: 80px;
+  padding: var(--p31-form-padding-y) var(--p31-form-padding-x);
+  background: var(--p31-form-surface);
+  border: 1px solid var(--p31-form-border);
+  border-radius: var(--p31-form-radius);
+  color: var(--p31-form-text);
+  font-size: var(--p31-form-font-size);
+  font-family: var(--p31-form-font);
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.p31-textarea::placeholder {
+  color: var(--p31-form-placeholder);
+  font-style: italic;
+}
+
+.p31-textarea:focus,
+.p31-textarea:focus-visible {
+  border-color: var(--p31-form-focus-border);
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+/* ── SELECT / DROPDOWN ── */
+.p31-select,
+select.p31-select {
+  display: block;
+  width: 100%;
+  min-height: var(--p31-form-input-height);
+  padding: var(--p31-form-padding-y) 32px var(--p31-form-padding-y) var(--p31-form-padding-x);
+  background: var(--p31-form-surface);
+  border: 1px solid var(--p31-form-border);
+  border-radius: var(--p31-form-radius);
+  color: var(--p31-form-text);
+  font-size: var(--p31-form-font-size);
+  font-family: var(--p31-form-font);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%237878AA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.p31-select option {
+  background: var(--p31-form-option-bg);
+  color: var(--p31-form-text);
+}
+
+.p31-select:focus,
+.p31-select:focus-visible {
+  border-color: var(--p31-form-focus-border);
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+@media (max-width: 767px) {
+  .p31-select,
+  select.p31-select {
+    min-height: var(--p31-form-input-height-mobile);
+  }
+}
+
+/* ── BUTTONS ── */
+.p31-btn,
+button.p31-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--p31-form-input-height);
+  min-width: 80px;
+  padding: var(--p31-form-padding-y) 16px;
+  border-radius: var(--p31-form-radius-btn);
+  font-family: var(--p31-form-font);
+  font-size: var(--p31-form-btn-font);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--p31-form-btn-spacing);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+@media (max-width: 767px) {
+  .p31-btn,
+  button.p31-btn {
+    min-height: var(--p31-form-input-height-mobile);
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+}
+
+/* Primary: green border + text, glow on hover */
+.p31-btn-primary {
+  background: transparent;
+  color: #00FF88;
+  border: 1px solid #00FF88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.15);
+}
+
+.p31-btn-primary:hover:not(:disabled) {
+  background: rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3), 0 0 24px rgba(0, 255, 136, 0.15);
+}
+
+.p31-btn-primary:active:not(:disabled) {
+  background: rgba(0, 255, 136, 0.2);
+  transform: scale(0.98);
+}
+
+.p31-btn-primary:focus-visible {
+  border-color: #00FF88;
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+/* Secondary */
+.p31-btn-secondary {
+  background: transparent;
+  color: var(--p31-form-secondary-text);
+  border: 1px solid var(--p31-form-border);
+}
+
+.p31-btn-secondary:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--p31-form-text);
+}
+
+.p31-btn-secondary:focus-visible {
+  border-color: var(--p31-form-focus-border);
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+/* Danger (release message, destructive) */
+.p31-btn-danger {
+  background: transparent;
+  color: var(--p31-form-danger);
+  border: 1px solid var(--p31-form-danger);
+}
+
+.p31-btn-danger:hover:not(:disabled) {
+  background: rgba(255, 0, 204, 0.1);
+  box-shadow: var(--p31-form-danger-glow);
+}
+
+.p31-btn-danger:active:not(:disabled) {
+  background: rgba(255, 0, 204, 0.2);
+  transform: scale(0.98);
+}
+
+.p31-btn-danger:focus-visible {
+  border-color: var(--p31-form-danger);
+  box-shadow: var(--p31-form-danger-glow);
+}
+
+/* Disabled */
+.p31-btn:disabled,
+.p31-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.p31-btn:disabled:hover,
+.p31-btn[aria-disabled="true"]:hover {
+  background: inherit;
+  border-color: inherit;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ── SEARCH (wrapper + input + clear) ── */
+.p31-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p31-search-input,
+input.p31-search-input[type="search"] {
+  flex: 1;
+  padding-left: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+}
+
+.p31-search-clear {
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--p31-form-placeholder);
+  background: transparent;
+  border: 1px solid var(--p31-form-border);
+  border-radius: var(--p31-form-radius-btn);
+  font-family: var(--p31-form-font);
+  font-size: var(--p31-form-font-size);
+  cursor: pointer;
+}
+
+.p31-search-clear:hover {
+  color: var(--p31-form-text);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.p31-search-clear:focus-visible {
+  border-color: var(--p31-form-focus-border);
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+/* ── CHECKBOX (custom 16×16, green when active) ── */
+.p31-checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background: var(--p31-form-surface);
+  border: 1px solid var(--p31-form-border);
+  border-radius: 3px;
+  cursor: pointer;
+  vertical-align: middle;
+  accent-color: #00FF88;
+}
+
+.p31-checkbox:focus-visible {
+  box-shadow: var(--p31-form-focus-glow);
+}
+
+.p31-checkbox:checked {
+  background: #00FF88;
+  border-color: #00FF88;
+}
+
+/* Hide native checkbox and use custom visual (optional; if you want full custom) */
+.p31-checkbox-native {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .p31-input,
+  .p31-textarea,
+  .p31-select,
+  .p31-btn,
+  .p31-search-input {
+    transition: none;
+  }
+
+  .p31-btn-primary:active:not(:disabled),
+  .p31-btn-danger:active:not(:disabled) {
+    transform: none;
+  }
+}

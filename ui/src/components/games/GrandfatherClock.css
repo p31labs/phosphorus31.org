@@ -1,0 +1,99 @@
+/* Animated cosmic background gradient */
+.cosmic-clock-bg {
+  background: radial-gradient(circle at 60% 20%, #c084fc22 0%, #64748b 100%);
+  animation: cosmic-bg-move 12s linear infinite alternate;
+}
+@keyframes cosmic-bg-move {
+  0% {
+    background-position: 60% 20%;
+  }
+  100% {
+    background-position: 40% 80%;
+  }
+}
+
+/* Cosmic button styles */
+.cosmic-moment-btn {
+  background: #78350f;
+  border-color: #c084fc;
+  box-shadow:
+    0 0 8px #c084fc44,
+    0 0 0 #fff0;
+  transition:
+    box-shadow 0.3s,
+    background 0.3s,
+    border-color 0.3s;
+}
+.cosmic-moment-btn[data-color] {
+  border-color: attr(data-color);
+}
+.cosmic-moment-selected {
+  background: var(--selected-bg, #c084fc40);
+  box-shadow:
+    0 0 24px #c084fc88,
+    0 0 8px #f9731644;
+}
+.cosmic-moment-btn:hover {
+  box-shadow:
+    0 0 24px #c084fc88,
+    0 0 8px #f9731644;
+  background: #c084fc22;
+}
+
+/* Cosmic label styles */
+.cosmic-moment-label[data-color] {
+  color: attr(data-color);
+  text-shadow:
+    0 0 8px #fff2,
+    0 0 16px #c084fc44;
+}
+
+/* Cosmic details panel */
+.cosmic-moment-details[data-color] {
+  border-color: attr(data-color);
+  box-shadow:
+    0 0 32px #c084fc44,
+    0 0 8px #f9731622;
+  background: linear-gradient(135deg, #78350f 0%, #c084fc22 100%);
+  animation: cosmic-details-fade 2s ease;
+}
+@keyframes cosmic-details-fade {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.cosmic-moment-details-label[data-color] {
+  color: attr(data-color);
+  text-shadow:
+    0 0 12px #c084fc44,
+    0 0 24px #f9731622;
+}
+
+/* Quantum ratio overlay */
+.cosmic-ratio-overlay {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: #c084fc;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 16px #f97316;
+  background: linear-gradient(90deg, #c084fc, #ff6b9d, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+/* Magical polish: glowing borders, density, cosmic transitions */
+.cosmic-clock-bg,
+.cosmic-moment-details {
+  border-radius: 16px;
+  box-shadow:
+    0 0 64px 8px #c084fc22,
+    0 0 128px 32px #ff6b9d22;
+}

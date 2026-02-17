@@ -1,0 +1,9 @@
+# P31 Labs — phosphorus31.org
+# Cloudflare Pages configuration (static site, no build step)
+# https://developers.cloudflare.com/pages/platform/wrangler-configuration/
+
+name = "phosphorus31-org"
+compatibility_date = "2026-02-16"
+
+[site]
+bucket = "./"
