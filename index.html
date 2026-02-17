@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P31 Labs · Phosphorus-31 — Assistive Technology for Neurodivergent Minds</title>
+  <meta name="description" content="P31 Labs builds open-source assistive technology for neurodivergent individuals. Communication processing, sensory regulation, cognitive support — local-first, privacy-first, mesh-resilient.">
+  <meta name="keywords" content="assistive technology, neurodivergent, ADHD, autism, AAC, cognitive prosthetic, executive function, open source, mesh network, LoRa">
+  <meta property="og:title" content="P31 Labs · Phosphorus-31">
+  <meta property="og:description" content="Assistive technology for neurodivergent minds. Open source. Offline-first. The Mesh Holds. 🔺">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phosphorus31.org">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#050510"><!-- Required for browser theme; matches --void CSS variable -->
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- GEOMETRY CANVAS LAYERS -->
+  <canvas id="mesh-bg" aria-hidden="true"></canvas>
+  <canvas id="hero-geometry" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-equation" aria-label="Quantum state equation">
+        |ψ⟩ = α|0⟩ + β|1⟩
+      </div>
+      <h1>
+        <span class="hero-pre">Phosphorus-31</span>
+        Assistive technology<br>for <em>neurodivergent</em> minds
+      </h1>
+      <p class="hero-sub">Building the tools that don't exist yet — communication processing, sensory regulation, executive function support. Open source, offline-first, mesh-resilient. Built by the people who need them.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/p31labs" class="btn btn-primary">View Source →</a>
+        <a href="#stack" class="btn btn-ghost">The Stack ↓</a>
+      </div>
+      <div class="hero-isotope" aria-hidden="true">
+        <span class="isotope-num">15</span>
+        <span class="isotope-symbol">P</span>
+        <span class="isotope-mass">30.974</span>
+        <span class="isotope-note">the only stable isotope</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+  <!-- METRICS -->
+  <section class="metrics">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric">
+          <span class="metric-val" data-target="4">0</span>
+          <span class="metric-unit">core components</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val" data-target="0">0</span>
+          <span class="metric-unit">cloud dependencies</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">A2.0</span>
+          <span class="metric-unit">Apache licensed</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">∞</span>
+          <span class="metric-unit">offline uptime</span>
+        </div>
+      </div>
+      <div class="element-card">
+        <div class="element-num">15</div>
+        <div class="element-symbol">P</div>
+        <div class="element-name">Phosphorus</div>
+        <div class="element-mass">30.974</div>
+        <div class="element-note">the only stable isotope</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STACK -->
+  <section id="stack" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">01 — What We Build</span>
+        <h2>The Stack</h2>
+        <p>Three layers. Each works independently. Together they form a mesh —<br>no single point of failure. Every node is a peer.</p>
+      </div>
+
+      <div class="stack-grid">
+
+        <article class="stack-card" data-layer="hardware">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">HARDWARE</span>
+            <span class="card-reg">21 CFR § 890.3710</span>
+          </div>
+          <h3>Node One</h3>
+          <p>Open-source handheld for sensory regulation and off-grid communication. ESP32-S3, haptic feedback engine (DRV2605L), LoRa mesh networking. No internet required. No phone required. No permission required.</p>
+          <div class="card-tech">
+            <span>ESP32-S3</span><span>LoRa 915MHz</span><span>DRV2605L</span><span>OLED</span><span>Meshtastic</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            Tr(Π̂ᵢρ̂) = ⟨ψ|Π̂ᵢ|ψ⟩
+          </div>
+        </article>
+
+        <article class="stack-card" data-layer="software">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">SOFTWARE</span>
+            <span class="card-reg">Cures Act § 3060</span>
+          </div>
+          <h3>The Buffer</h3>
+          <p>Communication processing layer. Detects emotional voltage — urgency, coercion, shame, threat patterns — before messages reach a vulnerable person. Holds incoming signal. Gives you time to think. Time you were never given.</p>
+          <div class="card-tech">
+            <span>FastAPI</span><span>Redis</span><span>Local LLM</span><span>WebSocket</span><span>Python</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            S(ρ) = −Tr(ρ log ρ)
+          </div>
+        </article>
+
+        <article class="stack-card" data-layer="interface">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">INTERFACE</span>
+            <span class="card-reg">WCAG 2.1 AA</span>
+          </div>
+          <h3>The Scope</h3>
+          <p>Unified dashboard. Medication tracking, cognitive metrics, environmental sensing, mesh network status. Your entire executive function stack in one place. Not a wellness app — a cognitive prosthetic.</p>
+          <div class="card-tech">
+            <span>React</span><span>Tauri</span><span>Vite</span><span>Capacitor</span><span>D3.js</span>
+          </div>
+          <div class="card-formula" aria-hidden="true">
+            Ĥ|ψ⟩ = E|ψ⟩
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GEOMETRY -->
+  <section id="geometry" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">02 — The Math</span>
+        <h2>Background Independent Security</h2>
+        <p>Traditional encryption assumes computational difficulty. We assume physics.<br>SIC-POVM measurement geometry detects eavesdropping through system tomography — not error rates.</p>
+      </div>
+
+      <div class="geometry-showcase">
+        <canvas id="jitterbug-canvas" aria-label="Interactive Jitterbug transformation: cuboctahedron morphing to octahedron"></canvas>
+        <div class="geometry-controls">
+          <label for="morph-slider" class="sr-only">Jitterbug transformation phase</label>
+          <input type="range" id="morph-slider" min="0" max="100" value="0" aria-label="Control the Jitterbug transformation phase from cuboctahedron to octahedron">
+          <div class="morph-labels">
+            <span>Cuboctahedron</span>
+            <span class="morph-mid">Icosahedron</span>
+            <span>Octahedron</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="math-grid">
+        <div class="math-block">
+          <div class="math-title">SIC-POVM Condition</div>
+          <div class="math-eq">|⟨ψᵢ|ψⱼ⟩|² = 1/(d+1) for i ≠ j</div>
+          <div class="math-desc">Four quantum states forming a regular tetrahedron inscribed in the Bloch sphere. Maximum information extraction with minimum disturbance.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Wye → Delta Transform</div>
+          <div class="math-eq">Z_Δ = (Z₁Z₂ + Z₂Z₃ + Z₃Z₁) / Zₒₚₚ</div>
+          <div class="math-desc">Every centralized topology can be replaced with a mesh. Every hierarchy can be dissolved into peers. The same math that rewires circuits rewires systems.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Fuller's Synergetic Constant</div>
+          <div class="math-eq">V_tet = 1 (not 1/3 · b · h)</div>
+          <div class="math-desc">Nature doesn't use cubic coordinates. The tetrahedron is the minimum structural system. Unit volume = 1. Everything else is a frequency of it.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Von Neumann Entropy</div>
+          <div class="math-eq">S(ρ) = −Tr(ρ log₂ ρ)</div>
+          <div class="math-desc">Uncertainty is not noise — it is signal. The Buffer measures communication entropy to detect coercive patterns before they reach the operator.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">03 — Why This Exists</span>
+        <h2>The Problem</h2>
+      </div>
+
+      <div class="why-content">
+        <blockquote>
+          "We do not have assistive technology for the largest disability demographic on the planet. We have wellness apps."
+        </blockquote>
+
+        <div class="why-stats">
+          <div class="why-stat">
+            <span class="why-num">15–20%</span>
+            <span class="why-desc">of the global population is neurodivergent</span>
+          </div>
+          <div class="why-stat">
+            <span class="why-num">55%</span>
+            <span class="why-desc">of commercial AT wearables for autism have undefined FDA status (PMC 2024)</span>
+          </div>
+          <div class="why-stat">
+            <span class="why-num">0</span>
+            <span class="why-desc">open-source cognitive prosthetics existed before this project</span>
+          </div>
+        </div>
+
+        <div class="why-text">
+          <p>Wheelchair ramps exist because someone in a wheelchair demanded them. Screen readers exist because a blind engineer built one. Closed captions exist because Deaf advocates sued for them.</p>
+          <p>There is no equivalent infrastructure for cognitive disability. No communication prosthetic that processes emotional subtext. No executive function scaffold that works offline. No sensory regulation tool that doesn't require a smartphone and a subscription.</p>
+          <p>P31 builds them. Open source. Apache 2.0. Mesh-resilient. Because the person who needs it most is often the person least able to navigate the system that would provide it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECONOMY -->
+  <section id="economy" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">04 — The Economy</span>
+        <h2>L.O.V.E. Ledger</h2>
+        <p>Ledger of Ontological Volume and Entropy. A game engine and wallet unified.<br>Proof of Care, not Proof of Work. The mesh holds.</p>
+      </div>
+
+      <div class="economy-grid">
+        <article class="economy-card">
+          <div class="economy-icon">🔺</div>
+          <h3>Founding Nodes</h3>
+          <p>50% of all LOVE tokens vest to the founding nodes. Immutable. Locked until sovereignty phase (age 18). The mesh protects its own.</p>
+          <div class="economy-metric">
+            <span class="economy-val">50%</span>
+            <span class="economy-label">Sovereignty Pool</span>
+          </div>
+        </article>
+
+        <article class="economy-card">
+          <div class="economy-icon">💜</div>
+          <h3>Proof of Care</h3>
+          <p>Verified presence + care tasks = LOVE earned. BLE proximity, HRV sync, discrete actions confirmed by child's device. Not surveillance — verification.</p>
+          <div class="economy-metric">
+            <span class="economy-val">50%</span>
+            <span class="economy-label">Performance Pool</span>
+          </div>
+        </article>
+
+        <article class="economy-card">
+          <div class="economy-icon">🦎</div>
+          <h3>Chameleon Mode</h3>
+          <p>Offline = IndexedDB ledger. Online = Base L2 settlement. Same wallet, two modes. The mesh adapts to connectivity.</p>
+          <div class="economy-metric">
+            <span class="economy-val">Base</span>
+            <span class="economy-label">L2 Chain</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">05 — Who</span>
+        <h2>Built By Need</h2>
+      </div>
+
+      <div class="founder-content">
+        <div class="founder-info">
+          <h3>Will</h3>
+          <p class="founder-title">Founder &amp; Principal Engineer</p>
+          <p>16 years as a DoD civilian specializing in power distribution systems. Diagnosed AuDHD in 2025 — after decades of building workarounds that turned out to be assistive technology prototypes. Now building them for real.</p>
+          <p>P31 Labs is a Georgia 501(c)(3) nonprofit in formation, operating under Hack Club HCB fiscal sponsorship.</p>
+        </div>
+        <div class="founder-stack">
+          <div class="founder-tag">Power Distribution Systems</div>
+          <div class="founder-tag">Quantum Information Theory</div>
+          <div class="founder-tag">Embedded Systems (ESP32)</div>
+          <div class="founder-tag">Network Topology</div>
+          <div class="founder-tag">Fullerian Synergetics</div>
+          <div class="founder-tag">Lived Experience (AuDHD)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONATE -->
+  <section id="donate" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">06 — Support</span>
+        <h2>Donate</h2>
+        <p>Every contribution strengthens the mesh. All donations support open-source development and hardware prototyping.</p>
+      </div>
+
+      <div class="donate-content">
+        <div class="donate-grid">
+          <!-- HCB Fiat Donations -->
+          <div class="donate-option">
+            <div class="donate-option-header">
+              <h3>Donate with Card</h3>
+              <span class="donate-badge donate-badge-tax">Tax-Deductible</span>
+            </div>
+            <p class="donate-option-desc">One-time or monthly recurring donations via credit card. Automatic tax receipts included.</p>
+            <a href="https://hcb.hackclub.com/donations/start/p31-labs" 
+               class="btn btn-primary donate-btn" 
+               target="_blank" 
+               rel="noopener">
+              Donate via HCB →
+            </a>
+            <p class="donate-option-note">7% fiscal sponsor fee (donors can cover fees). Includes Stripe processing, tax compliance, and bookkeeping.</p>
+          </div>
+
+          <!-- Crypto Donations -->
+          <div class="donate-option">
+            <div class="donate-option-header">
+              <h3>Donate with Crypto</h3>
+              <span class="donate-badge donate-badge-crypto">Base L2</span>
+            </div>
+            <p class="donate-option-desc">Direct cryptocurrency donations to our Base L2 wallet. Supports Base, Ethereum, and Optimism networks.</p>
+            <div class="donate-wallet">
+              <div class="wallet-label">Base L2 Wallet</div>
+              <div class="wallet-address" id="wallet-addr">0x90048cbb3CDCef200a54D6D336EbB4e0ce18d82c</div>
+              <button class="btn btn-ghost" id="copy-wallet-btn" type="button" aria-label="Copy wallet address to clipboard">Copy Address</button>
+            </div>
+            <div class="donate-networks">
+              <span class="network-badge">Base</span>
+              <span class="network-badge">Ethereum</span>
+              <span class="network-badge">Optimism</span>
+            </div>
+            <p class="donate-option-note">Crypto donations may not be tax-deductible unless processed through The Hack Foundation. All funds support open-source development.</p>
+          </div>
+        </div>
+
+        <div class="donate-disclosure">
+          <p><strong>Fiscal Sponsorship:</strong> P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations made through HCB are tax-deductible to the extent permitted by law. Automatic email receipts are provided for all HCB donations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">07 — Connect</span>
+        <h2>Join the Mesh</h2>
+        <p>Every node strengthens the network.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:will@phosphorus31.org" class="contact-link">
+          <span class="contact-icon">@</span>
+          <span>will@phosphorus31.org</span>
+        </a>
+        <a href="https://github.com/p31labs" class="contact-link">
+          <span class="contact-icon">⌥</span>
+          <span>github.com/p31labs</span>
+        </a>
+        <a href="https://doi.org/10.5281/zenodo.18627420" class="contact-link">
+          <span class="contact-icon">◎</span>
+          <span>Zenodo DOI</span>
+        </a>
+        <a href="https://thegeodesicself.substack.com" class="contact-link">
+          <span class="contact-icon">📰</span>
+          <span>Substack</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHYSICS SECTION -->
+  <section class="section section-dark" id="physics">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Beauty of Physics</span>
+        <h2>Why Geometry Matters</h2>
+        <p>Just as phosphorus-31 is the only stable isotope, P31 Labs builds the only stable systems. The geometry protects the signal. The physics is beautiful.</p>
+      </div>
+      <div class="math-grid">
+        <div class="math-block">
+          <div class="math-title">SIC-POVM Condition</div>
+          <div class="math-eq">|⟨ψᵢ|ψⱼ⟩|² = 1/(d+1) for i ≠ j</div>
+          <div class="math-desc">Four quantum states forming a regular tetrahedron inscribed in the Bloch sphere. Maximum information extraction with minimum disturbance. This is the geometry of secure communication — background-independent security that doesn't rely on computational difficulty.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Fuller's Synergetic Constant</div>
+          <div class="math-eq">V_tet = 1 (not 1/3 · b · h)</div>
+          <div class="math-desc">Nature doesn't use cubic coordinates. The tetrahedron is the minimum structural system. Unit volume = 1. Everything else is a frequency of it. This is why the mesh holds — it's the geometry nature uses.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Wye → Delta Transform</div>
+          <div class="math-eq">Z_Δ = (Z₁Z₂ + Z₂Z₃ + Z₃Z₁) / Z_opp</div>
+          <div class="math-desc">Every centralized topology (Wye) can be transformed into a mesh (Delta). When the neutral fails in a Wye system, voltage becomes erratic. In a Delta mesh, every node is a peer — no neutral required. The same math that rewires circuits rewires systems.</div>
+        </div>
+        <div class="math-block">
+          <div class="math-title">Von Neumann Entropy</div>
+          <div class="math-eq">S(ρ) = −Tr(ρ log₂ ρ)</div>
+          <div class="math-desc">Uncertainty is not noise — it is signal. The Buffer measures communication entropy to detect coercive patterns. High entropy = high voltage = potential harm. The mathematics of empathy, encoded in quantum information theory.</div>
+        </div>
+      </div>
+      <div class="why-text" style="margin-top: 2rem;">
+        <p><strong>Why Physics Matters:</strong> Traditional assistive technology relies on computational difficulty (encryption) and institutional permission (cloud services). We assume physics. SIC-POVM geometry detects eavesdropping through system tomography — not error rates. LoRa mesh networking works without infrastructure — not despite it. The beauty is in the structure itself.</p>
+        <p><strong>The Geometry Protects:</strong> Just as a geodesic dome is strong because of its geometry (not its material), the P31 mesh is resilient because of its topology (not its infrastructure). The tetrahedron is the minimum stable volume. Four nodes, six edges, four faces. This is the atomic unit of resilience. Everything else is a frequency of it.</p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

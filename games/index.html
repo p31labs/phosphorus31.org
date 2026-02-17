@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games · P31 Labs</title>
+  <meta name="description" content="Universal ROM Games – accessible games for everyone, designed with neurodivergent minds in mind.">
+  <meta property="og:title" content="Games · P31 Labs">
+  <meta property="og:description" content="Universal ROM Games – accessible games for everyone, designed with neurodivergent minds in mind.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Page‑specific games styles */
+    .game-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+    .filter-chip {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      border-radius: 2rem;
+      padding: 0.5rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover,
+    .filter-chip:focus {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: #2ecc71;
+      outline: none;
+    }
+    .filter-chip.active {
+      background: #2ecc71;
+      border-color: #2ecc71;
+      color: #050510;
+      font-weight: 600;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .game-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .game-card:focus-within,
+    .game-card:hover {
+      border-color: #2ecc71;
+    }
+    .game-preview {
+      background: #0a0a1a;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid #1e293b;
+    }
+    .game-content {
+      padding: 1.5rem;
+      flex: 1;
+    }
+    .game-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .game-description {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .game-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .game-tag {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #1e293b;
+      border-radius: 1rem;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+    }
+    .game-tag[data-feature] {
+      border-color: #60a5fa;
+      color: #60a5fa;
+    }
+    .btn-play {
+      background: transparent;
+      border: 1px solid #2ecc71;
+      color: #2ecc71;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      margin-top: auto;
+    }
+    .btn-play:hover,
+    .btn-play:focus {
+      background: #2ecc71;
+      color: #050510;
+    }
+    .no-games {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      display: none;
+    }
+    .no-games.visible { display: block; }
+    .community-section {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/#donate">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Play</span>
+          <h1>Universal ROM Games</h1>
+          <p>Accessible games designed for everyone — play directly in your browser.</p>
+        </div>
+
+        <!-- Filter chips -->
+        <div class="game-filters" role="group" aria-label="Filter games by accessibility feature">
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="screen-reader">🔊 Screen Reader</button>
+          <button class="filter-chip" data-filter="high-contrast">👁️ High Contrast</button>
+          <button class="filter-chip" data-filter="switch-control">🎮 Switch Control</button>
+          <button class="filter-chip" data-filter="no-timing">⏱️ No Timing</button>
+          <button class="filter-chip" data-filter="simplified">🧩 Simplified UI</button>
+        </div>
+
+        <!-- Games grid -->
+        <div class="games-grid" id="games-grid" role="list" aria-label="Available games">
+          <!-- Game 1: Echo Maze -->
+          <div class="game-card" data-features="screen-reader,no-timing" role="listitem">
+            <div class="game-preview">🔊🧩</div>
+            <div class="game-content">
+              <h2 class="game-title">Echo Maze</h2>
+              <p class="game-description">Navigate a maze using spatial audio cues. No visuals needed.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>Screen Reader</span>
+                <span class="game-tag" data-feature>No Timing</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Echo Maze">Play Now →</a>
+            </div>
+          </div>
+
+          <!-- Game 2: Color Match -->
+          <div class="game-card" data-features="high-contrast,simplified,no-timing" role="listitem">
+            <div class="game-preview">🎨👁️</div>
+            <div class="game-content">
+              <h2 class="game-title">Color Match</h2>
+              <p class="game-description">Match colors in high‑contrast mode. Calm, no time pressure.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>High Contrast</span>
+                <span class="game-tag" data-feature>Simplified UI</span>
+                <span class="game-tag" data-feature>No Timing</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Color Match">Play Now →</a>
+            </div>
+          </div>
+
+          <!-- Game 3: Switch Beats -->
+          <div class="game-card" data-features="switch-control,screen-reader" role="listitem">
+            <div class="game-preview">🎮🔊</div>
+            <div class="game-content">
+              <h2 class="game-title">Switch Beats</h2>
+              <p class="game-description">Rhythm game controllable with single switch or keyboard.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>Switch Control</span>
+                <span class="game-tag" data-feature>Screen Reader</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Switch Beats">Play Now →</a>
+            </div>
+          </div>
+
+          <!-- Game 4: Word Puzzle -->
+          <div class="game-card" data-features="simplified,no-timing" role="listitem">
+            <div class="game-preview">📚🧩</div>
+            <div class="game-content">
+              <h2 class="game-title">Word Puzzle</h2>
+              <p class="game-description">Simple word unscrambling with large buttons and no timer.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>Simplified UI</span>
+                <span class="game-tag" data-feature>No Timing</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Word Puzzle">Play Now →</a>
+            </div>
+          </div>
+
+          <!-- Game 5: Sensory Garden -->
+          <div class="game-card" data-features="high-contrast,screen-reader,no-timing" role="listitem">
+            <div class="game-preview">🌿👁️</div>
+            <div class="game-content">
+              <h2 class="game-title">Sensory Garden</h2>
+              <p class="game-description">Calm exploration with visual and auditory feedback.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>High Contrast</span>
+                <span class="game-tag" data-feature>Screen Reader</span>
+                <span class="game-tag" data-feature>No Timing</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Sensory Garden">Play Now →</a>
+            </div>
+          </div>
+
+          <!-- Game 6: Memory (Audio) -->
+          <div class="game-card" data-features="screen-reader,simplified,switch-control" role="listitem">
+            <div class="game-preview">🎵🧠</div>
+            <div class="game-content">
+              <h2 class="game-title">Audio Memory</h2>
+              <p class="game-description">Match sounds instead of images. Switch‑friendly.</p>
+              <div class="game-tags">
+                <span class="game-tag" data-feature>Screen Reader</span>
+                <span class="game-tag" data-feature>Simplified UI</span>
+                <span class="game-tag" data-feature>Switch Control</span>
+              </div>
+              <a href="#" class="btn-play" aria-label="Play Audio Memory">Play Now →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- No results message -->
+        <div class="no-games" id="no-games-message" aria-live="polite">
+          No games match the selected filters. Try another accessibility feature.
+        </div>
+
+        <!-- Community contributions -->
+        <section aria-labelledby="community-heading" class="community-section">
+          <h2 id="community-heading" style="font-size: 1.5rem;">Community Creations</h2>
+          <p>Have an accessible game? Share it with the mesh.</p>
+          <div style="margin-top: 1rem;">
+            <a href="https://github.com/p31labs/games" target="_blank" rel="noopener" class="btn btn-ghost">Submit on GitHub →</a>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/" aria-current="page">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <script src="games.js"></script>
+</body>
+</html>
