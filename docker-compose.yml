@@ -2,105 +2,67 @@ version: '3.8'
 
 services:
   # --- INFRASTRUCTURE LAYER ---
-  
-  # 1. MESSAGE BROKER (The Nervous System)
-  # Replaces file-tailing with sub-millisecond Pub/Sub
+
+  # Message broker (pub/sub backbone)
   redis:
     image: redis:7-alpine
-    container_name: phenix_redis
+    container_name: p31_redis
     restart: always
     ports:
       - "6379:6379"
     networks:
-      - centaur_net
+      - p31_net
 
-  # 2. PERSISTENCE (The Memory)
-  # Stores trade history, toxin logs, and portfolio snapshots
+  # Persistence (local-first, sovereign data)
   db:
     image: postgres:15-alpine
-    container_name: phenix_db
+    container_name: p31_db
     restart: always
     environment:
-      POSTGRES_USER: pilot
+      POSTGRES_USER: operator
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: phenix_core
+      POSTGRES_DB: p31_core
     volumes:
-      - ./phenix_data/db:/var/lib/postgresql/data
-      - ./phenix_data/init:/docker-entrypoint-initdb.d
+      - ./data/db:/var/lib/postgresql/data
     networks:
-      - centaur_net
+      - p31_net
 
   # --- LOGIC LAYER ---
 
-  # 3. BRIDGE (Ingestion)
-  # Now publishes to Redis channel 'phenix.input'
-  bridge:
-    build: 
-      context: .
-      dockerfile: Dockerfile.bridge
-    container_name: phenix_bridge
-    restart: unless-stopped
-    depends_on:
-      - redis
-    environment:
-      - REDIS_HOST=phenix_redis
-    networks:
-      - centaur_net
-
-  # 4. SHIELD (Filtration)
-  # Subscribes to 'phenix.input', publishes clean data to 'phenix.clean'
-  shield:
-    build: 
-      context: .
-      dockerfile: Dockerfile.shield
-    container_name: phenix_shield
-    restart: unless-stopped
-    depends_on:
-      - redis
-      - db
-    environment:
-      - REDIS_HOST=phenix_redis
-      - DB_HOST=phenix_db
-    networks:
-      - centaur_net
-
-  # 5. ENGINE (Execution)
-  # Subscribes to 'phenix.clean', executes, writes to DB
-  engine:
-    build: 
-      context: .
-      dockerfile: Dockerfile.engine
-    container_name: phenix_engine
-    restart: unless-stopped
-    depends_on:
-      - redis
-      - db
-    environment:
-      - REDIS_HOST=phenix_redis
-      - EXECUTION_MODE=LOG_ONLY
-    networks:
-      - centaur_net
-
-  # --- VISUALIZATION LAYER ---
-
-  # 6. DASHBOARD (The HUD)
-  # Streamlit/React app to visualize the "Floating Neutral"
-  dashboard:
+  # P31 Buffer (communication processing)
+  shelter:
     build:
-      context: .
-      dockerfile: Dockerfile.dashboard
-    container_name: phenix_hud
+      context: ./apps/shelter
+    container_name: p31_shelter
     restart: unless-stopped
-    ports:
-      - "8501:8501" # Default Streamlit port
     depends_on:
-      - db
       - redis
+      - db
     environment:
-      - DB_HOST=phenix_db
+      - REDIS_HOST=p31_redis
+      - DB_HOST=p31_db
+    ports:
+      - "3000:3000"
     networks:
-      - centaur_net
+      - p31_net
+
+  # P31 Tandem (backend services)
+  centaur:
+    build:
+      context: ./SUPER-CENTAUR
+    container_name: p31_tandem
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - db
+    environment:
+      - REDIS_HOST=p31_redis
+      - DB_HOST=p31_db
+    ports:
+      - "4000:4000"
+    networks:
+      - p31_net
 
 networks:
-  centaur_net:
+  p31_net:
     driver: bridge
