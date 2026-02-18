@@ -1,0 +1,25 @@
+{
+  "name": "@p31labs/buffer-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Buffer — Cloudflare Workers API for AI rewrite (zero data retention)",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "keywords": ["buffer", "api", "cloudflare-workers", "hono", "p31"],
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.2.0",
+    "wrangler": "^3.0.0"
+  }
+}

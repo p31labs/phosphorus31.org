@@ -26,13 +26,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - name: Verify website/index.html exists
         run: test -f website/index.html
 
-      - name: Deploy phosphorus31.org
+      - name: Launch phosphorus31.org
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -48,31 +46,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          cache: "pnpm"
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Build Vite app
         working-directory: ui
-        run: npm run build
+        run: pnpm build
 
       - name: Verify build output
         run: |
           test -f ui/dist/index.html || (echo "FAIL: no index.html" && exit 1)
-          test -f ui/dist/apps/content-forge.html || echo "WARN: content-forge.html missing"
           echo "Build verification passed"
 
-      - name: Deploy p31ca.org
+      - name: Launch p31ca.org
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ui/dist/ --project-name=p31ca-org
 
-  # ═══ LAUNCH: Shelter Backend (placeholder — enable when hosting ready) ═══
+  # ═══ LAUNCH: Shelter Backend (placeholder) ═══
   launch-shelter:
     name: Launch Shelter Backend
     runs-on: ubuntu-latest
@@ -80,4 +78,4 @@ jobs:
     if: github.ref == 'refs/heads/main' && false
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Shelter launch disabled. Configure Railway/Fly/SSH and set if condition to true."
+      - run: echo "Shelter launch disabled. Configure hosting and set if condition to true."

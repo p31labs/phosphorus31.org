@@ -1,7 +1,8 @@
 {
-  "name": "scope",
-  "private": true,
+  "name": "@p31labs/scope-api",
   "version": "0.1.0",
+  "private": true,
+  "description": "P31 Scope — Cognitive dashboard API",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

@@ -1,10 +1,10 @@
 {
-  "name": "@p31/website",
-  "version": "1.0.0",
+  "name": "@p31labs/website",
+  "version": "0.1.0",
   "private": true,
-  "description": "phosphorus31.org — P31 Labs static site",
-  "author": "P31 Labs, Inc.",
-  "license": "MIT",
+  "description": "phosphorus31.org — P31 Labs corporate site",
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
   "homepage": "https://phosphorus31.org",
   "scripts": {
     "dev": "npx serve . -l 8000",

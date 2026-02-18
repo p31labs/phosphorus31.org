@@ -1,7 +1,7 @@
 {
-  "name": "@p31/shelter",
-  "version": "1.0.0",
-  "description": "The Buffer - Communication processing layer for P31 (neurodivergent-first message buffering)",
+  "name": "@p31labs/shelter",
+  "version": "0.1.0",
+  "description": "The Buffer — Voltage-gated communication bridge for neurodivergent users",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -10,17 +10,12 @@
     "build:server": "tsc -p tsconfig.server.json",
     "start": "node dist/index.js",
     "start:server": "tsx src/index.ts",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "eslint src/**/*.ts"
   },
-  "keywords": [
-    "buffer",
-    "message-processing",
-    "neurodivergent",
-    "p31"
-  ],
-  "author": "P31",
-  "license": "MIT",
+  "keywords": ["buffer", "voltage", "neurodivergent", "p31"],
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
@@ -41,6 +36,6 @@
     "vitest": "^1.2.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }

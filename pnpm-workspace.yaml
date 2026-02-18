@@ -1,0 +1,6 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "SUPER-CENTAUR"
+  - "ui"
+  - "website"

@@ -1,49 +1,27 @@
 {
-  "name": "super-centaur",
-  "version": "1.0.0",
-  "description": "The Centaur - Backend AI protocol system for P31 (human + synthetic intelligence)",
+  "name": "@p31labs/centaur",
+  "version": "0.1.0",
+  "description": "P31 Tandem — Backend AI protocol system (human + synthetic intelligence)",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc || exit 0",
     "start": "node dist/index.js",
-    "start:main": "node dist/index.js",
     "start:quantum": "tsx src/quantum-brain/index.ts",
-    "start:legal": "tsx src/legal/index.ts",
-    "start:medical": "tsx src/medical/index.ts",
-    "start:blockchain": "tsx src/blockchain/index.ts",
-    "start:family": "tsx src/family-support/index.ts",
-    "start:optimizer": "tsx src/optimization/index.ts",
-    "start:security": "tsx src/security/index.ts",
-    "start:backup": "tsx src/backup/index.ts",
-    "start:monitoring": "tsx src/monitoring/index.ts",
-    "start:quantum-brain": "tsx src/quantum-brain/index.ts",
-    "start:all": "concurrently \"npm run start:main\" \"npm run start:quantum\" \"npm run start:legal\" \"npm run start:medical\" \"npm run start:blockchain\" \"npm run start:family\" \"npm run start:optimizer\" \"npm run start:security\" \"npm run start:backup\" \"npm run start:monitoring\"",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "cli": "tsx src/cli/index.ts",
-    "frontend": "cd frontend && npm run dev",
-    "install-frontend": "cd frontend && npm install",
     "db:init": "tsx src/database/init.ts",
     "db:migrate": "tsx src/database/migrate.ts",
     "db:seed": "tsx src/database/seed.ts"
   },
-  "keywords": [
-    "ai",
-    "legal",
-    "medical",
-    "blockchain",
-    "autonomous",
-    "sovereign",
-    "centaur"
-  ],
-  "author": "P31 Labs, Inc.",
-  "license": "MIT",
+  "keywords": ["ai", "centaur", "tandem", "p31"],
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/p31labs/phenix-navigator-creator67.git",
+    "url": "https://github.com/p31labs/p31.git",
     "directory": "SUPER-CENTAUR"
   },
   "homepage": "https://phosphorus31.org",
@@ -143,6 +121,6 @@
     "vitest": "^4.0.18"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }

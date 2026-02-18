@@ -1,7 +1,7 @@
 {
-  "name": "@p31/protocol",
+  "name": "@p31labs/protocol",
   "version": "0.1.0",
-  "description": "Shared P31 protocol types and constants (voltage, signals, L.O.V.E., mesh). Full engine in Phase 3.",
+  "description": "Shared P31 protocol types and constants",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "exports": {
@@ -11,6 +11,6 @@
       "default": "./src/index.ts"
     }
   },
-  "license": "Apache-2.0",
-  "author": "P31 Labs"
+  "author": "P31 Labs",
+  "license": "AGPL-3.0"
 }

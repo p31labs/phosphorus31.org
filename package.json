@@ -1,95 +1,51 @@
 {
   "name": "p31",
-  "version": "1.0.0",
-  "description": "P31 - Phosphorus-31. The biological qubit. The atom in the bone.",
+  "version": "0.1.0",
+  "description": "P31 Labs — Assistive technology for neurodivergent individuals. The mesh holds.",
   "private": true,
-  "workspaces": [
-    "SUPER-CENTAUR",
-    "ui",
-    "website",
-    
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@10.22.0",
   "scripts": {
-    "dev": "concurrently -n shelter,sprout,scope -c green,yellow,cyan \"npm run dev:shelter\" \"npm run dev:sprout\" \"npm run dev:scope\"",
-    "dev:shelter": "cd apps/shelter && npm run start:server",
-    "dev:sprout": "cd apps/sprout && npm run dev",
-    "dev:scope": "cd apps/scope && npm run dev",
-    "dev:mesh": "concurrently -n shelter,sprout -c green,yellow \"npm run dev:shelter\" \"npm run dev:sprout\"",
-    "dev:centaur": "cd SUPER-CENTAUR && npm run dev",
-    "dev:scope:ui": "cd ui && npm run dev",
-    "dev:buffer": "cd apps/shelter && npm run dev",
-    "dev:website": "cd website && npm run dev",
-    "dev:all": "concurrently \"npm run dev:centaur\" \"npm run dev:scope\" \"npm run dev:buffer\"",
-    "build": "npm run build:centaur && npm run build:scope && npm run build:shelter",
-    "build:web": "cd apps/web && npm run build",
-    "build:centaur": "cd SUPER-CENTAUR && npm run build",
-    "build:scope": "cd ui && npm run build",
-    "build:shelter": "cd apps/shelter && npm run build",
-    "build:buffer": "cd apps/shelter && npm run build",
-    "install:all": "npm install && npm run install:centaur && npm run install:scope && npm run install:buffer",
-    "install:centaur": "cd SUPER-CENTAUR && npm install",
-    "install:scope": "cd ui && npm install",
-    "install:buffer": "cd apps/shelter && npm install",
-    "test": "npm run test:scope && npm run test:shelter",
-    "test:centaur": "cd SUPER-CENTAUR && npm test",
-    "test:scope": "cd ui && npm test",
-    "test:scope:unit": "cd ui && npx vitest run --exclude \"src/__tests__/integration/**\"",
-    "test:scope:engine": "cd ui && npm run test:engine",
-    "test:buffer": "cd apps/shelter && npm test",
-    "test:shelter": "cd apps/shelter && npm test -- --run",
-    "test:all": "npm run test:centaur && npm run test:scope && npm run test:shelter",
-    "audit": "node scripts/audit.mjs",
-    "lint": "npm run lint:centaur && npm run lint:scope",
-    "lint:centaur": "cd SUPER-CENTAUR && npm run lint",
-    "lint:scope": "cd ui && npm run lint",
-    "clean": "npm run clean:centaur && npm run clean:scope && npm run clean:buffer",
-    "clean:centaur": "cd SUPER-CENTAUR && rm -rf dist node_modules",
-    "clean:scope": "cd ui && rm -rf dist node_modules",
-    "clean:buffer": "cd apps/shelter && rm -rf dist node_modules",
-    "setup": "npm run install:all && npm run setup:env",
-    "setup:env": "echo 'See config/env-reference.md for environment variable setup'",
-    "health": "curl http://localhost:3000/health && curl http://localhost:4000/health",
-    "verify": "tsx scripts/verify-integration.ts",
-    "verify:assets": "node scripts/verify-assets.mjs",
-    "test:integration": "node tests/integration.test.js",
+    "dev": "turbo dev",
+    "dev:shelter": "pnpm --filter @p31labs/shelter dev",
+    "dev:sprout": "pnpm --filter @p31labs/sprout dev",
+    "dev:scope": "pnpm --filter @p31labs/scope dev",
+    "dev:centaur": "pnpm --filter @p31labs/centaur dev",
+    "dev:website": "pnpm --filter @p31labs/website dev",
+    "build": "turbo build",
+    "build:shelter": "pnpm --filter @p31labs/shelter build",
+    "build:scope": "pnpm --filter @p31labs/scope build",
+    "build:centaur": "pnpm --filter @p31labs/centaur build",
+    "build:web": "pnpm --filter @p31labs/web build",
+    "test": "turbo test",
+    "test:shelter": "pnpm --filter @p31labs/shelter test",
+    "test:scope": "pnpm --filter @p31labs/scope test",
+    "test:centaur": "pnpm --filter @p31labs/centaur test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && rm -rf node_modules",
     "preflight": "node scripts/preflight-smoke.mjs",
-    "launch:check": "node scripts/launch-check.mjs",
-    "benchmark": "node tests/benchmark.js",
-    "backup": "node scripts/backup-accommodation-db.mjs",
-    "docs": "echo 'Documentation available in docs/ directory'"
+    "launch:check": "node scripts/launch-check.mjs"
   },
   "keywords": [
     "p31",
     "phosphorus-31",
+    "assistive-technology",
+    "neurodivergent",
     "tetrahedron",
-    "geodesic",
-    "node-one",
-    "the-buffer",
-    "the-centaur",
-    "the-scope"
+    "buffer",
+    "node-one"
   ],
-  "author": "P31 Labs, Inc.",
-  "license": "MIT",
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/p31labs/p31.git"
   },
   "homepage": "https://phosphorus31.org",
   "devDependencies": {
-    "concurrently": "^9.2.1",
-    "ws": "^8.17.1"
+    "turbo": "^2.4.4"
   },
   "engines": {
-    "node": ">=18.0.0"
-  },
-  "overrides": {
-    "@react-three/fiber": "^8.17.10",
-    "@react-three/drei": "^9.114.0",
-    "@babel/core": "^7.25.2"
-  },
-  "installConfig": {
-    "legacyPeerDeps": true
+    "node": ">=20.0.0"
   }
 }
