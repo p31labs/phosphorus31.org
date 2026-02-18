@@ -40,6 +40,19 @@ p31/
 └── README.md
 ```
 
+## For AI Agents
+
+Start here: **[`AGENTS.md`](AGENTS.md)** — universal context for any AI collaborator.
+
+Build health: **[`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md)** — what works, what's broken, what's next.
+
+Each major component has a `CLAUDE.md` with detailed agent context:
+- [`ui/CLAUDE.md`](ui/CLAUDE.md) — P31 Spectrum frontend
+- [`SUPER-CENTAUR/CLAUDE.md`](SUPER-CENTAUR/CLAUDE.md) — P31 Tandem backend
+- [`apps/shelter/CLAUDE.md`](apps/shelter/CLAUDE.md) — P31 Buffer
+- [`firmware/CLAUDE.md`](firmware/CLAUDE.md) — P31 NodeZero firmware
+- [`packages/protocol/CLAUDE.md`](packages/protocol/CLAUDE.md) — Shared protocol
+
 ## Quick Start
 
 ```bash

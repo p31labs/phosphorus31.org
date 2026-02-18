@@ -1,39 +1,32 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
+import path from "path";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: '0.0.0.0', // Listen on all interfaces for Tailscale Funnel
-    port: 5173,
-    allowedHosts: [
-      'dicktater-fundip.tail377c92.ts.net',
-      'dicktater-fundip.tailscale.ts.net',
-      '.tailscale.ts.net', // Allow all Tailscale domains
-      '.ts.net', // Allow all Tailscale subdomains
-    ],
-  },
-  build: {
-    rollupOptions: {
-      // Externalize native platform packages (only used in Tauri/Capacitor builds)
-      external: [
-        '@tauri-apps/api',
-        '@tauri-apps/api/core',
-        '@tauri-apps/api/window',
-        '@capacitor/haptics',
-        '@capacitor/local-notifications',
-        '@capacitor/clipboard',
-        '@capacitor/filesystem',
-      ],
-      output: {
-        manualChunks: {
-          'three': ['three', '@react-three/fiber', '@react-three/drei'],
-          'peerjs': ['peerjs'],
-          'zustand': ['zustand'],
-        },
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      manifest: {
+        name: "The Buffer",
+        short_name: "Buffer",
+        description: "Voltage-gated communication bridge for neurodivergent users",
+        theme_color: "#39FF14",
+        background_color: "#0a0a0f",
+        display: "standalone",
+        icons: [
+          { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
+          { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+        ],
       },
-    },
-    chunkSizeWarningLimit: 1000,
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+      },
+    }),
+  ],
+  resolve: {
+    alias: { "@": path.resolve(__dirname, "./src") },
   },
-})
+  server: { port: 5173 },
+});

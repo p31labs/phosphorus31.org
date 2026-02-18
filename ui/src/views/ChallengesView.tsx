@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { GENESIS_CHALLENGE, SEED_CHALLENGES } from '@p31/game-integration';
+import { GENESIS_CHALLENGE, SEED_CHALLENGES } from '@p31labs/game-integration';
 import { getClient } from '../lib/game-client';
 
 const BRAND = {

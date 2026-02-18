@@ -1,22 +1,22 @@
-/**
- * Type definitions for The Buffer
- * 
- * Note: Some types are defined in their respective modules to avoid circular dependencies.
- * This file contains only types that are shared across multiple modules.
- */
-
-export interface QueuedMessage {
-  id: string;
-  message: string;
-  priority: 'low' | 'normal' | 'high' | 'urgent';
-  metadata: Record<string, any>;
-  timestamp: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed';
+export interface AIRewriteResult {
+  neutral_rewrite: string;
+  emotional_subtext: string;
+  action_items: string[];
+  suggested_response: string;
 }
 
-export interface QueueStatus {
-  queueLength: number;
-  connected: boolean;
-  pending: number;
-  processing: number;
+export interface QueueItem {
+  id: number;
+  text: string;
+  voltage: number;
+  gate: string;
+  timestamp: number;
+}
+
+export interface SessionRecord {
+  id?: number;
+  timestamp: number;
+  voltage: number;
+  gate: string;
+  processed: boolean;
 }

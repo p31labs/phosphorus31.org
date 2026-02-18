@@ -1,5 +1,0 @@
-src/filter.ts(7,1): error TS6133: 'Logger' is declared but its value is never read.
-src/utils/logger.ts(16,53): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
-src/utils/logger.ts(20,54): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
-src/utils/logger.ts(24,56): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
-src/utils/logger.ts(29,58): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.

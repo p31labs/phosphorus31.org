@@ -1,17 +1,29 @@
-/**
- * Buffer API — Cloudflare Workers entry point
- *
- * Stub: Hono.js router with /rewrite and /health endpoints.
- * Privacy: messages processed in-memory only, NEVER logged or persisted.
- */
 import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { rateLimit } from "./middleware/rate-limit";
+import health from "./routes/health";
+import rewrite from "./routes/rewrite";
 
-const app = new Hono();
+type Bindings = { GEMINI_API_KEY: string; ENVIRONMENT: string };
 
-app.get("/health", (c) => c.json({ status: "ok", service: "buffer-api", version: "0.1.0" }));
+const app = new Hono<{ Bindings: Bindings }>();
 
-app.post("/rewrite", async (c) => {
-  return c.json({ error: "Not yet implemented" }, 501);
+app.use("*", cors({
+  origin: ["http://localhost:5173", "https://phosphorus31.org", "https://p31.io"],
+  allowMethods: ["GET", "POST", "OPTIONS"],
+  allowHeaders: ["Content-Type"],
+}));
+
+app.use("*", rateLimit());
+
+app.route("/", health);
+app.route("/", rewrite);
+
+app.notFound((c) => c.json({ error: "Not found" }, 404));
+
+app.onError((err, c) => {
+  console.error(`[buffer-api] ${err.message}`);
+  return c.json({ error: "Internal server error" }, 500);
 });
 
 export default app;
