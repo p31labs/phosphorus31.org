@@ -44,6 +44,20 @@ export interface Player {
   pingsSent: number;
 }
 
+/** Progress for the Birthday (Super Mario Molecule) quest. Shared between players. */
+export interface BirthdayQuestProgress {
+  /** Step indices (1–4) that have been completed. */
+  completedSteps: number[];
+  /** Total LOVE (Star Bits) earned from this quest. */
+  loveEarned: number;
+  /** When the full chain was completed (step 4). */
+  completedAt?: number;
+  /** MAR10 Day achievement unlocked. */
+  mar10DayUnlocked?: boolean;
+  /** Print Now (slice/print) available. */
+  printUnlocked?: boolean;
+}
+
 export interface BondingGame {
   id: string;
   code: string;
@@ -57,6 +71,8 @@ export interface BondingGame {
   createdAt: number;
   lastActivity: number;
   completedAt?: number;
+  /** Birthday Quest (MAR10) progress — collaborative. */
+  birthdayQuestProgress?: BirthdayQuestProgress;
 }
 
 export interface Achievement {
@@ -79,8 +95,10 @@ export interface ElementInfo {
   symbol: string;
   name: string;
   atomicNumber: number;
-  category: 'starter' | 'common' | 'metals' | 'special';
+  category: 'starter' | 'common' | 'metals' | 'special' | 'birthday';
   locked: boolean;
   funFact: string;
   frequency: number; // Hz for sound
+  /** Valence for bonding: 0 = decorative (no bonds). Omitted = use default from atomic number. */
+  valence?: number;
 }

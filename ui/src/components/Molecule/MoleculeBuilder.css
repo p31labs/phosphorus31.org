@@ -23,6 +23,10 @@
   gap: 0.5rem;
 }
 
+.info-item.love-info strong {
+  color: #e91e8c;
+}
+
 .builder-controls {
   padding: 1rem;
   display: flex;

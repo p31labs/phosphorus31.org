@@ -11,6 +11,7 @@ import { MedsCard, SleepCard } from '../components/SafeHarbor';
 import { FrictionLogModal, FrictionHistory, saveFrictionEntry, loadFrictionEntries, type FrictionEntry } from '../components/FrictionLog';
 import { InverseDashboard } from '../components/InverseDashboard';
 import { OverloadGuard } from '../components/OverloadGuard';
+import { Mar10DayBanner } from '../components/Scope/Mar10DayBanner';
 import { generateExhibitA } from '../lib/exhibit-a';
 import { haptic } from '../lib/haptics';
 
@@ -145,6 +146,8 @@ export function ScopeView(): React.ReactElement {
 
   return (
     <div style={{ background: BRAND.void, padding: 24, maxWidth: 900, margin: '0 auto' }}>
+      {/* MAR10 Day 2026 — celebratory banner until Mar 11; links to Super Star Quest */}
+      <Mar10DayBanner />
       {/* Overload Guard — triggers at ≤2 spoons */}
       <OverloadGuard
         currentSpoons={spoonsVal}

@@ -5,7 +5,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import type { BondingGame, Atom, Bond, Player, Ping, GameMode, PingType } from '../types/bonding';
-import { ELEMENTS, calculateFormula, getBondSites, canBond, calculateGameStats, generateGameCode, getElementFrequency } from '../lib/chemistry';
+import { ELEMENTS, getElementsForPicker, getElement, calculateFormula, getBondSites, canBond, calculateGameStats, generateGameCode, getElementFrequency } from '../lib/chemistry';
+import { getBirthdayQuestStepsSatisfied, BIRTHDAY_STEP_LOVE } from '../lib/birthdayQuestDetection';
+import { useLoveMiningStore } from '../stores/loveMining.store';
+import { useAccessibilityStore } from '../stores/accessibility.store';
+import { prefersReducedMotion } from '../utils/accessibility';
+import { isBirthdayQuestActive } from '@p31labs/game-engine';
+import { QuestPanel } from '../components/bonding/QuestPanel';
 
 const BRAND = {
   green: '#00FF88',
@@ -43,9 +49,21 @@ export function BondingView(): React.ReactElement {
   const [longPressTimer, setLongPressTimer] = useState<NodeJS.Timeout | null>(null);
   const [showPingMenu, setShowPingMenu] = useState<{ x: number; y: number; atomId: string } | null>(null);
   const [pingsThisTurn, setPingsThisTurn] = useState(0);
-  
+  const [showBirthdayCelebration, setShowBirthdayCelebration] = useState(false);
+  const [birthdayMode, setBirthdayMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('birthday') === '1' || params.get('birthday') === 'true') return true;
+    try {
+      return localStorage.getItem('p31-bonding-birthday') === '1';
+    } catch { return false; }
+  });
+
   const canvasRef = useRef<SVGSVGElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const animationReduced = useAccessibilityStore((s) => s.animationReduced);
+  const highContrast = useAccessibilityStore((s) => s.contrast) === 'high';
+  const reducedMotion = animationReduced || (typeof window !== 'undefined' && prefersReducedMotion());
 
   // Initialize audio context
   useEffect(() => {
@@ -54,6 +72,13 @@ export function BondingView(): React.ReactElement {
       audioContextRef.current?.close();
     };
   }, []);
+
+  // Clear birthday celebration toast after 5s
+  useEffect(() => {
+    if (!showBirthdayCelebration) return;
+    const t = setTimeout(() => setShowBirthdayCelebration(false), 5000);
+    return () => clearTimeout(t);
+  }, [showBirthdayCelebration]);
 
   // Load games from localStorage
   useEffect(() => {
@@ -69,7 +94,11 @@ export function BondingView(): React.ReactElement {
       if (key?.startsWith('bonding:game:')) {
         try {
           const game = JSON.parse(localStorage.getItem(key) || '{}');
-          if (game.id) loaded.push(game);
+          if (game.id) {
+            const migrated = migrateOldElementSymbols(game);
+            if (migrated) localStorage.setItem(key, JSON.stringify(game));
+            loaded.push(game);
+          }
         } catch (e) {
           console.error('Failed to load game:', key, e);
         }
@@ -78,9 +107,55 @@ export function BondingView(): React.ReactElement {
     setGames(loaded.sort((a, b) => b.lastActivity - a.lastActivity));
   }
 
+  /** One-time migration: remap old Msh/Str/Pip atoms to WNC/SPK/TNL. Returns true if any were migrated. */
+  function migrateOldElementSymbols(game: BondingGame): boolean {
+    const OLD_TO_NEW: Record<string, string> = { Msh: 'WNC', Str: 'SPK', Pip: 'TNL' };
+    let changed = false;
+    for (const atom of game.atoms) {
+      const replacement = OLD_TO_NEW[atom.element];
+      if (replacement) {
+        atom.element = replacement;
+        changed = true;
+      }
+    }
+    if (game.birthdayQuestProgress && 'marioDayUnlocked' in (game.birthdayQuestProgress as any)) {
+      (game.birthdayQuestProgress as any).mar10DayUnlocked = (game.birthdayQuestProgress as any).marioDayUnlocked;
+      delete (game.birthdayQuestProgress as any).marioDayUnlocked;
+      changed = true;
+    }
+    return changed;
+  }
+
   function saveGame(game: BondingGame) {
     localStorage.setItem(`bonding:game:${game.id}`, JSON.stringify(game));
     loadGames();
+  }
+
+  /** Sync Birthday Quest progress from current atoms; award LOVE for newly completed steps. Returns updated game and list of newly completed step numbers. */
+  function syncGameBirthdayQuest(game: BondingGame): { game: BondingGame; newlyCompleted: number[] } {
+    const satisfied = getBirthdayQuestStepsSatisfied(game);
+    const progress = game.birthdayQuestProgress ?? { completedSteps: [], loveEarned: 0 };
+    const newlyCompleted = satisfied.filter((s) => !progress.completedSteps.includes(s));
+    if (newlyCompleted.length === 0) return { game, newlyCompleted: [] };
+
+    const mineBirthdayStep = useLoveMiningStore.getState().mineBirthdayStep;
+    const nextProgress = {
+      ...progress,
+      completedSteps: [...progress.completedSteps],
+      loveEarned: progress.loveEarned,
+    };
+    for (const step of newlyCompleted.sort((a, b) => a - b)) {
+      mineBirthdayStep(step as 1 | 2 | 3 | 4);
+      nextProgress.completedSteps.push(step);
+      nextProgress.loveEarned += BIRTHDAY_STEP_LOVE[step - 1];
+      if (step === 4) {
+        nextProgress.completedAt = Date.now();
+        nextProgress.mar10DayUnlocked = true;
+        nextProgress.printUnlocked = true;
+      }
+    }
+    nextProgress.completedSteps.sort((a, b) => a - b);
+    return { game: { ...game, birthdayQuestProgress: nextProgress }, newlyCompleted };
   }
 
   function createGame(name: string, playerName: string, playerColor: string): BondingGame {
@@ -106,6 +181,7 @@ export function BondingView(): React.ReactElement {
       status: 'active',
       createdAt: now,
       lastActivity: now,
+      birthdayQuestProgress: { completedSteps: [], loveEarned: 0 },
     };
     
     // Set first player's turn
@@ -291,11 +367,19 @@ export function BondingView(): React.ReactElement {
     
     // Reset pings for new turn
     setPingsThisTurn(0);
-    
-    saveGame(updatedGame);
-    setCurrentGame(updatedGame);
+
+    // Sync Birthday Quest and award LOVE for any newly completed steps
+    const { game: syncedGame, newlyCompleted } = syncGameBirthdayQuest(updatedGame);
+    if (newlyCompleted.length > 0) {
+      saveGame(syncedGame);
+      setCurrentGame(syncedGame);
+      if (newlyCompleted.includes(4)) setShowBirthdayCelebration(true);
+    } else {
+      saveGame(updatedGame);
+      setCurrentGame(updatedGame);
+    }
     setSelectedElement(null);
-    
+
     // Play turn notification for next player
     setTimeout(() => playTurnSound(), 200);
   }
@@ -671,8 +755,10 @@ export function BondingView(): React.ReactElement {
                 <div
                   key={game.id}
                   onClick={() => {
-                    setCurrentGame(game);
+                    const { game: syncedGame, newlyCompleted } = syncGameBirthdayQuest(game);
+                    setCurrentGame(syncedGame);
                     setMode('GAME');
+                    if (newlyCompleted.length > 0) saveGame(syncedGame);
                   }}
                   style={{
                     background: BRAND.surface2,
@@ -861,7 +947,69 @@ export function BondingView(): React.ReactElement {
                 {/* Atoms */}
                 {currentGame.atoms.map(atom => {
                   const player = currentGame.players.find(p => p.id === atom.playerId);
-                  
+                  const stroke = highContrast ? BRAND.text : BRAND.void;
+                  const strokeW = highContrast ? 2 : 2;
+                  const handlers = {
+                    onMouseDown: (e: React.MouseEvent) => {
+                      e.stopPropagation();
+                      handleLongPress(atom.id, e.clientX, e.clientY);
+                    },
+                    onMouseUp: () => {
+                      if (longPressTimer) {
+                        clearTimeout(longPressTimer);
+                        setLongPressTimer(null);
+                      }
+                    },
+                    style: { cursor: 'pointer' } as const,
+                  };
+
+                  if (atom.element === 'Msh') {
+                    return (
+                      <g key={atom.id} transform={`translate(${atom.x}, ${atom.y})`} {...handlers}>
+                        <circle r={14} cy={-6} fill="#e52521" stroke={stroke} strokeWidth={strokeW} />
+                        <circle r={3} cx={-5} cy={-8} fill="#fff" stroke={stroke} strokeWidth={1} />
+                        <circle r={2.5} cx={5} cy={-6} fill="#fff" stroke={stroke} strokeWidth={1} />
+                        <circle r={2} cx={0} cy={-4} fill="#fff" stroke={stroke} strokeWidth={1} />
+                        <rect x={-6} y={0} width={12} height={14} rx={2} fill="#8B6914" stroke={stroke} strokeWidth={strokeW} />
+                        <title>Mushroom (decorative)</title>
+                      </g>
+                    );
+                  }
+                  if (atom.element === 'Str') {
+                    const starPath = (() => {
+                      let d = '';
+                      for (let i = 0; i <= 10; i++) {
+                        const deg = 270 + i * 36;
+                        const r = i % 2 === 0 ? 20 : 8;
+                        const x = r * Math.cos((deg * Math.PI) / 180);
+                        const y = r * Math.sin((deg * Math.PI) / 180);
+                        d += (i === 0 ? 'M' : 'L') + ` ${x},${y}`;
+                      }
+                      return d + ' Z';
+                    })();
+                    return (
+                      <g key={atom.id} transform={`translate(${atom.x}, ${atom.y})`} {...handlers}>
+                        <path
+                          d={starPath}
+                          fill="#FFD700"
+                          stroke={stroke}
+                          strokeWidth={strokeW}
+                          style={reducedMotion ? undefined : { animation: 'bonding-star-pulse 1.5s ease-in-out infinite' }}
+                        />
+                        <title>Star (decorative)</title>
+                      </g>
+                    );
+                  }
+                  if (atom.element === 'Pip') {
+                    return (
+                      <g key={atom.id} transform={`translate(${atom.x}, ${atom.y})`} {...handlers}>
+                        <rect x={-12} y={-18} width={24} height={36} rx={4} ry={4} fill="#00AA00" stroke={stroke} strokeWidth={strokeW} />
+                        <rect x={-10} y={-14} width={20} height={4} rx={1} fill="#006600" />
+                        <title>Pipe (decorative)</title>
+                      </g>
+                    );
+                  }
+
                   return (
                     <g key={atom.id}>
                       <circle
@@ -869,19 +1017,9 @@ export function BondingView(): React.ReactElement {
                         cy={atom.y}
                         r={20}
                         fill={player?.color || BRAND.text}
-                        stroke={BRAND.void}
-                        strokeWidth={2}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                          handleLongPress(atom.id, e.clientX, e.clientY);
-                        }}
-                        onMouseUp={() => {
-                          if (longPressTimer) {
-                            clearTimeout(longPressTimer);
-                            setLongPressTimer(null);
-                          }
-                        }}
-                        style={{ cursor: 'pointer' }}
+                        stroke={stroke}
+                        strokeWidth={strokeW}
+                        {...handlers}
                       />
                       <text
                         x={atom.x}
@@ -915,6 +1053,50 @@ export function BondingView(): React.ReactElement {
               </g>
             </svg>
             
+            {/* Birthday Quest completion celebration */}
+            {showBirthdayCelebration && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(5,5,16,0.85)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 999,
+                  padding: 24,
+                }}
+                role="alert"
+                aria-live="polite"
+              >
+                <div
+                  style={{
+                    background: BRAND.surface2,
+                    padding: 32,
+                    borderRadius: 16,
+                    border: `2px solid ${BRAND.amber}`,
+                    maxWidth: 320,
+                    textAlign: 'center',
+                  }}
+                >
+                  <div style={{ fontSize: 48, marginBottom: 16 }}>🌟</div>
+                  <h2 style={{ fontSize: 20, fontFamily: 'Oxanium, sans-serif', color: BRAND.amber, marginBottom: 8 }}>
+                    Super Mario Molecule complete!
+                  </h2>
+                  <p style={{ fontSize: 14, color: BRAND.text, marginBottom: 8 }}>
+                    Mario Day achievement unlocked!
+                  </p>
+                  <p style={{ fontSize: 14, color: BRAND.amber, marginBottom: 16 }}>
+                    +50 Star Bits
+                  </p>
+                  <p style={{ fontSize: 12, color: BRAND.muted }}>
+                    You can now use Print Now in the sidebar to print your molecule.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Ping menu */}
             {showPingMenu && (
               <div
@@ -984,6 +1166,19 @@ export function BondingView(): React.ReactElement {
                 <strong>Bonds:</strong> {stats.bondCount}
               </div>
             </div>
+
+            {/* Birthday Quest */}
+            {isBirthdayQuestActive() && (
+              <QuestPanel
+                progress={currentGame.birthdayQuestProgress}
+                allComplete={(currentGame.birthdayQuestProgress?.completedSteps ?? []).includes(4)}
+                onPrintNow={() => {
+                  // Slicing/print flow: for now open print dialog; can later route to slice view
+                  window.print();
+                }}
+                isMemorial={new Date() > new Date('2026-03-10T23:59:59.999Z')}
+              />
+            )}
             
             {/* Player stats */}
             <div style={{ marginBottom: 24 }}>
@@ -1028,13 +1223,38 @@ export function BondingView(): React.ReactElement {
             
             {/* Periodic Table */}
             <div>
-              <h3 style={{ fontSize: 14, color: BRAND.muted, marginBottom: 12 }}>ELEMENTS</h3>
-              {['starter', 'common', 'metals', 'special'].map(category => {
-                const categoryElements = ELEMENTS.filter(e => e.category === category);
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 14, color: BRAND.muted }}>ELEMENTS</h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = !birthdayMode;
+                    setBirthdayMode(next);
+                    try { localStorage.setItem('p31-bonding-birthday', next ? '1' : '0'); } catch { /* ignore */ }
+                  }}
+                  style={{
+                    padding: '4px 8px',
+                    fontSize: 10,
+                    background: birthdayMode ? BRAND.amber : BRAND.dim,
+                    color: BRAND.void,
+                    border: 'none',
+                    borderRadius: 4,
+                    cursor: 'pointer',
+                    fontFamily: 'Oxanium, sans-serif',
+                  }}
+                  title="Toggle birthday quest elements (Wonky Cap, Sparkle Star, Tunnel Tube)"
+                  aria-label={birthdayMode ? 'Birthday mode on' : 'Birthday mode off'}
+                >
+                  {birthdayMode ? '🎂 On' : '🎂'}
+                </button>
+              </div>
+              {['starter', 'common', 'metals', 'special', ...(birthdayMode ? ['birthday' as const] : [])].map(category => {
+                const categoryElements = getElementsForPicker(birthdayMode).filter(e => e.category === category);
+                if (categoryElements.length === 0) return null;
                 return (
                   <div key={category} style={{ marginBottom: 16 }}>
                     <div style={{ fontSize: 10, color: BRAND.dim, marginBottom: 8, textTransform: 'uppercase' }}>
-                      {category}
+                      {category === 'birthday' ? 'Birthday' : category}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                       {categoryElements.map(element => (
@@ -1054,7 +1274,7 @@ export function BondingView(): React.ReactElement {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: 10,
+                            fontSize: element.symbol.length > 2 ? 8 : 10,
                             fontFamily: 'Oxanium, sans-serif',
                             color: BRAND.text,
                             position: 'relative',
@@ -1117,6 +1337,13 @@ export function BondingView(): React.ReactElement {
           @keyframes pulse {
             0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
+          }
+          @keyframes bonding-star-pulse {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px #FFD700); }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 12px #FFD700); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .bonding-star-pulse, [style*="bonding-star-pulse"] { animation: none !important; }
           }
         `}</style>
       </div>

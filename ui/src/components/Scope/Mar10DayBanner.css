@@ -1,0 +1,117 @@
+/* MAR10 Day 2026 banner — P31 palette (gold, cyan, magenta); subtle pulse. Respects reduced-motion. */
+
+.mar10-day-banner {
+  --mar10-gold: #fbd000;
+  --mar10-cyan: #00D4FF;
+  --mar10-magenta: #FF00CC;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px 10px 16px;
+  margin: 0 0 20px 0;
+  background: linear-gradient(135deg, #12122E 0%, #1a1a3e 50%, #12122E 100%);
+  border: 2px solid var(--mar10-gold);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(251, 208, 0, 0.25), 0 0 0 1px rgba(0, 212, 255, 0.15);
+  animation: mar10-day-banner-pulse 2.5s ease-in-out infinite;
+}
+
+.mar10-day-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.mar10-day-banner__star {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px var(--mar10-gold));
+}
+
+.mar10-day-banner__text {
+  font-family: 'Oxanium', 'Space Mono', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.mar10-day-banner__cta {
+  padding: 6px 14px;
+  background: var(--mar10-gold);
+  color: #1a1a1a;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.mar10-day-banner__cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mar10-day-banner__cta:focus-visible {
+  outline: 2px solid var(--mar10-gold);
+  outline-offset: 2px;
+}
+
+.mar10-day-banner__close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mar10-day-banner__close:hover {
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--mar10-gold);
+}
+
+.mar10-day-banner__close:focus-visible {
+  outline: 2px solid var(--mar10-gold);
+  outline-offset: 2px;
+}
+
+@keyframes mar10-day-banner-pulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 12px rgba(251, 208, 0, 0.25), 0 0 0 1px rgba(0, 212, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 4px 18px rgba(251, 208, 0, 0.4), 0 0 0 2px rgba(0, 212, 255, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mar10-day-banner {
+    animation: none;
+  }
+  .mar10-day-banner__cta:hover {
+    transform: none;
+  }
+  .mar10-day-banner__cta,
+  .mar10-day-banner__close {
+    transition-duration: 0.01ms;
+  }
+}

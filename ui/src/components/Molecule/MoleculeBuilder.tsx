@@ -12,6 +12,7 @@ import { generatePosnerMolecule } from '../../utils/moleculeBuilder';
 import { Atom3D } from './Atom3D';
 import { Bond3D } from './Bond3D';
 import { useAccessibilityStore } from '../../stores/accessibility.store';
+import { useLoveMiningStore } from '../../stores/loveMining.store';
 import './MoleculeBuilder.css';
 
 export const MoleculeBuilder: React.FC = () => {
@@ -21,13 +22,12 @@ export const MoleculeBuilder: React.FC = () => {
   const [showQuantum, setShowQuantum] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
   const { fontSize, animationReduced } = useAccessibilityStore();
+  const { love, mineMoleculeBuilt } = useLoveMiningStore();
 
-  // Initialize with a Posner molecule (fixed: use useEffect instead of useMemo)
+  // One-time init on mount so resetting molecule to null doesn't auto-regenerate
   useEffect(() => {
-    if (!molecule) {
-      setMolecule(generatePosnerMolecule('posner_1'));
-    }
-  }, [molecule]);
+    setMolecule((prev) => prev ?? generatePosnerMolecule('posner_1'));
+  }, []);
 
   // Memoize atom lookup map for O(1) access instead of O(n) find operations
   const atomMap = useMemo(() => {
@@ -51,7 +51,8 @@ export const MoleculeBuilder: React.FC = () => {
     setMolecule(newMolecule);
     setSelectedAtom(null);
     setSelectedBond(null);
-  }, []);
+    mineMoleculeBuilt('green', 1);
+  }, [mineMoleculeBuilt]);
 
   // Memoize rendered atoms for performance
   const renderedAtoms = useMemo(
@@ -117,6 +118,10 @@ export const MoleculeBuilder: React.FC = () => {
             <span>Quantum Coherence:</span>
             <strong>{(molecule.quantumState.coherence * 100).toFixed(1)}%</strong>
           </div>
+          <div className="info-item love-info">
+            <span>💜 L.O.V.E.:</span>
+            <strong>{love.balance.toFixed(1)}</strong>
+          </div>
         </div>
       </div>
 
@@ -124,9 +129,9 @@ export const MoleculeBuilder: React.FC = () => {
         <button
           onClick={createNewMolecule}
           className={`control-button ${fontSize === 'xlarge' ? 'control-button-large' : ''}`}
-          aria-label="Create new Posner molecule"
+          aria-label="Create new Posner molecule (mines L.O.V.E.)"
         >
-          ✨ New Posner Molecule
+          ✨ New Posner Molecule (+ L.O.V.E.)
         </button>
         <label className="control-toggle">
           <input

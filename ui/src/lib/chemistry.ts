@@ -31,10 +31,29 @@ export const ELEMENTS: ElementInfo[] = [
   { symbol: 'S', name: 'Sulfur', atomicNumber: 16, category: 'special', locked: false, funFact: 'Smells like rotten eggs!', frequency: 392 },
   { symbol: 'Cl', name: 'Chlorine', atomicNumber: 17, category: 'special', locked: false, funFact: 'Keeps pools clean!', frequency: 415 },
   { symbol: 'Ca', name: 'Calcium', atomicNumber: 20, category: 'special', locked: false, funFact: 'Makes your bones strong!', frequency: 440 },
+
+  // Birthday-quest decorative elements (valence 0, no bonding). Only shown when birthdayMode is true.
+  { symbol: 'WNC', name: 'Wonky Cap', atomicNumber: 0, category: 'birthday', locked: false, funFact: 'A whimsical cap — wear it wonky!', frequency: 330, valence: 0 },
+  { symbol: 'SPK', name: 'Sparkle Star', atomicNumber: 0, category: 'birthday', locked: false, funFact: 'Sparkle bright like a quantum state!', frequency: 440, valence: 0 },
+  { symbol: 'TNL', name: 'Tunnel Tube', atomicNumber: 0, category: 'birthday', locked: false, funFact: 'A portal between worlds.', frequency: 262, valence: 0 },
 ];
 
 export function getElement(symbol: string): ElementInfo | undefined {
   return ELEMENTS.find(e => e.symbol === symbol);
+}
+
+/** Elements to show in the picker. When birthdayMode is true, includes birthday category. */
+export function getElementsForPicker(birthdayMode: boolean): ElementInfo[] {
+  return ELEMENTS.filter(e => e.category !== 'birthday' || birthdayMode);
+}
+
+/** Valence for bonding: 0 = decorative (no bonds). */
+export function getValence(symbol: string): number {
+  const el = getElement(symbol);
+  if (!el) return 0;
+  if (el.valence !== undefined) return el.valence;
+  if (el.atomicNumber === 1) return 1;
+  return Math.min(4, Math.max(0, Math.floor(el.atomicNumber / 5)));
 }
 
 export function getElementByNumber(atomicNumber: number): ElementInfo | undefined {
@@ -70,6 +89,7 @@ const ATOMIC_MASSES: Record<string, number> = {
   'C': 12.011, 'N': 14.007, 'O': 15.999, 'F': 18.998, 'Ne': 20.180,
   'Na': 22.990, 'Mg': 24.305, 'Al': 26.982, 'Fe': 55.845, 'Cu': 63.546,
   'P': 30.974, 'S': 32.065, 'Cl': 35.453, 'Ca': 40.078,
+  'WNC': 1, 'SPK': 1, 'TNL': 1, // Decorative; mass 1 so they don't skew formula much
 };
 
 export function calculateMass(atoms: Atom[]): number {
@@ -111,9 +131,7 @@ export function calculateStability(atoms: Atom[], bonds: Bond[]): number {
     const bonds = bondCounts[atom.id] || 0;
     const element = getElement(atom.element);
     if (!element) return;
-    
-    // Hydrogen wants 1 bond, others want 2-4
-    const desiredBonds = element.atomicNumber === 1 ? 1 : Math.min(4, Math.max(2, element.atomicNumber / 5));
+    const desiredBonds = getValence(atom.element);
     const diff = Math.abs(bonds - desiredBonds);
     stability -= diff * 5; // Penalty for wrong bond count
   });
@@ -163,9 +181,11 @@ export function getBondSites(atom: Atom, allAtoms: Atom[]): Array<{ x: number; y
 }
 
 /**
- * Check if two atoms can form a bond
+ * Check if two atoms can form a bond.
+ * Decorative elements (valence 0) never bond.
  */
 export function canBond(atom1: Atom, atom2: Atom): boolean {
+  if (getValence(atom1.element) === 0 || getValence(atom2.element) === 0) return false;
   const dx = atom2.x - atom1.x;
   const dy = atom2.y - atom1.y;
   const distance = Math.sqrt(dx * dx + dy * dy);

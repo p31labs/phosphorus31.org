@@ -37,6 +37,8 @@ export interface PrinterConfig {
   autoConnect: boolean;
   defaultPrinter?: string;
   timeout: number; // milliseconds
+  /** Called when a print job status changes to 'completed'. UI can use for celebration/sound. */
+  onPrintJobCompleted?: (job: PrintJob) => void;
 }
 
 export class PrinterIntegration {
@@ -50,7 +52,8 @@ export class PrinterIntegration {
       enabled: config?.enabled ?? true,
       autoConnect: config?.autoConnect ?? false,
       defaultPrinter: config?.defaultPrinter,
-      timeout: config?.timeout ?? 30000
+      timeout: config?.timeout ?? 30000,
+      onPrintJobCompleted: config?.onPrintJobCompleted
     };
   }
 
@@ -333,11 +336,24 @@ export class PrinterIntegration {
           job.completedAt = Date.now();
           printer.status = 'idle';
           clearInterval(interval);
+          this.emitPrintJobCompleted(job);
         }
       } else {
         clearInterval(interval);
       }
     }, 1000);
+  }
+
+  /**
+   * Notify listeners when a print job completes (callback + DOM event for UI).
+   */
+  private emitPrintJobCompleted(job: PrintJob): void {
+    this.config.onPrintJobCompleted?.(job);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('printjob:completed', { detail: { job }, bubbles: true })
+      );
+    }
   }
 
   /**

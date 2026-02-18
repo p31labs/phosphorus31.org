@@ -36,6 +36,9 @@
       ],
       "@p31/shared": [
         "../shared/p31.ts"
+      ],
+      "@p31/game-integration": [
+        "../packages/game-integration/src/index.ts"
       ]
     }
   },

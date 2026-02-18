@@ -34,6 +34,7 @@ import { GoogleDriveManager } from '../google-drive';
 import { SovereignGoogleDriveManager, SovereigntyValidator, digitalSelfCoreManager } from '../sovereignty';
 import { AuthManager } from '../auth/auth-manager';
 import { BufferClient } from '../buffer/buffer-client';
+import { shelterRoutes } from '../shelter/shelter-routes';
 import { authenticate } from './middleware';
 import { ValidationMiddleware } from '../middleware/validation';
 import { applySecurityMiddleware, validateSecurityConfiguration } from '../security/secure-middleware';
@@ -310,6 +311,8 @@ export class SuperCentaurServer {
     this.setupQuantumLabRoutes();
     this.setupBufferRoutes();
     this.setupBufferClientRoutes();
+
+    this.app.use('/api/shelter', shelterRoutes);
 
     // Frontend proxy
     this.app.use('/frontend', express.static(this.config.frontend.buildDir));

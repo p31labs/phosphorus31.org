@@ -78,9 +78,9 @@ export const Posner4DPlayground: React.FC = () => {
                 to={atoms[bond.to].position}
               />
             ))}
-            {entangledPairs.map(([a, b], i) => (
+            {entangledPairs.map(([a, b]) => (
               <EntanglementLine4D
-                key={`ent-${i}`}
+                key={`ent-${Math.min(a, b)}-${Math.max(a, b)}`}
                 from={atoms[a].position}
                 to={atoms[b].position}
                 coherence={coherence}

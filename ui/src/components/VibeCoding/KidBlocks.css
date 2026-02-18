@@ -1,0 +1,309 @@
+/**
+ * Kid Blocks — Large, colorful, touch-friendly styles
+ * For ages 6–10. Accessible and tablet-friendly.
+ */
+
+/* Palette */
+.kid-blocks-palette {
+  padding: 1rem;
+  background: var(--kid-blocks-bg, #1a1a2e);
+  border-radius: 12px;
+  min-height: 120px;
+}
+
+.kid-blocks-palette-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.125rem;
+  color: var(--kid-blocks-title, #e0e7ff);
+}
+
+.kid-blocks-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.kid-block-palette-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1rem 0.75rem;
+  min-height: 72px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--kid-blocks-text, #fff);
+  background: var(--kid-blocks-block-bg, #2d2d44);
+  border: 3px solid var(--block-color, #60a5fa);
+  border-radius: 12px;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.kid-block-palette-item:hover:not(:disabled) {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.kid-block-palette-item:active {
+  cursor: grabbing;
+}
+
+.kid-block-palette-item:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.kid-block-palette-item--make-wonky-cap { border-color: #A855F7; }
+.kid-block-palette-item--make-sparkle-star { border-color: #F9D71C; }
+.kid-block-palette-item--make-tunnel-tube { border-color: #60A5FA; }
+.kid-block-palette-item--move { border-color: #60A5FA; }
+.kid-block-palette-item--color { border-color: #F472B6; }
+.kid-block-palette-item--repeat { border-color: #A78BFA; }
+
+.kid-block-emoji {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.kid-block-label {
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Canvas */
+.kid-blocks-canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  min-height: 200px;
+}
+
+.kid-blocks-canvas {
+  flex: 1;
+  min-height: 180px;
+  padding: 1rem;
+  background: var(--kid-blocks-bg, #1a1a2e);
+  border: 2px dashed var(--kid-blocks-border, #4b5563);
+  border-radius: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.kid-blocks-canvas-dragover {
+  border-color: var(--accent-color, #f59e0b);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.kid-blocks-canvas-inner {
+  min-height: 140px;
+}
+
+.kid-blocks-canvas-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  color: var(--kid-blocks-muted, #9ca3af);
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.kid-blocks-canvas-empty-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.kid-blocks-sequence {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Block item (on canvas) */
+.kid-block-item {
+  border-left: 4px solid #60a5fa;
+  background: var(--kid-blocks-block-bg, #2d2d44);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+}
+
+.kid-block-item--make-wonky-cap { border-left-color: #A855F7; }
+.kid-block-item--make-sparkle-star { border-left-color: #F9D71C; }
+.kid-block-item--make-tunnel-tube { border-left-color: #60A5FA; }
+.kid-block-item--move { border-left-color: #60A5FA; }
+.kid-block-item--color { border-left-color: #F472B6; }
+.kid-block-item--repeat { border-left-color: #A78BFA; }
+
+.kid-block-item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kid-block-item .kid-block-emoji {
+  font-size: 1.25rem;
+}
+
+.kid-block-repeat-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
+.kid-block-repeat-input {
+  width: 3ch;
+  padding: 0.25rem 0.35rem;
+  font-size: 1rem;
+  background: var(--bg-primary, #0a0a0a);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 4px;
+  color: inherit;
+}
+
+.kid-block-remove {
+  margin-left: auto;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--kid-blocks-muted, #9ca3af);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.kid-block-remove:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
+}
+
+/* Repeat inner */
+.kid-block-repeat-inner {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  min-height: 44px;
+}
+
+.kid-block-repeat-empty {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--kid-blocks-muted, #9ca3af);
+  text-align: center;
+  border: 1px dashed var(--kid-blocks-border, #4b5563);
+  border-radius: 6px;
+}
+
+.kid-block-inner-list .kid-block-inner-item {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Actions */
+.kid-blocks-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.kid-blocks-toggle-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--kid-blocks-text, #e0e7ff);
+  cursor: pointer;
+  user-select: none;
+}
+
+.kid-blocks-toggle-code input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent-color, #f59e0b);
+}
+
+.kid-blocks-run {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bg-primary, #0a0a0a);
+  background: var(--accent-color, #f59e0b);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+
+.kid-blocks-run:hover:not(:disabled) {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.kid-blocks-run:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Generated code */
+.kid-blocks-generated-code {
+  margin: 0;
+  padding: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  background: var(--bg-primary, #0a0a0a);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 8px;
+  overflow-x: auto;
+  color: var(--text-primary, #e0e7ff);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* A11y */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Touch: larger tap targets */
+@media (pointer: coarse) {
+  .kid-block-palette-item {
+    min-height: 80px;
+    padding: 1.25rem 1rem;
+  }
+
+  .kid-block-emoji {
+    font-size: 2rem;
+  }
+
+  .kid-blocks-run {
+    min-height: 52px;
+    padding: 0.9rem 1.75rem;
+  }
+}

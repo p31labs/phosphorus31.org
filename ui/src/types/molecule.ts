@@ -122,6 +122,18 @@ export const ELEMENT_PROPERTIES: Record<string, ElementProperties> = {
   },
 };
 
+/**
+ * Celebratory colors for the Super Star Molecule (MAR10 / Level 10 quest).
+ * Use when molecule.name === 'Super Star Molecule'. P31 palette: gold, cyan, magenta.
+ */
+export const BIRTHDAY_QUEST_COLORS: Record<string, string> = {
+  P31: '#F9D71C', // Gold (core)
+  Ca: '#E52521',  // Red
+  P: '#22c55e',   // Green
+  O: '#F9D71C',   // Yellow
+  H: '#FFFFFF',   // White
+};
+
 // Posner molecule structure (Ca9(PO4)6)
 export const POSNER_MOLECULE_TEMPLATE: Omit<PosnerMolecule, 'id' | 'quantumState'> = {
   name: 'Posner Molecule',

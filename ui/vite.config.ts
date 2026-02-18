@@ -61,6 +61,7 @@ export default defineConfig({
       '@core': path.resolve(__dirname, 'src/core'),
       '@p31/config': path.resolve(__dirname, '../god.config.ts'),
       '@p31/shared': path.resolve(__dirname, '../shared/p31.ts'),
+      '@p31/game-integration': path.resolve(__dirname, '../packages/game-integration/src/index.ts'),
     },
   },
 });

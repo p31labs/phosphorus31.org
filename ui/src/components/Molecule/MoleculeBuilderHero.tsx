@@ -13,6 +13,7 @@ import { Atom3D } from './Atom3D';
 import { P31Atom } from './P31Atom';
 import { Bond3D } from './Bond3D';
 import { useAccessibilityStore } from '../../stores/accessibility.store';
+import { useLoveMiningStore } from '../../stores/loveMining.store';
 import { useMoleculeBuilder } from '../../hooks/useMoleculeBuilder';
 import { QuantumField } from './QuantumField';
 import { QuantumParticles } from './QuantumParticles';
@@ -107,6 +108,7 @@ export const MoleculeBuilderHero: React.FC = () => {
     createNewMolecule,
     updateQuantumCoherence,
   } = useMoleculeBuilder();
+  const { love, mineMoleculeBuilt, lastMinedAmount } = useLoveMiningStore();
 
   const [showQuantum, setShowQuantum] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
@@ -237,6 +239,16 @@ export const MoleculeBuilderHero: React.FC = () => {
               <div className="stat-value">{totalBonds}</div>
             </div>
           </div>
+          <div className="stat-card love-card">
+            <div className="stat-icon">💜</div>
+            <div className="stat-content">
+              <div className="stat-label">L.O.V.E. Mined</div>
+              <div className="stat-value">{love.balance.toFixed(1)}</div>
+              {lastMinedAmount > 0 && (
+                <div className="stat-badge">+{lastMinedAmount.toFixed(1)}</div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -299,12 +311,16 @@ export const MoleculeBuilderHero: React.FC = () => {
             <h3 className="panel-title">Controls</h3>
             <div className="control-group">
               <button
-                onClick={createNewMolecule}
+                onClick={() => {
+                  createNewMolecule();
+                  mineMoleculeBuilt('green', 1);
+                }}
                 className="control-button primary"
                 style={{ fontSize: fontSize === 'xlarge' ? '1.25rem' : '1rem' }}
               >
                 <span className="button-icon">🧬</span>
                 <span>New Posner Molecule</span>
+                <span className="button-subtle">+ L.O.V.E.</span>
               </button>
               <button
                 onClick={() => {
@@ -557,6 +573,29 @@ export const MoleculeBuilderHero: React.FC = () => {
 
         .stat-value.quantum-text {
           text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        .stat-card.love-card {
+          background: linear-gradient(135deg, rgba(255, 64, 0, 0.15) 0%, rgba(0, 255, 255, 0.1) 100%);
+          border-color: rgba(255, 105, 180, 0.4);
+        }
+
+        .stat-badge {
+          font-size: 0.75rem;
+          color: #2ecc71;
+          margin-top: 0.25rem;
+          animation: fade-badge 2s ease-out forwards;
+        }
+
+        @keyframes fade-badge {
+          0% { opacity: 1; transform: scale(1.1); }
+          100% { opacity: 0.6; transform: scale(1); }
+        }
+
+        .button-subtle {
+          font-size: 0.75rem;
+          opacity: 0.9;
+          margin-left: 0.25rem;
         }
 
         .hero-content {

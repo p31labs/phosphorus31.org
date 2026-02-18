@@ -7,9 +7,16 @@
  * 💜 With love and light. As above, so below. 💜
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useGameEngineContext } from '../Game/GameEngineProvider';
+import { useAccessibilityStore } from '../../stores/accessibility.store';
+import { prefersReducedMotion } from '../../utils/accessibility';
+import { playCompletionFanfare } from '../../lib/audio';
+import { BlockPalette } from './BlockPalette';
+import { BlockCanvas } from './BlockCanvas';
+import { blocksToCode, type KidBlock } from '../../lib/vibeCodingBlocks';
 import './VibeCodingPanel.css';
+import './KidBlocks.css';
 
 interface CodeProject {
   id: string;
@@ -29,17 +36,26 @@ interface ExecutionResult {
   printJob?: any;
 }
 
+const PRINT_COMPLETE_MESSAGE = '🎉 Your Super Star Molecule is ready! Happy MAR10 Day!';
+
 export const VibeCodingPanel: React.FC = () => {
   const { gameEngine } = useGameEngineContext();
+  const audioFeedback = useAccessibilityStore((s) => s.audioFeedback);
+  const animationReduced = useAccessibilityStore((s) => s.animationReduced);
   const [projects, setProjects] = useState<CodeProject[]>([]);
   const [activeProject, setActiveProject] = useState<CodeProject | null>(null);
   const [code, setCode] = useState('');
   const [executionResult, setExecutionResult] = useState<ExecutionResult | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [showSlicing, setShowSlicing] = useState(false);
-  const [showPrinter, setShowPrinter] = useState(false);
   const [printers, setPrinters] = useState<any[]>([]);
+  const [showPrintCelebration, setShowPrintCelebration] = useState(false);
   const codeEditorRef = useRef<HTMLTextAreaElement>(null);
+
+  /** Kid Blocks mode: 'code' = text editor, 'blocks' = drag-and-drop blocks */
+  const [editorMode, setEditorMode] = useState<'code' | 'blocks'>('code');
+  const [kidBlocks, setKidBlocks] = useState<KidBlock[]>([]);
+  const [showGeneratedCode, setShowGeneratedCode] = useState(false);
 
   useEffect(() => {
     if (!gameEngine) return;
@@ -83,6 +99,25 @@ export const VibeCodingPanel: React.FC = () => {
       });
     }
   }, [gameEngine]);
+
+  const celebrationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Print completion surprise: sound + celebration (respects accessibility)
+  useEffect(() => {
+    const handlePrintCompleted = (_e: Event) => {
+      const e = _e as CustomEvent<{ job: { id: string } }>;
+      if (!e.detail?.job) return;
+      if (audioFeedback) playCompletionFanfare();
+      setShowPrintCelebration(true);
+      if (celebrationTimeoutRef.current) clearTimeout(celebrationTimeoutRef.current);
+      celebrationTimeoutRef.current = setTimeout(() => setShowPrintCelebration(false), 6000);
+    };
+    window.addEventListener('printjob:completed', handlePrintCompleted);
+    return () => {
+      window.removeEventListener('printjob:completed', handlePrintCompleted);
+      if (celebrationTimeoutRef.current) clearTimeout(celebrationTimeoutRef.current);
+    };
+  }, [audioFeedback]);
 
   const [valentinesTemplates, setValentinesTemplates] = useState<any[]>([]);
   const [showValentinesMenu, setShowValentinesMenu] = useState(false);
@@ -147,13 +182,20 @@ export const VibeCodingPanel: React.FC = () => {
   const handleExecute = async () => {
     if (!gameEngine || !activeProject || isExecuting) return;
 
+    const vibeCoding = (gameEngine as any).vibeCoding;
+    if (!vibeCoding) return;
+
+    // In Blocks mode, sync generated code to project before running
+    if (editorMode === 'blocks') {
+      const generated = blocksToCode(kidBlocks);
+      vibeCoding.updateProject(activeProject.id, generated);
+      setCode(generated);
+    }
+
     setIsExecuting(true);
     setExecutionResult(null);
 
     try {
-      const vibeCoding = (gameEngine as any).vibeCoding;
-      if (!vibeCoding) return;
-
       const execution = await vibeCoding.executeCode(activeProject.id);
       setExecutionResult(execution);
 
@@ -262,9 +304,13 @@ export const VibeCodingPanel: React.FC = () => {
           <button
             onClick={handleExecute}
             className="btn-primary"
-            disabled={!activeProject || isExecuting}
+            disabled={
+              !activeProject ||
+              isExecuting ||
+              (editorMode === 'blocks' && kidBlocks.length === 0)
+            }
           >
-            {isExecuting ? '⏳ Executing...' : '▶️ Execute'}
+            {isExecuting ? '⏳ Executing...' : editorMode === 'blocks' ? '▶️ Run' : '▶️ Execute'}
           </button>
         </div>
       </div>
@@ -294,16 +340,72 @@ export const VibeCodingPanel: React.FC = () => {
             <>
               <div className="editor-header">
                 <span className="project-title">{activeProject.name}</span>
-                <span className="project-language-badge">{activeProject.language}</span>
+                <div className="editor-header-right">
+                  <div className="editor-mode-tabs" role="tablist" aria-label="Editor mode">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={editorMode === 'code' ? 'true' : 'false'}
+                      aria-controls="vibe-code-panel"
+                      id="tab-code"
+                      className={editorMode === 'code' ? 'active' : ''}
+                      onClick={() => {
+                        if (editorMode === 'blocks' && kidBlocks.length > 0) {
+                          setCode(blocksToCode(kidBlocks));
+                        }
+                        setEditorMode('code');
+                      }}
+                    >
+                      Code
+                    </button>
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={editorMode === 'blocks' ? 'true' : 'false'}
+                      aria-controls="vibe-blocks-panel"
+                      id="tab-blocks"
+                      className={editorMode === 'blocks' ? 'active' : ''}
+                      onClick={() => setEditorMode('blocks')}
+                    >
+                      🧩 Kid Blocks
+                    </button>
+                  </div>
+                  <span className="project-language-badge">{activeProject.language}</span>
+                </div>
               </div>
-              <textarea
-                ref={codeEditorRef}
-                className="code-editor"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Write your code here... 💜"
-                spellCheck={false}
-              />
+              {editorMode === 'code' ? (
+                <div id="vibe-code-panel" role="tabpanel" aria-labelledby="tab-code">
+                  <textarea
+                    ref={codeEditorRef}
+                    className="code-editor"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    placeholder="Write your code here... 💜"
+                    spellCheck={false}
+                  />
+                </div>
+              ) : (
+                <div
+                  id="vibe-blocks-panel"
+                  role="tabpanel"
+                  aria-labelledby="tab-blocks"
+                  className="vibe-coding-blocks-mode"
+                >
+                  <BlockPalette
+                    onAddBlock={(block) => setKidBlocks((prev) => [...prev, block])}
+                    disabled={!activeProject}
+                  />
+                  <BlockCanvas
+                    blocks={kidBlocks}
+                    onBlocksChange={setKidBlocks}
+                    onRun={handleExecute}
+                    isRunning={isExecuting}
+                    showGeneratedCode={showGeneratedCode}
+                    onShowCodeChange={setShowGeneratedCode}
+                    disabled={!activeProject}
+                  />
+                </div>
+              )}
             </>
           ) : (
             <div className="no-project">
@@ -317,6 +419,25 @@ export const VibeCodingPanel: React.FC = () => {
 
         <div className="vibe-coding-output">
           <h3>Output</h3>
+
+          {showPrintCelebration && (
+            <div
+              className="print-completion-celebration"
+              role="status"
+              aria-live="polite"
+              aria-label="Print complete. Your Super Star Molecule is ready. Happy MAR10 Day."
+            >
+              {!animationReduced && !prefersReducedMotion() && (
+                <div className="print-confetti" aria-hidden="true">
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <div key={i} className={`print-confetti-piece print-confetti-piece-${i}`} />
+                  ))}
+                </div>
+              )}
+              <div className="print-completion-message">{PRINT_COMPLETE_MESSAGE}</div>
+            </div>
+          )}
+
           {executionResult && (
             <div className="execution-result">
               {executionResult.error ? (
@@ -327,6 +448,13 @@ export const VibeCodingPanel: React.FC = () => {
               ) : (
                 <div className="success-output">
                   <strong>✅ Execution Time:</strong> {executionResult.executionTime.toFixed(2)}ms
+                  {executionResult.result?.atoms && (
+                    <div className="molecule-result-summary" aria-label="Molecule built from blocks">
+                      <strong>🧪 Molecule:</strong> {executionResult.result.atoms.length} atom
+                      {executionResult.result.atoms.length !== 1 ? 's' : ''} (Run built your
+                      blocks!)
+                    </div>
+                  )}
                   {executionResult.result && (
                     <pre>{JSON.stringify(executionResult.result, null, 2)}</pre>
                   )}

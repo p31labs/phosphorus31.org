@@ -1,0 +1,34 @@
+{
+  "name": "@p31labs/game-engine",
+  "version": "0.1.0",
+  "description": "Pure TypeScript gamification layer for The Buffer: XP, achievements, streaks, L.O.V.E., quests",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest run",
+    "dev": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@p31labs/buffer-core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "vitest": "^2.0.0",
+    "typescript": "^5.5.0"
+  },
+  "keywords": ["p31", "game", "xp", "achievements", "love", "quests", "gamification"],
+  "author": "P31 Labs"
+}

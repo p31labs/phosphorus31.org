@@ -9,8 +9,11 @@
  */
 
 // System Definition Language (Architecture)
-export { P31LanguageParser, P31AST, P31System } from './P31LanguageParser';
-export { P31LanguageInterpreter, P31Runtime } from './P31LanguageInterpreter';
+export { P31LanguageParser } from './P31LanguageParser';
+export type { P31AST, P31System } from './P31LanguageParser';
+export { P31LanguageInterpreter } from './P31LanguageInterpreter';
+export type { P31Runtime } from './P31LanguageInterpreter';
 
 // Bridge (Synergy)
-export { P31LanguageBridge, SynergizedP31Context } from './P31LanguageBridge';
+export { P31LanguageBridge } from './P31LanguageBridge';
+export type { SynergizedP31Context } from './P31LanguageBridge';

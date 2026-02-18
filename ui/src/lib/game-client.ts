@@ -92,11 +92,9 @@ export async function genesis(molecule: P31Molecule): Promise<GameClient> {
 
   const b = getShelterBridge();
   if (b) {
-    try {
-      await b.registerMolecule(molecule);
-    } catch (e) {
-      console.warn('Shelter registration deferred:', e);
-    }
+    b.registerMolecule(molecule.fingerprint, molecule).catch((e) =>
+      console.warn('Shelter registration deferred:', e)
+    );
   }
 
   return client;
@@ -158,11 +156,10 @@ export async function pullWallet(fingerprint: string): Promise<{ sovereigntyPool
 export async function syncState(state: Partial<GameClient>): Promise<void> {
   const b = getShelterBridge();
   if (!b) return;
-  try {
-    await b.syncGameState(state);
-  } catch (e) {
-    console.warn('Game sync deferred:', e);
-  }
+  const fp = (state as any)?.fingerprint || 'unknown';
+  b.syncState(fp, state as Record<string, unknown>).catch((e) =>
+    console.warn('Game sync deferred:', e)
+  );
 }
 
 export function getClient(): GameClient | null {

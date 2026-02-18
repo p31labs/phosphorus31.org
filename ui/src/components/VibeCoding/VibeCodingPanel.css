@@ -155,9 +155,55 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: var(--bg-secondary, #1a1a1a);
   border-bottom: 1px solid var(--border-color, #333);
+}
+
+.editor-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.editor-mode-tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.editor-mode-tabs button {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary, #999);
+  background: transparent;
+  border: 1px solid var(--border-color, #333);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.editor-mode-tabs button:hover {
+  color: var(--text-primary, #fff);
+  border-color: var(--accent-color, #f59e0b);
+}
+
+.editor-mode-tabs button.active {
+  color: var(--bg-primary, #0a0a0a);
+  background: var(--accent-color, #f59e0b);
+  border-color: var(--accent-color, #f59e0b);
+}
+
+.vibe-coding-blocks-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .project-title {
@@ -220,6 +266,14 @@
 
 .success-output {
   color: var(--success-color, #10b981);
+}
+
+.molecule-result-summary {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  border-radius: 6px;
+  font-size: 0.95rem;
 }
 
 .execution-result pre {
@@ -324,4 +378,89 @@
 .btn-secondary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Print completion celebration */
+.print-completion-celebration {
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(46, 204, 113, 0.05) 100%);
+  border: 2px solid rgba(46, 204, 113, 0.5);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
+}
+
+.print-completion-message {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  text-align: center;
+}
+
+.print-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.print-confetti-piece {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: hsl(var(--hue, 45), 80%, 55%);
+  border-radius: 1px;
+  opacity: 0.9;
+  animation: print-confetti-burst 1.8s ease-out var(--delay, 0s) forwards;
+  transform: rotate(var(--angle, 0)) translateY(0) scale(1);
+}
+
+.print-confetti-piece-0 { --delay: 0s; --angle: 0deg; --hue: 0; }
+.print-confetti-piece-1 { --delay: 0.03s; --angle: 15deg; --hue: 15; }
+.print-confetti-piece-2 { --delay: 0.06s; --angle: 30deg; --hue: 30; }
+.print-confetti-piece-3 { --delay: 0.09s; --angle: 45deg; --hue: 45; }
+.print-confetti-piece-4 { --delay: 0.12s; --angle: 60deg; --hue: 60; }
+.print-confetti-piece-5 { --delay: 0.15s; --angle: 75deg; --hue: 75; }
+.print-confetti-piece-6 { --delay: 0.18s; --angle: 90deg; --hue: 90; }
+.print-confetti-piece-7 { --delay: 0.21s; --angle: 105deg; --hue: 105; }
+.print-confetti-piece-8 { --delay: 0.24s; --angle: 120deg; --hue: 120; }
+.print-confetti-piece-9 { --delay: 0.27s; --angle: 135deg; --hue: 135; }
+.print-confetti-piece-10 { --delay: 0.3s; --angle: 150deg; --hue: 150; }
+.print-confetti-piece-11 { --delay: 0.33s; --angle: 165deg; --hue: 165; }
+.print-confetti-piece-12 { --delay: 0.36s; --angle: 180deg; --hue: 180; }
+.print-confetti-piece-13 { --delay: 0.39s; --angle: 195deg; --hue: 195; }
+.print-confetti-piece-14 { --delay: 0.42s; --angle: 210deg; --hue: 210; }
+.print-confetti-piece-15 { --delay: 0.45s; --angle: 225deg; --hue: 225; }
+.print-confetti-piece-16 { --delay: 0.48s; --angle: 240deg; --hue: 240; }
+.print-confetti-piece-17 { --delay: 0.51s; --angle: 255deg; --hue: 255; }
+.print-confetti-piece-18 { --delay: 0.54s; --angle: 270deg; --hue: 270; }
+.print-confetti-piece-19 { --delay: 0.57s; --angle: 285deg; --hue: 285; }
+.print-confetti-piece-20 { --delay: 0.6s; --angle: 300deg; --hue: 300; }
+.print-confetti-piece-21 { --delay: 0.63s; --angle: 315deg; --hue: 315; }
+.print-confetti-piece-22 { --delay: 0.66s; --angle: 330deg; --hue: 330; }
+.print-confetti-piece-23 { --delay: 0.69s; --angle: 345deg; --hue: 345; }
+
+@keyframes print-confetti-burst {
+  0% {
+    transform: rotate(var(--angle, 0)) translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(calc(var(--angle, 0) + 180deg)) translateY(-80px) scale(0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .print-confetti-piece {
+    animation: none;
+    opacity: 0;
+  }
 }

@@ -93,6 +93,25 @@ export function generatePosnerMolecule(id: string = 'posner_1'): PosnerMolecule 
 }
 
 /**
+ * Super Star Molecule — MAR10 / birthday quest special.
+ * Same structure as Posner; use BIRTHDAY_QUEST_COLORS when rendering.
+ * @see docs/MAR10_MOLECULE_QUEST.md
+ */
+export function generateSuperStarMolecule(id: string = 'super_star_mar10'): PosnerMolecule {
+  const mol = generatePosnerMolecule(id);
+  return {
+    ...mol,
+    name: 'Super Star Molecule',
+    formula: 'Ca₉(PO₄)₆ · ✨',
+    quantumState: {
+      ...mol.quantumState,
+      coherence: 1.0,
+      lifetime: 120000, // Slightly longer "birthday glow"
+    },
+  };
+}
+
+/**
  * Generate positions in icosahedral arrangement
  */
 function generateIcosahedralPositions(count: number, radius: number): THREE.Vector3[] {

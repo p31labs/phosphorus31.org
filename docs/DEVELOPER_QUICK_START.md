@@ -16,24 +16,24 @@ docker --version # Optional, for full stack
 ## Fast Setup
 
 ```bash
-# 1. Install root dependencies
-npm install
+# 1. Install all workspace dependencies
+pnpm install
 
-# 2. Start The Centaur (backend)
-cd SUPER-CENTAUR && npm install && npm run dev
+# 2. Start the Buffer Server (hardware message queue) — port 4000
+cd apps/buffer-server && pnpm start
+# Verify: curl http://localhost:4000/health
 
-# 3. Start The Scope (frontend) - new terminal
-cd ui && npm install && npm run dev
+# 3. Start The Centaur (backend + Shelter API) — port 3001 — new terminal
+cd SUPER-CENTAUR && pnpm dev
+# Verify: curl http://localhost:3001/health
+# Verify: curl http://localhost:3001/api/shelter/brain
 
-# 4. Start The Buffer (P31 Shelter) - new terminal
-cd apps/shelter && npm install && npm run start:server
-
-# 5. Open browser
-# http://localhost:5173
-# Click "Show Buffer" to see The Buffer dashboard
+# 4. Start The Scope (frontend) — port 5173 — new terminal
+cd ui && pnpm dev
+# Open: http://localhost:5173
 ```
 
-**That's it!** You now have The Centaur, The Scope, and The Buffer running.
+**That's it!** You now have the full stack running: Buffer Server (4000) -> Centaur (3001) -> Scope (5173).
 
 ---
 
@@ -41,9 +41,10 @@ cd apps/shelter && npm install && npm run start:server
 
 | Component | Folder | Port | Purpose |
 |-----------|--------|------|---------|
-| **The Centaur** | `SUPER-CENTAUR/` | 3000 | Backend AI protocol |
-| **The Scope** | `ui/` | 5173 | Dashboard/UI |
-| **The Buffer (P31 Shelter)** | `apps/shelter/` | 4000 | Communication processing |
+| **Buffer Server** | `apps/buffer-server/` | 4000 | Hardware message queue (ESP32/LoRa bridge) |
+| **The Centaur** | `SUPER-CENTAUR/` | 3001 | Backend AI protocol + Shelter API |
+| **The Scope** | `ui/` | 5173 | Dashboard/UI (React/Vite) |
+| **The Buffer PWA** | `apps/shelter/` | 5174 | Communication processing UI (React/Vite) |
 | **Node One (P31 NodeZero)** | `firmware/` | N/A | Hardware (ESP32-S3). See [Firmware synthesis](FIRMWARE_XIAOZHI_SYNTHESIS.md) for Xiaozhi × P31 build order. |
 
 ---

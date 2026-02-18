@@ -1,1 +1,2 @@
-export { WalletManager, FamilyWallet, WalletPools } from './wallet-manager';
+export { WalletManager } from './wallet-manager';
+export type { FamilyWallet, WalletPools } from './wallet-manager';

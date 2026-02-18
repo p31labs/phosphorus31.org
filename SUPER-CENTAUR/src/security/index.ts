@@ -5,7 +5,8 @@
  * Built with love and light. As above, so below. 💜
  */
 
-export { getSecurityConfig, validateSecurityConfig, SecurityConfig } from './security-config';
+export { getSecurityConfig, validateSecurityConfig } from './security-config';
+export type { SecurityConfig } from './security-config';
 export { applySecurityMiddleware, validateSecurityConfiguration } from './secure-middleware';
 export { encrypt, decrypt, hash, generateSecureToken, generateSecurePassword, secureCompare } from './encryption-utils';
 export {
@@ -26,5 +27,5 @@ export {
   getSecurityAuditor,
   securityEventLogger,
   SecurityEventType,
-  SecurityEvent,
 } from './security-audit';
+export type { SecurityEvent } from './security-audit';

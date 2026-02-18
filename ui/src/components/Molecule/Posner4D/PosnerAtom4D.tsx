@@ -1,8 +1,9 @@
 /**
- * Posner atom with 4D rotation (xw-plane) and coherence-driven glow
+ * Posner atom with 4D rotation (xw-plane) and coherence-driven glow.
+ * Shader material is memoized and disposed on unmount to avoid leaks.
  */
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { PosnerAtom } from '../../../utils/posnerGeometry';
@@ -71,13 +72,39 @@ export const PosnerAtom4D: React.FC<PosnerAtom4DProps> = ({
   const wValue =
     atom.element === 'Ca' ? 0.0 : atom.element === 'P' ? 0.5 + atomPhase * 0.2 : -0.5;
 
+  const material = useMemo(() => {
+    const m = new THREE.ShaderMaterial({
+      vertexShader: VERTEX,
+      fragmentShader: FRAGMENT,
+      uniforms: {
+        uCenter: { value: new THREE.Vector3(...atom.position) },
+        uColor: { value: new THREE.Color(color) },
+        uTime: { value: 0 },
+        uCoherence: { value: 0 },
+        uPhaseOffset: { value: 0 },
+        uW: { value: wValue },
+        uIsSelected: { value: 0 },
+      },
+      transparent: true,
+      depthWrite: true,
+    });
+    return m;
+  }, [atom.index, color, wValue]);
+
+  useEffect(() => {
+    return () => {
+      material.dispose();
+    };
+  }, [material]);
+
   useFrame(({ clock }) => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = clock.elapsedTime;
-      materialRef.current.uniforms.uCoherence.value = coherence;
-      materialRef.current.uniforms.uPhaseOffset.value = phaseOffset;
-      materialRef.current.uniforms.uIsSelected.value = isSelected ? 1.0 : 0.0;
-      materialRef.current.uniforms.uW.value = wValue;
+    if (material) {
+      material.uniforms.uTime.value = clock.elapsedTime;
+      material.uniforms.uCenter.value.set(atom.position[0], atom.position[1], atom.position[2]);
+      material.uniforms.uCoherence.value = coherence;
+      material.uniforms.uPhaseOffset.value = phaseOffset;
+      material.uniforms.uIsSelected.value = isSelected ? 1.0 : 0.0;
+      material.uniforms.uW.value = wValue;
     }
   });
 
@@ -93,22 +120,7 @@ export const PosnerAtom4D: React.FC<PosnerAtom4DProps> = ({
         onPointerOut={() => (document.body.style.cursor = 'default')}
       >
         <sphereGeometry args={[size, 32, 16]} />
-        <shaderMaterial
-          ref={materialRef}
-          vertexShader={VERTEX}
-          fragmentShader={FRAGMENT}
-          uniforms={{
-            uCenter: { value: new THREE.Vector3(...atom.position) },
-            uColor: { value: new THREE.Color(color) },
-            uTime: { value: 0 },
-            uCoherence: { value: coherence },
-            uPhaseOffset: { value: phaseOffset },
-            uW: { value: wValue },
-            uIsSelected: { value: isSelected ? 1.0 : 0.0 },
-          }}
-          transparent
-          depthWrite={true}
-        />
+        <primitive object={material} attach="material" />
       </mesh>
     </group>
   );

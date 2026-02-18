@@ -6,6 +6,17 @@
 import React, { useState } from 'react';
 import { PosnerMolecule } from '../../types/molecule';
 import { SimpleButton } from '../Accessibility/SimpleButton';
+declare global {
+  interface Window {
+    accessibilityAnnounce?: (message: string, politeness?: 'polite' | 'assertive') => void;
+  }
+}
+
+function announceToScreenReader(message: string, politeness: 'polite' | 'assertive' = 'polite'): void {
+  if (typeof window !== 'undefined' && window.accessibilityAnnounce) {
+    window.accessibilityAnnounce(message, politeness);
+  }
+}
 
 interface SaveLoadMoleculeProps {
   molecule: PosnerMolecule | null;
@@ -21,20 +32,12 @@ export const SaveLoadMolecule: React.FC<SaveLoadMoleculeProps> = ({ molecule, on
     const saved = [...savedMolecules, molecule];
     setSavedMolecules(saved);
     localStorage.setItem('p31_saved_molecules', JSON.stringify(saved));
-
-    // Announce success
-    if ((window as any).accessibilityAnnounce) {
-      (window as any).accessibilityAnnounce('Molecule saved successfully', 'polite');
-    }
+    announceToScreenReader('Molecule saved successfully', 'polite');
   };
 
-  const loadMolecule = (molecule: PosnerMolecule) => {
-    onLoad(molecule);
-
-    // Announce load
-    if ((window as any).accessibilityAnnounce) {
-      (window as any).accessibilityAnnounce(`Loaded ${molecule.name}`, 'polite');
-    }
+  const loadMolecule = (mol: PosnerMolecule) => {
+    onLoad(mol);
+    announceToScreenReader(`Loaded ${mol.name}`, 'polite');
   };
 
   const deleteMolecule = (id: string) => {
