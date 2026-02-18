@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 
 const required = [
-  { path: path.join(root, 'apps', 'shelter', 'dist', 'index.js'), name: 'Shelter (apps/shelter/dist/index.js)' },
+  { path: path.join(root, 'apps', 'shelter', 'dist', 'index.html'), name: 'Shelter (apps/shelter/dist/index.html)' },
   { path: path.join(root, 'ui', 'dist', 'index.html'), name: 'Scope (ui/dist/index.html)' },
   { path: path.join(root, 'apps', 'web', 'index.html'), name: 'Website (apps/web/index.html)' },
 ];

@@ -52,25 +52,30 @@ cd ui && pnpm dev
 ## Common Commands
 
 ```bash
-# Install all dependencies
-npm run install:all
+# Install all workspace dependencies
+pnpm install
 
-# Start all components
-npm run dev:all
+# Start specific components
+pnpm dev:centaur     # Centaur on 3001
+pnpm dev:scope       # Scope on 5173
+pnpm dev:shelter     # Shelter PWA on 5174
 
-# Start specific component
-npm run dev:centaur
-npm run dev:scope
-npm run dev:buffer
+# Buffer Server (not in turbo — start directly)
+cd apps/buffer-server && pnpm start   # port 4000
 
 # Build everything
-npm run build
+pnpm build
 
 # Run tests
-npm run test
+pnpm test
 
-# Lint code
-npm run lint
+# Typecheck and lint
+pnpm typecheck
+pnpm lint
+
+# Pre-flight and launch checks
+pnpm preflight
+pnpm launch:check
 ```
 
 ---
@@ -97,12 +102,15 @@ See [GOD_CONFIG Reference](god-config.md) for details.
 
 ```
 p31/
-├── SUPER-CENTAUR/     # The Centaur (backend)
-├── ui/                 # The Scope (frontend)
-├── apps/shelter/      # The Buffer (P31 Shelter)
-├── firmware/          # Node One (hardware)
-├── docs/              # Documentation
-└── config/            # Configuration templates
+├── SUPER-CENTAUR/          # The Centaur (backend + Shelter API on 3001)
+├── ui/                      # The Scope (frontend on 5173)
+├── apps/shelter/            # The Buffer PWA (communication UI on 5174)
+├── apps/buffer-server/      # Buffer Server (hardware queue on 4000)
+├── packages/game-engine/    # L.O.V.E. gamification library
+├── packages/game-integration/ # ShelterBridge + genesis + metabolism
+├── firmware/                # Node One (ESP32-S3 hardware)
+├── docs/                    # Documentation
+└── scripts/                 # preflight, launch-check, verify-assets
 ```
 
 ---

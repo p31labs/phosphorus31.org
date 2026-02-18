@@ -15,8 +15,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 
 function run(name, cmd, args = []) {
+  const useShell = !cmd.includes(path.sep);
   return new Promise((resolve) => {
-    const child = spawn(cmd, args, { cwd: root, stdio: 'inherit', shell: true });
+    const child = spawn(cmd, args, { cwd: root, stdio: 'inherit', shell: useShell });
     child.on('close', (code) => resolve(code));
   });
 }
@@ -24,14 +25,14 @@ function run(name, cmd, args = []) {
 async function main() {
   console.log('\n=== P31 Launch checklist (automated) ===\n');
 
-  const assetCode = await run('verify:assets', 'npm', ['run', 'verify:assets']);
+  const assetCode = await run('verify:assets', process.execPath, [path.join(root, 'scripts', 'verify-assets.mjs')]);
   if (assetCode !== 0) {
     console.error('\n❌ Asset verification failed. Run: npm run build:shelter, cd ui && npm run build');
     process.exit(1);
   }
   console.log('');
 
-  const testCode = await run('npm test', 'npm', ['test']);
+  const testCode = await run('pnpm test', 'pnpm', ['test']);
   if (testCode !== 0) {
     console.error('\n❌ Tests failed. Fix failing tests then run: npm run launch:check');
     process.exit(1);
