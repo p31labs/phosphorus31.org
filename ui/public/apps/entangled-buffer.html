@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entangled Buffer · P31 Labs</title>
+  <meta name="description" content="Communication with a pause layer. Analyze voltage. Draft, review, breathe, then send.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Entangled Buffer">
+  <meta name="p31:category" content="compass">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="communication, buffer, email, regulation, voltage">
+  <meta name="p31:icon" content="📝">
+  <meta name="p31:color" content="#2ecc71">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #2ecc71; --node-dim: #1a7a43;
+      --node-glow: rgba(46,204,113,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --cyan: #00d4ff; --amber: #f59e0b; --magenta: #ff00cc;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .header {
+      padding: 1rem 1.25rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+    .header-title { font-family: var(--mono); font-size: 0.8rem; color: var(--white-dim); }
+    .header button {
+      font-family: var(--mono); font-size: 0.7rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .header button:hover { color: var(--white); border-color: var(--node-color); }
+
+    .main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 2rem); display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .section { background: var(--void-up); border: 1px solid var(--void-border); border-radius: 6px; padding: 1.25rem; }
+    .section-title { font-family: var(--mono); font-size: 0.7rem; color: var(--node-color); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+
+    textarea {
+      width: 100%; background: var(--void-surface); border: 1px solid var(--void-border);
+      color: var(--white); font-family: var(--font); font-size: 0.9rem; line-height: 1.6;
+      padding: 0.75rem; border-radius: 4px; resize: vertical; min-height: 100px;
+    }
+    textarea:focus { outline: none; border-color: var(--node-color); }
+    textarea::placeholder { color: var(--white-muted); }
+
+    .voltage-display { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; }
+    .voltage-meter {
+      flex: 1; height: 12px; background: var(--void-surface);
+      border-radius: 6px; overflow: hidden; position: relative;
+    }
+    .voltage-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease, background 0.4s ease; }
+    .voltage-score { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; min-width: 2.5rem; text-align: center; }
+    .v-green { color: var(--green); }
+    .v-amber { color: var(--amber); }
+    .v-magenta { color: var(--magenta); }
+    .vf-green { background: var(--green); }
+    .vf-amber { background: var(--amber); }
+    .vf-magenta { background: var(--magenta); }
+
+    .patterns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .pattern-tag {
+      font-family: var(--mono); font-size: 0.65rem; padding: 0.25rem 0.6rem;
+      border-radius: 2px; letter-spacing: 0.05em; border: 1px solid;
+    }
+    .pat-urgency { color: var(--amber); border-color: var(--amber); background: rgba(245,158,11,0.08); }
+    .pat-coercion { color: var(--magenta); border-color: var(--magenta); background: rgba(255,0,204,0.08); }
+    .pat-shame { color: var(--magenta); border-color: var(--magenta); background: rgba(255,0,204,0.08); }
+    .pat-authority { color: #f97316; border-color: #f97316; background: rgba(249,115,22,0.08); }
+    .pat-emotional { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.08); }
+
+    .triage-label {
+      display: inline-block; font-family: var(--mono); font-size: 0.75rem;
+      padding: 0.3rem 0.8rem; border-radius: 2px; font-weight: 600;
+      margin-top: 0.5rem; letter-spacing: 0.05em;
+    }
+    .triage-pass { background: rgba(46,204,113,0.15); color: var(--green); }
+    .triage-caution { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .triage-hold { background: rgba(255,0,204,0.15); color: var(--magenta); }
+
+    .breathe-prompt {
+      text-align: center; padding: 1rem; color: var(--white-muted);
+      font-size: 0.9rem; font-style: italic; display: none;
+    }
+    .breathe-prompt.visible { display: block; }
+
+    .pause-timer {
+      text-align: center; padding: 0.5rem; font-family: var(--mono);
+      font-size: 1.2rem; color: var(--amber); display: none;
+    }
+    .pause-timer.visible { display: block; }
+
+    .action-row { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .action-btn {
+      font-family: var(--mono); font-size: 0.75rem; padding: 0.5rem 1rem;
+      border-radius: 3px; cursor: pointer; border: 1px solid var(--void-border);
+      background: var(--void-surface); color: var(--white-dim);
+    }
+    .action-btn:hover { border-color: var(--node-color); color: var(--white); }
+    .action-btn.primary { background: var(--node-color); color: var(--void); border-color: var(--node-color); }
+    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .history-item {
+      padding: 0.75rem; border-bottom: 1px solid var(--void-border);
+      font-size: 0.8rem;
+    }
+    .history-item:last-child { border-bottom: none; }
+    .history-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--white-muted); margin-bottom: 0.25rem; }
+    .history-preview { color: var(--white-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+    .status-bar {
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+      display: flex; justify-content: space-between;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <span class="brand">P<sup>31</sup></span>
+      <span class="header-title">/ Buffer</span>
+    </div>
+    <div>
+      <button onclick="toggleHistory()">History</button>
+      <button onclick="downloadSelf()">Get App ↓</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="section">
+      <div class="section-title">Incoming Signal</div>
+      <textarea id="incoming" placeholder="Paste or type the message you received..." rows="4" aria-label="Incoming message"></textarea>
+      <div class="action-row">
+        <button class="action-btn primary" onclick="analyze()">Analyze Voltage</button>
+        <button class="action-btn" onclick="clearIncoming()">Clear</button>
+      </div>
+    </div>
+
+    <div class="section" id="analysisSection" style="display:none;">
+      <div class="section-title">Voltage Reading</div>
+      <div class="voltage-display">
+        <div class="voltage-meter">
+          <div class="voltage-fill" id="voltageFill" style="width:0%"></div>
+        </div>
+        <div class="voltage-score" id="voltageScore">0</div>
+      </div>
+      <div class="patterns" id="patterns"></div>
+      <div id="triageLabel"></div>
+      <div class="breathe-prompt" id="breathePrompt">
+        Take a breath. You don't have to respond right now.
+      </div>
+    </div>
+
+    <div class="section" id="responseSection" style="display:none;">
+      <div class="section-title">Your Response (Draft)</div>
+      <textarea id="response" placeholder="Draft your response here. Take your time." rows="4" aria-label="Response draft"></textarea>
+      <div class="pause-timer" id="pauseTimer"></div>
+      <div class="action-row">
+        <button class="action-btn primary" id="releaseBtn" onclick="releaseResponse()">Release Response</button>
+        <button class="action-btn" onclick="copyResponse()">Copy to Clipboard</button>
+        <button class="action-btn" onclick="saveToLog()">Save to Log</button>
+      </div>
+    </div>
+
+    <div class="section" id="historySection" style="display:none;">
+      <div class="section-title">Processing History</div>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span id="logCount">0 messages processed</span>
+    <span>Offline · Private · Local-only</span>
+  </div>
+
+  <script>
+    const KEY = 'entangledBuffer';
+    let history = [];
+    let currentVoltage = 0;
+    let currentPatterns = [];
+    let pauseInterval = null;
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (raw) { try { history = JSON.parse(raw); } catch(e) { history = []; } }
+      document.getElementById('logCount').textContent = `${history.length} messages processed`;
+    }
+
+    function save() { localStorage.setItem(KEY, JSON.stringify(history)); }
+
+    // Voltage analysis
+    const PATTERNS = {
+      URGENCY: { weight: 1.5, words: ['immediately','urgent','asap','right now','hurry','deadline','time sensitive','last chance','running out','now or never','act now','don\'t wait'] },
+      COERCION: { weight: 2.0, words: ['you must','you have to','you need to','no choice','required','mandatory','or else','consequences','responsible for','your fault','you should have'] },
+      SHAME: { weight: 2.0, words: ['disappointed','ashamed','embarrassed','pathetic','failure','useless','everyone knows','what kind of','how could you','can\'t believe you','disgrace'] },
+      FALSE_AUTHORITY: { weight: 1.8, words: ['the court says','my lawyer','legal obligation','i\'m told','authorities','the judge','law requires','mandated','officially','policy states'] },
+      EMOTIONAL_LEVER: { weight: 1.5, words: ['for the kids','think about','don\'t you care','if you loved','what about','how dare','remember when','after everything','you promised','i thought you'] }
+    };
+
+    function analyze() {
+      const text = document.getElementById('incoming').value.trim();
+      if (!text) return;
+      const lower = text.toLowerCase();
+
+      let voltage = 0;
+      const found = [];
+
+      Object.entries(PATTERNS).forEach(([name, pat]) => {
+        let hits = 0;
+        pat.words.forEach(w => {
+          if (lower.includes(w)) hits++;
+        });
+        if (hits > 0) {
+          voltage += hits * pat.weight;
+          found.push({ name, hits });
+        }
+      });
+
+      // Caps lock factor
+      const capsRatio = (text.match(/[A-Z]/g) || []).length / Math.max(text.length, 1);
+      if (capsRatio > 0.4) voltage += 1.5;
+
+      // Exclamation factor
+      const exclaim = (text.match(/!/g) || []).length;
+      if (exclaim > 2) voltage += Math.min(exclaim * 0.3, 2);
+
+      // Question bombardment
+      const questions = (text.match(/\?/g) || []).length;
+      if (questions > 3) voltage += 1;
+
+      // Length factor — very long messages can be overwhelming
+      if (text.length > 500) voltage += 0.5;
+      if (text.length > 1000) voltage += 0.5;
+
+      currentVoltage = Math.min(10, Math.round(voltage * 10) / 10);
+      currentPatterns = found;
+
+      renderAnalysis();
+      showSection('analysisSection');
+      showSection('responseSection');
+
+      // Auto-hold: force pause before responding
+      if (currentVoltage >= 4) {
+        startPauseTimer(currentVoltage >= 6 ? 60 : 30);
+      } else {
+        document.getElementById('releaseBtn').disabled = false;
+      }
+    }
+
+    function renderAnalysis() {
+      // Score
+      const scoreEl = document.getElementById('voltageScore');
+      scoreEl.textContent = currentVoltage.toFixed(1);
+      scoreEl.className = 'voltage-score ' + voltageColor(currentVoltage, 'v-');
+
+      // Fill bar
+      const fill = document.getElementById('voltageFill');
+      fill.style.width = (currentVoltage * 10) + '%';
+      fill.className = 'voltage-fill ' + voltageColor(currentVoltage, 'vf-');
+
+      // Patterns
+      const pDiv = document.getElementById('patterns');
+      pDiv.innerHTML = '';
+      currentPatterns.forEach(p => {
+        const tag = document.createElement('span');
+        const cls = p.name === 'URGENCY' ? 'pat-urgency' :
+                    p.name === 'COERCION' || p.name === 'SHAME' ? 'pat-shame' :
+                    p.name === 'FALSE_AUTHORITY' ? 'pat-authority' : 'pat-emotional';
+        tag.className = 'pattern-tag ' + cls;
+        tag.textContent = p.name.replace('_', ' ') + ' (' + p.hits + ')';
+        pDiv.appendChild(tag);
+      });
+
+      // Triage
+      const tDiv = document.getElementById('triageLabel');
+      let label, cls;
+      if (currentVoltage < 4) { label = 'PASS — Safe to read'; cls = 'triage-pass'; }
+      else if (currentVoltage < 6) { label = 'CAUTION — Review before absorbing'; cls = 'triage-caution'; }
+      else { label = 'HOLD — Buffered for your safety'; cls = 'triage-hold'; }
+      tDiv.innerHTML = `<span class="triage-label ${cls}">${label}</span>`;
+
+      // Breathe prompt
+      const breathe = document.getElementById('breathePrompt');
+      breathe.classList.toggle('visible', currentVoltage >= 4);
+    }
+
+    function voltageColor(v, prefix) {
+      if (v < 4) return prefix + 'green';
+      if (v < 6) return prefix + 'amber';
+      return prefix + 'magenta';
+    }
+
+    function startPauseTimer(seconds) {
+      const btn = document.getElementById('releaseBtn');
+      const timerEl = document.getElementById('pauseTimer');
+      btn.disabled = true;
+      timerEl.classList.add('visible');
+      let remaining = seconds;
+      timerEl.textContent = `Pause: ${remaining}s remaining`;
+      clearInterval(pauseInterval);
+      pauseInterval = setInterval(() => {
+        remaining--;
+        if (remaining <= 0) {
+          clearInterval(pauseInterval);
+          btn.disabled = false;
+          timerEl.textContent = 'Pause complete. You may respond when ready.';
+          timerEl.style.color = 'var(--green)';
+        } else {
+          timerEl.textContent = `Pause: ${remaining}s remaining`;
+        }
+      }, 1000);
+    }
+
+    function releaseResponse() {
+      const resp = document.getElementById('response').value.trim();
+      if (resp) { copyToClipboard(resp); }
+      saveToLog();
+    }
+
+    function copyResponse() {
+      const resp = document.getElementById('response').value.trim();
+      if (resp) copyToClipboard(resp);
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('releaseBtn');
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      }).catch(() => {});
+    }
+
+    function saveToLog() {
+      const incoming = document.getElementById('incoming').value.trim();
+      const response = document.getElementById('response').value.trim();
+      if (!incoming) return;
+      history.unshift({
+        id: Date.now().toString(36),
+        date: new Date().toISOString(),
+        preview: incoming.slice(0, 100),
+        voltage: currentVoltage,
+        patterns: currentPatterns.map(p => p.name),
+        hadResponse: !!response
+      });
+      if (history.length > 200) history = history.slice(0, 200);
+      save();
+      document.getElementById('logCount').textContent = `${history.length} messages processed`;
+      clearIncoming();
+    }
+
+    function clearIncoming() {
+      document.getElementById('incoming').value = '';
+      document.getElementById('response').value = '';
+      hideSection('analysisSection');
+      hideSection('responseSection');
+      clearInterval(pauseInterval);
+      document.getElementById('pauseTimer').classList.remove('visible');
+      document.getElementById('pauseTimer').style.color = '';
+    }
+
+    function toggleHistory() {
+      const el = document.getElementById('historySection');
+      if (el.style.display === 'none') {
+        renderHistory();
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+    function renderHistory() {
+      const list = document.getElementById('historyList');
+      if (!history.length) { list.innerHTML = '<div style="color:var(--white-muted);padding:1rem;text-align:center;font-size:0.85rem;">No messages processed yet.</div>'; return; }
+      list.innerHTML = '';
+      history.slice(0, 50).forEach(h => {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        const vClass = h.voltage < 4 ? 'v-green' : h.voltage < 6 ? 'v-amber' : 'v-magenta';
+        const date = new Date(h.date);
+        item.innerHTML = `<div class="history-meta">${date.toLocaleDateString()} ${date.toLocaleTimeString()} · <span class="${vClass}">V${h.voltage.toFixed(1)}</span> · ${h.patterns.join(', ') || 'clean'}</div><div class="history-preview">${esc(h.preview)}</div>`;
+        list.appendChild(item);
+      });
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function showSection(id) { document.getElementById(id).style.display = ''; }
+    function hideSection(id) { document.getElementById(id).style.display = 'none'; }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'entangled-buffer.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    load();
+  </script>
+</body>
+</html>

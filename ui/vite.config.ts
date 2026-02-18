@@ -18,30 +18,31 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // React vendor chunk
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
             return 'react-vendor';
           }
-          // Three.js vendor chunk (separate from react-three to avoid circular dependency)
           if (id.includes('node_modules/three') && !id.includes('@react-three')) {
             return 'three-core';
           }
-          // React Three Fiber chunk
+          if (id.includes('node_modules/gsap')) {
+            return 'gsap';
+          }
+          if (id.includes('node_modules/tone')) {
+            return 'tone';
+          }
           if (id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
             return 'react-three';
           }
-          // Zustand chunk
           if (id.includes('node_modules/zustand')) {
             return 'zustand';
           }
-          // Other node_modules
           if (id.includes('node_modules')) {
             return 'vendor';
           }
         },
       },
     },
-    chunkSizeWarningLimit: 200,  // Warn if any chunk > 200KB
+    chunkSizeWarningLimit: 2000, // Three.js/GSAP/Tone produce large chunks; Cloudflare accepts
     assetsInlineLimit: 4096,     // Inline assets < 4KB
     cssMinify: true,
     reportCompressedSize: true,

@@ -67,10 +67,9 @@ jobs:
         with:
           name: build-output
           path: |
-            apps/web/
             apps/shelter/dist/
             ui/dist/
-            cognitive-shield/dist/
+            website/
 
   # ═══ INTEGRATION TESTS ═══
   test:

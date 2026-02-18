@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GENESIS_GATE - Mission Control</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: #1e293b;
+            --text-color: #e2e8f0;
+            --accent-color: #38bdf8;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: #334155;
+            border-radius: 6px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            background-color: #1e293b;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        .btn-secondary {
+            background-color: #64748b;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .activity-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        select, input, textarea {
+            background-color: #334155;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .log-container {
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+            border-bottom: 1px solid #334155;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-time {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background-color: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .alert-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning-color);
+            color: var(--warning-color);
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="status-indicator"></span>GENESIS_GATE Mission Control</h1>
+            <div>
+                <span class="btn" onclick="refreshStatus()">Refresh</span>
+                <span class="btn btn-secondary" onclick="showTestPanel()">Test</span>
+            </div>
+        </header>
+
+        <div id="alert-container"></div>
+
+        <div class="grid">
+            <!-- System Status Panel -->
+            <div class="card">
+                <h3>System Status</h3>
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="stat-value" id="xp-value">0</div>
+                        <div class="stat-label">Experience Points</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="level-value">1</div>
+                        <div class="stat-label">Level</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="tasks-value">0</div>
+                        <div class="stat-label">Tasks Completed</div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn" onclick="syncDrive()">Sync Drive</button>
+                    <button class="btn btn-secondary" onclick="testSystem()">Test System</button>
+                    <button class="btn btn-danger" onclick="cleanupSystem()">Cleanup</button>
+                </div>
+
+                <div>
+                    <h4>Sync Status</h4>
+                    <div id="sync-status">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Activity Recording Panel -->
+            <div class="card">
+                <h3>Record Activity</h3>
+                <form class="activity-form" id="activity-form">
+                    <label for="activity-type" class="stat-label">Activity Type</label>
+                    <select id="activity-type" required>
+                        <option value="">Select Activity Type</option>
+                        <option value="SPOON_RECOVERY">Spoon Recovery (Self-Care)</option>
+                        <option value="EXECUTIVE_FUNCTION">Executive Function (Task)</option>
+                        <option value="THERAPY_SESSION">Therapy Session (Medical)</option>
+                        <option value="MEDICATION_ADMIN">Medication Admin (Medical)</option>
+                        <option value="QUALITY_TIME">Quality Time (Parenting)</option>
+                        <option value="HOMEWORK_HELP">Homework Help (Parenting)</option>
+                        <option value="SYSTEM_MAINTENANCE">System Maintenance (Technical)</option>
+                        <option value="LEGAL_DOCUMENT">Legal Document (Legal)</option>
+                    </select>
+                    
+                    <textarea id="metadata" placeholder="Additional metadata (JSON format)"></textarea>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn">Record Activity</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Mission Log -->
+        <div class="card" style="margin-top: 20px;">
+            <h3>Mission Log</h3>
+            <div id="log-container" class="log-container">
+                <div class="log-entry">System initialized...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            GENESIS_GATE v1.0.0 | Built with Google Apps Script | © 2026
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let systemStatus = null;
+        let isRefreshing = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshStatus();
+            setInterval(refreshStatus, 30000); // Refresh every 30 seconds
+        });
+
+        // Form submission
+        document.getElementById('activity-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            recordActivity();
+        });
+
+        // API Functions
+        async function apiCall(action, data = {}) {
+            try {
+                const response = await google.script.run
+                    .withSuccessHandler(handleSuccess)
+                    .withFailureHandler(handleError)
+                    .withUserObject({ action })
+                    .doPost({
+                        postData: {
+                            contents: JSON.stringify({ action, ...data })
+                        }
+                    });
+                
+                return response;
+            } catch (error) {
+                console.error('API call failed:', error);
+                showError('API call failed: ' + error.message);
+            }
+        }
+
+        function handleSuccess(result, userObject) {
+            if (result.success) {
+                showSuccess('Action completed successfully');
+                
+                if (userObject.action === 'getSystemStatus') {
+                    updateSystemStatus(result);
+                } else if (userObject.action === 'recordActivity') {
+                    addLogEntry(`Activity recorded: ${result.data.yieldLP} LP`);
+                    refreshStatus();
+                }
+            } else {
+                showError('Action failed: ' + result.error);
+            }
+        }
+
+        function handleError(error, userObject) {
+            console.error('API error:', error);
+            showError('API error: ' + error.message);
+        }
+
+        // System Functions
+        async function refreshStatus() {
+            if (isRefreshing) return;
+            isRefreshing = true;
+            
+            try {
+                const result = await google.script.run
+                    .withSuccessHandler(updateSystemStatus)
+                    .withFailureHandler(handleError)
+                    .getSystemStatus();
+            } catch (error) {
+                console.error('Refresh failed:', error);
+            } finally {
+                isRefreshing = false;
+            }
+        }
+
+        function updateSystemStatus(status) {
+            if (!status || !status.success) {
+                showError('Failed to get system status');
+                return;
+            }
+
+            systemStatus = status;
+            
+            // Update stats
+            document.getElementById('xp-value').textContent = status.state.xp || 0;
+            document.getElementById('level-value').textContent = status.state.level || 1;
+            document.getElementById('tasks-value').textContent = status.state.tasksCompleted || 0;
+
+            // Update sync status
+            const syncDiv = document.getElementById('sync-status');
+            if (status.sync) {
+                syncDiv.innerHTML = `
+                    <div>Drive Structure: ${status.sync.driveStructureExists ? '✅' : '❌'}</div>
+                    <div>Sync Triggers: ${status.sync.syncTriggersActive ? '✅' : '❌'}</div>
+                    <div>Last Sync: ${status.sync.lastSyncTime}</div>
+                    <div>Next Sync: ${status.sync.nextSyncTime}</div>
+                `;
+            }
+        }
+
+        async function recordActivity() {
+            const activityType = document.getElementById('activity-type').value;
+            const metadataStr = document.getElementById('metadata').value;
+            
+            if (!activityType) {
+                showError('Please select an activity type');
+                return;
+            }
+
+            let metadata = {};
+            if (metadataStr) {
+                try {
+                    metadata = JSON.parse(metadataStr);
+                } catch (e) {
+                    showError('Invalid JSON in metadata');
+                    return;
+                }
+            }
+
+            await apiCall('recordActivity', { activityType, metadata });
+        }
+
+        async function syncDrive() {
+            await apiCall('syncDrive');
+            setTimeout(refreshStatus, 1000);
+        }
+
+        async function testSystem() {
+            await apiCall('testGenesisGate');
+        }
+
+        async function cleanupSystem() {
+            if (confirm('Are you sure you want to cleanup the system? This will remove old logs and triggers.')) {
+                await apiCall('cleanupGenesisGate');
+            }
+        }
+
+        // UI Functions
+        function showSuccess(message) {
+            showAlert(message, 'success');
+        }
+
+        function showError(message) {
+            showAlert(message, 'danger');
+        }
+
+        function showAlert(message, type) {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        function addLogEntry(message) {
+            const logContainer = document.getElementById('log-container');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">[${new Date().toLocaleTimeString()}]</span>
+                ${message}
+            `;
+            
+            logContainer.appendChild(entry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function clearForm() {
+            document.getElementById('activity-form').reset();
+        }
+
+        function showTestPanel() {
+            alert('Test panel would be shown here in a full implementation');
+        }
+    </script>
+</body>
+</html>

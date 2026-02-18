@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founding Node Offer · P31 Labs</title>
+  <meta name="description" content="You've been offered a position in the mesh. Choose your orbital.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Node Offers">
+  <meta name="p31:category" content="greenhouse">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:icon" content="🔺">
+  <meta name="p31:color" content="#a78bfa">
+  <meta name="p31:offline" content="true">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --void: #050510;
+      --void-up: #0a0a1a;
+      --void-surface: #0f0f24;
+      --void-border: #1a1a3a;
+      --green: #2ecc71;
+      --amber: #f59e0b;
+      --magenta: #ff00cc;
+      --cyan: #00d4ff;
+      --violet: #a78bfa;
+      --white: #e8e8f0;
+      --white-dim: #9898b0;
+      --white-muted: #585870;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-display);
+      background: var(--void);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ═══════ VIEWS ═══════ */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ═══════ ADMIN VIEW ═══════ */
+    .admin-header {
+      text-align: center; padding: 40px 16px 20px;
+    }
+    .admin-header h1 {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--violet);
+    }
+    .admin-header h2 {
+      font-family: var(--font-display); font-size: 28px; font-weight: 200;
+      color: var(--white); margin-top: 8px;
+    }
+    .admin-header p {
+      font-size: 14px; color: var(--white-dim); max-width: 500px;
+      margin: 12px auto 0; line-height: 1.7;
+    }
+
+    .node-grid {
+      max-width: 800px; margin: 32px auto; padding: 0 16px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .node-card {
+      background: var(--void-surface); border: 1px solid var(--void-border);
+      border-radius: 8px; padding: 20px; cursor: pointer;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .node-card:hover { border-color: var(--violet); transform: translateY(-2px); }
+    .node-card.accepted { border-color: var(--green); }
+    .node-card.pending { border-color: var(--amber); }
+
+    .node-card-status {
+      position: absolute; top: 12px; right: 12px;
+      font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 3px;
+    }
+    .status-open { background: rgba(167,139,250,0.15); color: var(--violet); }
+    .status-pending { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .status-accepted { background: rgba(46,204,113,0.15); color: var(--green); }
+
+    .node-card-icon { font-size: 28px; margin-bottom: 8px; }
+    .node-card-name { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+    .node-card-role { font-family: var(--font-mono); font-size: 10px; color: var(--violet); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+    .node-card-element { font-family: var(--font-mono); font-size: 11px; color: var(--white-muted); margin-top: 8px; }
+
+    .add-node {
+      background: transparent; border: 2px dashed var(--void-border);
+      border-radius: 8px; padding: 20px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 8px; min-height: 140px;
+      transition: all 0.3s; color: var(--white-muted);
+    }
+    .add-node:hover { border-color: var(--violet); color: var(--violet); }
+    .add-node span { font-size: 32px; }
+    .add-node small { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; }
+
+    /* ═══════ MESH VISUAL ═══════ */
+    .mesh-section {
+      max-width: 800px; margin: 48px auto; padding: 0 16px; text-align: center;
+    }
+    .mesh-title { font-family: var(--font-mono); font-size: 9px; color: var(--white-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+    .mesh-svg { width: 100%; max-width: 500px; height: 300px; margin: 0 auto; }
+
+    /* ═══════ EDITOR MODAL ═══════ */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(5,5,16,0.92); z-index: 100;
+      justify-content: center; align-items: flex-start;
+      padding: 40px 16px; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--void-up); border: 1px solid var(--void-border);
+      border-radius: 12px; max-width: 600px; width: 100%; padding: 32px;
+    }
+    .modal-close {
+      float: right; background: none; border: none; color: var(--white-muted);
+      font-size: 20px; cursor: pointer; padding: 4px;
+    }
+    .modal h3 {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--violet); margin-bottom: 20px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--white-muted);
+      margin-bottom: 4px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; background: var(--void-surface); border: 1px solid var(--void-border);
+      color: var(--white); font-family: var(--font-display); font-size: 14px;
+      padding: 10px 12px; border-radius: 6px;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--violet); border-color: var(--violet);
+    }
+    .field textarea { resize: vertical; min-height: 60px; }
+    .field select { appearance: none; cursor: pointer; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .duty-list { margin-top: 8px; }
+    .duty-item {
+      display: flex; align-items: center; gap: 8px; padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .duty-item input { flex: 1; }
+    .duty-type {
+      font-family: var(--font-mono); font-size: 8px; padding: 2px 6px;
+      border-radius: 3px; letter-spacing: 1px; cursor: pointer; border: none;
+    }
+    .duty-type.invariant { background: rgba(46,204,113,0.15); color: var(--green); }
+    .duty-type.optional { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .duty-remove { background: none; border: none; color: var(--white-muted); cursor: pointer; font-size: 16px; padding: 2px 6px; }
+    .duty-remove:hover { color: var(--magenta); }
+
+    .btn-row { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+      padding: 10px 20px; border-radius: 6px; cursor: pointer;
+      text-transform: uppercase; transition: all 0.2s; border: 1px solid;
+    }
+    .btn-primary { background: var(--violet); border-color: var(--violet); color: var(--void); }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline { background: transparent; border-color: var(--void-border); color: var(--white-dim); }
+    .btn-outline:hover { border-color: var(--violet); color: var(--violet); }
+    .btn-danger { background: transparent; border-color: var(--void-border); color: var(--magenta); }
+    .btn-danger:hover { border-color: var(--magenta); }
+    .btn-share { background: transparent; border-color: var(--cyan); color: var(--cyan); }
+
+    /* ═══════ OFFER VIEW (what the recipient sees) ═══════ */
+    .offer-page {
+      max-width: 600px; margin: 0 auto; padding: 40px 20px;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    .offer-badge {
+      text-align: center; margin-bottom: 40px;
+    }
+    .offer-badge-icon { font-size: 64px; display: block; margin-bottom: 12px; }
+    .offer-badge-org { font-family: var(--font-mono); font-size: 10px; color: var(--violet); letter-spacing: 4px; text-transform: uppercase; }
+    .offer-badge-title { font-size: 14px; color: var(--white-dim); margin-top: 4px; }
+
+    .offer-name {
+      text-align: center; font-size: 36px; font-weight: 200;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .offer-role {
+      text-align: center; font-family: var(--font-mono); font-size: 13px;
+      color: var(--violet); letter-spacing: 3px; text-transform: uppercase;
+    }
+    .offer-element {
+      text-align: center; font-family: var(--font-mono); font-size: 11px;
+      color: var(--white-muted); margin-top: 4px;
+    }
+
+    .offer-letter {
+      margin-top: 32px; padding: 24px; background: var(--void-surface);
+      border: 1px solid var(--void-border); border-radius: 8px;
+      font-size: 15px; line-height: 1.8; color: var(--white-dim);
+      white-space: pre-wrap;
+    }
+
+    .offer-duties {
+      margin-top: 24px;
+    }
+    .offer-duties-title {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white-muted); margin-bottom: 12px;
+    }
+    .offer-duty {
+      display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .offer-duty-marker {
+      width: 8px; height: 8px; min-width: 8px; border-radius: 2px;
+      margin-top: 6px;
+    }
+    .offer-duty-marker.invariant { background: var(--green); }
+    .offer-duty-marker.optional { background: var(--amber); }
+    .offer-duty-text { font-size: 14px; color: var(--white); line-height: 1.5; }
+    .offer-duty-tag {
+      font-family: var(--font-mono); font-size: 8px; letter-spacing: 1px;
+      text-transform: uppercase; margin-left: 8px;
+    }
+    .offer-duty-tag.invariant { color: var(--green); }
+    .offer-duty-tag.optional { color: var(--amber); }
+
+    .offer-compensation {
+      margin-top: 24px; padding: 20px; background: var(--void-surface);
+      border: 1px solid var(--void-border); border-radius: 8px;
+    }
+    .offer-comp-title {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 8px;
+    }
+    .offer-comp-item {
+      font-size: 14px; color: var(--white-dim); padding: 4px 0; line-height: 1.6;
+    }
+
+    .offer-mesh-note {
+      margin-top: 32px; text-align: center; font-size: 13px;
+      color: var(--white-muted); line-height: 1.8; padding: 20px;
+    }
+    .offer-mesh-note strong { color: var(--violet); font-weight: 400; }
+
+    .offer-actions {
+      margin-top: 32px; text-align: center;
+      display: flex; flex-direction: column; gap: 12px; align-items: center;
+    }
+    .offer-accept {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px;
+      padding: 14px 40px; border-radius: 8px; cursor: pointer;
+      text-transform: uppercase; border: 2px solid var(--green);
+      background: rgba(46,204,113,0.1); color: var(--green);
+      transition: all 0.3s; width: 100%; max-width: 300px;
+    }
+    .offer-accept:hover { background: var(--green); color: var(--void); }
+    .offer-discuss {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+      padding: 10px 30px; border-radius: 6px; cursor: pointer;
+      text-transform: uppercase; border: 1px solid var(--void-border);
+      background: transparent; color: var(--white-muted);
+      transition: all 0.2s; width: 100%; max-width: 300px;
+    }
+    .offer-discuss:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .offer-accepted-state {
+      text-align: center; padding: 40px 20px;
+      display: none;
+    }
+    .offer-accepted-state.show { display: block; }
+    .offer-accepted-state .big-check {
+      font-size: 64px; color: var(--green); margin-bottom: 16px;
+    }
+    .offer-accepted-state h3 {
+      font-size: 24px; font-weight: 200; color: var(--white);
+    }
+    .offer-accepted-state p {
+      font-size: 14px; color: var(--white-dim); margin-top: 8px; line-height: 1.7;
+    }
+
+    .footer {
+      text-align: center; padding: 40px 16px; margin-top: auto;
+      font-family: var(--font-mono); font-size: 11px; color: var(--white-muted);
+    }
+
+    @media (max-width: 500px) {
+      .field-row { grid-template-columns: 1fr; }
+      .node-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: ADMIN (Will's view — create & manage offers)
+     ═══════════════════════════════════════════ -->
+<div class="view active" id="viewAdmin">
+  <div class="admin-header">
+    <h1>P31 Labs · Founding Nodes</h1>
+    <h2>The Mesh Needs You</h2>
+    <p>Every atom finds its orbital. Every node finds its role. Build the offers. Share the links. The mesh amplifies when every node is resonating.</p>
+  </div>
+
+  <div class="node-grid" id="nodeGrid">
+    <!-- cards render here -->
+    <div class="add-node" onclick="openEditor()">
+      <span>+</span>
+      <small>Add Founding Node</small>
+    </div>
+  </div>
+
+  <!-- MESH VISUALIZATION -->
+  <div class="mesh-section">
+    <div class="mesh-title">Network Topology · Signal Amplification</div>
+    <svg class="mesh-svg" id="meshSvg" viewBox="0 0 500 300"></svg>
+    <p style="font-family:var(--font-mono);font-size:11px;color:var(--white-muted);margin-top:12px;">
+      Each accepted node amplifies the signal. The mesh becomes rigid at 4+ nodes.
+      <br>Current topology: <span id="topoStatus" style="color:var(--violet)">initializing...</span>
+    </p>
+  </div>
+
+  <div class="footer">The geometry holds. 🔺</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW: OFFER (what the recipient sees)
+     ═══════════════════════════════════════════ -->
+<div class="view" id="viewOffer">
+  <div class="offer-page">
+    <div class="offer-badge">
+      <span class="offer-badge-icon" id="offerIcon">🔺</span>
+      <div class="offer-badge-org">P31 Labs · Founding Node Offer</div>
+      <div class="offer-badge-title">Georgia 501(c)(3) Nonprofit · Open Source Assistive Technology</div>
+    </div>
+
+    <div class="offer-name" id="offerName">---</div>
+    <div class="offer-role" id="offerRole">---</div>
+    <div class="offer-element" id="offerElement">---</div>
+
+    <div class="offer-letter" id="offerLetter">---</div>
+
+    <div class="offer-duties" id="offerDuties">
+      <div class="offer-duties-title">Your Duties in the Mesh</div>
+    </div>
+
+    <div class="offer-compensation" id="offerComp">
+      <div class="offer-comp-title">Compensation & Sovereignty</div>
+    </div>
+
+    <div class="offer-mesh-note">
+      This isn't a job in the old sense. There's no office. No punch clock. No extraction.<br><br>
+      This is a <strong>node in a mesh</strong>. Your signal amplifies everyone else's.
+      Their signal amplifies yours. The more nodes that resonate,
+      the more rigid the geometry becomes. The more rigid the geometry,
+      the harder it is for any external force to collapse the structure.<br><br>
+      <strong>We either believe and build together, or we fizzle out and fail together.</strong><br>
+      That's not a threat. That's physics.
+    </div>
+
+    <div class="offer-actions" id="offerActions">
+      <button class="offer-accept" onclick="acceptOffer()">I'm In — Accept My Node 🔺</button>
+      <button class="offer-discuss" onclick="discussOffer()">I have questions — let's talk</button>
+    </div>
+
+    <div class="offer-accepted-state" id="acceptedState">
+      <div class="big-check">🔺</div>
+      <h3>Welcome to the mesh.</h3>
+      <p>Your node is active. Your signal is live.<br>The lattice just got stronger.<br><br>
+      Will is going to reach out with next steps.<br>In the meantime, explore: <a href="/" style="color:var(--cyan)">phosphorus31.org</a></p>
+    </div>
+
+    <div class="footer">It's okay to be a little wonky. 🔺</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MODAL: Node Editor
+     ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="editorModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeEditor()">✕</button>
+    <h3 id="editorTitle">New Founding Node</h3>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Full Name</label>
+        <input id="edName" placeholder="Their name">
+      </div>
+      <div class="field">
+        <label>Element Assignment</label>
+        <select id="edElement">
+          <option value="">Choose their element...</option>
+          <option value="H · Hydrogen — The spark. First to bond.">Hydrogen (H) — The spark</option>
+          <option value="C · Carbon — The backbone. Connects everything.">Carbon (C) — The backbone</option>
+          <option value="N · Nitrogen — The atmosphere. Sustains the space.">Nitrogen (N) — The atmosphere</option>
+          <option value="O · Oxygen — The breath. Essential for combustion.">Oxygen (O) — The breath</option>
+          <option value="P · Phosphorus — The signal carrier. Element 31.">Phosphorus (P) — The signal</option>
+          <option value="Ca · Calcium — The structure. Holds the lattice.">Calcium (Ca) — The structure</option>
+          <option value="Fe · Iron — The core. Forged in stars.">Iron (Fe) — The core</option>
+          <option value="Cu · Copper — The conductor. Carries the current.">Copper (Cu) — The conductor</option>
+          <option value="Na · Sodium — The catalyst. Explosive potential.">Sodium (Na) — The catalyst</option>
+          <option value="Si · Silicon — The foundation. The chip beneath.">Silicon (Si) — The foundation</option>
+          <option value="Au · Gold — The sovereign. Refuses to tarnish.">Gold (Au) — The sovereign</option>
+          <option value="Ag · Silver — The mirror. Reflects truth.">Silver (Ag) — The mirror</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Role Title</label>
+        <select id="edRole">
+          <option value="">Choose their orbital...</option>
+          <option value="Board Member">Board Member</option>
+          <option value="Chief Operations Officer">Chief Operations Officer</option>
+          <option value="Chief Technology Officer">Chief Technology Officer</option>
+          <option value="Director of Outreach">Director of Outreach</option>
+          <option value="Director of Education">Director of Education</option>
+          <option value="Community Lead">Community Lead</option>
+          <option value="Hardware Engineer">Hardware Engineer</option>
+          <option value="Software Engineer">Software Engineer</option>
+          <option value="QA & Accessibility Lead">QA & Accessibility Lead</option>
+          <option value="Content & Communications">Content & Communications</option>
+          <option value="Legal Advisor">Legal Advisor</option>
+          <option value="Medical Advisor">Medical Advisor</option>
+          <option value="Financial Steward">Financial Steward</option>
+          <option value="Family Node — Immutable">Family Node — Immutable</option>
+          <option value="Advisor — External">Advisor — External</option>
+          <option value="Youth Ambassador">Youth Ambassador</option>
+          <option value="Custom Role">Custom Role (type below)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Custom Role (if selected above)</label>
+        <input id="edCustomRole" placeholder="Their unique title">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Personal Letter</label>
+      <textarea id="edLetter" rows="6" placeholder="Write directly to them. Why them? Why this role? What do you see in them that they might not see yet? This is the part that makes them believe."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Icon / Emoji</label>
+      <input id="edIcon" placeholder="🔺 (one emoji that represents them)">
+    </div>
+
+    <div class="field">
+      <label>Duties <span style="color:var(--white-muted);text-transform:none;letter-spacing:0">(green = invariant, amber = optional — click tag to toggle)</span></label>
+      <div class="duty-list" id="dutyList"></div>
+      <button class="btn btn-outline" onclick="addDuty()" style="margin-top:8px;font-size:9px;padding:6px 12px;">+ Add Duty</button>
+    </div>
+
+    <div class="field">
+      <label>Compensation / LOVE Allocation</label>
+      <textarea id="edComp" rows="3" placeholder="e.g. 100 LOVE genesis allocation, Board voting rights, Equity in future commercial spinoffs, Founding Node badge, etc."></textarea>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Time Commitment</label>
+        <select id="edTime">
+          <option value="As available — no minimum">As available</option>
+          <option value="2-4 hours / week">2-4 hrs/week</option>
+          <option value="5-10 hours / week">5-10 hrs/week</option>
+          <option value="10-20 hours / week">10-20 hrs/week</option>
+          <option value="Part-time (~20 hrs/week)">Part-time</option>
+          <option value="Full-time (when funded)">Full-time (when funded)</option>
+          <option value="Advisory (quarterly meetings)">Advisory (quarterly)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Start Date</label>
+        <input id="edStart" type="date">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="saveNode()">Save Node</button>
+      <button class="btn btn-share" onclick="previewOffer()">👁 Preview Offer</button>
+      <button class="btn btn-outline" onclick="copyOfferLink()">📋 Copy Share Link</button>
+      <button class="btn btn-danger" id="btnDelete" onclick="deleteNode()" style="display:none">Remove</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+
+const STORE_KEY = 'p31:founding-nodes';
+let nodes = loadNodes();
+let editingId = null;
+let tempDuties = [];
+
+function loadNodes() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch(e) { return []; }
+}
+function saveNodes() {
+  localStorage.setItem(STORE_KEY, JSON.stringify(nodes));
+}
+
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+// ═══════════════════════════════════════
+// CHECK URL — are we in offer mode?
+// ═══════════════════════════════════════
+
+function checkRoute() {
+  const params = new URLSearchParams(window.location.search);
+  const offerId = params.get('offer');
+  if (offerId) {
+    const node = nodes.find(n => n.id === offerId);
+    if (node) {
+      showOffer(node);
+      return;
+    }
+  }
+  showAdmin();
+}
+
+function showAdmin() {
+  document.getElementById('viewAdmin').classList.add('active');
+  document.getElementById('viewOffer').classList.remove('active');
+  renderGrid();
+  renderMesh();
+}
+
+function showOffer(node) {
+  document.getElementById('viewAdmin').classList.remove('active');
+  document.getElementById('viewOffer').classList.add('active');
+  renderOffer(node);
+}
+
+// ═══════════════════════════════════════
+// ADMIN: GRID
+// ═══════════════════════════════════════
+
+function renderGrid() {
+  const grid = document.getElementById('nodeGrid');
+  // Clear existing cards (keep add button)
+  grid.querySelectorAll('.node-card').forEach(el => el.remove());
+  const addBtn = grid.querySelector('.add-node');
+
+  nodes.forEach(node => {
+    const card = document.createElement('div');
+    const status = node.accepted ? 'accepted' : node.viewed ? 'pending' : 'open';
+    card.className = `node-card ${status}`;
+    card.onclick = () => openEditor(node.id);
+    card.innerHTML = `
+      <div class="node-card-status status-${status}">${status}</div>
+      <div class="node-card-icon">${node.icon || '🔺'}</div>
+      <div class="node-card-name">${node.name}</div>
+      <div class="node-card-role">${node.role}</div>
+      <div class="node-card-element">${node.element || 'No element assigned'}</div>
+    `;
+    grid.insertBefore(card, addBtn);
+  });
+
+  updateTopoStatus();
+}
+
+function updateTopoStatus() {
+  const accepted = nodes.filter(n => n.accepted).length;
+  const total = nodes.length;
+  const el = document.getElementById('topoStatus');
+
+  if (total === 0) el.textContent = 'No nodes. Add your first.';
+  else if (accepted === 0) el.textContent = `${total} offers created · 0 accepted · Topology: Point`;
+  else if (accepted === 1) el.textContent = `${accepted}/${total} accepted · Topology: Point (need 2 for an edge)`;
+  else if (accepted === 2) el.textContent = `${accepted}/${total} accepted · Topology: Edge (need 3 for a triangle)`;
+  else if (accepted === 3) el.textContent = `${accepted}/${total} accepted · Topology: Triangle ⚠️ (need 4 for volume)`;
+  else el.textContent = `${accepted}/${total} accepted · Topology: TETRAHEDRON 🔺 (isostatically rigid)`;
+}
+
+// ═══════════════════════════════════════
+// ADMIN: MESH VISUALIZATION
+// ═══════════════════════════════════════
+
+function renderMesh() {
+  const svg = document.getElementById('meshSvg');
+  svg.innerHTML = '';
+
+  if (nodes.length === 0) {
+    svg.innerHTML = '<text x="250" y="150" text-anchor="middle" fill="#585870" font-family="JetBrains Mono" font-size="11">Add nodes to see the mesh</text>';
+    return;
+  }
+
+  const cx = 250, cy = 150, r = 100;
+  const positions = nodes.map((_, i) => {
+    const angle = (i / nodes.length) * Math.PI * 2 - Math.PI/2;
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  });
+
+  // Draw edges between all accepted nodes
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i+1; j < nodes.length; j++) {
+      const bothAccepted = nodes[i].accepted && nodes[j].accepted;
+      const oneAccepted = nodes[i].accepted || nodes[j].accepted;
+      const opacity = bothAccepted ? 0.5 : oneAccepted ? 0.15 : 0.05;
+      const color = bothAccepted ? '#a78bfa' : '#585870';
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      Object.entries({
+        x1: positions[i].x, y1: positions[i].y,
+        x2: positions[j].x, y2: positions[j].y,
+        stroke: color, 'stroke-width': bothAccepted ? 2 : 1,
+        opacity, 'stroke-dasharray': bothAccepted ? 'none' : '4 4'
+      }).forEach(([k,v]) => line.setAttribute(k, v));
+      svg.appendChild(line);
+    }
+  }
+
+  // Draw nodes
+  nodes.forEach((node, i) => {
+    const {x, y} = positions[i];
+    const color = node.accepted ? '#2ecc71' : node.viewed ? '#f59e0b' : '#585870';
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    Object.entries({cx: x, cy: y, r: 12, fill: color, opacity: node.accepted ? 1 : 0.5}).forEach(([k,v]) => circle.setAttribute(k,v));
+    svg.appendChild(circle);
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    Object.entries({
+      x, y: y + 28, 'text-anchor': 'middle', fill: '#9898b0',
+      'font-family': 'JetBrains Mono', 'font-size': '9'
+    }).forEach(([k,v]) => text.setAttribute(k,v));
+    text.textContent = node.name.split(' ')[0];
+    svg.appendChild(text);
+
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    Object.entries({x, y: y + 5, 'text-anchor': 'middle', 'font-size': '14'}).forEach(([k,v]) => icon.setAttribute(k,v));
+    icon.textContent = node.icon || '🔺';
+    svg.appendChild(icon);
+  });
+}
+
+// ═══════════════════════════════════════
+// EDITOR
+// ═══════════════════════════════════════
+
+function openEditor(id) {
+  editingId = id || null;
+  const modal = document.getElementById('editorModal');
+  modal.classList.add('open');
+
+  if (id) {
+    const node = nodes.find(n => n.id === id);
+    document.getElementById('editorTitle').textContent = 'Edit Node: ' + node.name;
+    document.getElementById('edName').value = node.name;
+    document.getElementById('edElement').value = node.element || '';
+    document.getElementById('edRole').value = node.role || '';
+    document.getElementById('edCustomRole').value = node.customRole || '';
+    document.getElementById('edLetter').value = node.letter || '';
+    document.getElementById('edIcon').value = node.icon || '';
+    document.getElementById('edComp').value = node.compensation || '';
+    document.getElementById('edTime').value = node.timeCommitment || 'As available — no minimum';
+    document.getElementById('edStart').value = node.startDate || '';
+    tempDuties = [...(node.duties || [])];
+    document.getElementById('btnDelete').style.display = 'block';
+  } else {
+    document.getElementById('editorTitle').textContent = 'New Founding Node';
+    ['edName','edCustomRole','edLetter','edIcon','edComp'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('edElement').value = '';
+    document.getElementById('edRole').value = '';
+    document.getElementById('edTime').value = 'As available — no minimum';
+    document.getElementById('edStart').value = '';
+    tempDuties = [
+      { text: '', type: 'invariant' },
+      { text: '', type: 'invariant' },
+      { text: '', type: 'optional' },
+    ];
+    document.getElementById('btnDelete').style.display = 'none';
+  }
+  renderDuties();
+}
+
+function closeEditor() {
+  document.getElementById('editorModal').classList.remove('open');
+  editingId = null;
+}
+
+function renderDuties() {
+  const list = document.getElementById('dutyList');
+  list.innerHTML = '';
+  tempDuties.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'duty-item';
+    div.innerHTML = `
+      <input value="${d.text}" placeholder="Duty ${i+1}..." oninput="tempDuties[${i}].text=this.value"
+        style="background:var(--void);border:1px solid var(--void-border);color:var(--white);padding:6px 8px;border-radius:4px;font-size:13px;font-family:var(--font-display);">
+      <button class="duty-type ${d.type}" onclick="toggleDutyType(${i})">${d.type.toUpperCase()}</button>
+      <button class="duty-remove" onclick="removeDuty(${i})">✕</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function addDuty() { tempDuties.push({ text: '', type: 'optional' }); renderDuties(); }
+function removeDuty(i) { tempDuties.splice(i, 1); renderDuties(); }
+function toggleDutyType(i) {
+  tempDuties[i].type = tempDuties[i].type === 'invariant' ? 'optional' : 'invariant';
+  renderDuties();
+}
+
+function saveNode() {
+  const name = document.getElementById('edName').value.trim();
+  if (!name) { alert('Name is required.'); return; }
+
+  const role = document.getElementById('edRole').value === 'Custom Role'
+    ? document.getElementById('edCustomRole').value.trim() || 'Custom Role'
+    : document.getElementById('edRole').value;
+
+  const data = {
+    name,
+    element: document.getElementById('edElement').value,
+    role,
+    customRole: document.getElementById('edCustomRole').value.trim(),
+    letter: document.getElementById('edLetter').value,
+    icon: document.getElementById('edIcon').value.trim() || '🔺',
+    duties: tempDuties.filter(d => d.text.trim()),
+    compensation: document.getElementById('edComp').value,
+    timeCommitment: document.getElementById('edTime').value,
+    startDate: document.getElementById('edStart').value,
+  };
+
+  if (editingId) {
+    const idx = nodes.findIndex(n => n.id === editingId);
+    if (idx >= 0) nodes[idx] = { ...nodes[idx], ...data };
+  } else {
+    nodes.push({ id: genId(), ...data, accepted: false, viewed: false, createdAt: new Date().toISOString() });
+  }
+
+  saveNodes();
+  closeEditor();
+  renderGrid();
+  renderMesh();
+}
+
+function deleteNode() {
+  if (!confirm('Remove this node from the mesh?')) return;
+  nodes = nodes.filter(n => n.id !== editingId);
+  saveNodes();
+  closeEditor();
+  renderGrid();
+  renderMesh();
+}
+
+function previewOffer() {
+  saveNode();
+  const node = nodes.find(n => n.id === editingId) || nodes[nodes.length - 1];
+  if (node) showOffer(node);
+  closeEditor();
+}
+
+function copyOfferLink() {
+  saveNode();
+  const node = nodes.find(n => n.id === editingId) || nodes[nodes.length - 1];
+  if (!node) return;
+  const url = `${window.location.origin}${window.location.pathname}?offer=${node.id}`;
+  navigator.clipboard.writeText(url).then(() => {
+    alert(`Link copied!\n\n${url}\n\nSend this to ${node.name}. When they open it, they'll see their personalized offer.`);
+  }).catch(() => {
+    prompt('Copy this link:', url);
+  });
+}
+
+// ═══════════════════════════════════════
+// OFFER VIEW
+// ═══════════════════════════════════════
+
+function renderOffer(node) {
+  document.getElementById('offerIcon').textContent = node.icon || '🔺';
+  document.getElementById('offerName').textContent = node.name;
+  document.getElementById('offerRole').textContent = node.role;
+  document.getElementById('offerElement').textContent = node.element || '';
+  document.getElementById('offerLetter').textContent = node.letter || 'No letter written yet.';
+
+  // Duties
+  const dutiesEl = document.getElementById('offerDuties');
+  dutiesEl.innerHTML = '<div class="offer-duties-title">Your Duties in the Mesh</div>';
+  if (node.duties && node.duties.length) {
+    node.duties.forEach(d => {
+      const div = document.createElement('div');
+      div.className = 'offer-duty';
+      div.innerHTML = `
+        <div class="offer-duty-marker ${d.type}"></div>
+        <div class="offer-duty-text">${d.text}
+          <span class="offer-duty-tag ${d.type}">${d.type === 'invariant' ? 'CORE' : 'FLEXIBLE'}</span>
+        </div>
+      `;
+      dutiesEl.appendChild(div);
+    });
+  }
+
+  // Compensation
+  const compEl = document.getElementById('offerComp');
+  compEl.innerHTML = '<div class="offer-comp-title">Compensation & Sovereignty</div>';
+  if (node.compensation) {
+    node.compensation.split('\n').forEach(line => {
+      if (line.trim()) {
+        const p = document.createElement('div');
+        p.className = 'offer-comp-item';
+        p.textContent = line;
+        compEl.appendChild(p);
+      }
+    });
+  }
+  if (node.timeCommitment) {
+    const tc = document.createElement('div');
+    tc.className = 'offer-comp-item';
+    tc.textContent = `⏱ Time commitment: ${node.timeCommitment}`;
+    compEl.appendChild(tc);
+  }
+  if (node.startDate) {
+    const sd = document.createElement('div');
+    sd.className = 'offer-comp-item';
+    sd.textContent = `📅 Start: ${new Date(node.startDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+    compEl.appendChild(sd);
+  }
+
+  // Show/hide actions based on acceptance
+  if (node.accepted) {
+    document.getElementById('offerActions').style.display = 'none';
+    document.getElementById('acceptedState').classList.add('show');
+  } else {
+    document.getElementById('offerActions').style.display = 'flex';
+    document.getElementById('acceptedState').classList.remove('show');
+    // Mark as viewed
+    node.viewed = true;
+    saveNodes();
+  }
+
+  // Store current offer id for acceptance
+  document.getElementById('viewOffer').dataset.nodeId = node.id;
+}
+
+function acceptOffer() {
+  const nodeId = document.getElementById('viewOffer').dataset.nodeId;
+  const node = nodes.find(n => n.id === nodeId);
+  if (node) {
+    node.accepted = true;
+    node.acceptedAt = new Date().toISOString();
+    saveNodes();
+    document.getElementById('offerActions').style.display = 'none';
+    document.getElementById('acceptedState').classList.add('show');
+    if (navigator.vibrate) navigator.vibrate([50, 50, 50, 50, 100]);
+  }
+}
+
+function discussOffer() {
+  alert('Will\'s going to hear from you. Text him or reach out however feels right.\n\nThe offer stays open. No pressure. No deadline.\nJust geometry waiting to happen. 🔺');
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+
+checkRoute();
+</script>
+</body>
+</html>

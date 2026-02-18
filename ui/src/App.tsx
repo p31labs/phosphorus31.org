@@ -63,10 +63,13 @@ import { useBufferHeartbeat } from './hooks/useBufferHeartbeat';
 import './styles/accessibility.css';
 import './styles/button-animations.css';
 import './styles/app-enhancements.css';
+import './styles/alien-easter-eggs.css';
+import { useAlienEasterEggs } from './hooks/useAlienEasterEggs';
 
 function App() {
   console.log('P31 loaded:', p31.config.identity.name);
   const { theme } = useGenesisStore();
+  useAlienEasterEggs();
   const [showBuffer, setShowBuffer] = useState(false);
   const [showSimple, setShowSimple] = useState(false);
   const [showAccessibility, setShowAccessibility] = useState(false);

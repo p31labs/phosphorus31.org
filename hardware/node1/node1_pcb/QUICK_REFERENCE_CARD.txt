@@ -1,0 +1,186 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                  NODE-1 QUICK REFERENCE CARD                  ║
+╚═══════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────┐
+│ SPECIFICATIONS                                               │
+├─────────────────────────────────────────────────────────────┤
+│ Size:          51mm × 51mm (2" × 2")                        │
+│ Layers:        2-layer FR4, 1.6mm thick                     │
+│ Finish:        ENIG (gold) on Matte Black                   │
+│ MCU:           ESP32-S3 (WiFi + BLE + dual-core)            │
+│ Radio:         LoRa 900MHz (up to 10km range)               │
+│ Inputs:        2× switches, 1× encoder, 2× touch zones      │
+│ Outputs:       5× RGB LEDs, haptic motor                    │
+│ Power:         USB-C + LiPo battery                         │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ ORDERING PCBs                                                │
+├─────────────────────────────────────────────────────────────┤
+│ Website:       https://jlcpcb.com                            │
+│ Upload:        gerbers/ folder (8 .gbr files + .drl)        │
+│ PCB Qty:       5 minimum                                     │
+│ Color:         ⚠️ MATTE BLACK (critical!)                    │
+│ Surface:       ⚠️ ENIG (critical for gold zones!)            │
+│ Cost:          $40-60 with shipping                          │
+│ Time:          3-5 days production + 3-7 days shipping       │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ ASSEMBLY OPTIONS                                             │
+├─────────────────────────────────────────────────────────────┤
+│ 1. Full DIY:         $80-100  | 6-8 hrs per board          │
+│    • Hand-solder everything yourself                        │
+│                                                              │
+│ 2. Partial Assembly: $120-150 | 2-3 hrs per board ⭐       │
+│    • JLCPCB solders SMD parts                               │
+│    • You solder switches/headers                            │
+│    • READ: JLCPCB_ASSEMBLY_GUIDE.md                         │
+│    • NEED: fabrication/node1_CPL.csv file                   │
+│                                                              │
+│ 3. Full Assembly:    $200-300 | 30 min per board           │
+│    • Everything pre-assembled                               │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ COMPONENT SOURCING                                           │
+├─────────────────────────────────────────────────────────────┤
+│ BOM File:      fabrication/BOM.csv                          │
+│                                                              │
+│ Mouser/Digikey:  Fast, genuine parts, $$ expensive         │
+│ LCSC:            Cheap, China-based, $ moderate             │
+│ AliExpress:      Cheapest, slow shipping (2-4 weeks)       │
+│                                                              │
+│ Don't Forget:                                                │
+│ • LiPo battery (1000-2000mAh, JST connector)                │
+│ • 1.3" OLED display (I2C, SH1106 or SSD1306)               │
+│ • Keycaps for Choc switches (2× 1u size)                   │
+│ • Knob for rotary encoder                                   │
+│ • Vibration motor (ERM or LRA type)                         │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ CRITICAL SETTINGS (DON'T MESS THESE UP!)                    │
+├─────────────────────────────────────────────────────────────┤
+│ ⚠️ PCB Color:         MATTE Black (not glossy!)             │
+│ ⚠️ Surface Finish:    ENIG (enables gold touch zones)       │
+│ ⚠️ LoRa Frequency:    CHECK YOUR COUNTRY'S REGULATIONS!     │
+│    • USA: 902-928 MHz (usually OK)                          │
+│    • EU: 863-870 MHz (varies by country)                    │
+│ ⚠️ Battery Polarity:  RED = +, BLACK = GND (don't reverse!) │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ FILE NAVIGATION                                              │
+├─────────────────────────────────────────────────────────────┤
+│ New User?          START_HERE.txt                           │
+│ Fast Start?        QUICK_START.md (10 min)                  │
+│ See Visuals?       3D_RENDERS.md (9 detailed renders)       │
+│ Full Details?      README.md → PCB_DESIGN_SPEC.md           │
+│ Using Assembly?    JLCPCB_ASSEMBLY_GUIDE.md                 │
+│ Building It?       ASSEMBLY_INSTRUCTIONS.md                 │
+│ Shopping List?     fabrication/BOM.csv                      │
+│ Package Overview?  COMPLETE_PACKAGE_SUMMARY.md              │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PIN ASSIGNMENTS (ESP32-S3)                                   │
+├─────────────────────────────────────────────────────────────┤
+│ GPIO 12  → Encoder A         GPIO 21 → I2C SDA             │
+│ GPIO 13  → Encoder B         GPIO 22 → I2C SCL             │
+│ GPIO 15  → Encoder Switch    GPIO 23 → SPI MOSI (LoRa)     │
+│ GPIO 16  → SEND Switch       GPIO 19 → SPI MISO (LoRa)     │
+│ GPIO 17  → CANCEL Switch     GPIO 18 → SPI SCK (LoRa)      │
+│ GPIO 25  → LED Data          GPIO 5  → SPI CS (LoRa)       │
+│ GPIO 27  → Haptic Enable     GPIO 4  → Battery ADC         │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ ASSEMBLY SEQUENCE                                            │
+├─────────────────────────────────────────────────────────────┤
+│ 1. SMD Passives   → Resistors, capacitors (0805)           │
+│ 2. SMD ICs        → TP4056, DRV2605L, regulator            │
+│ 3. Modules        → ESP32-S3, LoRa module                   │
+│ 4. LEDs           → SK6812 (heat sensitive, be careful!)    │
+│ 5. USB-C          → Check for shorts!                       │
+│ 6. Hotswap Sockets→ Kailh Choc sockets                      │
+│ 7. Encoder        → EC11 rotary encoder                     │
+│ 8. Headers        → JST battery, OLED pins                  │
+│ 9. Switches       → Plug into hotswap sockets (no solder!)  │
+│ 10. Test          → Power on, check voltages, program       │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ TESTING CHECKLIST                                            │
+├─────────────────────────────────────────────────────────────┤
+│ □ Visual inspection (no bridges or cold joints)            │
+│ □ 3.3V rail measures 3.28-3.35V                            │
+│ □ USB-C enumerates on computer                             │
+│ □ I2C scan finds devices (0x5A, 0x3C)                      │
+│ □ All switches and encoder work                            │
+│ □ All 5 LEDs light up correctly                            │
+│ □ LoRa module responds on SPI                              │
+│ □ Battery charging works (~500mA)                          │
+│ □ Haptic motor vibrates                                     │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ TROUBLESHOOTING                                              │
+├─────────────────────────────────────────────────────────────┤
+│ ESP32 won't program?      → Hold BOOT button, check USB    │
+│ No 3.3V?                  → Check regulator, USB 5V         │
+│ LEDs don't work?          → Verify orientation, data line   │
+│ I2C devices not found?    → Check pull-ups (4.7kΩ)         │
+│ Battery won't charge?     → Check polarity, TP4056          │
+│ LoRa not responding?      → Verify SPI connections          │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PROGRAMMING                                                  │
+├─────────────────────────────────────────────────────────────┤
+│ IDE:          Arduino IDE with ESP32 board support         │
+│ Board:        ESP32S3 Dev Module                            │
+│ USB Mode:     Hardware CDC and JTAG                         │
+│                                                              │
+│ Libraries:                                                   │
+│ • RadioLib (LoRa)                                           │
+│ • Adafruit_GFX (Display)                                    │
+│ • FastLED (LEDs)                                            │
+│ • Adafruit_DRV2605 (Haptics)                                │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ TIMELINE                                                     │
+├─────────────────────────────────────────────────────────────┤
+│ Day 0:     Order PCBs and components                        │
+│ Day 7-14:  PCBs arrive                                      │
+│ Day 10-21: Components arrive (depending on source)          │
+│ Day 22:    Assembly (2-8 hours depending on method)         │
+│ Day 23:    Testing and programming                          │
+│ Day 24:    DONE! Enjoy your Node-1! 🎉                     │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ COSTS                                                        │
+├─────────────────────────────────────────────────────────────┤
+│ PCBs only:        $40-60 (5 boards)                        │
+│ Components (DIY): $80-120 (for 5 boards)                   │
+│ With Assembly:    $120-200 (5 boards)                      │
+│                                                              │
+│ Cost per board:   $24-40 (DIY) or $40-60 (with assembly)   │
+└─────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════╗
+║                    READY TO START?                            ║
+║                                                               ║
+║  1. Read START_HERE.txt                                       ║
+║  2. Review QUICK_START.md                                     ║
+║  3. Look at 3D_RENDERS.md                                     ║
+║  4. Upload gerbers/ to JLCPCB                                 ║
+║  5. Order components from BOM.csv                             ║
+║                                                               ║
+║  You've got this! 🚀                                         ║
+╚═══════════════════════════════════════════════════════════════╝
+
+Node-1 v1.0 | Open Source Hardware | "The Board is the Product"

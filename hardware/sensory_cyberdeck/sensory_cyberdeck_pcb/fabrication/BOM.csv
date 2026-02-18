@@ -1,0 +1,39 @@
+Reference,Quantity,Value,Description,Package,Manufacturer,Manufacturer Part,Supplier,Supplier Part,Notes
+U1,1,ESP32-S3-WROOM-1,WiFi + BLE Module 16MB Flash,QFN-56 Module,Espressif,ESP32-S3-WROOM-1-N16R8,Mouser,356-ESP32S3WROOM1N16,Main microcontroller
+U2,1,E22-900M30S,LoRa 900MHz 1W Module,SMD Module 21x16mm,EBYTE,E22-900M30S,AliExpress,E22-900M30S,LoRa transceiver - check frequency regulations
+U3,1,DRV2605L,Haptic Motor Driver,VSSOP-10,Texas Instruments,DRV2605LDGSR,Mouser,595-DRV2605LDGSR,I2C haptic driver
+U4,1,TP4056,Lithium Battery Charger,SOP-8,Generic,TP4056,LCSC,C32574,1A LiPo charger
+U5,1,AMS1117-3.3,3.3V LDO Regulator,SOT-223,AMS,AMS1117-3.3,LCSC,C6186,Voltage regulator for 3.3V rail
+SW1,1,EC11,Rotary Encoder w/ Switch,EC11 Vertical,ALPS/TTC,EC11E18244A5,AliExpress,EC11-Encoder,Encoder with push button
+SW2,1,Kailh Choc,Mechanical Keyswitch,Choc Low Profile,Kailh,CPG135001D01,NovelKeys,Choc-Red,"SEND button, linear or tactile"
+SW3,1,Kailh Choc,Mechanical Keyswitch,Choc Low Profile,Kailh,CPG135001D01,NovelKeys,Choc-Red,"CANCEL button, tactile recommended"
+SOCK2,1,Choc Socket,Hot-swap Socket,Choc Socket,Kailh,CPG135001S30,NovelKeys,Choc-Socket,For SW2
+SOCK3,1,Choc Socket,Hot-swap Socket,Choc Socket,Kailh,CPG135001S30,NovelKeys,Choc-Socket,For SW3
+D1,1,SK6812-SIDE,RGB LED Side-Emitting,LED-3535-SIDE,Generic,SK6812-SIDE-A,LCSC,C2909059,Neopixel compatible
+D2,1,SK6812-SIDE,RGB LED Side-Emitting,LED-3535-SIDE,Generic,SK6812-SIDE-A,LCSC,C2909059,Neopixel compatible
+D3,1,SK6812-SIDE,RGB LED Side-Emitting,LED-3535-SIDE,Generic,SK6812-SIDE-A,LCSC,C2909059,Neopixel compatible
+D4,1,SK6812-SIDE,RGB LED Side-Emitting,LED-3535-SIDE,Generic,SK6812-SIDE-A,LCSC,C2909059,Neopixel compatible
+D5,1,SK6812-SIDE,RGB LED Side-Emitting,LED-3535-SIDE,Generic,SK6812-SIDE-A,LCSC,C2909059,Neopixel compatible
+D6,1,1N5819,Schottky Diode 1A 40V,SOD-123,Generic,1N5819,LCSC,C191023,Battery protection
+J1,1,USB4105-GF-A,USB Type-C Connector,USB-C SMD 16-pin,GCT,USB4105-GF-A,Mouser,640-USB4105-GF-A,USB-C receptacle
+J2,1,JST-PH-2,Battery Connector 2-pin,JST-PH 2.0mm,JST,S2B-PH-K-S,Mouser,455-1719,LiPo battery connector
+J3,1,Header 1x4,OLED Display Connector,2.54mm pitch TH,Generic,PH254-1X4,Generic,PH254-1X4,Standard pin header
+C1,1,10µF,Ceramic Capacitor X7R,0805,Generic,0805X106K160NT,LCSC,C15850,ESP32 VCC decoupling
+C2,1,10µF,Ceramic Capacitor X7R,0805,Generic,0805X106K160NT,LCSC,C15850,ESP32 VCC decoupling
+C3,1,0.1µF,Ceramic Capacitor X7R,0805,Generic,0805X104K100NT,LCSC,C49678,General decoupling
+C4,1,0.1µF,Ceramic Capacitor X7R,0805,Generic,0805X104K100NT,LCSC,C49678,General decoupling
+C5,1,22µF,Ceramic Capacitor X7R,0805,Generic,0805X226K160NT,LCSC,C45783,USB power smoothing
+C6,1,4.7µF,Ceramic Capacitor X7R,0805,Generic,0805X475K160NT,LCSC,C1779,Regulator output
+C7,1,100nF,Ceramic Capacitor X7R,0805,Generic,0805X104K100NT,LCSC,C49678,DRV2605L decoupling
+R1,1,4.7kΩ,Resistor 1%,0805,Generic,0805W8F4701T5E,LCSC,C17673,I2C SDA pull-up
+R2,1,4.7kΩ,Resistor 1%,0805,Generic,0805W8F4701T5E,LCSC,C17673,I2C SCL pull-up
+R3,1,10kΩ,Resistor 1%,0805,Generic,0805W8F1002T5E,LCSC,C17414,Rotary encoder switch pull-up
+R4,1,10kΩ,Resistor 1%,0805,Generic,0805W8F1002T5E,LCSC,C17414,Mechanical switch pull-up
+R5,1,1.2kΩ,Resistor 1%,0805,Generic,0805W8F1201T5E,LCSC,C17379,TP4056 PROG resistor (1A charge)
+R6,1,5.1kΩ,Resistor 1%,0805,Generic,0805W8F5101T5E,LCSC,C27834,USB-C CC1 configuration
+R7,1,5.1kΩ,Resistor 1%,0805,Generic,0805W8F5101T5E,LCSC,C27834,USB-C CC2 configuration
+R8,1,100kΩ,Resistor 1%,0805,Generic,0805W8F1003T5E,LCSC,C17407,Battery voltage divider upper
+R9,1,47kΩ,Resistor 1%,0805,Generic,0805W8F4702T5E,LCSC,C17713,Battery voltage divider lower
+R10,1,100Ω,Resistor 1%,0805,Generic,0805W8F1000T5E,LCSC,C17408,LED data series resistor
+PCB,1,Custom,Printed Circuit Board,51x51mm 2-layer,Custom,Sensory-Cyberdeck-v1,JLCPCB/PCBWay,N/A,"Matte Black, ENIG finish"
+Battery,1,3.7V 2000mAh,Lithium Polymer Battery,Prismatic,Generic,LP603450,AliExpress,LP603450,LiPo with JST-PH connector

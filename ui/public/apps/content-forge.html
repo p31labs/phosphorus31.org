@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P31 · Content Forge</title>
+<style>
+:root {
+  --void: #06060f;
+  --void-up: #0a0a1a;
+  --surface: #0f0f24;
+  --border: #1a1a3a;
+  --border-b: #2a2a5a;
+  --dim: #6a6a8a;
+  --muted: #9898b0;
+  --text: #c8c8e0;
+  --bright: #e8e8f0;
+  --white: #f0f0ff;
+  --green: #2ecc71;
+  --cyan: #00d4ff;
+  --amber: #f59e0b;
+  --violet: #a78bfa;
+  --magenta: #ff00cc;
+  --font: 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Cascadia Code', 'JetBrains Mono', 'Consolas', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--void); color: var(--text); min-height: 100vh; }
+button { cursor: pointer; font-family: var(--font); }
+input, textarea, select { font-family: var(--font); }
+
+/* ── Layout ── */
+.app { display: grid; grid-template-columns: 280px 1fr 300px; grid-template-rows: auto 1fr; height: 100vh; }
+.app-header { grid-column: 1 / -1; display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: var(--void-up); }
+.app-title { font-size: 0.9rem; font-weight: 600; color: var(--bright); }
+.app-title span { color: var(--green); }
+.app-subtitle { font-size: 0.7rem; color: var(--dim); font-family: var(--mono); }
+
+/* ── Sidebar (Content Bank) ── */
+.sidebar { border-right: 1px solid var(--border); overflow-y: auto; background: var(--void-up); }
+.sidebar-section { padding: 0.75rem; border-bottom: 1px solid var(--border); }
+.sidebar-label { font-size: 0.65rem; font-family: var(--mono); color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+.seed-card {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.seed-card:hover { border-color: var(--border-b); background: var(--surface); }
+.seed-card.active { border-color: var(--green); background: var(--surface); }
+.seed-title { font-size: 0.8rem; color: var(--bright); font-weight: 500; margin-bottom: 0.15rem; }
+.seed-meta { font-size: 0.65rem; color: var(--dim); font-family: var(--mono); }
+.seed-tag {
+  display: inline-block;
+  font-size: 0.55rem;
+  font-family: var(--mono);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  margin-top: 0.25rem;
+  letter-spacing: 0.04em;
+}
+.tag-framework { background: #1a3a2a; color: var(--green); }
+.tag-personal { background: #3a2a1a; color: var(--amber); }
+.tag-technical { background: #1a2a3a; color: var(--cyan); }
+.tag-research { background: #2a1a3a; color: var(--violet); }
+.tag-published { background: #1a3a2a; color: var(--green); border: 1px solid var(--green); }
+.tag-draft { background: #3a3a1a; color: var(--amber); border: 1px solid var(--amber); }
+
+.add-seed {
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  color: var(--dim);
+  font-size: 0.75rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.add-seed:hover { border-color: var(--green); color: var(--green); }
+
+/* ── Editor ── */
+.editor { display: flex; flex-direction: column; overflow: hidden; }
+.editor-toolbar {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border); background: var(--void-up); flex-wrap: wrap;
+}
+.toolbar-btn {
+  padding: 0.3rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-family: var(--mono);
+  transition: all 0.2s;
+}
+.toolbar-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.toolbar-btn.active { border-color: var(--green); color: var(--green); background: #0a1a0f; }
+.toolbar-spacer { flex: 1; }
+.word-count { font-size: 0.65rem; color: var(--dim); font-family: var(--mono); }
+
+.editor-title {
+  width: 100%;
+  padding: 1rem 1.5rem 0.5rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.editor-title::placeholder { color: var(--border-b); }
+
+.editor-subtitle {
+  width: 100%;
+  padding: 0 1.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+.editor-subtitle::placeholder { color: var(--border); }
+
+.editor-body {
+  flex: 1;
+  padding: 0.75rem 1.5rem 2rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  resize: none;
+  overflow-y: auto;
+}
+.editor-body::placeholder { color: var(--border); }
+
+/* ── Right Panel ── */
+.right-panel { border-left: 1px solid var(--border); overflow-y: auto; background: var(--void-up); }
+.panel-section { padding: 0.75rem; border-bottom: 1px solid var(--border); }
+.panel-label { font-size: 0.65rem; font-family: var(--mono); color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+.checklist-item {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  padding: 0.3rem 0; font-size: 0.8rem;
+}
+.checklist-item input[type="checkbox"] { margin-top: 0.15rem; accent-color: var(--green); }
+.checklist-item label { color: var(--muted); cursor: pointer; }
+.checklist-item input:checked + label { color: var(--green); text-decoration: line-through; }
+
+.metric { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.8rem; }
+.metric-label { color: var(--dim); }
+.metric-value { color: var(--bright); font-family: var(--mono); font-size: 0.75rem; }
+
+.cross-links a {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  margin: 0.2rem 0;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  color: var(--cyan);
+  font-family: var(--mono);
+  transition: border-color 0.2s;
+}
+.cross-links a:hover { border-color: var(--cyan); }
+
+.action-btn {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  transition: all 0.2s;
+}
+.btn-publish { background: var(--green); color: var(--void); }
+.btn-publish:hover { background: #3ddb80; }
+.btn-copy { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+.btn-copy:hover { border-color: var(--cyan); color: var(--cyan); }
+.btn-danger { background: transparent; border: 1px solid #4a1a1a; color: #cc4444; }
+.btn-danger:hover { border-color: #cc4444; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar, .right-panel { display: none; }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-b); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Header -->
+  <div class="app-header">
+    <div>
+      <div class="app-title"><span>&#9650;</span> Content Forge</div>
+      <div class="app-subtitle">The Geodesic Self · Substack Pipeline</div>
+    </div>
+    <div style="flex:1"></div>
+    <div class="app-subtitle" id="saveStatus">All changes saved</div>
+  </div>
+
+  <!-- Sidebar: Content Bank -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Content Seeds</div>
+      <div id="seedList"></div>
+      <button class="add-seed" onclick="addSeed()">+ New Seed</button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Framework Library</div>
+      <div id="frameworkList"></div>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <div class="editor">
+    <div class="editor-toolbar">
+      <button class="toolbar-btn" onclick="insertBlock('## ')" title="Heading">H2</button>
+      <button class="toolbar-btn" onclick="insertBlock('### ')" title="Subheading">H3</button>
+      <button class="toolbar-btn" onclick="insertWrap('**')" title="Bold">B</button>
+      <button class="toolbar-btn" onclick="insertWrap('*')" title="Italic">I</button>
+      <button class="toolbar-btn" onclick="insertBlock('> ')" title="Quote">&#10077;</button>
+      <button class="toolbar-btn" onclick="insertBlock('---\n')" title="Divider">&mdash;</button>
+      <button class="toolbar-btn" onclick="insertBlock('- ')" title="List">&bull;</button>
+      <button class="toolbar-btn" onclick="insertFrameworkRef()" title="Insert Framework Reference">&#9883; Ref</button>
+      <div class="toolbar-spacer"></div>
+      <div class="word-count" id="wordCount">0 words · 0 min read</div>
+    </div>
+    <input type="text" class="editor-title" id="postTitle" placeholder="Post title..." oninput="onEdit()">
+    <input type="text" class="editor-subtitle" id="postSubtitle" placeholder="Subtitle — the hook that makes them click..." oninput="onEdit()">
+    <textarea class="editor-body" id="postBody" placeholder="Start writing...
+
+Tip: The Content Bank on the left has your P31 frameworks pre-loaded.
+Click any seed to load it. Click a framework to insert a reference.
+
+The checklist on the right tracks Substack best practices.
+The cross-links section helps you connect every post back to the ecosystem." oninput="onEdit()"></textarea>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <div class="panel-section">
+      <div class="panel-label">Post Settings</div>
+      <div style="margin-bottom:0.5rem">
+        <select id="postStatus" onchange="onEdit()" style="width:100%;padding:0.4rem;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:0.8rem;">
+          <option value="seed">&#127793; Seed</option>
+          <option value="draft">&#128221; Draft</option>
+          <option value="review">&#128269; Review</option>
+          <option value="published">&#9989; Published</option>
+        </select>
+      </div>
+      <div style="margin-bottom:0.5rem">
+        <select id="postCategory" onchange="onEdit()" style="width:100%;padding:0.4rem;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:0.8rem;">
+          <option value="framework">Framework</option>
+          <option value="personal">Personal</option>
+          <option value="technical">Technical</option>
+          <option value="research">Research</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-label">Publishing Checklist</div>
+      <div class="checklist-item"><input type="checkbox" id="ck1"><label for="ck1">Hook in first 2 sentences</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck2"><label for="ck2">Personal story / vulnerability</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck3"><label for="ck3">Technical concept → human analogy</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck4"><label for="ck4">At least one P31 framework reference</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck5"><label for="ck5">Cross-link to another post or resource</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck6"><label for="ck6">CTA at end (subscribe / share / visit)</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck7"><label for="ck7">Under 1500 words (sweet spot: 800-1200)</label></div>
+      <div class="checklist-item"><input type="checkbox" id="ck8"><label for="ck8">Subtitle is a hook, not a summary</label></div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-label">Metrics</div>
+      <div class="metric"><span class="metric-label">Subscribers</span><span class="metric-value" style="color:var(--green)">33</span></div>
+      <div class="metric"><span class="metric-label">30d Views</span><span class="metric-value">967</span></div>
+      <div class="metric"><span class="metric-label">Growth</span><span class="metric-value" style="color:var(--green)">3,200%</span></div>
+      <div class="metric"><span class="metric-label">Avg Read Time</span><span class="metric-value">~6 min</span></div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-label">Cross-Link Ecosystem</div>
+      <div class="cross-links">
+        <a href="https://phosphorus31.org" target="_blank">phosphorus31.org</a>
+        <a href="https://p31ca.org" target="_blank">p31ca.org</a>
+        <a href="https://github.com/trimtab-signal" target="_blank">github.com/trimtab-signal</a>
+        <a href="https://zenodo.org/records/18627420" target="_blank">Zenodo DOI: 18627420</a>
+        <a href="https://orcid.org/0009-0002-2492-9079" target="_blank">ORCID: 0009-0002-2492-9079</a>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-label">Actions</div>
+      <button class="action-btn btn-copy" onclick="copyMarkdown()">&#128203; Copy as Markdown</button>
+      <button class="action-btn btn-copy" onclick="copyHTML()">&#128203; Copy as HTML</button>
+      <button class="action-btn btn-copy" onclick="exportAll()">&#128230; Export All Seeds (JSON)</button>
+      <button class="action-btn btn-copy" onclick="importSeeds()">&#128229; Import Seeds (JSON)</button>
+      <button class="action-btn btn-danger" onclick="deleteSeed()">&#128465; Delete Current Seed</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'p31:content-forge:seeds';
+const ACTIVE_KEY = 'p31:content-forge:active';
+
+const DEFAULT_FRAMEWORKS = [
+  { id: 'f-posner', title: 'The Posner Molecule', snippet: 'Ca\u2089(PO\u2084)\u2086 \u2014 the hypothesized substrate for quantum cognition. Phosphorus-31 (spin \u00BD, NMR-active) + calcium = the molecular bridge between quantum physics and biological thought. Fisher (2015) proposed that nuclear spins in Posner molecules could maintain coherence for hours at body temperature.', category: 'research' },
+  { id: 'f-delta', title: 'Wye \u2192 Delta Transformation', snippet: 'In electrical engineering, a Wye (Y) topology has a single point of failure \u2014 the neutral. A Delta (\u0394) topology is a mesh where every node supports every other. No central point. No hierarchy. The transformation from Wye to Delta is the transformation from fragile to antifragile, from centralized to sovereign.', category: 'framework' },
+  { id: 'f-tetrahedron', title: 'The Tetrahedron Protocol', snippet: 'The simplest rigid structure in 3D space. Four points, six edges. Maxwell\'s Rule: E \u2265 3V \u2212 6. With 4 vertices and 6 edges: 6 \u2265 6. Exactly rigid. No wasted connections, no missing ones. Every P31 Labs decision is anchored to four points: Technical Feasibility, Legal Compliance, Medical Necessity, Operational Security.', category: 'framework' },
+  { id: 'f-spoons', title: 'Spoon Theory (Quantified)', snippet: 'Christine Miserandino\'s Spoon Theory, made measurable. Every morning you wake with a finite number of spoons. Every task costs spoons. When they\'re gone, they\'re gone. P31 Labs quantifies this: the Spoon Counter tracks energy, the Buffer measures communication voltage, the Scope shows the dashboard. Not gamification \u2014 instrumentation.', category: 'framework' },
+  { id: 'f-floating', title: 'The Floating Neutral', snippet: 'When a Wye system loses its neutral connection, voltages become unpredictable. Equipment burns. In human systems: when the reference ground (job, diagnosis, relationship, legal standing) disappears, everything floats. The response isn\'t to repair the Neutral. It\'s to rebuild as Delta \u2014 where no single connection can take down the system.', category: 'framework' },
+  { id: 'f-centaur', title: 'The Centaur Protocol', snippet: 'Named for the chess concept where human+computer beats either alone. The Centaur Protocol is structured human-AI collaboration: the human provides direction, context, values, and judgment. The AI provides execution, memory, synthesis, and tirelessness. Neither is complete alone. Together they form Homo Syntheticus.', category: 'framework' },
+  { id: 'f-thick', title: 'The Thick Click', snippet: 'Every digital action should have a physical consequence. A button press should feel like something. The Thick Click is P31\'s haptic philosophy: UI feedback that acknowledges the body exists. Haptic patterns named like feelings: heartbeat, breath, anchor, formation. Not decoration \u2014 proprioception for digital space.', category: 'technical' },
+  { id: 'f-love', title: 'L.O.V.E. Economy', snippet: 'Locally Operated Value Exchange. Not cryptocurrency \u2014 care currency. You earn L.O.V.E. tokens through documented parental engagement: reading together, medication compliance, showing up. Proof of Care = \u03A3(T_prox \u00D7 Q_res) + Tasks_verified. Time proximity with 24-hour half-life decay. You can\'t fake presence.', category: 'framework' },
+  { id: 'f-phase', title: 'Phase Collapse', snippet: 'In quantum mechanics, observation collapses the wave function. In neurodivergent social experience, direct interaction collapses possibility into anxiety. The superposition of "all possible social outcomes" resolves into one: the worst one your brain can imagine. Digital-first communication preserves the superposition. Text > voice > in-person. The constraint is the accommodation.', category: 'personal' },
+  { id: 'f-ephem', title: 'Ephemeralization', snippet: 'Buckminster Fuller\'s principle: doing more with less. Technology trends toward delivering more value with fewer resources. P31\'s Ephemeralization Engine optimizes data for the Whale Channel \u2014 0.350 kbps LoRa constraints. When bandwidth is precious, every bit must justify its existence. Compression as philosophy.', category: 'framework' },
+];
+
+const DEFAULT_SEEDS = [
+  { id: 's-1', title: 'Why I Named It After a Molecule', subtitle: 'The origin story nobody asked for but everyone needs', body: 'Phosphorus-31 is the only stable isotope of phosphorus. It has a nuclear spin of \u00BD, which makes it NMR-active \u2014 visible to magnetic resonance. It\'s the backbone of ATP, the molecule that powers every thought you\'ve ever had.\n\nCombine it with calcium and you get Ca\u2089(PO\u2084)\u2086 \u2014 the Posner molecule. Matthew Fisher proposed in 2015 that these molecules might be the substrate for quantum cognition. That nuclear spins in Posner clusters could maintain quantum coherence for hours at biological temperatures.\n\nI didn\'t name P31 Labs after a molecule because it sounded cool. I named it after a molecule because it IS what we\'re building: the bridge between quantum physics and how neurodivergent brains actually think.\n\nThe domain p31ca.org literally encodes the formula. P31 + Ca. Phosphorus-31 plus Calcium. The Posner molecule, in a URL.\n\nThat\'s not a coincidence. That\'s the whole thesis.', status: 'draft', category: 'personal', created: Date.now() },
+  { id: 's-2', title: 'The Floating Neutral: Why Everything Broke', subtitle: 'What submarine electricians know about losing your ground', body: '', status: 'seed', category: 'framework', created: Date.now() - 86400000 },
+  { id: 's-3', title: 'Phase Collapse Is Not Social Anxiety', subtitle: 'It\'s quantum mechanics applied to neurodivergent communication', body: '', status: 'seed', category: 'personal', created: Date.now() - 172800000 },
+  { id: 's-4', title: 'Building a 3D Print Pipeline for Kids Who Think in Molecules', subtitle: 'From tetrahedron blocks to G-code in 5 layers', body: '', status: 'seed', category: 'technical', created: Date.now() - 259200000 },
+  { id: 's-5', title: 'The L.O.V.E. Economy: Proof of Care as Currency', subtitle: 'You can\'t fake presence. We built a system that proves it.', body: '', status: 'seed', category: 'framework', created: Date.now() - 345600000 },
+];
+
+let seeds = [];
+let activeId = null;
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    seeds = raw ? JSON.parse(raw) : [...DEFAULT_SEEDS];
+    activeId = localStorage.getItem(ACTIVE_KEY) || (seeds[0]?.id || null);
+  } catch { seeds = [...DEFAULT_SEEDS]; activeId = seeds[0]?.id || null; }
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(seeds));
+  localStorage.setItem(ACTIVE_KEY, activeId);
+  document.getElementById('saveStatus').textContent = 'Saved ' + new Date().toLocaleTimeString();
+}
+
+function getActive() { return seeds.find(s => s.id === activeId) || null; }
+
+function renderSidebar() {
+  const list = document.getElementById('seedList');
+  list.innerHTML = seeds.map(s => {
+    const tagClass = s.status === 'published' ? 'tag-published' : s.status === 'draft' ? 'tag-draft' :
+      s.category === 'framework' ? 'tag-framework' : s.category === 'personal' ? 'tag-personal' :
+      s.category === 'technical' ? 'tag-technical' : 'tag-research';
+    const tagLabel = s.status === 'published' ? 'PUBLISHED' : s.status === 'draft' ? 'DRAFT' :
+      s.status === 'review' ? 'REVIEW' : s.category.toUpperCase();
+    return '<div class="seed-card ' + (s.id === activeId ? 'active' : '') + '" onclick="selectSeed(\'' + s.id + '\')">' +
+      '<div class="seed-title">' + esc(s.title || 'Untitled') + '</div>' +
+      '<div class="seed-meta">' + new Date(s.created).toLocaleDateString() + '</div>' +
+      '<span class="seed-tag ' + tagClass + '">' + tagLabel + '</span>' +
+    '</div>';
+  }).join('');
+
+  const fList = document.getElementById('frameworkList');
+  fList.innerHTML = DEFAULT_FRAMEWORKS.map(f => {
+    const tagClass = f.category === 'framework' ? 'tag-framework' : f.category === 'personal' ? 'tag-personal' :
+      f.category === 'technical' ? 'tag-technical' : 'tag-research';
+    return '<div class="seed-card" onclick="insertFramework(\'' + f.id + '\')">' +
+      '<div class="seed-title">' + esc(f.title) + '</div>' +
+      '<span class="seed-tag ' + tagClass + '">' + f.category.toUpperCase() + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+function renderEditor() {
+  const s = getActive();
+  document.getElementById('postTitle').value = s?.title || '';
+  document.getElementById('postSubtitle').value = s?.subtitle || '';
+  document.getElementById('postBody').value = s?.body || '';
+  document.getElementById('postStatus').value = s?.status || 'seed';
+  document.getElementById('postCategory').value = s?.category || 'framework';
+  updateWordCount();
+}
+
+function updateWordCount() {
+  const body = document.getElementById('postBody').value;
+  const words = body.trim() ? body.trim().split(/\s+/).length : 0;
+  const mins = Math.max(1, Math.ceil(words / 250));
+  document.getElementById('wordCount').textContent = words + ' words \u00B7 ' + mins + ' min read';
+}
+
+function selectSeed(id) {
+  saveCurrentToState();
+  activeId = id;
+  renderSidebar();
+  renderEditor();
+  save();
+}
+
+function saveCurrentToState() {
+  const s = getActive();
+  if (!s) return;
+  s.title = document.getElementById('postTitle').value;
+  s.subtitle = document.getElementById('postSubtitle').value;
+  s.body = document.getElementById('postBody').value;
+  s.status = document.getElementById('postStatus').value;
+  s.category = document.getElementById('postCategory').value;
+}
+
+function onEdit() {
+  saveCurrentToState();
+  updateWordCount();
+  save();
+  renderSidebar();
+}
+
+function addSeed() {
+  saveCurrentToState();
+  const id = 's-' + Date.now();
+  seeds.unshift({ id: id, title: '', subtitle: '', body: '', status: 'seed', category: 'framework', created: Date.now() });
+  activeId = id;
+  save();
+  renderSidebar();
+  renderEditor();
+  document.getElementById('postTitle').focus();
+}
+
+function deleteSeed() {
+  if (!activeId) return;
+  const s = getActive();
+  if (!confirm('Delete "' + (s?.title || 'Untitled') + '"?')) return;
+  seeds = seeds.filter(function(x) { return x.id !== activeId; });
+  activeId = seeds[0]?.id || null;
+  save();
+  renderSidebar();
+  renderEditor();
+}
+
+function insertFramework(fId) {
+  const f = DEFAULT_FRAMEWORKS.find(function(x) { return x.id === fId; });
+  if (!f) return;
+  const body = document.getElementById('postBody');
+  const insert = '\n\n---\n\n**' + f.title + '**\n\n' + f.snippet + '\n\n---\n\n';
+  const pos = body.selectionStart;
+  body.value = body.value.slice(0, pos) + insert + body.value.slice(pos);
+  body.selectionStart = body.selectionEnd = pos + insert.length;
+  body.focus();
+  onEdit();
+}
+
+function insertFrameworkRef() {
+  const names = DEFAULT_FRAMEWORKS.map(function(f, i) { return (i + 1) + '. ' + f.title; }).join('\n');
+  const choice = prompt('Insert framework reference:\n\n' + names + '\n\nEnter number:');
+  if (!choice) return;
+  const idx = parseInt(choice) - 1;
+  if (idx >= 0 && idx < DEFAULT_FRAMEWORKS.length) insertFramework(DEFAULT_FRAMEWORKS[idx].id);
+}
+
+function insertBlock(prefix) {
+  const body = document.getElementById('postBody');
+  const pos = body.selectionStart;
+  body.value = body.value.slice(0, pos) + prefix + body.value.slice(pos);
+  body.selectionStart = body.selectionEnd = pos + prefix.length;
+  body.focus();
+  onEdit();
+}
+
+function insertWrap(marker) {
+  const body = document.getElementById('postBody');
+  const start = body.selectionStart;
+  const end = body.selectionEnd;
+  const selected = body.value.slice(start, end);
+  const insert = marker + (selected || 'text') + marker;
+  body.value = body.value.slice(0, start) + insert + body.value.slice(end);
+  body.selectionStart = start + marker.length;
+  body.selectionEnd = start + insert.length - marker.length;
+  body.focus();
+  onEdit();
+}
+
+function copyMarkdown() {
+  const s = getActive();
+  if (!s) return;
+  const md = '# ' + s.title + '\n\n*' + s.subtitle + '*\n\n' + s.body + '\n\n---\n\n*[P31 Labs](https://phosphorus31.org) \u00B7 [The Organism](https://p31ca.org) \u00B7 [Published Research](https://zenodo.org/records/18627420)*';
+  navigator.clipboard.writeText(md).then(function() { flashStatus('Markdown copied!'); });
+}
+
+function copyHTML() {
+  const s = getActive();
+  if (!s) return;
+  var html = s.body
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/---/g, '<hr>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  html = '<h1>' + esc(s.title) + '</h1><p><em>' + esc(s.subtitle) + '</em></p><p>' + html + '</p>';
+  navigator.clipboard.writeText(html).then(function() { flashStatus('HTML copied!'); });
+}
+
+function exportAll() {
+  saveCurrentToState();
+  const blob = new Blob([JSON.stringify(seeds, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'p31-content-forge-export.json'; a.click();
+  URL.revokeObjectURL(url);
+  flashStatus('Exported!');
+}
+
+function importSeeds() {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      try {
+        const imported = JSON.parse(evt.target.result);
+        if (Array.isArray(imported)) {
+          seeds = imported.concat(seeds);
+          save();
+          renderSidebar();
+          renderEditor();
+          flashStatus('Imported ' + imported.length + ' seeds!');
+        }
+      } catch(err) { flashStatus('Import failed \u2014 invalid JSON'); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function flashStatus(msg) {
+  const el = document.getElementById('saveStatus');
+  el.textContent = msg;
+  el.style.color = 'var(--green)';
+  setTimeout(function() { el.style.color = ''; }, 2000);
+}
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+load();
+renderSidebar();
+renderEditor();
+
+setInterval(function() { saveCurrentToState(); save(); }, 10000);
+
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    saveCurrentToState();
+    save();
+    flashStatus('Saved!');
+  }
+});
+</script>
+</body>
+</html>

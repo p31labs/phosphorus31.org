@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entangled Vault · P31 Labs</title>
+  <meta name="description" content="Your files. Your device. Export everything. Import anywhere. One-click sovereignty.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Entangled Vault">
+  <meta name="p31:category" content="greenhouse">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="files, backup, export, import, vault, sovereignty">
+  <meta name="p31:icon" content="🔒">
+  <meta name="p31:color" content="#34d399">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #34d399; --node-dim: #059669;
+      --node-glow: rgba(52,211,153,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --amber: #f59e0b; --magenta: #ff00cc; --cyan: #00d4ff;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .header {
+      padding: 1rem 1.25rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+    .header-title { font-family: var(--mono); font-size: 0.8rem; color: var(--white-dim); }
+    .header button {
+      font-family: var(--mono); font-size: 0.7rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .header button:hover { color: var(--white); border-color: var(--node-color); }
+
+    .main { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 2rem); display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .summary-bar {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem;
+    }
+    .summary-card {
+      background: var(--void-up); border: 1px solid var(--void-border); border-radius: 6px;
+      padding: 1rem; text-align: center;
+    }
+    .summary-value { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--node-color); }
+    .summary-label { font-family: var(--mono); font-size: 0.65rem; color: var(--white-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
+
+    .actions-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .action-btn {
+      font-family: var(--mono); font-size: 0.8rem; padding: 0.6rem 1.2rem;
+      border-radius: 4px; cursor: pointer; border: 1px solid var(--void-border);
+      background: var(--void-surface); color: var(--white-dim); flex: 1; min-width: 150px;
+      text-align: center;
+    }
+    .action-btn:hover { border-color: var(--node-color); color: var(--white); }
+    .action-btn:focus { outline: 2px solid var(--node-color); outline-offset: 1px; }
+    .action-btn.primary { background: var(--node-color); color: var(--void); border-color: var(--node-color); font-weight: 600; }
+    .action-btn.danger { border-color: var(--magenta); color: var(--magenta); }
+    .action-btn.danger:hover { background: rgba(255,0,204,0.1); }
+
+    .section { background: var(--void-up); border: 1px solid var(--void-border); border-radius: 6px; overflow: hidden; }
+    .section-title {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--node-color);
+      text-transform: uppercase; letter-spacing: 0.1em; padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--void-border); background: var(--void-surface);
+    }
+
+    .store-list { max-height: 60vh; overflow-y: auto; }
+    .store-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--void-border);
+      font-size: 0.85rem;
+    }
+    .store-item:last-child { border-bottom: none; }
+    .store-item:hover { background: var(--void-surface); }
+    .store-key { font-family: var(--mono); color: var(--cyan); font-size: 0.8rem; word-break: break-all; flex: 1; }
+    .store-size { font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted); margin: 0 1rem; white-space: nowrap; }
+    .store-actions { display: flex; gap: 0.25rem; }
+    .store-actions button {
+      font-family: var(--mono); font-size: 0.65rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.25rem 0.5rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .store-actions button:hover { border-color: var(--node-color); color: var(--white); }
+    .store-actions button.del:hover { border-color: var(--magenta); color: var(--magenta); }
+
+    .store-empty { padding: 2rem; text-align: center; color: var(--white-muted); font-style: italic; }
+
+    .import-zone {
+      border: 2px dashed var(--void-border); border-radius: 6px; padding: 2rem;
+      text-align: center; color: var(--white-muted); cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .import-zone:hover, .import-zone.drag-active { border-color: var(--node-color); color: var(--node-color); }
+    .import-zone p { font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .import-zone small { font-family: var(--mono); font-size: 0.7rem; }
+
+    .toast {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      background: var(--node-color); color: var(--void); font-family: var(--mono);
+      font-size: 0.8rem; padding: 0.6rem 1.5rem; border-radius: 4px;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
+    }
+    .toast.visible { opacity: 1; }
+
+    .status-bar {
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+      display: flex; justify-content: space-between;
+    }
+
+    input[type="file"] { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <span class="brand">P<sup>31</sup></span>
+      <span class="header-title">/ Vault</span>
+    </div>
+    <div>
+      <button onclick="downloadSelf()">Get App ↓</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="summary-bar" id="summaryBar">
+      <div class="summary-card">
+        <div class="summary-value" id="totalKeys">0</div>
+        <div class="summary-label">Data Stores</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value" id="totalSize">0 KB</div>
+        <div class="summary-label">Total Size</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value" id="p31Keys">0</div>
+        <div class="summary-label">P31 Apps</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value" id="lastBackup">Never</div>
+        <div class="summary-label">Last Backup</div>
+      </div>
+    </div>
+
+    <div class="actions-row">
+      <button class="action-btn primary" onclick="exportAll()">Export All Data</button>
+      <button class="action-btn" onclick="exportP31Only()">Export P31 Only</button>
+      <button class="action-btn" onclick="document.getElementById('importFile').click()">Import Backup</button>
+      <button class="action-btn danger" onclick="clearAll()">Clear All P31 Data</button>
+    </div>
+
+    <input type="file" id="importFile" accept=".json" onchange="importBackup(event)">
+
+    <div class="import-zone" id="dropZone" onclick="document.getElementById('importFile').click()" role="button" tabindex="0" aria-label="Drop or click to import backup">
+      <p>Drop a backup file here or click to browse</p>
+      <small>Accepts .json exports from this Vault</small>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Local Storage Contents</div>
+      <div class="store-list" id="storeList"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="status-bar">
+    <span>All data stays on your device. Nothing leaves without your say.</span>
+    <span style="color:var(--green)">Sovereign</span>
+  </div>
+
+  <script>
+    const P31_KEYS = ['entangledWriter','entangledGrid','entangledCalendar','entangledBuffer','entangledBoard','sparkJournal','p31_spoons','p31_friction','p31_meds','p31_sleep','p31_wallet','p31_identity','p31_bonding','p31_settings','p31_apps'];
+
+    function scan() {
+      const items = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const val = localStorage.getItem(key);
+        items.push({
+          key,
+          size: new Blob([val]).size,
+          isP31: P31_KEYS.includes(key) || key.startsWith('p31_') || key.startsWith('entangled') || key.startsWith('spark'),
+          preview: val.slice(0, 80)
+        });
+      }
+      items.sort((a, b) => a.key.localeCompare(b.key));
+      return items;
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function render() {
+      const items = scan();
+      const list = document.getElementById('storeList');
+      const p31Items = items.filter(i => i.isP31);
+      const totalSize = items.reduce((s, i) => s + i.size, 0);
+
+      document.getElementById('totalKeys').textContent = items.length;
+      document.getElementById('totalSize').textContent = formatSize(totalSize);
+      document.getElementById('p31Keys').textContent = p31Items.length;
+
+      const lastBackup = localStorage.getItem('_vaultLastBackup');
+      document.getElementById('lastBackup').textContent = lastBackup ? new Date(lastBackup).toLocaleDateString() : 'Never';
+
+      if (!items.length) {
+        list.innerHTML = '<div class="store-empty">No data found in localStorage.</div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'store-item';
+        div.innerHTML = `
+          <span class="store-key">${esc(item.key)}${item.isP31 ? ' <span style="color:var(--green);font-size:0.6rem">P31</span>' : ''}</span>
+          <span class="store-size">${formatSize(item.size)}</span>
+          <div class="store-actions">
+            <button onclick="exportSingle('${esc(item.key)}')" title="Export this key">Export</button>
+            <button onclick="viewKey('${esc(item.key)}')" title="View contents">View</button>
+            <button class="del" onclick="deleteKey('${esc(item.key)}')" title="Remove this key">Remove</button>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+    function exportAll() {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+      }
+      downloadJSON(data, 'p31-vault-full-backup');
+      localStorage.setItem('_vaultLastBackup', new Date().toISOString());
+      render();
+      toast('Full backup saved');
+    }
+
+    function exportP31Only() {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (P31_KEYS.includes(key) || key.startsWith('p31_') || key.startsWith('entangled') || key.startsWith('spark')) {
+          data[key] = localStorage.getItem(key);
+        }
+      }
+      downloadJSON(data, 'p31-vault-p31-only');
+      localStorage.setItem('_vaultLastBackup', new Date().toISOString());
+      render();
+      toast('P31 backup saved');
+    }
+
+    function exportSingle(key) {
+      const data = {};
+      data[key] = localStorage.getItem(key);
+      downloadJSON(data, 'p31-vault-' + key);
+      toast(`Exported: ${key}`);
+    }
+
+    function downloadJSON(data, name) {
+      const blob = new Blob([JSON.stringify({
+        _vault: 'P31 Entangled Vault Export',
+        _version: '1.0.0',
+        _date: new Date().toISOString(),
+        _keys: Object.keys(data).length,
+        data
+      }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name + '-' + new Date().toISOString().split('T')[0] + '.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const data = parsed.data || parsed;
+          let count = 0;
+          Object.entries(data).forEach(([key, val]) => {
+            if (key.startsWith('_')) return;
+            localStorage.setItem(key, typeof val === 'string' ? val : JSON.stringify(val));
+            count++;
+          });
+          render();
+          toast(`Imported ${count} keys`);
+        } catch (err) {
+          toast('Import failed: invalid JSON');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function viewKey(key) {
+      const val = localStorage.getItem(key);
+      const w = window.open('', '_blank');
+      if (w) {
+        w.document.open();
+        w.document.write('<html><head><title>' + esc(key) + '</title><style>body{background:#050510;color:#e8e8f0;font-family:monospace;font-size:13px;padding:2rem;white-space:pre-wrap;word-wrap:break-word;line-height:1.5;}</style></head><body></body></html>');
+        try {
+          w.document.body.textContent = JSON.stringify(JSON.parse(val), null, 2);
+        } catch(e) {
+          w.document.body.textContent = val;
+        }
+        w.document.close();
+      }
+    }
+
+    function deleteKey(key) {
+      if (!confirm(`Remove "${key}" from localStorage? This cannot be undone.`)) return;
+      localStorage.removeItem(key);
+      render();
+      toast(`Removed: ${key}`);
+    }
+
+    function clearAll() {
+      if (!confirm('This will remove ALL P31 app data from localStorage. Export a backup first!\n\nContinue?')) return;
+      const toRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (P31_KEYS.includes(key) || key.startsWith('p31_') || key.startsWith('entangled') || key.startsWith('spark')) {
+          toRemove.push(key);
+        }
+      }
+      toRemove.forEach(k => localStorage.removeItem(k));
+      render();
+      toast(`Cleared ${toRemove.length} P31 keys`);
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('visible');
+      setTimeout(() => el.classList.remove('visible'), 2500);
+    }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'entangled-vault.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    // Drag and drop import
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-active'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-active'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault(); dropZone.classList.remove('drag-active');
+      const file = e.dataTransfer.files[0];
+      if (file && file.name.endsWith('.json')) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const parsed = JSON.parse(ev.target.result);
+            const data = parsed.data || parsed;
+            let count = 0;
+            Object.entries(data).forEach(([key, val]) => {
+              if (key.startsWith('_')) return;
+              localStorage.setItem(key, typeof val === 'string' ? val : JSON.stringify(val));
+              count++;
+            });
+            render();
+            toast(`Imported ${count} keys`);
+          } catch (err) { toast('Import failed: invalid JSON'); }
+        };
+        reader.readAsText(file);
+      }
+    });
+    dropZone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') document.getElementById('importFile').click(); });
+
+    render();
+  </script>
+</body>
+</html>

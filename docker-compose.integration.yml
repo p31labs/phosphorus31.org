@@ -1,0 +1,146 @@
+# Docker Compose for Integration Testing
+# All four components + dependencies in one compose file
+# Used for integration testing only
+
+version: '3.8'
+
+services:
+  # PostgreSQL - The Centaur database
+  postgres:
+    image: postgres:15-alpine
+    container_name: p31-centaur-postgres
+    environment:
+      POSTGRES_USER: centaur
+      POSTGRES_PASSWORD: centaur_dev
+      POSTGRES_DB: centaur
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U centaur"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis - The Buffer message queue
+  redis:
+    image: redis:7-alpine
+    container_name: p31-buffer-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # The Centaur - Backend AI
+  centaur:
+    build:
+      context: ./SUPER-CENTAUR
+      dockerfile: Dockerfile
+    container_name: p31-centaur
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgresql://centaur:centaur_dev@postgres:5432/centaur
+      REDIS_URL: redis://redis:6379
+      BUFFER_API_URL: http://buffer:4000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./SUPER-CENTAUR:/app
+      - /app/node_modules
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # The Buffer - Voltage scoring engine
+  buffer:
+    build:
+      context: ./cognitive-shield
+      dockerfile: Dockerfile
+    container_name: p31-buffer
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      REDIS_URL: redis://redis:6379
+      CENTAUR_API_URL: http://centaur:3000
+      CENTAUR_RETRY_COUNT: 3
+      CENTAUR_RETRY_DELAY: 1000
+      CORS_ORIGIN: http://localhost:5173,http://localhost:3000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./cognitive-shield:/app
+      - /app/node_modules
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # The Scope - Frontend UI
+  scope:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: p31-scope
+    depends_on:
+      - centaur
+      - buffer
+    environment:
+      NODE_ENV: development
+      VITE_CENTAUR_API_URL: http://localhost:3000
+      VITE_BUFFER_URL: http://localhost:4000
+      VITE_BUFFER_WS_URL: ws://localhost:4000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Mock Node One - For integration testing without hardware
+  node-one-mock:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.node-one-mock
+    container_name: p31-node-one-mock
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: development
+      PORT: 8080
+    command: node src/__tests__/integration/node-one-mock-server.js
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: p31-integration-network

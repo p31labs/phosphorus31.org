@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════
+   ALIEN EASTER EGGS — The UI Breathes
+   Three layers of life in the interface.
+   ═══════════════════════════════════════════ */
+
+/* ── 1. Circadian Gradient ──
+   A barely-visible tint that shifts with time of day.
+   Dawn and dusk are warm amber. Noon is clear.
+   Night deepens the void. */
+
+:root {
+  --circadian-hue: 0deg;
+  --circadian-sat: 0%;
+  --circadian-warmth: 0;
+  --circadian-tint: rgba(0, 0, 0, 0);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--circadian-tint);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: soft-light;
+  transition: background 60s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    transition: none;
+  }
+}
+
+
+/* ── 2. Digital Patina ──
+   The UI ages with use. Borders soften.
+   Colors warm slightly. Like leather on a journal.
+   data-patina-level: 0 (new) to 10 (well-worn) */
+
+/* Level 0-2: Pristine — no changes */
+
+/* Level 3-4: Breaking in — borders slightly softer */
+[data-patina-level="3"] *,
+[data-patina-level="4"] * {
+  --void-border: #1d1d40;
+}
+
+/* Level 5-6: Comfortable — subtle warmth */
+[data-patina-level="5"] *,
+[data-patina-level="6"] * {
+  --void-border: #201d40;
+}
+[data-patina-level="5"],
+[data-patina-level="6"] {
+  filter: sepia(0.02) brightness(1.01);
+}
+
+/* Level 7-8: Well-loved — noticeable warmth */
+[data-patina-level="7"] *,
+[data-patina-level="8"] * {
+  --void-border: #241d3d;
+}
+[data-patina-level="7"],
+[data-patina-level="8"] {
+  filter: sepia(0.03) brightness(1.01);
+}
+
+/* Level 9-10: Heirloom — the app is part of you */
+[data-patina-level="9"] *,
+[data-patina-level="10"] * {
+  --void-border: #28203d;
+}
+[data-patina-level="9"],
+[data-patina-level="10"] {
+  filter: sepia(0.04) brightness(1.01);
+}
+
+
+/* ── 3. Heisenberg Buttons ──
+   Buttons tagged by the hook get a subtle shimmer on observation.
+   The label changes are handled in JS — this CSS just adds the visual hint. */
+
+button[data-heisenberg-original] {
+  animation: heisenberg-shimmer 0.3s ease-out;
+}
+
+@keyframes heisenberg-shimmer {
+  0% { text-shadow: 0 0 4px rgba(167, 139, 250, 0.6); }
+  100% { text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button[data-heisenberg-original] {
+    animation: none;
+  }
+}

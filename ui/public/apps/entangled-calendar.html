@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entangled Calendar · P31 Labs</title>
+  <meta name="description" content="Time as energy. Every event has a spoon cost. See your week as a battery, not a grid.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Entangled Calendar">
+  <meta name="p31:category" content="hearth">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="calendar, schedule, spoons, energy, planning">
+  <meta name="p31:icon" content="📅">
+  <meta name="p31:color" content="#f59e0b">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #f59e0b; --node-dim: #d97706;
+      --node-glow: rgba(245,158,11,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --cyan: #00d4ff; --magenta: #ff00cc;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .toolbar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+    }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+    .toolbar-sep { width: 1px; height: 1.5rem; background: var(--void-border); margin: 0 0.25rem; }
+    .toolbar button {
+      font-family: var(--mono); font-size: 0.75rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .toolbar button:hover { color: var(--white); border-color: var(--node-color); }
+    .toolbar button:focus { outline: 2px solid var(--node-color); outline-offset: 1px; }
+    .week-label { font-family: var(--mono); font-size: 0.85rem; color: var(--node-color); min-width: 200px; text-align: center; }
+
+    .energy-summary {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+    }
+    .energy-bar-wrap { flex: 1; height: 20px; background: var(--void-surface); border-radius: 10px; overflow: hidden; position: relative; }
+    .energy-bar { height: 100%; border-radius: 10px; transition: width 0.3s ease; }
+    .energy-bar.good { background: var(--green); }
+    .energy-bar.warn { background: var(--node-color); }
+    .energy-bar.danger { background: var(--magenta); }
+    .energy-text { font-family: var(--mono); font-size: 0.75rem; color: var(--white-dim); white-space: nowrap; }
+
+    .week-grid { flex: 1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; padding: 1rem; overflow-y: auto; }
+    .day-col {
+      background: var(--void-up); border: 1px solid var(--void-border); border-radius: 4px;
+      display: flex; flex-direction: column; min-height: 300px;
+    }
+    .day-header {
+      padding: 0.5rem; border-bottom: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; text-align: center;
+    }
+    .day-name { color: var(--white-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .day-date { color: var(--node-color); font-size: 0.85rem; font-weight: 600; margin-top: 0.15rem; }
+    .day-spoons { font-size: 0.65rem; color: var(--white-muted); margin-top: 0.15rem; }
+    .day-spoons .over { color: var(--magenta); }
+    .day-today .day-header { background: var(--node-glow); }
+    .day-events { flex: 1; padding: 0.25rem; display: flex; flex-direction: column; gap: 0.25rem; overflow-y: auto; }
+    .event {
+      padding: 0.4rem 0.5rem; border-radius: 3px; font-size: 0.75rem;
+      border-left: 3px solid; cursor: pointer; position: relative;
+    }
+    .event:hover { filter: brightness(1.1); }
+    .event .cost { font-family: var(--mono); font-size: 0.65rem; color: var(--white-muted); }
+    .event .del-btn {
+      position: absolute; top: 2px; right: 4px; font-size: 0.7rem; color: var(--white-muted);
+      cursor: pointer; background: none; border: none; padding: 0.1rem 0.25rem;
+    }
+    .event .del-btn:hover { color: var(--magenta); }
+    .cost-1 { border-color: var(--green); background: rgba(46,204,113,0.08); }
+    .cost-2 { border-color: var(--cyan); background: rgba(0,212,255,0.08); }
+    .cost-3 { border-color: var(--node-color); background: rgba(245,158,11,0.08); }
+    .cost-4 { border-color: var(--magenta); background: rgba(255,0,204,0.08); }
+    .add-event-btn {
+      width: 100%; background: transparent; border: 1px dashed var(--void-border);
+      color: var(--white-muted); font-size: 0.7rem; padding: 0.3rem; cursor: pointer;
+      font-family: var(--mono); margin-top: auto;
+    }
+    .add-event-btn:hover { border-color: var(--node-color); color: var(--node-color); }
+
+    .modal-bg {
+      display: none; position: fixed; inset: 0; background: rgba(5,5,16,0.85); z-index: 100;
+      align-items: center; justify-content: center;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: var(--void-up); border: 1px solid var(--void-border); border-radius: 6px;
+      padding: 1.5rem; width: 90%; max-width: 360px;
+    }
+    .modal h3 { font-size: 1rem; color: var(--node-color); margin-bottom: 1rem; font-family: var(--mono); }
+    .modal label { display: block; font-size: 0.75rem; color: var(--white-dim); margin-bottom: 0.25rem; font-family: var(--mono); }
+    .modal input, .modal select {
+      width: 100%; background: var(--void-surface); border: 1px solid var(--void-border);
+      color: var(--white); padding: 0.5rem; font-size: 0.85rem; border-radius: 3px; margin-bottom: 0.75rem;
+    }
+    .modal input:focus, .modal select:focus { border-color: var(--node-color); outline: none; }
+    .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .modal-actions button {
+      font-family: var(--mono); font-size: 0.75rem; padding: 0.4rem 1rem;
+      border-radius: 3px; cursor: pointer; border: 1px solid var(--void-border);
+    }
+    .btn-save { background: var(--node-color); color: var(--void); border-color: var(--node-color); }
+    .btn-cancel { background: transparent; color: var(--white-dim); }
+
+    .status-bar {
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+      display: flex; justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+      .week-grid { grid-template-columns: 1fr; }
+      .day-col { min-height: 120px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Calendar controls">
+    <span class="brand">P<sup>31</sup></span>
+    <span style="font-family:var(--mono);font-size:0.75rem;color:var(--white-muted)">/ Calendar</span>
+    <div class="toolbar-sep"></div>
+    <button onclick="prevWeek()" aria-label="Previous week">← Prev</button>
+    <span class="week-label" id="weekLabel"></span>
+    <button onclick="nextWeek()" aria-label="Next week">Next →</button>
+    <button onclick="goToday()" aria-label="Go to today">Today</button>
+    <div class="toolbar-sep"></div>
+    <button onclick="downloadSelf()">Get App ↓</button>
+  </div>
+
+  <div class="energy-summary" aria-label="Weekly energy summary">
+    <span class="energy-text">Week Energy:</span>
+    <div class="energy-bar-wrap">
+      <div class="energy-bar good" id="energyBar" style="width:100%"></div>
+    </div>
+    <span class="energy-text" id="energyText">84 / 84 🥄</span>
+  </div>
+
+  <div class="week-grid" id="weekGrid" role="grid" aria-label="Weekly calendar"></div>
+
+  <div class="modal-bg" id="modalBg">
+    <div class="modal" role="dialog" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Add Event</h3>
+      <label for="evtName">What</label>
+      <input type="text" id="evtName" placeholder="Event name" autofocus>
+      <label for="evtTime">When</label>
+      <input type="time" id="evtTime" value="09:00">
+      <label for="evtCost">Spoon Cost</label>
+      <select id="evtCost">
+        <option value="1">🥄 1 — Light (reading, rest)</option>
+        <option value="2" selected>🥄🥄 2 — Moderate (errands, calls)</option>
+        <option value="3">🥄🥄🥄 3 — Heavy (appointments, social)</option>
+        <option value="4">🥄🥄🥄🥄 4 — Draining (travel, confrontation)</option>
+      </select>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" onclick="saveEvent()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span id="eventCount">0 events this week</span>
+    <span style="color:var(--green)" id="saveStatus">Saved</span>
+  </div>
+
+  <script>
+    const KEY = 'entangledCalendar';
+    const DAILY_SPOONS = 12;
+    let events = [];
+    let weekOffset = 0;
+    let addingDate = null;
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (raw) { try { events = JSON.parse(raw); } catch(e) { events = []; } }
+      render();
+    }
+
+    function save() {
+      localStorage.setItem(KEY, JSON.stringify(events));
+      document.getElementById('saveStatus').textContent = 'Saved';
+    }
+
+    function getWeekDays(offset) {
+      const now = new Date();
+      const monday = new Date(now);
+      monday.setDate(now.getDate() - now.getDay() + 1 + offset * 7);
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        days.push(d);
+      }
+      return days;
+    }
+
+    function dateKey(d) { return d.toISOString().split('T')[0]; }
+    function isToday(d) { return dateKey(d) === dateKey(new Date()); }
+    const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    function render() {
+      const days = getWeekDays(weekOffset);
+      const grid = document.getElementById('weekGrid');
+      grid.innerHTML = '';
+
+      // Week label
+      const first = days[0], last = days[6];
+      const label = `${MONTH_NAMES[first.getMonth()]} ${first.getDate()} — ${MONTH_NAMES[last.getMonth()]} ${last.getDate()}, ${last.getFullYear()}`;
+      document.getElementById('weekLabel').textContent = label;
+
+      let weekSpoons = 0;
+      let weekEvents = 0;
+
+      days.forEach((day, i) => {
+        const key = dateKey(day);
+        const dayEvents = events.filter(e => e.date === key).sort((a,b) => a.time.localeCompare(b.time));
+        const daySpent = dayEvents.reduce((s, e) => s + e.cost, 0);
+        weekSpoons += daySpent;
+        weekEvents += dayEvents.length;
+
+        const col = document.createElement('div');
+        col.className = 'day-col' + (isToday(day) ? ' day-today' : '');
+
+        const header = document.createElement('div');
+        header.className = 'day-header';
+        const overBudget = daySpent > DAILY_SPOONS;
+        header.innerHTML = `
+          <div class="day-name">${DAY_NAMES[i]}</div>
+          <div class="day-date">${day.getDate()}</div>
+          <div class="day-spoons">${overBudget ? '<span class="over">' : ''}${daySpent} / ${DAILY_SPOONS} 🥄${overBudget ? '</span>' : ''}</div>
+        `;
+        col.appendChild(header);
+
+        const eventsDiv = document.createElement('div');
+        eventsDiv.className = 'day-events';
+        dayEvents.forEach(evt => {
+          const el = document.createElement('div');
+          el.className = `event cost-${Math.min(evt.cost, 4)}`;
+          el.innerHTML = `<div>${evt.time} <strong>${esc(evt.name)}</strong></div><div class="cost">${'🥄'.repeat(evt.cost)}</div><button class="del-btn" aria-label="Remove event" onclick="removeEvent('${evt.id}')">&times;</button>`;
+          eventsDiv.appendChild(el);
+        });
+        col.appendChild(eventsDiv);
+
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-event-btn';
+        addBtn.textContent = '+ Add';
+        addBtn.setAttribute('aria-label', `Add event on ${DAY_NAMES[i]}`);
+        addBtn.onclick = () => openModal(key);
+        col.appendChild(addBtn);
+
+        grid.appendChild(col);
+      });
+
+      // Energy bar
+      const totalBudget = DAILY_SPOONS * 7;
+      const remaining = totalBudget - weekSpoons;
+      const pct = Math.max(0, Math.min(100, (remaining / totalBudget) * 100));
+      const bar = document.getElementById('energyBar');
+      bar.style.width = pct + '%';
+      bar.className = 'energy-bar ' + (pct > 50 ? 'good' : pct > 25 ? 'warn' : 'danger');
+      document.getElementById('energyText').textContent = `${remaining} / ${totalBudget} 🥄`;
+      document.getElementById('eventCount').textContent = `${weekEvents} events this week`;
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function openModal(dateStr) {
+      addingDate = dateStr;
+      document.getElementById('evtName').value = '';
+      document.getElementById('evtTime').value = '09:00';
+      document.getElementById('evtCost').value = '2';
+      document.getElementById('modalBg').classList.add('open');
+      setTimeout(() => document.getElementById('evtName').focus(), 50);
+    }
+
+    function closeModal() { document.getElementById('modalBg').classList.remove('open'); addingDate = null; }
+
+    function saveEvent() {
+      const name = document.getElementById('evtName').value.trim();
+      if (!name || !addingDate) return;
+      events.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+        date: addingDate,
+        name,
+        time: document.getElementById('evtTime').value || '09:00',
+        cost: parseInt(document.getElementById('evtCost').value) || 2
+      });
+      save(); closeModal(); render();
+    }
+
+    function removeEvent(id) {
+      events = events.filter(e => e.id !== id);
+      save(); render();
+    }
+
+    function prevWeek() { weekOffset--; render(); }
+    function nextWeek() { weekOffset++; render(); }
+    function goToday() { weekOffset = 0; render(); }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'entangled-calendar.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('modalBg').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    load();
+  </script>
+</body>
+</html>

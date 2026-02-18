@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entangled Grid · P31 Labs</title>
+  <meta name="description" content="Simple data tables. Sort, filter, five formulas. Not a spreadsheet — a thinking tool.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Entangled Grid">
+  <meta name="p31:category" content="studio">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="spreadsheet, data, table, tracking">
+  <meta name="p31:icon" content="📊">
+  <meta name="p31:color" content="#a78bfa">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #a78bfa; --node-dim: #7c3aed;
+      --node-glow: rgba(167,139,250,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --amber: #f59e0b; --magenta: #ff00cc;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .toolbar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+    }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+    .toolbar-sep { width: 1px; height: 1.5rem; background: var(--void-border); margin: 0 0.25rem; }
+    .toolbar select, .toolbar button, .toolbar input {
+      font-family: var(--mono); font-size: 0.75rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .toolbar button:hover { color: var(--white); border-color: var(--node-color); }
+    .toolbar button:focus { outline: 2px solid var(--node-color); outline-offset: 1px; }
+    .toolbar input { cursor: text; min-width: 120px; }
+    .toolbar input:focus { border-color: var(--node-color); outline: none; }
+
+    .grid-wrap { flex: 1; overflow: auto; padding: 1rem; }
+    table { border-collapse: collapse; width: 100%; min-width: 600px; }
+    th, td { border: 1px solid var(--void-border); padding: 0.5rem 0.75rem; text-align: left; font-size: 0.85rem; }
+    th {
+      background: var(--void-up); color: var(--node-color); font-family: var(--mono);
+      font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;
+      cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 10;
+    }
+    th:hover { background: var(--void-surface); }
+    th .sort-arrow { margin-left: 0.3rem; font-size: 0.6rem; color: var(--white-muted); }
+    th .sort-arrow.active { color: var(--node-color); }
+    td { background: var(--void); }
+    td:focus-within { outline: 2px solid var(--node-color); outline-offset: -2px; }
+    td input {
+      width: 100%; background: transparent; border: none; color: var(--white);
+      font-family: var(--font); font-size: 0.85rem; padding: 0; outline: none;
+    }
+    tr:nth-child(even) td { background: var(--void-up); }
+    tr.filter-row td { background: var(--void-surface); padding: 0.25rem 0.5rem; }
+    tr.filter-row input { font-size: 0.75rem; color: var(--white-dim); }
+    tr.filter-row input::placeholder { color: var(--white-muted); }
+
+    .formula-bar {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.5rem 1rem; background: var(--void-up);
+      border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.75rem; color: var(--white-muted);
+      flex-wrap: wrap;
+    }
+    .formula-result { color: var(--node-color); font-weight: 600; }
+    .formula-bar select { font-family: var(--mono); font-size: 0.7rem; background: var(--void-surface); color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.25rem 0.4rem; border-radius: 2px; }
+
+    .status-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Grid tools">
+    <span class="brand">P<sup>31</sup></span>
+    <span style="font-family:var(--mono);font-size:0.75rem;color:var(--white-muted)">/ Grid</span>
+    <div class="toolbar-sep"></div>
+    <select id="sheetSelect" aria-label="Select sheet"></select>
+    <input type="text" id="sheetName" placeholder="Sheet name" aria-label="Sheet name">
+    <button onclick="newSheet()">+ Sheet</button>
+    <button onclick="deleteSheet()">Remove</button>
+    <div class="toolbar-sep"></div>
+    <button onclick="addRow()">+ Row</button>
+    <button onclick="addCol()">+ Col</button>
+    <button onclick="removeRow()">- Row</button>
+    <button onclick="removeCol()">- Col</button>
+    <div class="toolbar-sep"></div>
+    <button onclick="exportCSV()">Export CSV</button>
+    <button onclick="downloadSelf()">Get App ↓</button>
+  </div>
+
+  <div class="grid-wrap">
+    <table id="grid" role="grid" aria-label="Data grid">
+      <thead id="gridHead"></thead>
+      <tbody id="gridBody"></tbody>
+    </table>
+  </div>
+
+  <div class="formula-bar">
+    <span>Formula:</span>
+    <select id="formulaSelect" aria-label="Formula">
+      <option value="SUM">SUM</option>
+      <option value="AVG">AVG</option>
+      <option value="COUNT">COUNT</option>
+      <option value="MIN">MIN</option>
+      <option value="MAX">MAX</option>
+    </select>
+    <span>on column</span>
+    <select id="formulaCol" aria-label="Column for formula"></select>
+    <span>=</span>
+    <span class="formula-result" id="formulaResult">—</span>
+  </div>
+
+  <div class="status-bar">
+    <span id="cellCount">0 cells</span>
+    <span id="saveStatus" style="color:var(--green)">Saved</span>
+  </div>
+
+  <script>
+    const KEY = 'entangledGrid';
+    let sheets = [];
+    let currentId = null;
+    let sortCol = -1;
+    let sortAsc = true;
+    let filters = [];
+    let saveTimer = null;
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (raw) { try { sheets = JSON.parse(raw); } catch(e) { sheets = []; } }
+      if (!sheets.length) sheets.push(makeSheet('Sheet 1', 5, 4));
+      currentId = sheets[0].id;
+      rebuildSheetSelect();
+      render();
+    }
+
+    function makeSheet(name, cols, rows) {
+      const headers = [];
+      for (let c = 0; c < cols; c++) headers.push(String.fromCharCode(65 + c));
+      const data = [];
+      for (let r = 0; r < rows; r++) { const row = []; for (let c = 0; c < cols; c++) row.push(''); data.push(row); }
+      return { id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), name, headers, data };
+    }
+
+    function current() { return sheets.find(s => s.id === currentId); }
+
+    function save() {
+      localStorage.setItem(KEY, JSON.stringify(sheets));
+      document.getElementById('saveStatus').textContent = 'Saved';
+    }
+    function scheduleSave() {
+      document.getElementById('saveStatus').textContent = 'Saving...';
+      clearTimeout(saveTimer); saveTimer = setTimeout(save, 600);
+    }
+
+    function rebuildSheetSelect() {
+      const sel = document.getElementById('sheetSelect');
+      sel.innerHTML = '';
+      sheets.forEach(s => {
+        const o = document.createElement('option');
+        o.value = s.id; o.textContent = s.name;
+        if (s.id === currentId) o.selected = true;
+        sel.appendChild(o);
+      });
+      document.getElementById('sheetName').value = current()?.name || '';
+    }
+
+    function rebuildFormulaCol() {
+      const sel = document.getElementById('formulaCol');
+      sel.innerHTML = '';
+      const s = current(); if (!s) return;
+      s.headers.forEach((h, i) => {
+        const o = document.createElement('option');
+        o.value = i; o.textContent = h;
+        sel.appendChild(o);
+      });
+    }
+
+    function render() {
+      const s = current(); if (!s) return;
+      const thead = document.getElementById('gridHead');
+      const tbody = document.getElementById('gridBody');
+      filters = s.headers.map(() => '');
+
+      // Headers
+      let hrow = '<tr><th style="width:40px;text-align:center">#</th>';
+      s.headers.forEach((h, i) => {
+        const arrow = sortCol === i ? (sortAsc ? '▲' : '▼') : '·';
+        const cls = sortCol === i ? 'active' : '';
+        hrow += `<th onclick="sortBy(${i})">${h} <span class="sort-arrow ${cls}">${arrow}</span></th>`;
+      });
+      hrow += '</tr>';
+      // Filter row
+      hrow += '<tr class="filter-row"><td></td>';
+      s.headers.forEach((_, i) => {
+        hrow += `<td><input type="text" placeholder="Filter..." oninput="applyFilter(${i}, this.value)" aria-label="Filter column ${s.headers[i]}"></td>`;
+      });
+      hrow += '</tr>';
+      thead.innerHTML = hrow;
+
+      // Body
+      let visibleData = s.data.map((row, idx) => ({ row, idx }));
+      // Apply filters
+      filters.forEach((f, ci) => {
+        if (f) visibleData = visibleData.filter(item => String(item.row[ci]).toLowerCase().includes(f.toLowerCase()));
+      });
+      // Sort
+      if (sortCol >= 0) {
+        visibleData.sort((a, b) => {
+          const va = a.row[sortCol], vb = b.row[sortCol];
+          const na = parseFloat(va), nb = parseFloat(vb);
+          if (!isNaN(na) && !isNaN(nb)) return sortAsc ? na - nb : nb - na;
+          return sortAsc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+        });
+      }
+
+      tbody.innerHTML = '';
+      visibleData.forEach(item => {
+        const tr = document.createElement('tr');
+        const numTd = document.createElement('td');
+        numTd.style.cssText = 'text-align:center;color:var(--white-muted);font-family:var(--mono);font-size:0.7rem';
+        numTd.textContent = item.idx + 1;
+        tr.appendChild(numTd);
+        item.row.forEach((cell, ci) => {
+          const td = document.createElement('td');
+          const inp = document.createElement('input');
+          inp.type = 'text'; inp.value = cell;
+          inp.setAttribute('aria-label', `Row ${item.idx + 1} Column ${s.headers[ci]}`);
+          const ri = item.idx, cci = ci;
+          inp.addEventListener('input', () => { s.data[ri][cci] = inp.value; scheduleSave(); calcFormula(); });
+          td.appendChild(inp);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('cellCount').textContent = `${s.data.length} rows × ${s.headers.length} cols`;
+      rebuildFormulaCol();
+      calcFormula();
+    }
+
+    function sortBy(col) {
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      render();
+    }
+
+    function applyFilter(col, val) { filters[col] = val; render(); }
+
+    function addRow() { const s = current(); if (!s) return; s.data.push(s.headers.map(() => '')); scheduleSave(); render(); }
+    function addCol() {
+      const s = current(); if (!s) return;
+      const letter = String.fromCharCode(65 + s.headers.length);
+      s.headers.push(s.headers.length < 26 ? letter : 'Col' + (s.headers.length + 1));
+      s.data.forEach(r => r.push(''));
+      scheduleSave(); render();
+    }
+    function removeRow() {
+      const s = current(); if (!s || s.data.length <= 1) return;
+      s.data.pop(); scheduleSave(); render();
+    }
+    function removeCol() {
+      const s = current(); if (!s || s.headers.length <= 1) return;
+      s.headers.pop(); s.data.forEach(r => r.pop());
+      if (sortCol >= s.headers.length) sortCol = -1;
+      scheduleSave(); render();
+    }
+
+    function newSheet() {
+      const s = makeSheet('Sheet ' + (sheets.length + 1), 5, 4);
+      sheets.push(s); currentId = s.id; save(); rebuildSheetSelect(); render();
+    }
+    function deleteSheet() {
+      if (sheets.length <= 1) return;
+      sheets = sheets.filter(s => s.id !== currentId);
+      currentId = sheets[0].id; save(); rebuildSheetSelect(); render();
+    }
+
+    function calcFormula() {
+      const s = current(); if (!s) return;
+      const fn = document.getElementById('formulaSelect').value;
+      const ci = parseInt(document.getElementById('formulaCol').value);
+      if (isNaN(ci)) { document.getElementById('formulaResult').textContent = '—'; return; }
+      const nums = s.data.map(r => parseFloat(r[ci])).filter(n => !isNaN(n));
+      let result = '—';
+      if (nums.length > 0) {
+        switch (fn) {
+          case 'SUM': result = nums.reduce((a,b) => a+b, 0); break;
+          case 'AVG': result = (nums.reduce((a,b) => a+b, 0) / nums.length).toFixed(2); break;
+          case 'COUNT': result = nums.length; break;
+          case 'MIN': result = Math.min(...nums); break;
+          case 'MAX': result = Math.max(...nums); break;
+        }
+      }
+      document.getElementById('formulaResult').textContent = result;
+    }
+
+    function exportCSV() {
+      const s = current(); if (!s) return;
+      let csv = s.headers.join(',') + '\n';
+      s.data.forEach(row => { csv += row.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',') + '\n'; });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = (s.name.replace(/\s+/g, '-').toLowerCase() || 'grid') + '.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'entangled-grid.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('sheetSelect').addEventListener('change', (e) => { save(); currentId = e.target.value; render(); rebuildSheetSelect(); });
+    document.getElementById('sheetName').addEventListener('input', (e) => { const s = current(); if (s) { s.name = e.target.value || 'Untitled'; rebuildSheetSelect(); scheduleSave(); }});
+    document.getElementById('formulaSelect').addEventListener('change', calcFormula);
+    document.getElementById('formulaCol').addEventListener('change', calcFormula);
+
+    load();
+  </script>
+</body>
+</html>

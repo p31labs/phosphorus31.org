@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coder · P31 Labs</title>
+  <meta name="description" content="Describe what you want in plain language. Get code back. Works offline with templates, smarter with Gemini.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Vibe Coder">
+  <meta name="p31:category" content="studio">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="code, generator, ai, translator, vibe">
+  <meta name="p31:icon" content="⚡">
+  <meta name="p31:color" content="#a78bfa">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #a78bfa; --node-dim: #7c3aed;
+      --node-glow: rgba(167,139,250,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --amber: #f59e0b; --cyan: #00d4ff;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+
+    .header {
+      padding: 0.75rem 1.25rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+    .header-title { font-family: var(--mono); font-size: 0.8rem; color: var(--white-dim); }
+    .header-right { display: flex; gap: 0.5rem; }
+    .header button {
+      font-family: var(--mono); font-size: 0.7rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .header button:hover { color: var(--white); border-color: var(--node-color); }
+
+    .main { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 2rem); display: flex; flex-direction: column; gap: 1rem; }
+
+    .section { background: var(--void-up); border: 1px solid var(--void-border); border-radius: 6px; padding: 1.25rem; }
+    .section-title { font-family: var(--mono); font-size: 0.7rem; color: var(--node-color); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+
+    textarea {
+      width: 100%; background: var(--void-surface); border: 1px solid var(--void-border);
+      color: var(--white); padding: 0.75rem; font-size: 0.9rem; border-radius: 4px;
+      resize: vertical; line-height: 1.6;
+    }
+    textarea:focus { outline: none; border-color: var(--node-color); }
+    textarea::placeholder { color: var(--white-muted); }
+    textarea.prompt-area { font-family: var(--font); min-height: 80px; }
+    textarea.code-area { font-family: var(--mono); font-size: 0.8rem; min-height: 200px; }
+
+    .chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .chip {
+      font-family: var(--mono); font-size: 0.65rem; padding: 0.2rem 0.6rem;
+      background: var(--void-surface); border: 1px solid var(--void-border);
+      border-radius: 2px; cursor: pointer; color: var(--white-dim);
+    }
+    .chip:hover { border-color: var(--node-color); color: var(--node-color); }
+    .chip.active { background: var(--node-color); color: var(--void); border-color: var(--node-color); }
+
+    .btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--mono); font-size: 0.8rem; padding: 0.6rem 1.2rem;
+      border-radius: 4px; cursor: pointer; border: 1px solid var(--void-border);
+      background: var(--void-surface); color: var(--white-dim);
+    }
+    .btn:hover { border-color: var(--node-color); color: var(--white); }
+    .btn.primary { background: var(--node-color); color: var(--void); border-color: var(--node-color); font-weight: 600; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .mode-indicator {
+      font-family: var(--mono); font-size: 0.7rem; padding: 0.3rem 0.75rem;
+      border-radius: 2px; display: inline-block;
+    }
+    .mode-offline { color: var(--amber); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); }
+    .mode-gemini { color: var(--cyan); background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); }
+
+    .api-config {
+      display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;
+    }
+    .api-config input {
+      flex: 1; background: var(--void-surface); border: 1px solid var(--void-border);
+      color: var(--white); padding: 0.4rem 0.6rem; font-family: var(--mono);
+      font-size: 0.75rem; border-radius: 3px;
+    }
+    .api-config input:focus { border-color: var(--node-color); outline: none; }
+
+    .output-header {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .copy-btn {
+      font-family: var(--mono); font-size: 0.65rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.25rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .copy-btn:hover { border-color: var(--node-color); color: var(--node-color); }
+
+    .history-item {
+      padding: 0.5rem 0; border-bottom: 1px solid var(--void-border);
+      cursor: pointer; font-size: 0.8rem;
+    }
+    .history-item:hover { color: var(--node-color); }
+    .history-item:last-child { border-bottom: none; }
+    .history-meta { font-family: var(--mono); font-size: 0.6rem; color: var(--white-muted); }
+
+    .status-bar {
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+      display: flex; justify-content: space-between;
+    }
+
+    .spinner { display: inline-block; width: 1em; height: 1em; border: 2px solid var(--void-border); border-top-color: var(--node-color); border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <span class="brand">P<sup>31</sup></span>
+      <span class="header-title">/ Vibe Coder</span>
+    </div>
+    <div class="header-right">
+      <button onclick="toggleHistory()">History</button>
+      <button onclick="downloadSelf()">Get App ↓</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="section">
+      <div class="section-title">Describe What You Want</div>
+      <div class="chips" id="langChips">
+        <button class="chip active" data-lang="html" onclick="setLang(this)">HTML App</button>
+        <button class="chip" data-lang="js" onclick="setLang(this)">JavaScript</button>
+        <button class="chip" data-lang="css" onclick="setLang(this)">CSS</button>
+        <button class="chip" data-lang="python" onclick="setLang(this)">Python</button>
+        <button class="chip" data-lang="bash" onclick="setLang(this)">Shell</button>
+        <button class="chip" data-lang="json" onclick="setLang(this)">JSON</button>
+      </div>
+      <textarea class="prompt-area" id="prompt" placeholder="A counter that tracks daily water intake with a plus button and a reset. Store in localStorage. Use P31 dark theme." autofocus></textarea>
+      <div class="btn-row" style="margin-top:0.75rem">
+        <button class="btn primary" id="generateBtn" onclick="generateCode()">Generate Code</button>
+        <span class="mode-indicator" id="modeLabel"></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="output-header">
+        <div class="section-title" style="margin-bottom:0">Generated Code</div>
+        <button class="copy-btn" onclick="copyOutput()">Copy</button>
+      </div>
+      <textarea class="code-area" id="output" readonly placeholder="Your code will appear here..."></textarea>
+      <div class="btn-row" style="margin-top:0.5rem">
+        <button class="btn" onclick="downloadOutput()">Download</button>
+        <button class="btn" onclick="previewOutput()">Preview in Tab</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Gemini API (optional — enhances generation)</div>
+      <div class="api-config">
+        <input type="password" id="geminiKey" placeholder="Paste Gemini API key..." aria-label="Gemini API key">
+        <button class="btn" onclick="saveGeminiKey()" style="padding:0.4rem 0.8rem;font-size:0.7rem">Save</button>
+        <button class="btn" onclick="clearGeminiKey()" style="padding:0.4rem 0.8rem;font-size:0.7rem">Clear</button>
+      </div>
+      <p style="font-family:var(--mono);font-size:0.65rem;color:var(--white-muted);margin-top:0.5rem">
+        Key stored in localStorage only. Never sent anywhere except Google's Gemini API. Without it, Vibe Coder uses offline templates.
+      </p>
+    </div>
+
+    <div class="section" id="historySection" style="display:none">
+      <div class="section-title">Generation History</div>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span id="statusText">Describe → Generate → Ship</span>
+    <span style="color:var(--green)">Offline-first</span>
+  </div>
+
+  <script>
+    const KEY = 'vibeCoder';
+    const GEMINI_KEY_STORE = 'vibeCoderGeminiKey';
+    let selectedLang = 'html';
+    let history = [];
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (raw) { try { history = JSON.parse(raw); } catch(e) { history = []; } }
+      updateModeLabel();
+    }
+
+    function save() { localStorage.setItem(KEY, JSON.stringify(history)); }
+
+    function setLang(el) {
+      document.querySelectorAll('#langChips .chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      selectedLang = el.dataset.lang;
+    }
+
+    function getGeminiKey() { return localStorage.getItem(GEMINI_KEY_STORE) || ''; }
+    function saveGeminiKey() {
+      const key = document.getElementById('geminiKey').value.trim();
+      if (key) { localStorage.setItem(GEMINI_KEY_STORE, key); document.getElementById('geminiKey').value = ''; updateModeLabel(); }
+    }
+    function clearGeminiKey() { localStorage.removeItem(GEMINI_KEY_STORE); document.getElementById('geminiKey').value = ''; updateModeLabel(); }
+
+    function updateModeLabel() {
+      const label = document.getElementById('modeLabel');
+      if (getGeminiKey()) {
+        label.className = 'mode-indicator mode-gemini';
+        label.textContent = 'Gemini Enhanced';
+      } else {
+        label.className = 'mode-indicator mode-offline';
+        label.textContent = 'Offline Templates';
+      }
+    }
+
+    async function generateCode() {
+      const prompt = document.getElementById('prompt').value.trim();
+      if (!prompt) return;
+
+      const btn = document.getElementById('generateBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Generating...';
+      document.getElementById('statusText').textContent = 'Generating...';
+
+      let code = '';
+      const geminiKey = getGeminiKey();
+
+      if (geminiKey) {
+        code = await generateWithGemini(prompt, geminiKey);
+      }
+
+      if (!code) {
+        code = generateOffline(prompt);
+      }
+
+      document.getElementById('output').value = code;
+
+      history.unshift({ prompt: prompt.slice(0, 200), lang: selectedLang, date: new Date().toISOString(), mode: geminiKey ? 'gemini' : 'offline' });
+      if (history.length > 50) history = history.slice(0, 50);
+      save();
+
+      btn.disabled = false;
+      btn.textContent = 'Generate Code';
+      document.getElementById('statusText').textContent = `Generated ${code.split('\n').length} lines · ${geminiKey ? 'Gemini' : 'Offline'}`;
+    }
+
+    async function generateWithGemini(prompt, key) {
+      const systemPrompt = `You are a code generator for P31 Labs assistive technology. Generate clean, minimal ${selectedLang} code.
+Design tokens: --void:#050510, --void-up:#0a0a1a, --void-surface:#0f0f24, --void-border:#1a1a3a, --green:#2ecc71, --amber:#f59e0b, --violet:#a78bfa, --white:#e8e8f0, --white-dim:#9898b0, --white-muted:#585870.
+Fonts: system-ui for body, monospace for data.
+Rules: offline-first, localStorage for persistence, keyboard accessible, prefers-reduced-motion support.
+Output ONLY code. No explanations. No markdown fences.`;
+
+      try {
+        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: systemPrompt + '\n\nUser request: ' + prompt }] }],
+            generationConfig: { temperature: 0.3, maxOutputTokens: 4096 }
+          })
+        });
+        const data = await resp.json();
+        let text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        // Strip markdown fences if present
+        text = text.replace(/^```\w*\n?/gm, '').replace(/```$/gm, '').trim();
+        return text;
+      } catch(e) {
+        console.warn('Gemini error:', e);
+        return '';
+      }
+    }
+
+    function generateOffline(prompt) {
+      const lower = prompt.toLowerCase();
+
+      if (selectedLang === 'html') {
+        // Detect intent from prompt
+        const isCounter = /counter|count|increment|track.*number/i.test(lower);
+        const isTimer = /timer|countdown|stopwatch|pomodoro/i.test(lower);
+        const isList = /list|todo|checklist|items/i.test(lower);
+        const isForm = /form|input|submit|collect/i.test(lower);
+
+        if (isCounter) return offlineTemplates.counter(prompt);
+        if (isTimer) return offlineTemplates.timer(prompt);
+        if (isList) return offlineTemplates.list(prompt);
+        if (isForm) return offlineTemplates.form(prompt);
+        return offlineTemplates.generic(prompt);
+      }
+
+      if (selectedLang === 'js') return offlineTemplates.jsSnippet(prompt);
+      if (selectedLang === 'css') return offlineTemplates.cssSnippet(prompt);
+      if (selectedLang === 'python') return offlineTemplates.pythonSnippet(prompt);
+      if (selectedLang === 'bash') return offlineTemplates.bashSnippet(prompt);
+      if (selectedLang === 'json') return offlineTemplates.jsonSnippet(prompt);
+      return '// Vibe Coder: Template not found for this language.\n// Describe what you need and try again, or add a Gemini key for smarter generation.';
+    }
+
+    const offlineTemplates = {
+      counter: (p) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Counter · P31</title>
+<style>body{font-family:system-ui;background:#050510;color:#e8e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:1.5rem}
+#val{font-family:monospace;font-size:4rem;color:#a78bfa}.btns{display:flex;gap:1rem}
+button{font-family:monospace;font-size:1.2rem;padding:0.5rem 1.5rem;border-radius:4px;cursor:pointer;border:1px solid #1a1a3a;background:#0f0f24;color:#e8e8f0}
+button:hover{border-color:#a78bfa}button.add{background:#a78bfa;color:#050510;border-color:#a78bfa}</style></head>
+<body><div id="val">0</div><div class="btns"><button onclick="adj(-1)">−</button><button onclick="adj(0)">Reset</button><button class="add" onclick="adj(1)">+</button></div>
+<script>let c=parseInt(localStorage.getItem('counter'))||0;render();function adj(n){c=n===0?0:c+n;localStorage.setItem('counter',c);render();}function render(){document.getElementById('val').textContent=c;}</script></body></html>`,
+
+      timer: (p) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Timer · P31</title>
+<style>body{font-family:system-ui;background:#050510;color:#e8e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:1.5rem}
+#display{font-family:monospace;font-size:4rem;color:#2ecc71}.btns{display:flex;gap:1rem}
+button{font-family:monospace;font-size:0.9rem;padding:0.5rem 1.5rem;border-radius:4px;cursor:pointer;border:1px solid #1a1a3a;background:#0f0f24;color:#e8e8f0}
+button:hover{border-color:#2ecc71}button.go{background:#2ecc71;color:#050510;border-color:#2ecc71}</style></head>
+<body><div id="display">25:00</div><div class="btns"><button class="go" onclick="toggle()" id="btn">Start</button><button onclick="reset()">Reset</button></div>
+<script>let s=1500,iv=null,on=false;function fmt(){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}function tick(){if(s<=0){clearInterval(iv);on=false;document.getElementById('btn').textContent='Done';return;}s--;document.getElementById('display').textContent=fmt();}function toggle(){if(on){clearInterval(iv);on=false;document.getElementById('btn').textContent='Resume';}else{iv=setInterval(tick,1000);on=true;document.getElementById('btn').textContent='Pause';}}function reset(){clearInterval(iv);on=false;s=1500;document.getElementById('display').textContent=fmt();document.getElementById('btn').textContent='Start';}</script></body></html>`,
+
+      list: (p) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>List · P31</title>
+<style>body{font-family:system-ui;background:#050510;color:#e8e8f0;max-width:600px;margin:0 auto;padding:2rem}
+h1{color:#f59e0b;font-size:1.5rem;margin-bottom:1rem}.row{display:flex;gap:0.5rem;margin-bottom:1rem}
+input{flex:1;background:#0f0f24;border:1px solid #1a1a3a;color:#e8e8f0;padding:0.5rem;border-radius:3px}
+input:focus{border-color:#f59e0b;outline:none}button{background:#f59e0b;color:#050510;border:none;padding:0.5rem 1rem;border-radius:3px;cursor:pointer;font-family:monospace}
+.item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0;border-bottom:1px solid #1a1a3a}
+.item input[type=checkbox]{accent-color:#f59e0b}.done{text-decoration:line-through;color:#585870}
+.del{background:none;border:none;color:#585870;cursor:pointer}</style></head>
+<body><h1>📋 List</h1><div class="row"><input type="text" id="inp" placeholder="Add item..."><button onclick="add()">Add</button></div><div id="list"></div>
+<script>let items=JSON.parse(localStorage.getItem('vibeList')||'[]');function render(){const l=document.getElementById('list');l.innerHTML='';items.forEach((it,i)=>{l.innerHTML+=\`<div class="item"><input type="checkbox" \${it.d?'checked':''} onchange="tog(\${i})"><span class="\${it.d?'done':''}" style="flex:1">\${esc(it.t)}</span><button class="del" onclick="del(\${i})">×</button></div>\`;});}function add(){const v=document.getElementById('inp').value.trim();if(!v)return;items.push({t:v,d:false});document.getElementById('inp').value='';sv();}function tog(i){items[i].d=!items[i].d;sv();}function del(i){items.splice(i,1);sv();}function sv(){localStorage.setItem('vibeList',JSON.stringify(items));render();}function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter')add();});render();</script></body></html>`,
+
+      form: (p) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Form · P31</title>
+<style>body{font-family:system-ui;background:#050510;color:#e8e8f0;max-width:500px;margin:0 auto;padding:2rem}
+h1{color:#34d399;font-size:1.5rem;margin-bottom:1.5rem}label{display:block;font-size:0.8rem;color:#9898b0;margin:0.75rem 0 0.25rem}
+input,textarea,select{width:100%;background:#0f0f24;border:1px solid #1a1a3a;color:#e8e8f0;padding:0.5rem;border-radius:3px;font-size:0.9rem}
+input:focus,textarea:focus{border-color:#34d399;outline:none}
+button{margin-top:1.5rem;background:#34d399;color:#050510;border:none;padding:0.6rem 1.5rem;border-radius:4px;cursor:pointer;font-size:0.9rem;font-weight:600}
+.msg{margin-top:1rem;padding:0.75rem;background:#34d39920;border:1px solid #34d39940;border-radius:3px;color:#34d399;display:none}</style></head>
+<body><h1>✏️ Form</h1><form id="form" onsubmit="return handle(event)"><label>Name</label><input type="text" required placeholder="Your name">
+<label>Message</label><textarea rows="4" placeholder="Your message..."></textarea><button type="submit">Submit</button></form>
+<div class="msg" id="msg">Saved locally. ✓</div>
+<script>function handle(e){e.preventDefault();document.getElementById('msg').style.display='block';setTimeout(()=>document.getElementById('msg').style.display='none',3000);return false;}</script></body></html>`,
+
+      generic: (p) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>P31 App</title>
+<style>body{font-family:system-ui;background:#050510;color:#e8e8f0;max-width:700px;margin:0 auto;padding:2rem;line-height:1.6}
+h1{color:#a78bfa;font-size:1.5rem;margin-bottom:0.5rem}p{color:#9898b0}
+.card{background:#0a0a1a;border:1px solid #1a1a3a;border-radius:6px;padding:1.25rem;margin-top:1.5rem}
+button{background:#a78bfa;color:#050510;border:none;padding:0.5rem 1.2rem;border-radius:4px;cursor:pointer;font-family:monospace;margin-top:1rem}</style></head>
+<body><h1>⚡ ${p.slice(0, 40)}</h1><p>Generated by Vibe Coder (offline mode). Customize this template.</p>
+<div class="card"><p style="color:#e8e8f0">Your app content goes here.</p>
+<button onclick="alert('It works!')">Try It</button></div>
+<script>// Add your logic here\nconsole.log('P31 app loaded');</script></body></html>`,
+
+      jsSnippet: (p) => `// Generated by Vibe Coder\n// Prompt: ${p.slice(0, 80)}\n\n// P31 Design Tokens\nconst P31 = {\n  HOME_FREQUENCY: 0.35,\n  GROUND_THRESHOLD: 3.5,\n  MESH_CAPACITY: 0.577,\n  DAMPING: 0.1,\n  SPARK_DECAY: 0.1\n};\n\n// TODO: Implement your logic here\nfunction main() {\n  console.log('P31 module loaded');\n}\n\nmain();`,
+      cssSnippet: (p) => `/* Generated by Vibe Coder */\n/* Prompt: ${p.slice(0, 80)} */\n\n:root {\n  --void: #050510;\n  --void-up: #0a0a1a;\n  --void-surface: #0f0f24;\n  --void-border: #1a1a3a;\n  --green: #2ecc71;\n  --amber: #f59e0b;\n  --violet: #a78bfa;\n  --white: #e8e8f0;\n  --white-dim: #9898b0;\n  --white-muted: #585870;\n  --font: system-ui, -apple-system, sans-serif;\n  --mono: 'Cascadia Code', monospace;\n}\n\nbody {\n  font-family: var(--font);\n  background: var(--void);\n  color: var(--white);\n  line-height: 1.6;\n}\n\n/* TODO: Add your styles */`,
+      pythonSnippet: (p) => `#!/usr/bin/env python3\n"""Generated by Vibe Coder\nPrompt: ${p.slice(0, 80)}\n"""\n\ndef main():\n    print("P31 module loaded")\n    # TODO: Implement your logic\n\nif __name__ == "__main__":\n    main()`,
+      bashSnippet: (p) => `#!/bin/bash\n# Generated by Vibe Coder\n# Prompt: ${p.slice(0, 80)}\n\nset -euo pipefail\n\necho "P31 module loaded"\n\n# TODO: Implement your logic`,
+      jsonSnippet: (p) => `{\n  "_generator": "P31 Vibe Coder",\n  "_prompt": "${p.slice(0, 80).replace(/"/g, '\\"')}",\n  "_date": "${new Date().toISOString()}",\n  "data": {\n  }\n}`
+    };
+
+    function copyOutput() {
+      const code = document.getElementById('output').value;
+      if (!code) return;
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById('statusText').textContent = 'Copied to clipboard';
+        setTimeout(() => { document.getElementById('statusText').textContent = 'Describe → Generate → Ship'; }, 1500);
+      });
+    }
+
+    function downloadOutput() {
+      const code = document.getElementById('output').value;
+      if (!code) return;
+      const ext = { html: 'html', js: 'js', css: 'css', python: 'py', bash: 'sh', json: 'json' }[selectedLang] || 'txt';
+      const blob = new Blob([code], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'vibe-coder-output.' + ext;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    function previewOutput() {
+      const code = document.getElementById('output').value;
+      if (!code) return;
+      if (selectedLang === 'html') {
+        const w = window.open('', '_blank');
+        if (w) { w.document.open(); w.document.write(code); w.document.close(); }
+      } else {
+        const w = window.open('', '_blank');
+        if (w) {
+          w.document.open();
+          w.document.write('<html><head><title>Vibe Coder Output</title><style>body{background:#050510;color:#e8e8f0;font-family:monospace;font-size:13px;padding:2rem;white-space:pre-wrap;line-height:1.5}</style></head><body></body></html>');
+          w.document.body.textContent = code;
+          w.document.close();
+        }
+      }
+    }
+
+    function toggleHistory() {
+      const el = document.getElementById('historySection');
+      if (el.style.display === 'none') {
+        renderHistory();
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+    function renderHistory() {
+      const list = document.getElementById('historyList');
+      if (!history.length) { list.innerHTML = '<p style="color:var(--white-muted);font-size:0.85rem;padding:0.5rem 0">No history yet.</p>'; return; }
+      list.innerHTML = '';
+      history.forEach(h => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `<div class="history-meta">${new Date(h.date).toLocaleDateString()} · ${h.lang} · ${h.mode}</div><div>${h.prompt}</div>`;
+        div.onclick = () => { document.getElementById('prompt').value = h.prompt; };
+        list.appendChild(div);
+      });
+    }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'vibe-coder.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('prompt').addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') generateCode();
+    });
+
+    load();
+  </script>
+</body>
+</html>

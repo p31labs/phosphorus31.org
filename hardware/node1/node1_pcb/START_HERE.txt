@@ -1,0 +1,251 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║              NODE-1 PCB v1.0                          ║
+║              Complete Design & Manufacturing Package              ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+Welcome! You've just opened a complete PCB design package for the
+Node-1 - a beautiful, tactile communication device that
+embodies "The Board is the Product" philosophy.
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 QUICK START (Getting Boards Made in 3 Steps):
+
+1. READ:    QUICK_START.md
+2. UPLOAD:  gerbers/ folder to JLCPCB.com
+3. ORDER:   Parts from fabrication/BOM.csv
+
+That's it! In 2-3 weeks you'll have parts to assemble.
+
+═══════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION ROADMAP:
+
+First Time Here?
+├─ PACKAGE_CONTENTS.md ......... What's in this package
+├─ QUICK_START.md .............. Fast track to building (10 min read)
+└─ README.md ................... Full project overview
+
+Understanding the Design:
+├─ VISUAL_REFERENCE.md ......... Component placement diagrams
+└─ PCB_DESIGN_SPEC.md .......... Complete technical specifications
+
+Manufacturing:
+├─ gerbers/ .................... Upload this folder to PCB fab
+├─ fabrication/BOM.csv ......... Component shopping list
+└─ fabrication/MANUFACTURING_SPEC.md ... PCB fab settings
+
+Building:
+└─ fabrication/ASSEMBLY_INSTRUCTIONS.md  Step-by-step build guide
+
+═══════════════════════════════════════════════════════════════════
+
+💡 RECOMMENDED READING ORDER:
+
+1. PACKAGE_CONTENTS.md  (5 min)  ← Start here to understand what you have
+2. QUICK_START.md       (10 min) ← How to order PCBs and parts  
+3. VISUAL_REFERENCE.md  (10 min) ← See what the board looks like
+4. BOM.csv              (15 min) ← Shopping list for components
+5. ASSEMBLY_INSTRUCTIONS (30 min) ← How to build it
+
+Total time to understand project: ~70 minutes
+Time to complete build: 2-4 hours
+
+═══════════════════════════════════════════════════════════════════
+
+📋 KEY SPECIFICATIONS:
+
+• Size: 51mm x 51mm (2" x 2")
+• Layers: 2-layer FR4
+• Finish: ENIG (Gold) on Matte Black solder mask
+• MCU: ESP32-S3 (WiFi + BLE)
+• Radio: LoRa 900MHz
+• Inputs: 2x mechanical switches + rotary encoder
+• Outputs: 5x RGB LEDs + haptic motor
+• Power: USB-C + LiPo battery
+
+Cost to build (5 boards): ~$80-125 USD
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 WHAT MAKES THIS SPECIAL:
+
+✓ Beautiful matte black + gold aesthetic
+✓ Tactile touch zones with exposed ENIG finish
+✓ Mechanical keyboard switches for satisfying feedback
+✓ Designed for neurodivergent makers
+✓ Open source hardware (CERN-OHL-S-v2)
+✓ Complete documentation
+✓ Ready to manufacture files
+
+═══════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT BEFORE YOU ORDER:
+
+1. Check LoRa frequency regulations in your country
+   USA: 902-928 MHz (usually OK)
+   EU: Different frequencies apply - verify first!
+
+2. PCB MUST be ordered with:
+   • Matte Black solder mask (not glossy!)
+   • ENIG surface finish (for gold touch zones)
+   
+3. The exposed copper zones on bottom layer are INTENTIONAL
+   (These are the tactile "worry stone" touch zones)
+
+═══════════════════════════════════════════════════════════════════
+
+🔗 QUICK LINKS:
+
+Manufacturing:
+• JLCPCB: https://jlcpcb.com (cheapest, good quality)
+• PCBWay: https://pcbway.com (premium option)
+
+Components:
+• Mouser: https://mouser.com (fast shipping, genuine parts)
+• LCSC: https://lcsc.com (cheap, China-based)
+• AliExpress: (cheapest, slowest)
+
+Support:
+• KiCad: https://kicad.org (free PCB design software)
+• ESP32 Docs: https://docs.espressif.com
+
+═══════════════════════════════════════════════════════════════════
+
+📁 FILE STRUCTURE:
+
+sensory_cyberdeck_pcb/
+├── START_HERE.txt ................ You are here!
+├── PACKAGE_CONTENTS.md ........... Package overview
+├── QUICK_START.md ................ Fast track guide
+├── README.md ..................... Project documentation
+├── VISUAL_REFERENCE.md ........... Layout diagrams
+├── PCB_DESIGN_SPEC.md ............ Technical specs
+├── sensory_cyberdeck.kicad_pro ... KiCad project
+├── gerbers/
+│   ├── sensory_cyberdeck-F_Cu.gbr ...... Top copper
+│   ├── sensory_cyberdeck-B_Cu.gbr ...... Bottom copper
+│   ├── sensory_cyberdeck-F_Mask.gbr .... Top solder mask
+│   ├── sensory_cyberdeck-B_Mask.gbr .... Bottom solder mask
+│   ├── sensory_cyberdeck-F_SilkS.gbr ... Top silkscreen
+│   ├── sensory_cyberdeck-B_SilkS.gbr ... Bottom silkscreen
+│   ├── sensory_cyberdeck-Edge_Cuts.gbr . Board outline
+│   └── sensory_cyberdeck.drl ........... Drill file
+└── fabrication/
+    ├── BOM.csv ......................... Component list
+    ├── MANUFACTURING_SPEC.md ........... PCB settings
+    └── ASSEMBLY_INSTRUCTIONS.md ........ Build guide
+
+═══════════════════════════════════════════════════════════════════
+
+🎨 DESIGN PHILOSOPHY:
+
+"The Board is the Product"
+
+Most PCBs hide inside cases. Not this one.
+
+This board celebrates electronics as art:
+• Exposed components show the technology
+• Matte black + gold create premium aesthetic
+• Tactile touch zones engage the senses
+• Geometric silkscreen patterns intrigue the eye
+• Satisfying mechanical inputs provide feedback
+
+It's designed to be displayed, not hidden.
+
+═══════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST FOR SUCCESS:
+
+Manufacturing:
+☐ Read QUICK_START.md
+☐ Upload gerbers/ to JLCPCB
+☐ Select Matte Black + ENIG finish
+☐ Order 5 boards (~$40-60)
+
+Shopping:
+☐ Review fabrication/BOM.csv
+☐ Order main components (ESP32, LoRa, etc.)
+☐ Order passives (resistors, capacitors)
+☐ Order battery, display, accessories
+
+Assembly:
+☐ Read ASSEMBLY_INSTRUCTIONS.md thoroughly
+☐ Prepare tools (soldering iron, etc.)
+☐ Solder SMD components
+☐ Solder through-hole components
+☐ Test each subsystem
+☐ Install battery and final assembly
+
+Programming:
+☐ Install Arduino IDE + ESP32 support
+☐ Upload test firmware
+☐ Configure LoRa parameters
+☐ Test all features
+
+Sharing:
+☐ Take beautiful photos
+☐ Share on r/cyberDeck
+☐ Inspire others!
+
+═══════════════════════════════════════════════════════════════════
+
+💬 QUESTIONS?
+
+1. Read all documentation files
+2. Check assembly instructions
+3. Search maker forums
+4. Share your build and ask community
+
+═══════════════════════════════════════════════════════════════════
+
+📜 LICENSE:
+
+Hardware Design: CERN-OHL-S-v2 (Strongly Reciprocal)
+Documentation: CC BY-SA 4.0
+Example Code: MIT
+
+You are free to:
+• Make this for personal use
+• Sell assembled boards
+• Modify the design
+• Create derivatives
+
+You must:
+• Give credit to original designer
+• Share modifications under same license
+• Include license notice
+
+═══════════════════════════════════════════════════════════════════
+
+🌟 READY TO BUILD?
+
+Start with QUICK_START.md and let's make something amazing!
+
+Good luck with your build! Share your creation with the community.
+
+---
+Node-1 v1.0 | December 2024 | Open Source Hardware
+
+═══════════════════════════════════════════════════════════════════
+
+🎨 NEW: 3D VISUALIZATION RENDERS
+
+Want to see what Node-1 looks like?
+└─ 3D_RENDERS.md ................ 9 detailed visual renders
+                                   (top, bottom, exploded view, etc.)
+
+═══════════════════════════════════════════════════════════════════
+
+🏭 NEW: JLCPCB ASSEMBLY SERVICE
+
+Want components pre-installed by the manufacturer?
+├─ JLCPCB_ASSEMBLY_GUIDE.md .... Complete ordering walkthrough
+└─ fabrication/node1_CPL.csv ... Component placement file
+                                  (required for assembly)
+
+This lets you get most SMD parts pre-soldered. You only hand-solder
+the easy through-hole parts (switches, headers). Saves hours!
+

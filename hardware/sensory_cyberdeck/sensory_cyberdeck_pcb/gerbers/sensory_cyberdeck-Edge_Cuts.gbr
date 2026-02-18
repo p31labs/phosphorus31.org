@@ -1,0 +1,29 @@
+G04 Sensory Cyberdeck - Board Outline*
+G04 Layer: Edge.Cuts*
+G04 51mm x 51mm square board*
+%FSLAX46Y46*%
+%MOMM*%
+%LPD*%
+%ADD10C,0.100000*%
+G04 Main Board Outline*
+G01*
+D10*
+X0Y0D02*
+X51000000Y0D01*
+X51000000Y51000000D01*
+X0Y51000000D01*
+X0Y0D01*
+G04 Optional: Rounded corners (0.5mm radius)*
+G04 If rounded corners desired, use these arcs*
+G04 Corner 1 (bottom-left)*
+G75*
+G03*
+X500000Y0I500000J0D01*
+G01*
+G04 Corner 2 (bottom-right)*
+X51000000Y500000I0J500000D01*
+G04 Corner 3 (top-right)*
+X50500000Y51000000I-500000J0D01*
+G04 Corner 4 (top-left)*
+X0Y50500000I0J-500000D01*
+M02*

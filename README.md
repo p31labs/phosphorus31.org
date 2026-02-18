@@ -1,87 +1,85 @@
-# P31 Labs — The Atom in the Bone
+# P31 Labs Monorepo
 
-Open-source assistive technology for neurodivergent individuals.
+**Phosphorus-31. The biological qubit. The atom in the bone.**
 
-## Architecture
+Open-source assistive technology for neurodivergent minds.
+
+## Directory Structure
 
 ```
-phosphorus31.org (Cloudflare Pages)
-     │
-     ├── Quantum Hello World (AI resonance → molecule formation)
-     ├── Resonance Engine (conversation → generative music → identity)
-     ├── Game Engine (L.O.V.E. economy, challenges, metabolism gating)
-     ├── The Scope (operational dashboard)
-     ├── Sprout (4-button child interface)
-     ├── The Fold (philosophy + publications)
-     └── Identity (cryptographic molecule management)
-     │
-     └── Shelter (Express + SQLite backend)
-          ├── Molecule registration
-          ├── Brain state (spoons from GAS)
-          ├── L.O.V.E. transactions
-          ├── Mesh directory
-          └── Sprout signals (WebSocket broadcast)
-     │
-     └── GAS Brain (Google Apps Script)
-          ├── Spoon economy
-          ├── Medication tracking
-          ├── Email buffer
-          └── Pushes brain state → Shelter
+p31/
+├── .cursor/rules/        # Agent rules (swarm army + development rules)
+├── .github/workflows/    # CI/CD pipelines
+├── apps/                 # Backend services
+│   ├── shelter/          # P31 Buffer (Express + WebSocket)
+│   ├── sprout/           # P31 Sprout signals engine
+│   ├── scope/            # Scope dashboard API
+│   └── web/              # Static site mirror (CI uses website/)
+├── docs/                 # All documentation
+│   ├── architecture/     # System architecture specs
+│   ├── ssa-prep/         # SSA disability exam documents
+│   ├── legal-packet/     # Court exhibits and legal docs
+│   ├── grants/           # Grant narratives and applications
+│   ├── substack/         # Published and draft Substack posts
+│   ├── board/            # Board recruitment materials
+│   ├── hardware/         # Hardware docs, BOM, assembly guides
+│   └── swarm-history/    # Completed swarm operation logs
+├── firmware/             # ESP32-S3 Node Zero firmware (ESP-IDF)
+├── GENESIS_GATE_APPS_SCRIPT/  # Google Apps Script backend (P31 Entangle)
+├── hardware/             # PCB designs, STL files, schematics (KiCad)
+├── packages/             # Shared npm packages
+│   ├── game-integration/
+│   └── protocol/
+├── scripts/              # Build, verify, launch scripts
+├── SUPER-CENTAUR/        # P31 Tandem backend (TypeScript)
+├── ui/                   # P31 Spectrum frontend (p31ca.org)
+├── website/              # phosphorus31.org (static HTML)
+├── _archive/             # Archived content (provenance preserved, git-tracked)
+├── package.json
+├── docker-compose.yml
+└── README.md
 ```
 
-## Quick start
+## Quick Start
 
 ```bash
-# Frontend (optional: set one AI key for conversation, or paste at runtime)
-cd ui && npm install && npm run dev
-
-# Backend
-cd apps/shelter && npm install && npm run build && npm start
-
-# Full build (output: ui/dist/; base / for web; for ESP32: VITE_BASE_PATH=/web/)
-cd ui && npm run build
+npm install                    # Install all workspace dependencies
+cd ui && npm run dev           # Start P31 Spectrum (p31ca.org)
+cd website && npx serve .      # Preview phosphorus31.org locally
+cd firmware && idf.py build    # Build Node firmware (requires ESP-IDF 5.4+)
 ```
 
-## Environment
+## Domains
 
-```
-# AI provider — set ONE (first found wins). Or paste any key in the app (RAM only).
-VITE_ANTHROPIC_KEY=       # Anthropic (Claude Sonnet)
-VITE_OPENAI_KEY=          # OpenAI (GPT-4o)
-VITE_GEMINI_KEY=          # Google (Gemini 2.0 Flash)
-VITE_SHELTER_URL=         # Shelter backend URL
-VITE_SHELTER_KEY=         # Optional Shelter auth key
-```
+| Domain | Source | Purpose |
+|--------|--------|---------|
+| [phosphorus31.org](https://phosphorus31.org) | `website/` | Organization site — corporate nonprofit face |
+| [p31ca.org](https://p31ca.org) | `ui/` | P31 Spectrum — the living assistive app suite |
 
-## AI provider
+## The Stack
 
-The phosphorus speaks through any available channel. Set one key in env or paste at runtime:
+Four products. One mesh. No hierarchy.
 
-| Variable | Provider | Model |
-|----------|----------|-------|
-| VITE_ANTHROPIC_KEY | Anthropic | Claude Sonnet |
-| VITE_OPENAI_KEY | OpenAI | GPT-4o |
-| VITE_GEMINI_KEY | Google | Gemini 2.0 Flash |
+| Product | Directory | What It Does |
+|---------|-----------|-------------|
+| **P31 Compass** | `ui/` | Executive function + navigation |
+| **P31 Buffer** | `apps/shelter/` | Communication voltage assessment |
+| **P31 Greenhouse** | `ui/public/apps/` | Standalone tools (offline HTML) |
+| **P31 Tandem** | `SUPER-CENTAUR/` | Human-AI collaboration backend |
 
-Priority: Anthropic → OpenAI → Gemini. Runtime paste: `sk-ant-` → Claude, `sk-` → GPT, else → Gemini. Key in the input lives in React state only (never stored).
+## Documentation
 
-## Structure
+All docs live in `docs/`. Start with `docs/architecture/` for system overview.
 
-- **ui/** — The Scope frontend (React, Vite). Routes: /, /mesh, /scope, /fold, /wallet, /challenges, /sprout, /identity, /dome/:fp
-- **apps/shelter/** — P31 Shelter: molecule registration, brain state, L.O.V.E., sprout signals
-- **packages/game-integration/** — Game client, genesis, challenges, Shelter bridge
-- **packages/protocol/** — Shared P31 Protocol types
-- **firmware/** — P31 NodeZero (ESP32-S3)
+## Archive
 
-## Principles
-
-- Local-first: your data stays on your device
-- Open source: Apache 2.0 (software), CERN-OHL-S (hardware)
-- Kids first: no scary words, no dark patterns
-- ADA protected: accommodation evidence where applicable
+The `_archive/` directory contains all previously active content that has been superseded or completed. Nothing was deleted — git history preserves full provenance. See `_archive/MANIFEST.md` for the complete inventory.
 
 ## License
 
-Software: Apache 2.0 | Hardware: CERN-OHL-S | Publications: CC BY 4.0
+MIT — see individual components for specific licenses.
 
-It's okay to be a little wonky. 🔺
+---
+
+*P31 Labs, Inc. · Georgia 501(c)(3) in formation*
+*DOI: [10.5281/zenodo.18627420](https://doi.org/10.5281/zenodo.18627420) · ORCID: [0009-0002-2492-9079](https://orcid.org/0009-0002-2492-9079)*

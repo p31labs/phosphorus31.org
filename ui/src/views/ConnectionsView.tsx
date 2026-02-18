@@ -1,18 +1,31 @@
 /**
  * Connections View — The Nervous System
- * Shows how the organism connects to the world.
- * 
- * Displays status and configuration for all P31 integrations:
- * - Gmail Buffer (Google Apps Script)
- * - Sheets Dashboard
- * - Calendar
- * - Drive Backup
- * - Shelter Backend
- * - Phosphorus Voice (AI providers)
- * - Node One (ESP32-S3 hardware)
+ *
+ * Real connect/disconnect for:
+ *   - Google (Calendar, Gmail subjects, Tasks) via OAuth PKCE
+ *   - Gemini AI (API key)
+ *   - GAS Backend (URL-based)
+ *   - Shelter Backend (env var)
+ *   - Node One (hardware, growing)
+ *
+ * All connections are OPTIONAL. The organism works alone.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  isGoogleConnected,
+  startGoogleAuth,
+  handleGoogleCallback,
+  disconnectGoogle,
+  setGoogleClientId,
+  getGoogleClientId,
+  isGeminiConfigured,
+  setGeminiKey,
+  disconnectGemini,
+  getGeminiRequestCount,
+  getAllServiceStatus,
+} from '../lib/bridge';
+import { isConfigured as isGASConfigured } from '../lib/gas-bridge';
 
 const BRAND = {
   green: '#00FF88',
@@ -26,419 +39,494 @@ const BRAND = {
   dim: '#4A4A7A',
 } as const;
 
-type ConnectionStatus = 'connected' | 'partial' | 'disconnected' | 'growing';
+type ServiceId = 'google' | 'gemini' | 'gas' | 'shelter' | 'node-one';
 
-interface Connection {
-  id: string;
+interface ServiceCard {
+  id: ServiceId;
   icon: string;
   name: string;
   description: string;
-  status: ConnectionStatus;
+  connected: boolean;
+  growing: boolean;
   configurable: boolean;
-  configKey?: string;
-  configLabel?: string;
-  configPlaceholder?: string;
-  testable?: boolean;
-  details?: string[];
-  envVar?: string;
-  envVars?: string[];
+  detail?: string;
 }
 
 export function ConnectionsView(): React.ReactElement {
-  const [connections, setConnections] = useState<Connection[]>([]);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [configValues, setConfigValues] = useState<Record<string, string>>({});
-  const [testResults, setTestResults] = useState<Record<string, boolean | null>>({});
+  const [services, setServices] = useState<ServiceCard[]>([]);
+  const [expandedId, setExpandedId] = useState<ServiceId | null>(null);
+  const [googleClientId, setGoogleClientIdState] = useState(getGoogleClientId());
+  const [geminiKeyInput, setGeminiKeyInput] = useState('');
+  const [gasUrlInput, setGasUrlInput] = useState(localStorage.getItem('p31:gas-url') || '');
+  const [authProcessing, setAuthProcessing] = useState(false);
 
-  // Initialize connections
-  useEffect(() => {
-    const gasUrl = localStorage.getItem('p31:gas-url') || '';
-    const sheetId = localStorage.getItem('p31:sheet-id') || '';
-    const shelterUrl = import.meta.env.VITE_SHELTER_URL || '';
-    const geminiKey = import.meta.env.VITE_GEMINI_KEY || '';
-    const openaiKey = import.meta.env.VITE_OPENAI_KEY || '';
-    const claudeKey = import.meta.env.VITE_CLAUDE_KEY || '';
-    const hasVoiceProvider = !!(geminiKey || openaiKey || claudeKey);
+  const refreshServices = useCallback(() => {
+    const shelterUrl = typeof import.meta !== 'undefined'
+      ? (import.meta as Record<string, Record<string, string>>).env?.VITE_SHELTER_URL ?? ''
+      : '';
 
-    const initialConnections: Connection[] = [
+    const cards: ServiceCard[] = [
       {
-        id: 'gmail-buffer',
-        icon: '📧',
-        name: 'GMAIL BUFFER',
-        description: 'Filters incoming email by emotional voltage.',
-        status: gasUrl ? 'connected' : 'disconnected',
+        id: 'google',
+        icon: '🔗',
+        name: 'GOOGLE',
+        description: 'Calendar events, Gmail subjects (voltage scan), Tasks.',
+        connected: isGoogleConnected(),
+        growing: false,
         configurable: true,
-        configKey: 'p31:gas-url',
-        configLabel: 'Google Apps Script Web App URL',
-        configPlaceholder: 'https://script.google.com/macros/s/.../exec',
-        testable: true,
+        detail: isGoogleConnected() ? 'OAuth PKCE · Read-only access' : undefined,
       },
       {
-        id: 'sheets-dashboard',
+        id: 'gemini',
+        icon: '🧠',
+        name: 'GEMINI AI',
+        description: 'Powers Module Maker, Vibe Coder, and molecule voice.',
+        connected: isGeminiConfigured(),
+        growing: false,
+        configurable: true,
+        detail: isGeminiConfigured() ? `${getGeminiRequestCount()} requests made` : undefined,
+      },
+      {
+        id: 'gas',
         icon: '📊',
-        name: 'SHEETS DASHBOARD',
-        description: 'Spoon data, medication tracking, accommodation log.',
-        status: sheetId ? 'connected' : 'disconnected',
+        name: 'GAS BACKEND',
+        description: 'Live spoon data, meds, friction from Google Sheets via Apps Script.',
+        connected: isGASConfigured() || !!localStorage.getItem('p31:gas-url'),
+        growing: false,
         configurable: true,
-        configKey: 'p31:sheet-id',
-        configLabel: 'Google Sheet ID',
-        configPlaceholder: '1ABC...xyz',
+        detail: localStorage.getItem('p31:gas-url') ? 'Connected to SIMPLEX v6' : undefined,
       },
       {
-        id: 'calendar',
-        icon: '📅',
-        name: 'CALENDAR',
-        description: 'Sync spoon budget with your calendar.',
-        status: 'growing',
-        configurable: false,
-      },
-      {
-        id: 'drive-backup',
-        icon: '📁',
-        name: 'DRIVE BACKUP',
-        description: 'Automatic backup of molecule data to Google Drive.',
-        status: 'growing',
-        configurable: false,
-      },
-      {
-        id: 'shelter-backend',
+        id: 'shelter',
         icon: '🏠',
         name: 'SHELTER BACKEND',
-        description: 'Core backend services for molecule, brain, wallet, mesh, sprout.',
-        status: shelterUrl ? 'connected' : 'disconnected',
+        description: 'Express server. Molecule, brain, wallet, mesh, sprout.',
+        connected: !!shelterUrl,
+        growing: false,
         configurable: false,
-        envVar: 'VITE_SHELTER_URL',
-        details: shelterUrl ? ['molecule', 'brain', 'wallet', 'mesh', 'sprout'] : undefined,
-      },
-      {
-        id: 'phosphorus-voice',
-        icon: '🧠',
-        name: 'PHOSPHORUS VOICE',
-        description: 'The AI that speaks during molecule formation.',
-        status: hasVoiceProvider ? 'connected' : 'disconnected',
-        configurable: false,
-        envVars: ['VITE_GEMINI_KEY', 'VITE_OPENAI_KEY', 'VITE_CLAUDE_KEY'],
-        details: hasVoiceProvider
-          ? [
-              geminiKey ? 'Gemini' : '',
-              openaiKey ? 'OpenAI' : '',
-              claudeKey ? 'Claude' : '',
-            ].filter(Boolean)
-          : undefined,
+        detail: shelterUrl ? shelterUrl : 'Set VITE_SHELTER_URL in .env',
       },
       {
         id: 'node-one',
         icon: '📡',
         name: 'NODE ONE',
-        description: 'ESP32-S3 haptic device. Connects via Shelter.',
-        status: 'growing',
+        description: 'ESP32-S3 haptic device. LoRa mesh. The hardware root of trust.',
+        connected: false,
+        growing: true,
         configurable: false,
       },
     ];
 
-    setConnections(initialConnections);
-    
-    // Load config values
-    const configs: Record<string, string> = {};
-    initialConnections.forEach((conn) => {
-      if (conn.configKey) {
-        configs[conn.id] = localStorage.getItem(conn.configKey) || '';
-      }
-    });
-    setConfigValues(configs);
+    setServices(cards);
   }, []);
 
-  const handleConfigChange = (connectionId: string, value: string) => {
-    const connection = connections.find((c) => c.id === connectionId);
-    if (!connection?.configKey) return;
+  // Initialize + handle OAuth callback
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
 
-    setConfigValues((prev) => ({ ...prev, [connectionId]: value }));
-    localStorage.setItem(connection.configKey, value);
-
-    // Update connection status
-    setConnections((prev) =>
-      prev.map((c) =>
-        c.id === connectionId
-          ? { ...c, status: value ? 'connected' : 'disconnected' }
-          : c
-      )
-    );
-  };
-
-  const handleTestConnection = async (connectionId: string) => {
-    const connection = connections.find((c) => c.id === connectionId);
-    if (!connection?.testable) return;
-
-    setTestResults((prev) => ({ ...prev, [connectionId]: null }));
-
-    try {
-      const url = configValues[connectionId];
-      if (!url) {
-        setTestResults((prev) => ({ ...prev, [connectionId]: false }));
-        return;
-      }
-
-      // Test GAS URL
-      await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'ping' }),
-        mode: 'no-cors', // GAS Web Apps don't support CORS properly
+    if (code) {
+      setAuthProcessing(true);
+      handleGoogleCallback(code).then((success) => {
+        setAuthProcessing(false);
+        if (success) {
+          refreshServices();
+        }
       });
-
-      // Since we use no-cors, we can't read the response
-      // But if it doesn't throw, assume it's reachable
-      setTestResults((prev) => ({ ...prev, [connectionId]: true }));
-    } catch (error) {
-      console.error('Connection test failed:', error);
-      setTestResults((prev) => ({ ...prev, [connectionId]: false }));
+    } else {
+      refreshServices();
     }
+  }, [refreshServices]);
+
+  const handleGoogleConnect = useCallback(async () => {
+    if (!googleClientId.trim()) {
+      alert('Enter your Google OAuth Client ID first.');
+      return;
+    }
+    setGoogleClientId(googleClientId.trim());
+    try {
+      await startGoogleAuth();
+    } catch (err) {
+      alert(String(err));
+    }
+  }, [googleClientId]);
+
+  const handleGoogleDisconnect = useCallback(() => {
+    disconnectGoogle();
+    refreshServices();
+  }, [refreshServices]);
+
+  const handleGeminiConnect = useCallback(() => {
+    if (!geminiKeyInput.trim()) {
+      alert('Enter your Gemini API key.');
+      return;
+    }
+    setGeminiKey(geminiKeyInput.trim());
+    setGeminiKeyInput('');
+    refreshServices();
+  }, [geminiKeyInput, refreshServices]);
+
+  const handleGeminiDisconnect = useCallback(() => {
+    disconnectGemini();
+    refreshServices();
+  }, [refreshServices]);
+
+  const handleGASSave = useCallback(() => {
+    if (gasUrlInput.trim()) {
+      localStorage.setItem('p31:gas-url', gasUrlInput.trim());
+    } else {
+      localStorage.removeItem('p31:gas-url');
+    }
+    refreshServices();
+  }, [gasUrlInput, refreshServices]);
+
+  const statusColor = (connected: boolean, growing: boolean): string => {
+    if (growing) return BRAND.cyan;
+    return connected ? BRAND.green : BRAND.dim;
   };
 
-  const getStatusColor = (status: ConnectionStatus): string => {
-    switch (status) {
-      case 'connected':
-        return BRAND.green;
-      case 'partial':
-        return BRAND.amber;
-      case 'disconnected':
-        return BRAND.magenta;
-      case 'growing':
-        return BRAND.cyan;
-      default:
-        return BRAND.dim;
-    }
-  };
-
-  const getStatusDot = (status: ConnectionStatus, isConnected: boolean): React.ReactElement => {
-    const color = getStatusColor(status);
-    const pulseClass = isConnected && status === 'connected' ? 'animate-pulse' : '';
-
-    return (
-      <div
-        className={`w-3 h-3 rounded-full ${pulseClass}`}
-        style={{
-          backgroundColor: color,
-          boxShadow: `0 0 8px ${color}`,
-        }}
-      />
-    );
+  const statusLabel = (connected: boolean, growing: boolean): string => {
+    if (growing) return 'GROWING';
+    return connected ? 'CONNECTED' : 'DISCONNECTED';
   };
 
   return (
-    <div
-      style={{
-        padding: '2rem',
-        minHeight: '100vh',
-        backgroundColor: BRAND.void,
-        color: BRAND.text,
-      }}
-    >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1
-          style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            marginBottom: '0.5rem',
-            color: BRAND.green,
-          }}
-        >
+    <div style={{ padding: 24, minHeight: '100vh', background: BRAND.void }}>
+      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+        <h1 style={{
+          fontFamily: 'Space Mono, monospace',
+          fontSize: 9,
+          letterSpacing: 5,
+          color: BRAND.muted,
+          marginBottom: 8,
+        }}>
           THE NERVOUS SYSTEM
         </h1>
-        <p
-          style={{
-            fontSize: '1.125rem',
-            color: BRAND.muted,
-            marginBottom: '2rem',
-          }}
-        >
-          How the organism connects to the world.
+        <p style={{ fontSize: 14, color: BRAND.dim, marginBottom: 32 }}>
+          All connections are optional. The organism works offline. These amplify it.
         </p>
 
-        <div style={{ display: 'grid', gap: '1.5rem' }}>
-          {connections.map((connection) => {
-            const isExpanded = expandedId === connection.id;
-            const isConnected = connection.status === 'connected';
-            const borderColor = getStatusColor(connection.status);
-            const testResult = testResults[connection.id];
+        {authProcessing && (
+          <div style={{
+            background: BRAND.surface2,
+            padding: 16,
+            borderRadius: 8,
+            border: `1px solid ${BRAND.amber}`,
+            marginBottom: 24,
+            textAlign: 'center',
+            color: BRAND.amber,
+            fontSize: 13,
+          }}>
+            Processing Google authentication...
+          </div>
+        )}
+
+        {/* Service summary strip */}
+        <div style={{
+          display: 'flex',
+          gap: 8,
+          marginBottom: 24,
+          flexWrap: 'wrap',
+        }}>
+          {services.map((s) => (
+            <div key={s.id} style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '4px 10px',
+              background: BRAND.surface2,
+              borderRadius: 4,
+              fontSize: 10,
+              fontFamily: 'Space Mono, monospace',
+              letterSpacing: 1,
+              color: statusColor(s.connected, s.growing),
+            }}>
+              <span style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: statusColor(s.connected, s.growing),
+                display: 'inline-block',
+              }} />
+              {s.name}
+            </div>
+          ))}
+        </div>
+
+        {/* Service cards */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {services.map((service) => {
+            const isExpanded = expandedId === service.id;
+            const color = statusColor(service.connected, service.growing);
 
             return (
               <div
-                key={connection.id}
+                key={service.id}
                 style={{
-                  backgroundColor: BRAND.surface2,
-                  borderRadius: '8px',
-                  borderLeft: `4px solid ${borderColor}`,
-                  padding: '1.5rem',
-                  cursor: connection.configurable ? 'pointer' : 'default',
-                }}
-                onClick={() => {
-                  if (connection.configurable) {
-                    setExpandedId(isExpanded ? null : connection.id);
-                  }
+                  background: BRAND.surface2,
+                  borderRadius: 8,
+                  borderLeft: `3px solid ${color}`,
+                  overflow: 'hidden',
                 }}
               >
-                <div
+                {/* Header */}
+                <button
+                  type="button"
+                  onClick={() => setExpandedId(isExpanded ? null : service.id)}
                   style={{
+                    width: '100%',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1rem',
-                    marginBottom: '0.5rem',
+                    gap: 12,
+                    padding: '16px 20px',
+                    background: 'transparent',
+                    border: 'none',
+                    color: BRAND.text,
+                    cursor: service.configurable ? 'pointer' : 'default',
+                    textAlign: 'left',
                   }}
                 >
-                  <span style={{ fontSize: '1.5rem' }}>{connection.icon}</span>
-                  <h2
-                    style={{
-                      fontSize: '1.25rem',
-                      fontWeight: '600',
-                      flex: 1,
+                  <span style={{ fontSize: 20 }}>{service.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{
+                      fontFamily: 'Space Mono, monospace',
+                      fontSize: 11,
+                      letterSpacing: 2,
                       color: BRAND.text,
-                    }}
-                  >
-                    {connection.name}
-                  </h2>
-                  {getStatusDot(connection.status, isConnected)}
-                  {connection.status === 'growing' && (
-                    <span
-                      style={{
-                        fontSize: '0.875rem',
-                        color: BRAND.cyan,
-                        marginLeft: '0.5rem',
-                      }}
-                    >
-                      ○ GROWING
+                    }}>
+                      {service.name}
+                    </div>
+                    <div style={{ fontSize: 12, color: BRAND.muted, marginTop: 2 }}>
+                      {service.description}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{
+                      fontFamily: 'Space Mono, monospace',
+                      fontSize: 8,
+                      letterSpacing: 1,
+                      color,
+                    }}>
+                      {statusLabel(service.connected, service.growing)}
                     </span>
-                  )}
-                </div>
+                    <span style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      background: color,
+                      boxShadow: service.connected ? `0 0 6px ${color}` : 'none',
+                      display: 'inline-block',
+                    }} />
+                  </div>
+                </button>
 
-                <p
-                  style={{
-                    color: BRAND.muted,
-                    marginBottom: isExpanded ? '1rem' : 0,
-                    fontSize: '0.9375rem',
-                  }}
-                >
-                  {connection.description}
-                </p>
-
-                {connection.details && (
-                  <div
-                    style={{
-                      marginTop: '0.75rem',
-                      fontSize: '0.875rem',
-                      color: BRAND.dim,
-                    }}
-                  >
-                    <div style={{ marginBottom: '0.25rem' }}>
-                      <strong>URL:</strong>{' '}
-                      {connection.envVar && import.meta.env[connection.envVar]
-                        ? import.meta.env[connection.envVar]
-                        : 'Not configured'}
-                    </div>
-                    <div>
-                      <strong>Services:</strong> {connection.details.join(', ')}
-                    </div>
+                {/* Detail line */}
+                {service.detail && (
+                  <div style={{
+                    padding: '0 20px 12px 52px',
+                    fontSize: 11,
+                    color: BRAND.dim,
+                    fontFamily: 'Space Mono, monospace',
+                  }}>
+                    {service.detail}
                   </div>
                 )}
 
-                {connection.envVars && (
-                  <div
-                    style={{
-                      marginTop: '0.75rem',
-                      fontSize: '0.875rem',
-                      color: BRAND.dim,
-                    }}
-                  >
-                    <strong>Providers:</strong>{' '}
-                    {connection.details?.join(', ') || 'None configured'}
-                  </div>
-                )}
+                {/* Expanded config panel */}
+                {isExpanded && service.configurable && (
+                  <div style={{
+                    padding: '12px 20px 20px',
+                    borderTop: `1px solid ${BRAND.dim}30`,
+                  }}>
+                    {/* Google config */}
+                    {service.id === 'google' && (
+                      <div>
+                        {!isGoogleConnected() ? (
+                          <>
+                            <label style={labelStyle}>Google OAuth Client ID</label>
+                            <input
+                              type="text"
+                              value={googleClientId}
+                              onChange={(e) => setGoogleClientIdState(e.target.value)}
+                              placeholder="123456789.apps.googleusercontent.com"
+                              style={inputStyle}
+                            />
+                            <p style={{ fontSize: 10, color: BRAND.dim, margin: '6px 0 12px' }}>
+                              Create at console.cloud.google.com → Credentials → OAuth 2.0. Redirect URI: {window.location.origin}/connections
+                            </p>
+                            <button
+                              type="button"
+                              onClick={handleGoogleConnect}
+                              style={connectBtnStyle}
+                            >
+                              Connect Google (OAuth PKCE)
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={handleGoogleDisconnect}
+                            style={disconnectBtnStyle}
+                          >
+                            Disconnect Google
+                          </button>
+                        )}
+                      </div>
+                    )}
 
-                {isExpanded && connection.configurable && (
-                  <div
-                    style={{
-                      marginTop: '1rem',
-                      paddingTop: '1rem',
-                      borderTop: `1px solid ${BRAND.dim}`,
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <label
-                      style={{
-                        display: 'block',
-                        marginBottom: '0.5rem',
-                        fontSize: '0.875rem',
-                        color: BRAND.text,
-                      }}
-                    >
-                      {connection.configLabel}
-                    </label>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <input
-                        type="text"
-                        value={configValues[connection.id] || ''}
-                        onChange={(e) => handleConfigChange(connection.id, e.target.value)}
-                        placeholder={connection.configPlaceholder}
-                        style={{
-                          flex: 1,
-                          padding: '0.5rem',
-                          backgroundColor: BRAND.void,
-                          border: `1px solid ${BRAND.dim}`,
-                          borderRadius: '4px',
-                          color: BRAND.text,
-                          fontSize: '0.875rem',
-                        }}
-                      />
-                      {connection.testable && (
-                        <button
-                          onClick={() => handleTestConnection(connection.id)}
-                          disabled={testResult === null && !configValues[connection.id]}
-                          style={{
-                            padding: '0.5rem 1rem',
-                            backgroundColor: BRAND.green,
-                            color: BRAND.void,
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            fontSize: '0.875rem',
-                            fontWeight: '500',
-                            opacity: testResult === null && !configValues[connection.id] ? 0.5 : 1,
-                          }}
-                        >
-                          {testResult === null
-                            ? 'Test Connection'
-                            : testResult
-                              ? '✓ Connected'
-                              : '✗ Failed'}
-                        </button>
-                      )}
-                    </div>
+                    {/* Gemini config */}
+                    {service.id === 'gemini' && (
+                      <div>
+                        {!isGeminiConfigured() ? (
+                          <>
+                            <label style={labelStyle}>Gemini API Key</label>
+                            <input
+                              type="password"
+                              value={geminiKeyInput}
+                              onChange={(e) => setGeminiKeyInput(e.target.value)}
+                              placeholder="AIza..."
+                              style={inputStyle}
+                            />
+                            <p style={{ fontSize: 10, color: BRAND.dim, margin: '6px 0 12px' }}>
+                              Get at aistudio.google.com → Get API key. Stored locally only.
+                            </p>
+                            <button
+                              type="button"
+                              onClick={handleGeminiConnect}
+                              style={connectBtnStyle}
+                            >
+                              Save API Key
+                            </button>
+                          </>
+                        ) : (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontSize: 12, color: BRAND.muted }}>
+                              {getGeminiRequestCount()} requests made
+                            </span>
+                            <button
+                              type="button"
+                              onClick={handleGeminiDisconnect}
+                              style={disconnectBtnStyle}
+                            >
+                              Remove Key
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* GAS config */}
+                    {service.id === 'gas' && (
+                      <div>
+                        <label style={labelStyle}>Google Apps Script Web App URL</label>
+                        <input
+                          type="text"
+                          value={gasUrlInput}
+                          onChange={(e) => setGasUrlInput(e.target.value)}
+                          placeholder="https://script.google.com/macros/s/.../exec"
+                          style={inputStyle}
+                        />
+                        <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                          <button
+                            type="button"
+                            onClick={handleGASSave}
+                            style={connectBtnStyle}
+                          >
+                            Save URL
+                          </button>
+                          {localStorage.getItem('p31:gas-url') && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setGasUrlInput('');
+                                localStorage.removeItem('p31:gas-url');
+                                refreshServices();
+                              }}
+                              style={disconnectBtnStyle}
+                            >
+                              Disconnect
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
             );
           })}
         </div>
-      </div>
 
-      <style>{`
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
-        .animate-pulse {
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-pulse {
-            animation: none;
-          }
-        }
-      `}</style>
+        {/* Data sovereignty notice */}
+        <div style={{
+          marginTop: 32,
+          padding: 16,
+          background: BRAND.surface2,
+          borderRadius: 8,
+          border: `1px solid ${BRAND.dim}30`,
+        }}>
+          <p style={{
+            fontFamily: 'Space Mono, monospace',
+            fontSize: 8,
+            letterSpacing: 2,
+            color: BRAND.dim,
+            marginBottom: 8,
+          }}>
+            DATA SOVEREIGNTY NOTICE
+          </p>
+          <p style={{ fontSize: 12, color: BRAND.muted, lineHeight: 1.6 }}>
+            All tokens and API keys are stored in your browser's localStorage. They never leave your device.
+            P31 has no server that receives your credentials. Google OAuth uses PKCE (no client secret).
+            You own your data. You own your connections. The mesh holds.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
+
+/* ── Shared Styles ── */
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  fontFamily: 'Space Mono, monospace',
+  fontSize: 9,
+  letterSpacing: 2,
+  color: BRAND.muted,
+  marginBottom: 6,
+};
+
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  padding: '8px 10px',
+  background: BRAND.void,
+  border: `1px solid ${BRAND.dim}`,
+  borderRadius: 4,
+  color: BRAND.text,
+  fontSize: 12,
+  fontFamily: 'Space Mono, monospace',
+};
+
+const connectBtnStyle: React.CSSProperties = {
+  padding: '8px 16px',
+  background: 'transparent',
+  border: `1px solid ${BRAND.green}`,
+  borderRadius: 6,
+  color: BRAND.green,
+  fontFamily: 'Space Mono, monospace',
+  fontSize: 10,
+  letterSpacing: 1,
+  cursor: 'pointer',
+};
+
+const disconnectBtnStyle: React.CSSProperties = {
+  padding: '8px 16px',
+  background: 'transparent',
+  border: `1px solid ${BRAND.dim}`,
+  borderRadius: 6,
+  color: BRAND.muted,
+  fontFamily: 'Space Mono, monospace',
+  fontSize: 10,
+  letterSpacing: 1,
+  cursor: 'pointer',
+};

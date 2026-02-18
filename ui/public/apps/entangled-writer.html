@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entangled Writer · P31 Labs</title>
+  <meta name="description" content="Distraction-free writing. Markdown rendered live. Full screen. Nothing else.">
+  <meta name="theme-color" content="#050510">
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="Entangled Writer">
+  <meta name="p31:category" content="studio">
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="writing, markdown, focus, distraction-free">
+  <meta name="p31:icon" content="✍️">
+  <meta name="p31:color" content="#a78bfa">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+  <style>
+    :root {
+      --void: #050510; --void-up: #0a0a1a; --void-surface: #0f0f24;
+      --void-border: #1a1a3a; --node-color: #a78bfa; --node-dim: #7c3aed;
+      --node-glow: rgba(167,139,250,0.15); --white: #e8e8f0;
+      --white-dim: #9898b0; --white-muted: #585870; --green: #2ecc71;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--void); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; }
+    .skip-link { position: absolute; top: -100px; left: 0; z-index: 1000; padding: 0.75rem 1.5rem; background: var(--node-color); color: var(--void); font-family: var(--mono); font-size: 0.85rem; text-decoration: none; }
+    .skip-link:focus { top: 0; }
+
+    .toolbar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+    }
+    .toolbar-group { display: flex; align-items: center; gap: 0.25rem; }
+    .toolbar-sep { width: 1px; height: 1.5rem; background: var(--void-border); margin: 0 0.25rem; }
+    .toolbar select, .toolbar button {
+      font-family: var(--mono); font-size: 0.75rem; background: var(--void-surface);
+      color: var(--white-dim); border: 1px solid var(--void-border); padding: 0.35rem 0.6rem;
+      cursor: pointer; border-radius: 2px;
+    }
+    .toolbar button:hover { color: var(--white); border-color: var(--node-color); }
+    .toolbar button:focus { outline: 2px solid var(--node-color); outline-offset: 1px; }
+    .toolbar button.active { background: var(--node-color); color: var(--void); border-color: var(--node-color); }
+    .toolbar .doc-name {
+      font-family: var(--mono); font-size: 0.8rem; background: transparent;
+      color: var(--node-color); border: none; border-bottom: 1px dashed var(--void-border);
+      padding: 0.3rem 0.5rem; min-width: 120px;
+    }
+    .toolbar .doc-name:focus { border-color: var(--node-color); outline: none; }
+    .brand { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 0.85rem; margin-right: 0.5rem; }
+    .brand sup { font-size: 0.55em; color: #60a5fa; }
+
+    .workspace { flex: 1; display: flex; overflow: hidden; }
+    .editor-pane, .preview-pane { flex: 1; overflow-y: auto; padding: 2rem; }
+    .editor-pane { border-right: 1px solid var(--void-border); }
+    .editor-pane textarea {
+      width: 100%; height: 100%; background: transparent; border: none; color: var(--white);
+      font-family: var(--mono); font-size: 0.95rem; line-height: 1.8; resize: none;
+    }
+    .editor-pane textarea:focus { outline: none; }
+    .editor-pane textarea::placeholder { color: var(--white-muted); }
+
+    .preview-pane { background: var(--void-up); }
+    .preview-pane.hidden { display: none; }
+    .editor-pane.full { border-right: none; }
+    .preview-content { max-width: 700px; margin: 0 auto; line-height: 1.8; }
+    .preview-content h1 { font-size: 2rem; color: var(--node-color); margin: 1.5rem 0 0.75rem; border-bottom: 1px solid var(--void-border); padding-bottom: 0.5rem; }
+    .preview-content h2 { font-size: 1.5rem; color: var(--node-color); margin: 1.25rem 0 0.5rem; }
+    .preview-content h3 { font-size: 1.2rem; color: var(--white); margin: 1rem 0 0.5rem; }
+    .preview-content p { margin: 0.75rem 0; color: var(--white-dim); }
+    .preview-content strong { color: var(--white); font-weight: 600; }
+    .preview-content em { color: var(--white-dim); font-style: italic; }
+    .preview-content code { font-family: var(--mono); font-size: 0.85em; background: var(--void-surface); color: var(--node-color); padding: 0.15em 0.4em; border-radius: 3px; }
+    .preview-content pre { background: var(--void-surface); border: 1px solid var(--void-border); padding: 1rem; border-radius: 4px; overflow-x: auto; margin: 1rem 0; }
+    .preview-content pre code { background: none; padding: 0; }
+    .preview-content ul, .preview-content ol { margin: 0.75rem 0; padding-left: 1.5rem; color: var(--white-dim); }
+    .preview-content li { margin: 0.25rem 0; }
+    .preview-content blockquote { border-left: 3px solid var(--node-color); padding: 0.5rem 1rem; margin: 1rem 0; color: var(--white-muted); background: var(--node-glow); }
+    .preview-content hr { border: none; border-top: 1px solid var(--void-border); margin: 1.5rem 0; }
+    .preview-content a { color: var(--node-color); text-decoration: underline; }
+
+    .status-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.4rem 1rem; background: var(--void-up); border-top: 1px solid var(--void-border);
+      font-family: var(--mono); font-size: 0.7rem; color: var(--white-muted);
+    }
+    .status-bar .saved { color: var(--green); }
+
+    @media (max-width: 768px) {
+      .workspace { flex-direction: column; }
+      .editor-pane { border-right: none; border-bottom: 1px solid var(--void-border); min-height: 40vh; }
+      .preview-pane { min-height: 40vh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#editor" class="skip-link">Skip to editor</a>
+
+  <div class="toolbar" role="toolbar" aria-label="Writing tools">
+    <span class="brand">P<sup>31</sup></span>
+    <div class="toolbar-sep"></div>
+    <div class="toolbar-group">
+      <select id="docSelect" aria-label="Select document" title="Documents"></select>
+      <input type="text" class="doc-name" id="docName" aria-label="Document name" placeholder="Untitled" title="Rename document">
+      <button onclick="newDoc()" title="New document">+ New</button>
+      <button onclick="deleteDoc()" title="Remove current document">Remove</button>
+    </div>
+    <div class="toolbar-sep"></div>
+    <div class="toolbar-group">
+      <button id="btnPreview" onclick="togglePreview()" title="Toggle preview (Ctrl+P)" class="active">Preview</button>
+      <button onclick="toggleZen()" title="Zen mode — editor only" id="btnZen">Zen</button>
+    </div>
+    <div class="toolbar-sep"></div>
+    <div class="toolbar-group">
+      <button onclick="exportMd()" title="Download as Markdown">Export .md</button>
+      <button onclick="downloadSelf()" title="Download this app">Get App ↓</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="editor-pane" id="editorPane">
+      <textarea id="editor" placeholder="Start writing. Markdown rendered live.&#10;&#10;# Heading&#10;**Bold** and *italic*&#10;- List items&#10;> Blockquote&#10;`code`" autofocus spellcheck="true" aria-label="Markdown editor"></textarea>
+    </div>
+    <div class="preview-pane" id="previewPane">
+      <div class="preview-content" id="preview" aria-live="polite" role="document"></div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div><span id="wordCount">0</span> words · <span id="charCount">0</span> chars · <span id="lineCount">0</span> lines</div>
+    <div id="saveStatus" class="saved">Saved</div>
+  </div>
+
+  <script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const previewPane = document.getElementById('previewPane');
+    const editorPane = document.getElementById('editorPane');
+    const docSelect = document.getElementById('docSelect');
+    const docName = document.getElementById('docName');
+    const KEY = 'entangledWriter';
+    let docs = [];
+    let currentId = null;
+    let saveTimer = null;
+    let showPreview = true;
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (raw) { try { docs = JSON.parse(raw); } catch(e) { docs = []; } }
+      if (!docs.length) { docs.push(createDoc('Untitled')); }
+      currentId = docs[0].id;
+      rebuildSelect();
+      openDoc(currentId);
+    }
+
+    function createDoc(name) {
+      return { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: name || 'Untitled', content: '', created: new Date().toISOString(), updated: new Date().toISOString() };
+    }
+
+    function save() {
+      const doc = docs.find(d => d.id === currentId);
+      if (doc) { doc.content = editor.value; doc.updated = new Date().toISOString(); }
+      localStorage.setItem(KEY, JSON.stringify(docs));
+      document.getElementById('saveStatus').textContent = 'Saved';
+    }
+
+    function scheduleSave() {
+      document.getElementById('saveStatus').textContent = 'Saving...';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(save, 800);
+    }
+
+    function rebuildSelect() {
+      docSelect.innerHTML = '';
+      docs.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.id; opt.textContent = d.name;
+        if (d.id === currentId) opt.selected = true;
+        docSelect.appendChild(opt);
+      });
+    }
+
+    function openDoc(id) {
+      currentId = id;
+      const doc = docs.find(d => d.id === id);
+      if (!doc) return;
+      editor.value = doc.content;
+      docName.value = doc.name;
+      renderPreview();
+      updateStats();
+      rebuildSelect();
+    }
+
+    function newDoc() {
+      const doc = createDoc('Untitled ' + (docs.length + 1));
+      docs.unshift(doc);
+      save();
+      openDoc(doc.id);
+    }
+
+    function deleteDoc() {
+      if (docs.length <= 1) { editor.value = ''; docs[0].content = ''; save(); renderPreview(); return; }
+      docs = docs.filter(d => d.id !== currentId);
+      save();
+      openDoc(docs[0].id);
+    }
+
+    function renderPreview() {
+      if (!showPreview) return;
+      preview.innerHTML = markdownToHTML(editor.value);
+    }
+
+    function markdownToHTML(md) {
+      if (!md.trim()) return '<p style="color:var(--white-muted);text-align:center;padding:3rem 0;">Your words will appear here.</p>';
+      let html = md;
+      // Escape HTML
+      html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      // Code blocks
+      html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+      // Headings
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+      // Horizontal rules
+      html = html.replace(/^---$/gm, '<hr>');
+      // Blockquotes
+      html = html.replace(/^&gt; (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
+      // Bold + italic
+      html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      // Inline code
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+      // Links
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      // Unordered lists
+      html = html.replace(/^[\-\*] (.+)$/gm, '<li>$1</li>');
+      html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+      // Ordered lists
+      html = html.replace(/^\d+\. (.+)$/gm, '<oli>$1</oli>');
+      html = html.replace(/((?:<oli>.*<\/oli>\n?)+)/g, function(m) { return '<ol>' + m.replace(/<\/?oli>/g, function(t) { return t.replace('oli', 'li'); }) + '</ol>'; });
+      // Paragraphs
+      html = html.replace(/^(?!<[hupob\-lr])((?!<).+)$/gm, '<p>$1</p>');
+      // Clean up empty paragraphs
+      html = html.replace(/<p><\/p>/g, '');
+      return html;
+    }
+
+    function updateStats() {
+      const text = editor.value;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      document.getElementById('wordCount').textContent = words;
+      document.getElementById('charCount').textContent = text.length;
+      document.getElementById('lineCount').textContent = text.split('\n').length;
+    }
+
+    function togglePreview() {
+      showPreview = !showPreview;
+      const btn = document.getElementById('btnPreview');
+      if (showPreview) {
+        previewPane.classList.remove('hidden');
+        editorPane.classList.remove('full');
+        btn.classList.add('active');
+        renderPreview();
+      } else {
+        previewPane.classList.add('hidden');
+        editorPane.classList.add('full');
+        btn.classList.remove('active');
+      }
+    }
+
+    function toggleZen() {
+      const btn = document.getElementById('btnZen');
+      if (!showPreview) { togglePreview(); }
+      document.querySelector('.toolbar').style.display = document.querySelector('.toolbar').style.display === 'none' ? '' : 'none';
+      document.querySelector('.status-bar').style.display = document.querySelector('.status-bar').style.display === 'none' ? '' : 'none';
+      btn.classList.toggle('active');
+    }
+
+    function exportMd() {
+      const doc = docs.find(d => d.id === currentId);
+      const blob = new Blob([editor.value], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = (doc ? doc.name.replace(/\s+/g, '-').toLowerCase() : 'document') + '.md';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'entangled-writer.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    editor.addEventListener('input', () => { scheduleSave(); renderPreview(); updateStats(); });
+    docSelect.addEventListener('change', (e) => { save(); openDoc(e.target.value); });
+    docName.addEventListener('input', () => {
+      const doc = docs.find(d => d.id === currentId);
+      if (doc) { doc.name = docName.value || 'Untitled'; rebuildSelect(); scheduleSave(); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'p') { e.preventDefault(); togglePreview(); }
+      if (e.ctrlKey && e.key === 's') { e.preventDefault(); save(); }
+      if (e.key === 'Escape') { const tb = document.querySelector('.toolbar'); if (tb.style.display === 'none') toggleZen(); }
+    });
+
+    load();
+  </script>
+</body>
+</html>

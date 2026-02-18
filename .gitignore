@@ -75,6 +75,10 @@ ENV/
 *.sqlite
 *.sqlite3
 
+# Confidential documents (legal, medical, SSA)
+docs/legal-packet/
+docs/ssa-prep/
+
 # Runtime data (Shelter accommodation log + backups) — root data/ only so ui/src/data/ is tracked
 /data/
 backup/
@@ -86,7 +90,7 @@ backups/
 .cache/
 .parcel-cache/
 
-# Non-project tools and binaries
+# Non-project tools and binaries (re-download if needed)
 FATXplorerBeta64/
 HxDSetup/
 Rufus/
@@ -101,6 +105,7 @@ New folder.code-workspace
 OpusPhenix/
 omniscio-package/
 digital-centaur-package/
+firmware/xiaozhi-esp32/
 
 # Binary/media files that shouldn't be in git
 *.zip

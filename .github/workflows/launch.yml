@@ -1,5 +1,8 @@
-# P31 Launch — Deploy to production after CI passes
-# Trigger: push to main (after CI) or workflow_dispatch.
+# P31 Labs — Dual-Domain Launch Pipeline
+# phosphorus31.org (static) + p31ca.org (Vite app)
+#
+# Triggers on push to main (after CI gate) or manual dispatch.
+# Requires CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets.
 name: P31 Launch
 
 on:
@@ -15,7 +18,7 @@ jobs:
   ci-gate:
     uses: ./.github/workflows/ci.yml
 
-  # ═══ LAUNCH WEBSITE TO CLOUDFLARE PAGES ═══
+  # ═══ LAUNCH: phosphorus31.org (static site) ═══
   launch-website:
     name: Launch phosphorus31.org
     runs-on: ubuntu-latest
@@ -23,20 +26,53 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Verify website/index.html exists
+        run: test -f website/index.html
+
+      - name: Deploy phosphorus31.org
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy website/ --project-name=phosphorus31-org
+
+  # ═══ LAUNCH: p31ca.org (Vite app) ═══
+  launch-app:
+    name: Launch p31ca.org
+    runs-on: ubuntu-latest
+    needs: ci-gate
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
+
       - run: npm ci
-      - run: npm run build:web
-      - name: Deploy to Cloudflare Pages
+
+      - name: Build Vite app
+        working-directory: ui
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f ui/dist/index.html || (echo "FAIL: no index.html" && exit 1)
+          test -f ui/dist/apps/content-forge.html || echo "WARN: content-forge.html missing"
+          echo "Build verification passed"
+
+      - name: Deploy p31ca.org
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ee05f70c889cb6f876b9925257e3a2fa
-          command: pages deploy apps/web --project-name=phosphorus31-org
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ui/dist/ --project-name=p31ca-org
 
-  # ═══ LAUNCH SHELTER BACKEND (placeholders — enable when hosting configured) ═══
+  # ═══ LAUNCH: Shelter Backend (placeholder — enable when hosting ready) ═══
   launch-shelter:
     name: Launch Shelter Backend
     runs-on: ubuntu-latest
@@ -44,11 +80,4 @@ jobs:
     if: github.ref == 'refs/heads/main' && false
     steps:
       - uses: actions/checkout@v4
-      # Option A: Railway — set if: false to true and add RAILWAY_TOKEN
-      # - uses: bervProject/railway-deploy@main
-      #   with:
-      #     railway_token: ${{ secrets.RAILWAY_TOKEN }}
-      #     service: p31-shelter
-      # Option B: Fly.io — add flyctl-actions step
-      # Option C: Self-hosted SSH
       - run: echo "Shelter launch disabled. Configure Railway/Fly/SSH and set if condition to true."

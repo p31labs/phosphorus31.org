@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Name · P31 Labs</title>
+  <meta name="description" content="One sentence describing what this app does.">
+  <meta name="theme-color" content="#050510">
+
+  <!-- P31 APP METADATA — The marketplace reads these -->
+  <meta name="p31:type" content="app">
+  <meta name="p31:name" content="App Name">
+  <meta name="p31:category" content="compass"><!-- compass | hearth | greenhouse | studio -->
+  <meta name="p31:version" content="1.0.0">
+  <meta name="p31:author" content="P31 Labs">
+  <meta name="p31:license" content="Apache-2.0">
+  <meta name="p31:tags" content="tag1, tag2, tag3">
+  <meta name="p31:icon" content="🧭">
+  <meta name="p31:color" content="#2ecc71">
+  <meta name="p31:offline" content="true">
+  <meta name="p31:accessibility" content="keyboard, screenreader, reducedmotion">
+
+  <!-- Fonts (optional — falls back to system fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+
+  <style>
+    /* ═══════════════════════════════════════
+       P31 DESIGN TOKENS — Minimal App Set
+       ═══════════════════════════════════════ */
+    :root {
+      --void: #050510;
+      --void-up: #0a0a1a;
+      --void-surface: #0f0f24;
+      --void-border: #1a1a3a;
+      --phosphorus: #2ecc71;
+      --phosphorus-dim: #1a7a43;
+      --phosphorus-glow: rgba(46, 204, 113, 0.15);
+      --phosphorus-flare: rgba(46, 204, 113, 0.4);
+      --calcium: #60a5fa;
+      --calcium-dim: #2563eb;
+      --calcium-glow: rgba(96, 165, 250, 0.12);
+      --white: #e8e8f0;
+      --white-dim: #9898b0;
+      --white-muted: #585870;
+      --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Category color — change per category */
+      --node-color: var(--phosphorus); /* compass=#2ecc71, hearth=#f59e0b, greenhouse=#34d399, studio=#a78bfa */
+      --node-glow: var(--phosphorus-glow);
+    }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--font-display);
+      background: var(--void);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute; top: -100px; left: 0; z-index: 1000;
+      padding: 0.75rem 1.5rem;
+      background: var(--node-color); color: var(--void);
+      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; border-radius: 0 0 4px 0;
+    }
+    .skip-link:focus { top: 0; outline: 3px solid var(--calcium); outline-offset: 2px; }
+
+    /* App Bar */
+    .app-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      background: var(--void-up);
+      border-bottom: 1px solid var(--void-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .app-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .app-bar-home {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--phosphorus);
+      text-decoration: none;
+    }
+    .app-bar-home sup { font-size: 0.55em; color: var(--calcium); vertical-align: super; }
+
+    .app-bar-sep {
+      color: var(--void-border);
+      font-size: 1.2rem;
+      font-weight: 200;
+    }
+
+    .app-bar-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--white-dim);
+      letter-spacing: 0.03em;
+    }
+
+    .app-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .app-bar-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out-expo);
+      border: none;
+    }
+
+    .btn-download {
+      background: var(--node-color);
+      color: var(--void);
+    }
+    .btn-download:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 0 20px var(--node-glow);
+    }
+    .btn-download:focus {
+      outline: 2px solid var(--calcium);
+      outline-offset: 2px;
+    }
+
+    .btn-source {
+      background: transparent;
+      color: var(--white-muted);
+      border: 1px solid var(--void-border);
+    }
+    .btn-source:hover {
+      color: var(--white-dim);
+      border-color: var(--white-muted);
+    }
+
+    /* Main Content Area */
+    .app-main {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem clamp(1rem, 4vw, 2rem);
+    }
+
+    .app-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--void-border);
+    }
+
+    .app-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .app-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .app-desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .app-category {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--node-color);
+      background: rgba(46, 204, 113, 0.08);
+      padding: 0.25rem 0.6rem;
+      border: 1px solid rgba(46, 204, 113, 0.15);
+      border-radius: 1px;
+      margin-top: 1rem;
+    }
+
+    /* ── YOUR APP STYLES GO HERE ── */
+
+
+
+    /* App Footer */
+    .app-footer {
+      padding: 1.5rem;
+      border-top: 1px solid var(--void-border);
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .app-footer-text {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--white-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .app-footer-text a {
+      color: var(--phosphorus-dim);
+      text-decoration: none;
+    }
+    .app-footer-text a:hover {
+      color: var(--phosphorus);
+    }
+
+    /* Utility: Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .app-bar-name { display: none; }
+      .app-bar-sep { display: none; }
+      .btn-source { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip to content -->
+  <a href="#app-content" class="skip-link">Skip to app</a>
+
+  <!-- App Bar -->
+  <header class="app-bar">
+    <div class="app-bar-left">
+      <a href="https://phosphorus31.org" class="app-bar-home" aria-label="P31 Labs home">P<sup>31</sup></a>
+      <span class="app-bar-sep">/</span>
+      <span class="app-bar-name">App Name</span>
+    </div>
+    <div class="app-bar-right">
+      <button class="app-bar-btn btn-source" onclick="viewSource()" aria-label="View source code">View Source</button>
+      <button class="app-bar-btn btn-download" onclick="downloadSelf()" aria-label="Download this app">Get This App ↓</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="app-content" class="app-main">
+    <div class="app-header">
+      <span class="app-icon" aria-hidden="true">🧭</span>
+      <h1 class="app-title">App Name</h1>
+      <p class="app-desc">One sentence describing what this app does and who it helps.</p>
+      <span class="app-category">Compass</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         YOUR APP GOES HERE
+         Everything between these markers is yours.
+         ═══════════════════════════════════════ -->
+
+    <div id="app">
+      <p style="color: var(--white-muted); text-align: center; padding: 4rem 0;">
+        Your app starts here. Replace this with your creation.
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         END OF YOUR APP
+         ═══════════════════════════════════════ -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p class="app-footer-text">
+      <a href="https://phosphorus31.org">P31 Labs</a> · Apache 2.0 · Works offline · Hand this file to any LLM to customize
+    </p>
+  </footer>
+
+  <script>
+    /* ═══════════════════════════════════════
+       P31 APP CORE — Do not remove these.
+       ═══════════════════════════════════════ */
+
+    // Self-download: saves the exact page you're looking at
+    function downloadSelf() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const name = document.querySelector('meta[name="p31:name"]');
+      a.href = url;
+      a.download = (name ? name.content.toLowerCase().replace(/\s+/g, '-') : 'p31-app') + '.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // View source: opens a new tab with the page source
+    function viewSource() {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const w = window.open('', '_blank');
+      if (w) {
+        w.document.open();
+        w.document.write('<html><head><title>Source: ' +
+          (document.querySelector('meta[name="p31:name"]')?.content || 'P31 App') +
+          '</title><style>body{background:#050510;color:#e8e8f0;font-family:monospace;' +
+          'font-size:13px;padding:2rem;white-space:pre-wrap;word-wrap:break-word;' +
+          'line-height:1.5;}</style></head><body></body></html>');
+        w.document.body.textContent = html;
+        w.document.close();
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       YOUR APP JAVASCRIPT GOES HERE
+       ═══════════════════════════════════════ */
+
+
+  </script>
+</body>
+</html>

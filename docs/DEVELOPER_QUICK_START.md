@@ -44,7 +44,7 @@ cd apps/shelter && npm install && npm run start:server
 | **The Centaur** | `SUPER-CENTAUR/` | 3000 | Backend AI protocol |
 | **The Scope** | `ui/` | 5173 | Dashboard/UI |
 | **The Buffer (P31 Shelter)** | `apps/shelter/` | 4000 | Communication processing |
-| **Node One** | `firmware/` | N/A | Hardware (ESP32-S3) |
+| **Node One (P31 NodeZero)** | `firmware/` | N/A | Hardware (ESP32-S3). See [Firmware synthesis](FIRMWARE_XIAOZHI_SYNTHESIS.md) for Xiaozhi × P31 build order. |
 
 ---
 
@@ -177,6 +177,8 @@ npm install
 - [Development Guide](development.md) - Detailed workflow
 - [Architecture](architecture.md) - System design
 - [Component Docs](index.md) - Individual component guides
+- [Firmware: Xiaozhi × P31 synthesis](FIRMWARE_XIAOZHI_SYNTHESIS.md) - P31 NodeZero (ESP32-S3) architecture, pin map, 6-phase build order
+- [P31 NodeZero board checklist (Phase 1a)](FIRMWARE_P31_NODEZERO_BOARD_CHECKLIST.md) - Clone Xiaozhi v2, create `boards/p31-node-zero/`
 
 ---
 
@@ -186,6 +188,7 @@ npm install
 - [GOD_CONFIG Reference](god-config.md)
 - [API Documentation](api/index.md)
 - [Troubleshooting](troubleshooting.md)
+- [Firmware synthesis (NodeZero)](FIRMWARE_XIAOZHI_SYNTHESIS.md)
 
 ---
 
