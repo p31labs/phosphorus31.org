@@ -1,9 +1,0 @@
-{
-  "packages": [
-    "sovereign-agent-core",
-    "packages/*"
-  ],
-  "version": "independent",
-  "npmClient": "npm",
-  "useWorkspaces": true
-}

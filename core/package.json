@@ -1,8 +1,0 @@
-{
-  "name": "core",
-  "version": "1.0.0",
-  "main": "src/index.ts",
-  "scripts": {
-    "dev": "echo 'Core package - no dev server needed'"
-  }
-}
