@@ -1,0 +1,28 @@
+FROM python:3.11-alpine
+
+# Install build dependencies
+RUN apk add --no-cache build-base libffi-dev openssl-dev
+
+# Install Telethon for Telegram API
+RUN pip install telethon
+RUN pip install redis
+
+# Install signal-cli for Signal integration
+RUN apk add --no-cache openjdk8-jre-base
+RUN wget https://github.com/AsamK/signal-cli/releases/download/v0.8.5/signal-cli-0.8.5.tar.gz
+RUN tar -xzf signal-cli-0.8.5.tar.gz
+
+# Copy the bridge script
+COPY comm_bridge.py /app/comm_bridge.py
+
+# Create input directory
+RUN mkdir -p /app/input
+
+# Set working directory
+WORKDIR /app
+
+# Expose necessary ports
+EXPOSE 8080
+
+# Start the bridge
+CMD ["python", "comm_bridge.py"]

@@ -122,3 +122,50 @@ GME DD/
 # IDE agent configs (local)
 .cursor/
 .claude/
+.metadata/
+
+# Windows shortcuts
+*.lnk
+
+# ESP-IDF SDK (install separately, too large for git)
+esp-idf-v5.5.2/
+
+# Auto-generated npm wrappers
+npx.ps1
+
+# Tool configs (local)
+tool_set_config.json
+
+# Archive: large repo clones with node_modules (preserve locally, not in git)
+_archive/sovereign-agent-core/
+_archive/super-centaur/
+_archive/organized/
+_archive/release_final/
+_archive/digital-centaur-package/
+_archive/node-zero/
+_archive/OpusPhenix/
+_archive/wonky-sprout/
+_archive/New folder/
+_archive/donation-wallet/
+_archive/p31-ecosystem/
+_archive/dashboard/
+_archive/backend_env/
+_archive/phenix_data/
+_archive/phenix-navigator-creator/
+_archive/sovereign-agent/
+
+# Archive: third-party tools and SDKs (re-download if needed)
+_archive/FATXplorerBeta64/
+_archive/HxDSetup/
+_archive/Rufus/
+_archive/flash_download_tool/
+_archive/xiaozhi-esp32-2.0.5/
+_archive/temp_xiaozhi/
+_archive/ESP32-S3-Touch-LCD-3.5-Demo/
+_archive/ESP32-S3-Touch-LCD-3.5-2Dand3D/
+_archive/v2.0.5_waveshare-s3-touch-lcd-3.5b/
+_archive/gt911-arduino-main/
+_archive/omniscio-package/
+
+# Archive: personal (not P31)
+_archive/GME DD/

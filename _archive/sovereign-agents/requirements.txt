@@ -1,0 +1,25 @@
+# Core dependencies for the Digital Centaur Agent Team
+# Note: Using minimal dependencies to avoid Windows configuration issues
+
+# Optional dependencies for enhanced functionality
+# Uncomment these when you want to add advanced features:
+
+# Scheduling (if available)
+# schedule>=1.2.0
+
+# Environment variables
+# python-dotenv>=1.0.0
+
+# Google Drive integration
+# google-api-python-client>=2.100.0
+# google-auth-httplib2>=0.1.0
+# google-auth-oauthlib>=1.0.0
+
+# File system monitoring
+# watchdog>=3.0.0
+
+# Advanced file type detection
+# python-magic>=0.4.27
+
+# The system is designed to work without these dependencies
+# using built-in Python functionality and fallback implementations

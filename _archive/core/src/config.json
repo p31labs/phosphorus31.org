@@ -1,0 +1,7 @@
+{
+  "logLevel": "info",
+  "port": 4004,
+  "featureFlags": {
+    "experimental": false
+  }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <rect width="1280" height="640" fill="#050510"/>
+  <g transform="translate(640, 240) scale(3.5)">
+  <path d="M 20 20 L 20 -20 L -20 -20 L -20 20 Z" stroke="#00FF88" stroke-width="0.99" opacity="0.25" fill="none"/>
+  <path d="M 28 28 L 28 -28 L -28 -28 L -28 28 Z" stroke="#00FF88" stroke-width="1.32" opacity="0.55" fill="none"/>
+  <path d="M 28 28 L 20 20 M 28 -28 L 20 -20 M -28 -28 L -20 -20 M -28 28 L -20 20" stroke="#00FF88" stroke-width="0.77" opacity="0.2" fill="none"/>
+  <path d="M 0 -38 L 38 0 L 0 38 L -38 0 Z" stroke="#00D4FF" stroke-width="0.88" opacity="0.4" fill="none"/>
+  <path d="M 12 12 L -12 -12" stroke="#00D4FF" stroke-width="0.88" opacity="0.25" fill="none"/>
+  <path d="M 28 28 L 38 0 M 28 28 L 0 38 M 28 -28 L 38 0 M 28 -28 L 0 -38 M -28 -28 L -38 0 M -28 -28 L 0 -38 M -28 28 L -38 0 M -28 28 L 0 38" stroke="#7A27FF" stroke-width="0.44" opacity="0.15" fill="none"/>
+  <circle cx="20" cy="20" r="2.42" fill="#00FF88" opacity="0.5"/>
+  <circle cx="20" cy="-20" r="2.42" fill="#00FF88" opacity="0.5"/>
+  <circle cx="-20" cy="-20" r="2.42" fill="#00FF88" opacity="0.5"/>
+  <circle cx="-20" cy="20" r="2.42" fill="#00FF88" opacity="0.5"/>
+  <circle cx="28" cy="28" r="3.30" fill="#00FF88" opacity="0.9"/>
+  <circle cx="28" cy="-28" r="3.30" fill="#00FF88" opacity="0.9"/>
+  <circle cx="-28" cy="-28" r="3.30" fill="#00FF88" opacity="0.9"/>
+  <circle cx="-28" cy="28" r="3.30" fill="#00FF88" opacity="0.9"/>
+  <circle cx="0" cy="0" r="9.90" fill="#00FF88" opacity="0.1"/>
+  <circle cx="0" cy="0" r="3.85" fill="#00FF88" opacity="1"/>
+  <circle cx="0" cy="-38" r="3.85" fill="#00D4FF" opacity="0.85"/>
+  <circle cx="38" cy="0" r="3.85" fill="#00D4FF" opacity="0.85"/>
+  <circle cx="0" cy="38" r="3.85" fill="#00D4FF" opacity="0.85"/>
+  <circle cx="-38" cy="0" r="3.85" fill="#00D4FF" opacity="0.85"/>
+  <circle cx="12" cy="12" r="2.75" fill="#00D4FF" opacity="0.45"/>
+  <circle cx="-12" cy="-12" r="2.75" fill="#00D4FF" opacity="0.45"/></g>
+  <text x="640" y="420" text-anchor="middle" font-family="Oxanium,sans-serif" font-weight="600" font-size="52" fill="#E0E0EE">P</text>
+  <text x="692" y="392" text-anchor="middle" font-family="'Space Mono',monospace" font-size="22" fill="#00FF88">31</text>
+  <text x="722" y="420" text-anchor="middle" font-family="Oxanium,sans-serif" font-weight="300" font-size="52" fill="#E0E0EE" letter-spacing="6">LABS</text>
+  <text x="640" y="458" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="#7878AA" letter-spacing="4.5">PROTECTING FUTURE MINDS</text>
+  <text x="640" y="488" text-anchor="middle" font-family="'Space Mono',monospace" font-size="8" fill="#4A4A7A">Open-source assistive technology · Georgia 501(c)(3)</text>
+  <path d="M 0.0,48.9 L 10.7,48.6 L 21.3,48.1 L 32.0,47.3 L 42.7,46.4 L 53.3,45.1 L 64.0,43.7 L 74.7,42.2 L 85.3,40.6 L 96.0,39.1 L 106.7,37.9 L 117.3,37.1 L 128.0,36.9 L 138.7,37.1 L 149.3,37.9 L 160.0,39.0 L 170.7,40.3 L 181.3,41.7 L 192.0,42.9 L 202.7,43.8 L 213.3,44.2 L 224.0,44.1 L 234.7,43.3 L 245.3,42.0 L 256.0,40.3 L 266.7,38.2 L 277.3,35.9 L 288.0,33.8 L 298.7,32.1 L 309.3,30.9 L 320.0,30.6 L 330.7,31.0 L 341.3,32.1 L 352.0,33.9 L 362.7,36.1 L 373.3,38.5 L 384.0,40.8 L 394.7,43.0 L 405.3,44.8 L 416.0,46.2 L 426.7,47.3 L 437.3,48.1 L 448.0,48.7 L 458.7,49.0 L 469.3,49.2 L 480.0,49.4 L 490.7,49.4 L 501.3,49.5 L 512.0,49.5 L 522.7,49.5 L 533.3,49.5 L 544.0,49.5 L 554.7,49.3 L 565.3,48.9 L 576.0,47.7 L 586.7,44.7 L 597.3,39.0 L 608.0,30.2 L 618.7,19.8 L 629.3,10.9 L 640.0,7.4 L 650.7,10.9 L 661.3,19.7 L 672.0,30.1 L 682.7,38.7 L 693.3,44.2 L 704.0,46.7 L 714.7,47.4 L 725.3,46.9 L 736.0,45.8 L 746.7,44.2 L 757.3,42.2 L 768.0,39.9 L 778.7,37.3 L 789.3,34.6 L 800.0,32.2 L 810.7,30.2 L 821.3,28.9 L 832.0,28.4 L 842.7,28.7 L 853.3,29.9 L 864.0,31.6 L 874.7,33.6 L 885.3,35.6 L 896.0,37.3 L 906.7,38.4 L 917.3,38.8 L 928.0,38.5 L 938.7,37.5 L 949.3,36.0 L 960.0,34.3 L 970.7,32.6 L 981.3,31.2 L 992.0,30.4 L 1002.7,30.3 L 1013.3,30.9 L 1024.0,32.1 L 1034.7,33.7 L 1045.3,35.4 L 1056.0,36.9 L 1066.7,38.0 L 1077.3,38.6 L 1088.0,38.7 L 1098.7,38.2 L 1109.3,37.3 L 1120.0,36.3 L 1130.7,35.3 L 1141.3,34.7 L 1152.0,34.6 L 1162.7,35.0 L 1173.3,35.9 L 1184.0,37.4 L 1194.7,39.1 L 1205.3,40.9 L 1216.0,42.8 L 1226.7,44.4 L 1237.3,45.8 L 1248.0,47.0 L 1258.7,47.8 L 1269.3,48.4 L 1280.0,48.9 L 1280,49.5 Z" fill="rgba(0,255,136,0.08)" stroke="#00FF88" stroke-width="1.5" stroke-opacity="0.4" transform="translate(0, 585)"/>
+</svg>

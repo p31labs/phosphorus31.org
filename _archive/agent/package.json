@@ -1,0 +1,8 @@
+{
+  "name": "agent",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "echo 'Agent package - no dev server needed'"
+  }
+}

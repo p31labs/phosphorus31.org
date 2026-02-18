@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>P31 Labs — Brand Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root { --void: #050510; --s1: #0A0A1F; --green: #00FF88; --cyan: #00D4FF; --magenta: #FF00CC; --violet: #7A27FF; --amber: #FFB800; --text: #E0E0EE; --text2: #7878AA; --text3: #4A4A7A; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 2rem; background: var(--void); color: var(--text); font-family: 'Oxanium', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.75; }
+h1 { font-family: 'Space Mono', monospace; font-size: clamp(24px, 4vw, 40px); color: var(--green); }
+.section { margin-bottom: 3rem; }
+.section-title { font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 5px; color: var(--green); border-bottom: 1px solid rgba(0,255,136,0.15); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+.swatch { width: 80px; height: 48px; border-radius: 8px; margin: 4px; }
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+code, pre { background: var(--s1); font-family: 'Space Mono', monospace; font-size: 12px; color: var(--cyan); padding: 0.25rem 0.5rem; border-radius: 4px; }
+pre { padding: 1rem; overflow-x: auto; }
+.do { border-left: 4px solid var(--green); padding-left: 1rem; }
+.dont { border-left: 4px solid var(--magenta); padding-left: 1rem; }
+.banned { text-decoration: line-through; color: var(--magenta); }
+.replacement { color: var(--green); }
+footer { margin-top: 4rem; font-style: italic; opacity: 0.8; }
+</style>
+</head><body>
+<h1>P31 LABS — BRAND GUIDELINES</h1>
+<p>Visual identity system for P31 Labs. Phosphorus-31. The biological qubit.</p>
+<div class="section"><div class="section-title">1. Identity</div><p><strong>Name:</strong> P31 Labs (P³¹ LABS). <strong>Tagline:</strong> PROTECTING FUTURE MINDS. <strong>Mission:</strong> Open-source assistive technology for neurodivergent individuals. Georgia 501(c)(3) nonprofit.</p></div>
+<div class="section"><div class="section-title">2. Logo System</div><p>Posner molecule mark (Ca₉(PO₄)₆) + wordmark. Variants: Primary Dark, Primary Light (print), Monochrome White. Clear space: 0.5× molecule height. Min size: 120px wide.</p><div class="do">Do: Use on #050510 or #FAFAFA. Preserve aspect ratio.</div><div class="dont">Don't: Stretch, change colors, use below minimum size.</div></div>
+<div class="section"><div class="section-title">3. Color System</div><div class="swatch-grid"><div><div class="swatch" style="background:#050510;"></div>Void #050510</div><div><div class="swatch" style="background:#00FF88;"></div>Phosphor Green</div><div><div class="swatch" style="background:#00D4FF;"></div>Quantum Cyan</div><div><div class="swatch" style="background:#FF00CC;"></div>Neural Magenta</div><div><div class="swatch" style="background:#7A27FF;"></div>Quantum Violet</div><div><div class="swatch" style="background:#FFB800;"></div>Warm Amber</div><div><div class="swatch" style="background:#E0E0EE;"></div>Primary Text</div></div><p><strong>Print-safe:</strong> Green #00994D, Cyan #0088AA, Magenta #CC0099, Violet #5518AA, Amber #CC9300.</p></div>
+<div class="section"><div class="section-title">4. Typography</div><p><strong>Display:</strong> Oxanium 200–600. <strong>Data/Labels:</strong> Space Mono, letter-spacing ≥1px.</p></div>
+<div class="section"><div class="section-title">5. Product Identity</div><p>Shelter ◇ #00FF88 · Scope ◎ #00D4FF · Node One ⬡ #FF00CC · Centaur ◈ #7A27FF · Sprout ❋ #FFB800</p></div>
+<div class="section"><div class="section-title">6. Glow System</div><pre>text-shadow: 0 0 8px rgba(0,255,136,0.4), 0 0 20px rgba(0,255,136,0.2);
+box-shadow: 0 0 8px rgba(0,255,136,0.3), 0 0 20px rgba(0,255,136,0.15);</pre></div>
+<div class="section"><div class="section-title">7. Voice &amp; Tone</div><p>Warm, precise, luminous. Kids-first. No military or weapon language.</p></div>
+<div class="section"><div class="section-title">8. Banned → Replacement</div><p><span class="banned">deploy</span> → <span class="replacement">launch</span> · <span class="banned">kill</span> → <span class="replacement">stop</span> · <span class="banned">defense</span> → <span class="replacement">shelter</span> · <span class="banned">Cognitive Shield</span> → <span class="replacement">Shelter</span> · <span class="banned">Phenix Navigator</span> → <span class="replacement">P31 Compass / Node One</span></p></div>
+<div class="section"><div class="section-title">9. Signature Motifs</div><p>³¹P MRS spectrum: Gaussian peaks PME, Pi, PCr (dominant), γ/α/β-ATP. Posner geometry: Ca cube + P octahedron + entanglement. Isomorphic from molecule to UI.</p></div>
+<div class="section"><div class="section-title">10. Asset Inventory</div><pre>logos/ p31-logo-dark.svg, p31-logo-light.svg, p31-logo-mono-white.svg, p31-icon-square.svg
+banners/ p31-twitter-1500x500.svg, p31-linkedin-1584x396.svg, p31-github-1280x640.svg
+favicon/ favicon.svg
+watermarks/ p31-watermark.svg, p31-watermark-diagonal.svg
+signatures/ p31-email-signature.html
+guidelines/ p31-brand-guidelines.html</pre></div>
+<footer>It's okay to be a little wonky. — P31 Labs</footer>
+</body></html>

@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # --- BACKUP & RECOVERY LAYER ---
+  
+  # 1. DATABASE BACKUP (PostgreSQL)
+  db-backup:
+    image: postgres:15-alpine
+    container_name: phenix_db_backup
+    restart: unless-stopped
+    volumes:
+      - ./phenix_data/db:/var/lib/postgresql/data
+      - ./backups:/backups
+    environment:
+      - PGPASSWORD=${DB_PASSWORD}
+    command: >
+      sh -c "
+        while true; do
+          pg_dump -h phenix_db -U pilot phenix_core > /backups/phenix_core_$(date +%Y%m%d_%H%M%S).sql
+          sleep 3600
+        done
+      "
+    networks:
+      - centaur_net
+
+  # 2. LOG ROTATION & ARCHIVE
+  log-archiver:
+    image: alpine:latest
+    container_name: phenix_log_archiver
+    restart: unless-stopped
+    volumes:
+      - ./logs:/logs
+      - ./backups:/backups
+    command: >
+      sh -c "
+        while true; do
+          tar -czf /backups/logs_$(date +%Y%m%d_%H%M%S).tar.gz -C /logs .
+          find /logs -type f -mtime +7 -delete
+          sleep 86400
+        done
+      "
+    networks:
+      - centaur_net
+
+  # 3. CONFIGURATION BACKUP
+  config-backup:
+    image: alpine:latest
+    container_name: phenix_config_backup
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./backups:/backups
+    command: >
+      sh -c "
+        while true; do
+          tar -czf /backups/config_$(date +%Y%m%d_%H%M%S).tar.gz -C /app \
+            docker-compose.yml \
+            docker-compose.monitoring.yml \
+            .env \
+            config/
+          sleep 43200
+        done
+      "
+    networks:
+      - centaur_net
+
+networks:
+  centaur_net:
+    external: true

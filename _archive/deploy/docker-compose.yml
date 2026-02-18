@@ -1,0 +1,36 @@
+# LAUNCH-06: P31 Shelter (Buffer) + Redis for local/self-hosted run.
+# From repo root: docker compose -f deploy/docker-compose.yml up -d
+# Shelter API: http://localhost:4000  (health: /health)
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  shelter:
+    build:
+      context: ../apps/shelter
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      REDIS_URL: redis://redis:6379
+      ACCOMMODATION_DB_DIR: /app/data
+    volumes:
+      - shelter-data:/app/data
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  shelter-data:

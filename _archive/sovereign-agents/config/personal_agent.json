@@ -1,0 +1,25 @@
+{
+    "name": "Personal Agent (Guardian)",
+    "target_directory": "~/Documents/Private",
+    "scan_frequency_seconds": 7200,
+    "rules": {
+        "categorize": [
+            {"pattern": "tax_*.{pdf,xlsx}", "category": "financial"},
+            {"pattern": "legal_*.docx", "category": "legal"},
+            {"pattern": "medical_*.pdf", "category": "medical"}
+        ],
+        "scrub": {
+            "enabled": true,
+            "mode": "redact",
+            "patterns": [
+                "\\d{3}-\\d{2}-\\d{4}" 
+            ]
+        },
+        "rename": {
+            "enabled": false
+        },
+        "move": {
+            "enabled": false
+        }
+    }
+}
