@@ -7,7 +7,7 @@ export async function rewriteMessage(
   temperature: number,
 ): Promise<AIRewriteResult | null> {
   try {
-    const endpoint = import.meta.env.VITE_API_URL || "http://localhost:8787";
+    const endpoint = import.meta.env.VITE_API_URL || "https://p31-buffer-api.trimtab-signal.workers.dev";
     const res = await fetch(`${endpoint}/rewrite`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
