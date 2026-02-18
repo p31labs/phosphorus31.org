@@ -30,7 +30,7 @@ This document is canonical. Gemini, Cursor, Claude, DeepSeek, and every future a
 
 | Product | Type | Description | Status |
 |---------|------|-------------|--------|
-| **The Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | MVP assembled (React artifact), needs monorepo integration |
+| **The Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | **V1 SHIPPED Feb 18, 2026** — PWA + Chrome extension + Workers API. Tag: v1.0.0-buffer |
 | **Node One** | Hardware | ESP32-S3 + DRV2605L haptics + LoRa (Meshtastic) + BLE | Firmware spec complete, hardware prototyped |
 | **The Scope** | Software | Cognitive dashboard, energy tracking, medication management | React components exist, build broken |
 | **Ping** | Protocol | Heartbeat/check-in system | Implemented in Buffer |
@@ -140,13 +140,15 @@ p31/
 ├── SUPER-CENTAUR/              → P31 Tandem backend (TypeScript, FastAPI)
 ├── ui/                         → P31 Spectrum frontend (React/Vite, strict TS)
 ├── apps/
-│   ├── shelter/                → THE BUFFER LIVES HERE
+│   ├── shelter/                → THE BUFFER (React 19 PWA, Zustand, Dexie, Tailwind)
 │   ├── sprout/                 → P31 Sprout signals engine
 │   ├── scope/                  → Scope dashboard API
+│   ├── buffer-extension/       → Chrome MV3 extension (Gmail/Slack voltage badges)
+│   ├── buffer-api/             → Cloudflare Workers API (Gemini rewrite, Zod, rate-limit)
 │   └── web/                    → Static site mirror
 ├── packages/
 │   ├── protocol/               → Shared protocol types
-│   ├── buffer-core/            → (TO BUILD) Shared scoring library
+│   ├── buffer-core/            → Shared scoring library (37 tests, 0 deps)
 │   └── game-integration/       → Game engine integration
 ├── website/                    → phosphorus31.org
 ├── firmware/                   → ESP32-S3 Node Zero (ESP-IDF)
@@ -159,7 +161,7 @@ p31/
 └── _archive/                   → Emptied (git history preserved)
 ```
 
-**Branch:** `main` — CLEAN working tree as of Feb 18, 2026.
+**Branch:** `main` — CLEAN working tree. **v1.0.0-buffer** tagged Feb 18, 2026. 264 files, 5,586 insertions, 51,459 deletions.
 
 ---
 
@@ -168,7 +170,7 @@ p31/
 | Layer | Technology | Notes |
 |-------|-----------|-------|
 | Frontend | React 19, Vite 6, Tailwind CSS, TypeScript (strict) | Artifacts use inline styles |
-| Backend | Express + WebSocket + Redis | apps/shelter/ |
+| Backend | Hono.js on Cloudflare Workers | apps/buffer-api/ (zero data retention) |
 | API | Hono.js on Cloudflare Workers | Target: api.p31labs.org |
 | AI Primary | Gemini 2.0 Flash | $0.10/$0.40 per M tokens |
 | AI Complex | Claude Sonnet | Fallback for emotional complexity |
@@ -192,7 +194,7 @@ p31/
 |------|-------|----------|
 | **Feb 20** | SSA telehealth psychiatric exam | 🔴 CRITICAL |
 | **Feb 26** | SSA in-person medical (Brunswick) | 🔴 CRITICAL |
-| **Feb 27** | MATA accelerator application | 🟡 HIGH |
+| ~~Feb 27~~ | ~~MATA accelerator application~~ | ~~HIGH~~ (Buffer shipped before deadline) |
 | **Mar 10** | Bash's 10th birthday (MAR10 Day) | 🟡 PERSONAL |
 | **Mar 12** | Court hearing (Judge Scarlett) | 🔴 CRITICAL |
 
