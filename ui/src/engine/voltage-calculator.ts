@@ -1,7 +1,7 @@
 /**
  * Voltage Calculator
  * Pure function to calculate emotional intensity (voltage) of messages
- * 
+ *
  * Voltage scale: 0-10
  * 0-3: Low (safe to view immediately)
  * 4-6: Medium (buffer recommended)
@@ -18,11 +18,14 @@ export interface VoltageResult {
 /**
  * Calculate voltage score for a message
  */
-export function calculateVoltage(content: string, metadata?: {
-  sender?: string;
-  source?: string;
-  timestamp?: Date;
-}): VoltageResult {
+export function calculateVoltage(
+  content: string,
+  metadata?: {
+    sender?: string;
+    source?: string;
+    timestamp?: Date;
+  }
+): VoltageResult {
   let score = 0;
   const factors: string[] = [];
 
@@ -35,16 +38,26 @@ export function calculateVoltage(content: string, metadata?: {
 
   // Emotional indicators (simple keyword detection)
   const emotionalKeywords = {
-    high: ['urgent', 'asap', 'immediately', 'critical', 'emergency', 'angry', 'furious', 'disappointed', 'frustrated'],
+    high: [
+      'urgent',
+      'asap',
+      'immediately',
+      'critical',
+      'emergency',
+      'angry',
+      'furious',
+      'disappointed',
+      'frustrated',
+    ],
     medium: ['concerned', 'worried', 'unhappy', 'confused', 'disappointed'],
-    low: ['thanks', 'appreciate', 'happy', 'excited', 'pleased']
+    low: ['thanks', 'appreciate', 'happy', 'excited', 'pleased'],
   };
 
   const lowerContent = content.toLowerCase();
-  
-  const highCount = emotionalKeywords.high.filter(kw => lowerContent.includes(kw)).length;
-  const mediumCount = emotionalKeywords.medium.filter(kw => lowerContent.includes(kw)).length;
-  const lowCount = emotionalKeywords.low.filter(kw => lowerContent.includes(kw)).length;
+
+  const highCount = emotionalKeywords.high.filter((kw) => lowerContent.includes(kw)).length;
+  const mediumCount = emotionalKeywords.medium.filter((kw) => lowerContent.includes(kw)).length;
+  const lowCount = emotionalKeywords.low.filter((kw) => lowerContent.includes(kw)).length;
 
   score += highCount * 1.5;
   score += mediumCount * 0.5;
@@ -73,10 +86,10 @@ export function calculateVoltage(content: string, metadata?: {
     score += 2; // Increased from 1.5 to 2 as per requirements
     factors.push('All caps detected');
   }
-  
+
   // Curse words detection
   const curseWords = ['damn', 'hell', 'shit', 'fuck', 'ass', 'bitch', 'bastard', 'crap', 'piss'];
-  const curseCount = curseWords.filter(word => 
+  const curseCount = curseWords.filter((word) =>
     new RegExp(`\\b${word}\\b`, 'i').test(content)
   ).length;
   if (curseCount > 0) {
@@ -102,6 +115,6 @@ export function calculateVoltage(content: string, metadata?: {
   return {
     score: Math.round(score * 10) / 10, // Round to 1 decimal
     category,
-    factors
+    factors,
   };
 }

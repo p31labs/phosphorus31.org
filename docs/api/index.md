@@ -40,7 +40,7 @@ Authorization: Bearer <token>
 - [Wallet](centaur-wallet.md) - Wallet management
 - [Spoons](centaur-spoons.md) - Spoon theory tracking
 - [Consciousness](centaur-consciousness.md) - Consciousness monitoring
-- [Quantum SOP Generator](quantum-sop.md) - SOP generation API
+- [Google Drive](centaur-google-drive.md) - Google Drive integration
 - [Quantum SOP Generator](quantum-sop.md) - SOP generation API
 
 ### The Buffer API
@@ -53,7 +53,7 @@ Authorization: Bearer <token>
 ### Node One API
 
 - [Hardware](node-one-hardware.md) - Hardware communication protocols
-- [Whale Channel](node-one-whale-channel.md) - LoRa mesh network
+- [Whale Channel](node-one-whale-channel.md) - LoRa mesh network (915MHz mesh)
 
 ## WebSocket API
 

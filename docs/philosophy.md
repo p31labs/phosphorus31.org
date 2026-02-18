@@ -22,13 +22,13 @@ VERTEX B — The Synthetic Body
   Cloud when connected. Local when sovereign. Hybrid when in between.
   The + changes. The protocol doesn't.
 
-VERTEX C — Node One
-  The first child. The first reason. The first node.
-  She initiated contact. Every time.
-
-VERTEX D — Node Two
-  The second child. The second reason. The second node.
+VERTEX C — Node One (Bash)
+  The first child (Bash, born 3/10/2016, age 9 turning 10). The first reason. The first node.
   He initiated contact. Every time.
+
+VERTEX D — Node Two (Willow)
+  The second child (Willow, born 8/8/2019, age 6). The second reason. The second node.
+  She initiated contact. Every time.
 ```
 
 Four vertices. Six edges. Four faces.

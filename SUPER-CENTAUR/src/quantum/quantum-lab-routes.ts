@@ -1,130 +1,198 @@
 /**
  * Quantum Lab API Routes
+ * REST API endpoints for quantum experiments and simulations
  * 
- * REST API endpoints for Quantum Lab functionality
+ * @license
+ * Copyright 2026 Wonky Sprout DUNA
+ * Licensed under the AGPLv3 License
  */
 
 import { Router, Request, Response } from 'express';
-import { QuantumLab } from './quantum-lab';
+import { QuantumLab, QuantumExperiment } from './quantum-lab';
+import { Logger } from '../utils/logger';
 
 export function createQuantumLabRoutes(quantumLab: QuantumLab): Router {
   const router = Router();
+  const logger = new Logger('QuantumLabRoutes');
 
   /**
-   * GET /api/quantum-lab/status
-   * Get Quantum Lab status
+   * POST /api/quantum-lab/experiment
+   * Run a quantum experiment
    */
-  router.get('/status', (req: Request, res: Response) => {
+  router.post('/experiment', (req: Request, res: Response) => {
     try {
-      const status = quantumLab.getStatus();
-      res.json({ success: true, status });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+      const { type, parameters } = req.body;
 
-  /**
-   * POST /api/quantum-lab/start
-   * Start Quantum Lab
-   */
-  router.post('/start', async (req: Request, res: Response) => {
-    try {
-      const started = await quantumLab.start();
-      if (started) {
-        res.json({ success: true, message: 'Quantum Lab started' });
-      } else {
-        res.status(500).json({ error: 'Failed to start Quantum Lab' });
-      }
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  /**
-   * POST /api/quantum-lab/stop
-   * Stop Quantum Lab
-   */
-  router.post('/stop', (req: Request, res: Response) => {
-    try {
-      quantumLab.stop();
-      res.json({ success: true, message: 'Quantum Lab stopped' });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  /**
-   * GET /api/quantum-lab/state
-   * Get current quantum state
-   */
-  router.get('/state', (req: Request, res: Response) => {
-    try {
-      const state = quantumLab.getCurrentState();
-      if (state) {
-        res.json({ success: true, state });
-      } else {
-        res.status(404).json({ error: 'No quantum state available' });
-      }
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  /**
-   * GET /api/quantum-lab/history
-   * Get quantum state history
-   * Query params: timeWindow (ms)
-   */
-  router.get('/history', (req: Request, res: Response) => {
-    try {
-      const timeWindow = req.query.timeWindow 
-        ? parseInt(req.query.timeWindow as string)
-        : undefined;
-      
-      const history = quantumLab.getStateHistory(timeWindow);
-      res.json({ success: true, history, count: history.length });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  /**
-   * GET /api/quantum-lab/coherence
-   * Get current coherence value
-   */
-  router.get('/coherence', (req: Request, res: Response) => {
-    try {
-      const status = quantumLab.getStatus();
-      const coherence = status.currentCoherence;
-      
-      if (coherence !== null) {
-        res.json({ 
-          success: true, 
-          coherence,
-          averageCoherence: status.averageCoherence,
+      if (!type) {
+        return res.status(400).json({
+          error: 'Missing required field: type',
+          validTypes: ['coherence', 'entanglement', 'decoherence', 'superposition'],
         });
-      } else {
-        res.status(404).json({ error: 'Coherence data not available' });
       }
+
+      if (!['coherence', 'entanglement', 'decoherence', 'superposition'].includes(type)) {
+        return res.status(400).json({
+          error: `Invalid experiment type: ${type}`,
+          validTypes: ['coherence', 'entanglement', 'decoherence', 'superposition'],
+        });
+      }
+
+      const experiment = quantumLab.runExperiment(type, parameters || {});
+      
+      logger.info(`Experiment created: ${experiment.id}`, { type, parameters });
+      
+      res.status(201).json({
+        success: true,
+        experiment,
+      });
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      logger.error('Error running experiment:', error);
+      res.status(500).json({
+        error: 'Failed to run experiment',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
     }
   });
 
   /**
-   * GET /api/quantum-lab/imu/status
-   * Get IMU status
+   * GET /api/quantum-lab/experiment/:id
+   * Get experiment by ID
    */
-  router.get('/imu/status', (req: Request, res: Response) => {
+  router.get('/experiment/:id', (req: Request, res: Response) => {
     try {
-      const imu = quantumLab.getIMU();
-      const status = imu.getStatus();
-      const config = imu.getConfig();
-      
-      res.json({ success: true, status, config });
+      const { id } = req.params;
+      const experiment = quantumLab.getExperiment(id);
+
+      if (!experiment) {
+        return res.status(404).json({
+          error: 'Experiment not found',
+          id,
+        });
+      }
+
+      res.json({
+        success: true,
+        experiment,
+      });
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      logger.error('Error getting experiment:', error);
+      res.status(500).json({
+        error: 'Failed to get experiment',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
     }
+  });
+
+  /**
+   * GET /api/quantum-lab/experiments
+   * List all experiments
+   */
+  router.get('/experiments', (req: Request, res: Response) => {
+    try {
+      const experiments = quantumLab.listExperiments();
+      
+      res.json({
+        success: true,
+        count: experiments.length,
+        experiments,
+      });
+    } catch (error: any) {
+      logger.error('Error listing experiments:', error);
+      res.status(500).json({
+        error: 'Failed to list experiments',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
+    }
+  });
+
+  /**
+   * DELETE /api/quantum-lab/experiments
+   * Clear all experiments
+   */
+  router.delete('/experiments', (req: Request, res: Response) => {
+    try {
+      quantumLab.clearExperiments();
+      
+      res.json({
+        success: true,
+        message: 'All experiments cleared',
+      });
+    } catch (error: any) {
+      logger.error('Error clearing experiments:', error);
+      res.status(500).json({
+        error: 'Failed to clear experiments',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
+    }
+  });
+
+  /**
+   * POST /api/quantum-lab/decay-rate
+   * Set coherence decay rate
+   */
+  router.post('/decay-rate', (req: Request, res: Response) => {
+    try {
+      const { rate } = req.body;
+
+      if (rate === undefined || rate === null) {
+        return res.status(400).json({
+          error: 'Missing required field: rate',
+        });
+      }
+
+      if (typeof rate !== 'number' || rate < 0 || rate > 1) {
+        return res.status(400).json({
+          error: 'Invalid rate: must be a number between 0 and 1',
+        });
+      }
+
+      quantumLab.setCoherenceDecayRate(rate);
+      
+      res.json({
+        success: true,
+        rate: quantumLab.getCoherenceDecayRate(),
+      });
+    } catch (error: any) {
+      logger.error('Error setting decay rate:', error);
+      res.status(500).json({
+        error: 'Failed to set decay rate',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
+    }
+  });
+
+  /**
+   * GET /api/quantum-lab/decay-rate
+   * Get current coherence decay rate
+   */
+  router.get('/decay-rate', (req: Request, res: Response) => {
+    try {
+      const rate = quantumLab.getCoherenceDecayRate();
+      
+      res.json({
+        success: true,
+        rate,
+      });
+    } catch (error: any) {
+      logger.error('Error getting decay rate:', error);
+      res.status(500).json({
+        error: 'Failed to get decay rate',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      });
+    }
+  });
+
+  /**
+   * GET /api/quantum-lab/health
+   * Health check endpoint
+   */
+  router.get('/health', (req: Request, res: Response) => {
+    res.json({
+      status: 'healthy',
+      service: 'Quantum Lab',
+      timestamp: new Date().toISOString(),
+      experiments: quantumLab.listExperiments().length,
+    });
   });
 
   return router;

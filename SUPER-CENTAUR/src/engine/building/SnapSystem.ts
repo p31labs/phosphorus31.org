@@ -26,6 +26,7 @@ export class SnapSystem {
   private magneticFields: Map<string, MagneticField> = new Map();
   private visualFeedback: Map<string, THREE.Mesh> = new Map();
   private hapticFeedback: Map<string, boolean> = new Map();
+  private currentPieces: GeometricPrimitive[] = [];
 
   constructor(connectionManager: ConnectionManager) {
     this.connectionManager = connectionManager;
@@ -50,6 +51,8 @@ export class SnapSystem {
     allPieces: GeometricPrimitive[],
     ghostPiece: GeometricPrimitive
   ): SnapFeedback {
+    // Store pieces for use in alignment
+    this.currentPieces = allPieces;
     const feedback: SnapFeedback = {
       isSnapping: false,
       distance: Infinity,
@@ -170,7 +173,12 @@ export class SnapSystem {
     targetPoint: ConnectionPoint
   ): void {
     const sourceMatrix = this.getTransformationMatrix(ghostPiece);
-    const targetMatrix = this.getTransformationMatrix(this.findPieceById(targetPoint.connectedTo || '', []));
+    const targetPiece = this.findPieceById(targetPoint.connectedTo || '', this.currentPieces);
+    if (!targetPiece) {
+      // Can't align if target piece not found
+      return;
+    }
+    const targetMatrix = this.getTransformationMatrix(targetPiece);
     
     // Calculate rotation needed to align normals
     const sourceNormal = new THREE.Vector3().copy(sourcePoint.normal).applyMatrix4(sourceMatrix).normalize();

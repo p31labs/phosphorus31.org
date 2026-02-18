@@ -57,13 +57,13 @@ describe('SpoonCalculator', () => {
         length: 100,
         threatFlags: 0,
       });
-      
+
       const multiThreatResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         threatFlags: 2, // 2 threat categories
       });
-      
+
       // Multiple threats should increase cost
       expect(multiThreatResult.cost).toBeGreaterThan(baseResult.cost);
     });
@@ -83,13 +83,13 @@ describe('SpoonCalculator', () => {
         length: 100,
         threatFlags: 0,
       });
-      
+
       const oneThreat = calculateSpoonCost({
         voltage: 5,
         length: 100,
         threatFlags: 1,
       });
-      
+
       // 1 threat = 30% increase
       expect(oneThreat.cost).toBeGreaterThan(noThreat.cost * 1.2);
       expect(oneThreat.cost).toBeLessThan(noThreat.cost * 1.4);
@@ -103,13 +103,13 @@ describe('SpoonCalculator', () => {
         length: 100,
         isHostileContact: false,
       });
-      
+
       const hostileResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         isHostileContact: true,
       });
-      
+
       // Hostile contact should increase cost by ~50%
       expect(hostileResult.cost).toBeGreaterThan(normalResult.cost * 1.4);
       expect(hostileResult.cost).toBeLessThan(normalResult.cost * 1.6);
@@ -131,19 +131,19 @@ describe('SpoonCalculator', () => {
     test('late night (11 PM - 6 AM) = +1 cost', () => {
       const dayTime = new Date('2024-01-01T14:00:00'); // 2 PM
       const nightTime = new Date('2024-01-01T23:30:00'); // 11:30 PM
-      
+
       const dayResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         timestamp: dayTime,
       });
-      
+
       const nightResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         timestamp: nightTime,
       });
-      
+
       // Night time should be +1 more
       expect(nightResult.cost).toBeGreaterThanOrEqual(dayResult.cost + 0.9);
       expect(nightResult.cost).toBeLessThanOrEqual(dayResult.cost + 1.1);
@@ -156,13 +156,13 @@ describe('SpoonCalculator', () => {
         length: 100,
         timestamp: earlyMorning,
       });
-      
+
       const dayResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         timestamp: new Date('2024-01-01T10:00:00'),
       });
-      
+
       expect(result.cost).toBeGreaterThanOrEqual(dayResult.cost + 0.9);
     });
 
@@ -173,12 +173,12 @@ describe('SpoonCalculator', () => {
         length: 100,
         timestamp: normalTime,
       });
-      
+
       const noTimeResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
       });
-      
+
       // Should be approximately the same (no time penalty)
       expect(Math.abs(result.cost - noTimeResult.cost)).toBeLessThan(0.1);
     });
@@ -190,12 +190,12 @@ describe('SpoonCalculator', () => {
         voltage: 5,
         length: 600,
       });
-      
+
       const shortResult = calculateSpoonCost({
         voltage: 5,
         length: 50,
       });
-      
+
       expect(result.cost).toBeGreaterThan(shortResult.cost + 1.5);
     });
 
@@ -204,12 +204,12 @@ describe('SpoonCalculator', () => {
         voltage: 5,
         length: 300,
       });
-      
+
       const shortResult = calculateSpoonCost({
         voltage: 5,
         length: 50,
       });
-      
+
       expect(result.cost).toBeGreaterThan(shortResult.cost + 0.5);
     });
 
@@ -218,12 +218,12 @@ describe('SpoonCalculator', () => {
         voltage: 5,
         length: 150,
       });
-      
+
       const veryShortResult = calculateSpoonCost({
         voltage: 5,
         length: 20,
       });
-      
+
       expect(result.cost).toBeGreaterThan(veryShortResult.cost);
     });
   });
@@ -235,13 +235,13 @@ describe('SpoonCalculator', () => {
         length: 100,
         complexity: 0,
       });
-      
+
       const complexResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
         complexity: 2,
       });
-      
+
       expect(complexResult.cost).toBeGreaterThan(simpleResult.cost);
     });
 
@@ -251,7 +251,7 @@ describe('SpoonCalculator', () => {
         length: 100,
         complexity: 5,
       });
-      
+
       expect(result.cost).toBeGreaterThan(5);
     });
   });
@@ -265,7 +265,7 @@ describe('SpoonCalculator', () => {
         isHostileContact: true,
         timestamp: new Date('2024-01-01T02:00:00'), // 2 AM
       });
-      
+
       expect(result.cost).toBeGreaterThan(7);
       expect(result.category).toBe('critical');
     });
@@ -275,7 +275,7 @@ describe('SpoonCalculator', () => {
         voltage: 5,
         length: 100,
       });
-      
+
       const fullResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
@@ -283,7 +283,7 @@ describe('SpoonCalculator', () => {
         isHostileContact: true,
         timestamp: new Date('2024-01-01T01:00:00'),
       });
-      
+
       // Should be significantly higher than base
       expect(fullResult.cost).toBeGreaterThan(baseResult.cost * 2);
     });
@@ -299,7 +299,7 @@ describe('SpoonCalculator', () => {
         complexity: 10,
         timestamp: new Date('2024-01-01T01:00:00'),
       });
-      
+
       expect(result.cost).toBeGreaterThanOrEqual(0);
       expect(result.cost).toBeLessThanOrEqual(10);
     });
@@ -309,7 +309,7 @@ describe('SpoonCalculator', () => {
         voltage: 0,
         length: 10,
       });
-      
+
       expect(result.cost).toBeGreaterThanOrEqual(0);
       expect(result.cost).toBeLessThan(1);
     });

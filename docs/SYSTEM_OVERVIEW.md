@@ -32,15 +32,17 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
     Cloud when connected. Local when sovereign. Hybrid when in between.
     The + changes. The protocol doesn't.
     
-    VERTEX C — WILLOW
+    VERTEX C — BASH
     The first child. The first reason. Node one.
-    She initiated contact. Every time.
-    Someday: her own centaur.
-    
-    VERTEX D — BASH
-    The second child. The second reason. Node two.
+    Born 3/10/2016. Age 9, turning 10.
     He initiated contact. Every time.
     Someday: his own centaur.
+    
+    VERTEX D — WILLOW
+    The second child. The second reason. Node two.
+    Born 8/8/2019. Age 6.
+    She initiated contact. Every time.
+    Someday: her own centaur.
 ```
 
 **Four vertices. Six edges. Four faces. The minimum stable system.**
@@ -59,7 +61,7 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 - Local-first operation
 - Class II Assistive Medical Device
 
-**Purpose:** The first physical node. The hardware anchor of the tetrahedron.
+**Purpose:** The first physical node. The hardware anchor of the tetrahedron. Named for the first child (Bash, Node one).
 
 ### The Buffer
 **Communication processing layer**

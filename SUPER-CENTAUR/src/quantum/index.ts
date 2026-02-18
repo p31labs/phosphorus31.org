@@ -1,13 +1,12 @@
 /**
- * Quantum Features Module
+ * Quantum Module
+ * Exports for quantum lab functionality
  * 
- * Exports all quantum-related functionality:
- * - QMI8658 IMU interface
- * - Sample Entropy algorithm
- * - Quantum Lab
- * - Coherence monitoring
+ * @license
+ * Copyright 2026 Wonky Sprout DUNA
+ * Licensed under the AGPLv3 License
  */
 
-export * from './qmi8658-interface';
-export * from './sample-entropy';
-export * from './quantum-lab';
+export { QuantumLab } from './quantum-lab';
+export type { QuantumState, QuantumExperiment } from './quantum-lab';
+export { createQuantumLabRoutes } from './quantum-lab-routes';

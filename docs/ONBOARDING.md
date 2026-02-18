@@ -24,7 +24,7 @@ Before you begin, ensure you have:
 
 ```bash
 git clone <repository-url>
-cd phenix-navigator-creator67
+cd p31
 ```
 
 ### 2. Open Workspace
@@ -149,7 +149,7 @@ cd SUPER-CENTAUR && npm test
 ## Project Structure
 
 ```
-phenix-navigator-creator67/
+p31/
 ├── SUPER-CENTAUR/      # The Centaur (backend)
 ├── ui/                  # The Scope (frontend)
 ├── apps/shelter/        # The Buffer (P31 Shelter)

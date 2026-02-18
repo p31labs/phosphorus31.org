@@ -7,7 +7,7 @@
 
 ## 📖 Executive Summary
 
-**The Delta Protocol** is an interactive narrative game and philosophical framework that serves as the counter-offensive to the 2025 "Hive Mind" cultural moment. It synthesizes the warnings of *Pluribus* (benevolent totalizing) and *Weapons* (parasitic control) while embodying Will's (the operator's) **Geodesic Life Systems** as a playable, teachable, and scalable alternative.
+**The Delta Protocol** is an interactive narrative game and philosophical framework that serves as the counter-offensive to the 2025 "Hive Mind" cultural moment. It synthesizes the warnings of *Pluribus* (benevolent totalizing) and *Weapons* (parasitic control) while embodying The Operator's **Geodesic Life Systems** as a playable, teachable, and scalable alternative.
 
 **Core Thesis**: The choice is NOT between isolation (Carol Sturka) and assimilation (The Others/Gladys). The third option is **DELTA TOPOLOGY** - a mesh network of sovereign nodes that cooperate without coercion.
 
@@ -125,7 +125,7 @@ After the "Great Fragmentation" of 2028 (when centralized social media platforms
 - **Pro**: Abdicated clusters are **immune to takeover**. Even if you (the player) are compromised, the cluster survives.
 - **Con**: You lose direct control. If there's a bug in the protocol, you can't hotfix it.
 
-**Narrative Weight**: This mirrors Will's (the operator's) real abdication of the G.O.D. DAO. It's the ultimate trust exercise.
+**Narrative Weight**: This mirrors The Operator's real abdication of the G.O.D. DAO. It's the ultimate trust exercise.
 
 **Gameplay Impact**: Abdicated clusters generate **passive trust** over time. The more you let go, the stronger the network becomes.
 
@@ -204,7 +204,7 @@ A catastrophic bug is discovered in the consensus algorithm. Fixing it requires 
   - Both meshes continue, proving resilience
 
 **Final Boss**: **The Founder's Ghost**
-- A hologram of "The Original Operator" (implied to be the operator) offers to return as admin to "fix" the crisis
+- A hologram of "The Original Operator" (The Operator) offers to return as admin to "fix" the crisis
 - You must refuse - abdication is permanent
 - The mesh must solve the problem collectively or fracture
 
@@ -436,7 +436,7 @@ We honor your vision of connection. But assimilation is not the only path. The D
 **To the creators of *Weapons*:**
 We acknowledge your warning of parasitic control. But isolation is not the only defense. The Delta Protocol proves we can connect without creating a single point of failure.
 
-**To the operator:**
+**To The Operator:**
 Your abdication is not in vain. This game is your Trimtab - the small mechanism that turns the ship. By teaching a million players to build headless systems, you change the trajectory of human governance.
 
 **To the neurodivergent community:**

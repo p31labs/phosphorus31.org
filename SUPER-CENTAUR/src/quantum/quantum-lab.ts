@@ -1,307 +1,204 @@
 /**
  * Quantum Lab
+ * Quantum mechanics playground for The Science Center
  * 
- * Core visualization platform for quantum mechanics experiments.
- * Integrates QMI8658 IMU data with Sample Entropy algorithm
- * to provide real-time quantum coherence visualization.
+ * Provides quantum simulation, coherence visualization, and entanglement experiments
  * 
- * Features:
- * - Real-time coherence measurement from IMU data
- * - Quantum state visualization
- * - Coherence history tracking
- * - Multiple molecule comparison
- * - Quantum simulation capabilities
+ * @license
+ * Copyright 2026 Wonky Sprout DUNA
+ * Licensed under the AGPLv3 License
  */
 
-import { QMI8658Interface, QMI8658Data } from './qmi8658-interface';
-import { CoherenceMonitor, IMUDataPoint } from './sample-entropy';
+import { Logger } from '../utils/logger';
 
 export interface QuantumState {
-  coherence: number; // 0-1
-  entanglement: number; // 0-1
-  phase: number; // 0-2π
-  lifetime: number; // ms
-  timestamp: number;
+  amplitude: number;
+  phase: number;
+  coherence: number;
+  entanglement: number;
 }
 
-export interface QuantumLabConfig {
-  imuSampleRate: number;
-  coherenceWindowSize: number;
-  updateInterval: number; // ms
-  enableSimulation: boolean;
+export interface QuantumExperiment {
+  id: string;
+  type: 'coherence' | 'entanglement' | 'decoherence' | 'superposition';
+  state: QuantumState;
+  timestamp: Date;
+  parameters: Record<string, any>;
 }
 
-export interface QuantumLabStatus {
-  active: boolean;
-  imuConnected: boolean;
-  coherenceMonitorActive: boolean;
-  currentCoherence: number | null;
-  averageCoherence: number | null;
-  dataPoints: number;
-  uptime: number; // ms
-}
-
-/**
- * Quantum Lab - Core visualization platform
- */
 export class QuantumLab {
-  private imu: QMI8658Interface;
-  private coherenceMonitor: CoherenceMonitor;
-  private config: QuantumLabConfig;
-  private status: QuantumLabStatus;
-  private stateHistory: QuantumState[] = [];
-  private updateInterval?: NodeJS.Timeout;
-  private startTime: number = 0;
-  private stateCallbacks: ((state: QuantumState) => void)[] = [];
-  private coherenceCallbacks: ((coherence: number) => void)[] = [];
+  private logger: Logger;
+  private experiments: Map<string, QuantumExperiment> = new Map();
+  private coherenceDecayRate: number = 0.001; // Default decay rate
 
-  constructor(config?: Partial<QuantumLabConfig>) {
-    this.config = {
-      imuSampleRate: 100,
-      coherenceWindowSize: 100,
-      updateInterval: 100, // 10 Hz update rate
-      enableSimulation: true,
-      ...config,
+  constructor() {
+    this.logger = new Logger('QuantumLab');
+    this.logger.info('Quantum Lab initialized');
+  }
+
+  /**
+   * Simulate quantum coherence decay
+   */
+  simulateCoherenceDecay(initialCoherence: number, time: number): number {
+    // Exponential decay: C(t) = C(0) * e^(-t/T)
+    const T = 1 / this.coherenceDecayRate;
+    return initialCoherence * Math.exp(-time / T);
+  }
+
+  /**
+   * Calculate entanglement between two quantum states
+   */
+  calculateEntanglement(state1: QuantumState, state2: QuantumState): number {
+    // Simplified entanglement measure based on phase correlation
+    const phaseDiff = Math.abs(state1.phase - state2.phase);
+    const correlation = Math.cos(phaseDiff);
+    return Math.abs(correlation) * Math.min(state1.coherence, state2.coherence);
+  }
+
+  /**
+   * Simulate quantum superposition
+   */
+  createSuperposition(amplitude1: number, amplitude2: number): QuantumState {
+    // Normalize amplitudes
+    const norm = Math.sqrt(amplitude1 ** 2 + amplitude2 ** 2);
+    return {
+      amplitude: norm,
+      phase: Math.atan2(amplitude2, amplitude1),
+      coherence: 1.0,
+      entanglement: 0,
     };
+  }
 
-    this.imu = new QMI8658Interface({
-      sampleRate: this.config.imuSampleRate,
-    });
-
-    this.coherenceMonitor = new CoherenceMonitor(this.config.coherenceWindowSize);
-
-    this.status = {
-      active: false,
-      imuConnected: false,
-      coherenceMonitorActive: false,
-      currentCoherence: null,
-      averageCoherence: null,
-      dataPoints: 0,
-      uptime: 0,
+  /**
+   * Simulate decoherence (measurement collapse)
+   */
+  simulateDecoherence(state: QuantumState, measurementStrength: number): QuantumState {
+    // Decoherence reduces coherence based on measurement strength
+    const newCoherence = state.coherence * (1 - measurementStrength);
+    return {
+      ...state,
+      coherence: Math.max(0, newCoherence),
     };
   }
 
   /**
-   * Initialize and start the Quantum Lab
+   * Run a quantum experiment
    */
-  async start(): Promise<boolean> {
-    try {
-      // Initialize IMU
-      const imuInitialized = await this.imu.initialize();
-      if (!imuInitialized) {
-        console.error('[QuantumLab] Failed to initialize IMU');
-        return false;
-      }
-
-      this.status.imuConnected = true;
-      this.startTime = Date.now();
-
-      // Start IMU reading
-      this.imu.startReading((data: QMI8658Data) => {
-        if (data.valid) {
-          this.handleIMUData(data);
-        }
-      });
-
-      // Start coherence monitoring
-      this.status.coherenceMonitorActive = true;
-
-      // Start update loop
-      this.startUpdateLoop();
-
-      this.status.active = true;
-      console.log('[QuantumLab] Started successfully');
-      return true;
-    } catch (error) {
-      console.error('[QuantumLab] Start failed:', error);
-      return false;
-    }
-  }
-
-  /**
-   * Stop the Quantum Lab
-   */
-  stop(): void {
-    this.status.active = false;
-    this.imu.stopReading();
-    this.imu.disconnect();
-
-    if (this.updateInterval) {
-      clearInterval(this.updateInterval);
-      this.updateInterval = undefined;
-    }
-
-    this.coherenceMonitor.clear();
-    this.status.coherenceMonitorActive = false;
-    this.status.imuConnected = false;
-
-    console.log('[QuantumLab] Stopped');
-  }
-
-  /**
-   * Handle incoming IMU data
-   */
-  private handleIMUData(data: QMI8658Data): void {
-    const imuPoint: IMUDataPoint = {
-      timestamp: data.timestamp,
-      accel: data.accel,
-      gyro: data.gyro,
-    };
-
-    this.coherenceMonitor.addDataPoint(imuPoint);
-    this.status.dataPoints++;
-  }
-
-  /**
-   * Start update loop for coherence calculation and callbacks
-   */
-  private startUpdateLoop(): void {
-    this.updateInterval = setInterval(() => {
-      this.update();
-    }, this.config.updateInterval);
-  }
-
-  /**
-   * Update quantum state and notify callbacks
-   */
-  private update(): void {
-    // Get current coherence
-    const coherenceResult = this.coherenceMonitor.getCurrentCoherence();
+  runExperiment(type: QuantumExperiment['type'], parameters: Record<string, any>): QuantumExperiment {
+    const id = `exp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     
-    if (coherenceResult) {
-      this.status.currentCoherence = coherenceResult.coherence;
-      this.status.averageCoherence = this.coherenceMonitor.getAverageCoherence(60000);
-      this.status.uptime = Date.now() - this.startTime;
-
-      // Create quantum state
-      const quantumState: QuantumState = {
-        coherence: coherenceResult.coherence,
-        entanglement: this.calculateEntanglement(coherenceResult.coherence),
-        phase: this.calculatePhase(coherenceResult.coherence),
-        lifetime: this.calculateLifetime(coherenceResult.coherence),
-        timestamp: Date.now(),
-      };
-
-      // Store in history
-      this.stateHistory.push(quantumState);
-      if (this.stateHistory.length > 1000) {
-        this.stateHistory.shift();
-      }
-
-      // Notify callbacks
-      this.notifyStateCallbacks(quantumState);
-      this.notifyCoherenceCallbacks(coherenceResult.coherence);
+    let state: QuantumState;
+    
+    switch (type) {
+      case 'coherence':
+        state = {
+          amplitude: parameters.amplitude || 1.0,
+          phase: parameters.phase || 0,
+          coherence: parameters.initialCoherence || 1.0,
+          entanglement: 0,
+        };
+        // Simulate decay over time
+        if (parameters.time) {
+          state.coherence = this.simulateCoherenceDecay(state.coherence, parameters.time);
+        }
+        break;
+        
+      case 'entanglement':
+        const state1: QuantumState = {
+          amplitude: parameters.amplitude1 || 1.0,
+          phase: parameters.phase1 || 0,
+          coherence: parameters.coherence1 || 1.0,
+          entanglement: 0,
+        };
+        const state2: QuantumState = {
+          amplitude: parameters.amplitude2 || 1.0,
+          phase: parameters.phase2 || 0,
+          coherence: parameters.coherence2 || 1.0,
+          entanglement: 0,
+        };
+        const entanglement = this.calculateEntanglement(state1, state2);
+        state = {
+          amplitude: (state1.amplitude + state2.amplitude) / 2,
+          phase: (state1.phase + state2.phase) / 2,
+          coherence: (state1.coherence + state2.coherence) / 2,
+          entanglement,
+        };
+        break;
+        
+      case 'superposition':
+        state = this.createSuperposition(
+          parameters.amplitude1 || 1.0,
+          parameters.amplitude2 || 1.0
+        );
+        break;
+        
+      case 'decoherence':
+        const initialState: QuantumState = {
+          amplitude: parameters.amplitude || 1.0,
+          phase: parameters.phase || 0,
+          coherence: parameters.initialCoherence || 1.0,
+          entanglement: 0,
+        };
+        state = this.simulateDecoherence(initialState, parameters.measurementStrength || 0.5);
+        break;
+        
+      default:
+        state = {
+          amplitude: 1.0,
+          phase: 0,
+          coherence: 1.0,
+          entanglement: 0,
+        };
     }
+    
+    const experiment: QuantumExperiment = {
+      id,
+      type,
+      state,
+      timestamp: new Date(),
+      parameters,
+    };
+    
+    this.experiments.set(id, experiment);
+    this.logger.debug(`Experiment ${id} completed: ${type}`, { state });
+    
+    return experiment;
   }
 
   /**
-   * Calculate entanglement from coherence
-   * Higher coherence = higher potential for entanglement
+   * Get experiment by ID
    */
-  private calculateEntanglement(coherence: number): number {
-    // Entanglement is related to coherence but not identical
-    // Simplified model: entanglement = coherence^2
-    return Math.pow(coherence, 2);
+  getExperiment(id: string): QuantumExperiment | undefined {
+    return this.experiments.get(id);
   }
 
   /**
-   * Calculate quantum phase from coherence
+   * List all experiments
    */
-  private calculatePhase(coherence: number): number {
-    // Phase oscillates with coherence
-    // Higher coherence = more stable phase
-    const basePhase = (Date.now() / 1000) * 0.1; // Slow oscillation
-    const coherenceModulation = coherence * Math.PI;
-    return (basePhase + coherenceModulation) % (2 * Math.PI);
+  listExperiments(): QuantumExperiment[] {
+    return Array.from(this.experiments.values());
   }
 
   /**
-   * Calculate coherence lifetime
-   * Higher coherence = longer lifetime
+   * Clear experiments
    */
-  private calculateLifetime(coherence: number): number {
-    // Lifetime in milliseconds
-    // Base lifetime: 1000ms, scales with coherence
-    return 1000 * (0.5 + coherence * 0.5);
+  clearExperiments(): void {
+    this.experiments.clear();
+    this.logger.info('All experiments cleared');
   }
 
   /**
-   * Register callback for quantum state updates
+   * Set coherence decay rate
    */
-  onStateUpdate(callback: (state: QuantumState) => void): void {
-    this.stateCallbacks.push(callback);
+  setCoherenceDecayRate(rate: number): void {
+    this.coherenceDecayRate = Math.max(0, Math.min(1, rate));
+    this.logger.info(`Coherence decay rate set to ${this.coherenceDecayRate}`);
   }
 
   /**
-   * Register callback for coherence updates
+   * Get current coherence decay rate
    */
-  onCoherenceUpdate(callback: (coherence: number) => void): void {
-    this.coherenceCallbacks.push(callback);
-  }
-
-  /**
-   * Notify state callbacks
-   */
-  private notifyStateCallbacks(state: QuantumState): void {
-    this.stateCallbacks.forEach(callback => {
-      try {
-        callback(state);
-      } catch (error) {
-        console.error('[QuantumLab] State callback error:', error);
-      }
-    });
-  }
-
-  /**
-   * Notify coherence callbacks
-   */
-  private notifyCoherenceCallbacks(coherence: number): void {
-    this.coherenceCallbacks.forEach(callback => {
-      try {
-        callback(coherence);
-      } catch (error) {
-        console.error('[QuantumLab] Coherence callback error:', error);
-      }
-    });
-  }
-
-  /**
-   * Get current status
-   */
-  getStatus(): QuantumLabStatus {
-    return { ...this.status };
-  }
-
-  /**
-   * Get quantum state history
-   */
-  getStateHistory(timeWindowMs?: number): QuantumState[] {
-    if (timeWindowMs) {
-      const cutoff = Date.now() - timeWindowMs;
-      return this.stateHistory.filter(s => s.timestamp >= cutoff);
-    }
-    return [...this.stateHistory];
-  }
-
-  /**
-   * Get current quantum state
-   */
-  getCurrentState(): QuantumState | null {
-    if (this.stateHistory.length === 0) return null;
-    return this.stateHistory[this.stateHistory.length - 1];
-  }
-
-  /**
-   * Get coherence monitor
-   */
-  getCoherenceMonitor(): CoherenceMonitor {
-    return this.coherenceMonitor;
-  }
-
-  /**
-   * Get IMU interface
-   */
-  getIMU(): QMI8658Interface {
-    return this.imu;
+  getCoherenceDecayRate(): number {
+    return this.coherenceDecayRate;
   }
 }

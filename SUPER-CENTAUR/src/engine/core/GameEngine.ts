@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { PhysicsWorld } from '../physics/PhysicsWorld';
+import { EnhancedPhysicsWorld } from '../physics/EnhancedPhysicsWorld';
 import { SceneManager } from './SceneManager';
 import { InputManager } from './InputManager';
 import { AudioManager } from './AudioManager';
@@ -12,31 +13,42 @@ import { PerformanceMonitor, PerformanceMetrics } from './PerformanceMonitor';
 import { MetabolismIntegration } from './MetabolismIntegration';
 import { ErrorRecovery } from './ErrorRecovery';
 import { AccessibilityManager } from './AccessibilityManager';
-import { WalletManager } from '../../wallet';
+import { EnhancedAccessibilityManager } from '../accessibility/EnhancedAccessibilityManager';
+import { QuantumCoherenceVisualizer } from '../visual/QuantumCoherenceVisualizer';
+import { TetrahedronTopologyVisualizer } from '../visual/TetrahedronTopologyVisualizer';
+import { DynamicChallengeEngine } from '../challenges/DynamicChallengeEngine';
+import { CloudSyncManager } from './CloudSyncManager';
+import { SpatialAudioManager } from './SpatialAudioManager';
+import { WalletManager, FamilyWallet } from '../../wallet';
 import { WalletIntegration } from './WalletIntegration';
-import { VestingManager } from './VestingManager';
-import { ProofOfCareManager, type InteractionData, type CareMetrics } from './ProofOfCareManager';
-
-/** L.O.V.E. reward amounts by action type (P31 spec) */
-const LOVE_REWARDS: Record<string, number> = {
-  BLOCK_PLACED: 1.0,
-  COHERENCE_GIFT: 5.0,
-  ARTIFACT_CREATED: 10.0,
-  CARE_RECEIVED: 3.0,
-  CARE_GIVEN: 2.0,
-  TETRAHEDRON_BOND: 15.0,
-  VOLTAGE_CALMED: 2.0,
-  MILESTONE_REACHED: 25.0,
-  PING: 1.0,
-  DONATION: 0,
-};
-
-/** Source for wallet reward events */
-type LoveRewardSource = 'challenge' | 'build' | 'achievement' | 'daily' | 'bonus';
+import { VestingManager, VestingPhase } from './VestingManager';
+import { ProofOfCareManager } from './ProofOfCareManager';
+import { NetworkManager } from './NetworkManager';
+import { CoopManager } from '../multiplayer/CoopManager';
+import { SafetyManager } from '../safety/SafetyManager';
+import { AssistiveTechnologyManager } from '../assistive/AssistiveTechnologyManager';
+import { KidsMode } from '../kids/KidsMode';
+import { EducationalStoryMode } from '../kids/EducationalStoryMode';
+import { SeniorMode } from '../accessibility/SeniorMode';
+import { FamilyCoOpMode } from '../family/FamilyCoOpMode';
+import { FamilyCodingMode } from '../family/FamilyCodingMode';
+import { PrivacyManager } from '../privacy/PrivacyManager';
+import { ToolsForLifeManager } from '../tools/ToolsForLifeManager';
+import { VibeCodingManager } from '../maker/VibeCodingManager';
+import { SlicingEngine } from '../maker/SlicingEngine';
+import { PrinterIntegration } from '../maker/PrinterIntegration';
+import { FamilyVibeCodingManager } from '../family/FamilyVibeCodingManager';
+import { CosmicTransitionManager } from '../cosmic/CosmicTransitionManager';
+import { CriticalPathManager } from '../critical/CriticalPathManager';
+import { P31LanguageParser } from '../language/P31LanguageParser';
+import { P31LanguageExecutor } from '../language/P31LanguageExecutor';
+import { InfiniteSynergy } from '../synergy/InfiniteSynergy';
+import { P31LanguageBridge } from '../../../language/P31LanguageBridge';
 
 export class GameEngine {
   private sceneManager: SceneManager;
   private physicsWorld: PhysicsWorld;
+  private enhancedPhysics: EnhancedPhysicsWorld;
   private inputManager: InputManager;
   private audioManager: AudioManager;
   private saveManager: SaveManager;
@@ -47,20 +59,42 @@ export class GameEngine {
   private metabolismIntegration: MetabolismIntegration;
   private errorRecovery: ErrorRecovery;
   private accessibilityManager: AccessibilityManager;
+  private enhancedAccessibilityManager: EnhancedAccessibilityManager;
+  private tetrahedronTopologyVisualizer: TetrahedronTopologyVisualizer;
+  private dynamicChallengeEngine: DynamicChallengeEngine;
+  // Optional features
+  private kidsMode: KidsMode;
+  private seniorMode: SeniorMode;
+  private storyMode: EducationalStoryMode;
+  private familyCoOp: FamilyCoOpMode;
+  private familyCoding: FamilyCodingMode;
+  private privacyManager: PrivacyManager;
+  private p31Parser: P31LanguageParser;
+  private p31Executor: P31LanguageExecutor;
+  private infiniteSynergy: InfiniteSynergy;
+  private networkManager: NetworkManager;
+  private cloudSyncManager: CloudSyncManager;
+  private spatialAudioManager: SpatialAudioManager;
   private walletManager: WalletManager;
-  private vestingManager: VestingManager;
-  private proofOfCareManager: ProofOfCareManager;
   private walletIntegration: WalletIntegration;
-
+  private coopManager: CoopManager;
+  private vibeCoding: VibeCodingManager;
+  private slicingEngine: SlicingEngine;
+  private printerIntegration: PrinterIntegration;
+  private familyVibeCoding: FamilyVibeCodingManager;
+  private safetyManager: SafetyManager;
+  private cosmicTransitionManager: CosmicTransitionManager;
+  private criticalPathManager: CriticalPathManager;
+  
   private isRunning: boolean = false;
   private lastTime: number = 0;
   private animationFrameId: number | null = null;
-
+  
   // Game state
   private currentStructure: any = null;
   private playerProgress: PlayerProgress | null = null;
   private isPaused: boolean = false;
-
+  
   // Performance tracking
   private frameTimeHistory: number[] = [];
   private autoSaveInterval: number = 30000; // 30 seconds
@@ -69,6 +103,7 @@ export class GameEngine {
   constructor() {
     this.sceneManager = new SceneManager();
     this.physicsWorld = new PhysicsWorld();
+    this.enhancedPhysics = new EnhancedPhysicsWorld();
     this.inputManager = new InputManager();
     this.audioManager = new AudioManager();
     this.saveManager = new SaveManager();
@@ -79,14 +114,41 @@ export class GameEngine {
     this.metabolismIntegration = new MetabolismIntegration();
     this.errorRecovery = new ErrorRecovery();
     this.accessibilityManager = new AccessibilityManager();
+    this.enhancedAccessibilityManager = new EnhancedAccessibilityManager();
+    // TetrahedronTopologyVisualizer will be initialized after sceneManager is ready
+    this.tetrahedronTopologyVisualizer = new TetrahedronTopologyVisualizer(this.sceneManager.getScene());
+    this.dynamicChallengeEngine = new DynamicChallengeEngine();
+    this.coopManager = new CoopManager();
+    this.networkManager = new NetworkManager();
+    this.cloudSyncManager = new CloudSyncManager();
+    this.spatialAudioManager = new SpatialAudioManager();
     this.walletManager = new WalletManager();
     this.proofOfCareManager = new ProofOfCareManager();
-    this.vestingManager = new VestingManager();
     this.walletIntegration = new WalletIntegration(this.walletManager, this.proofOfCareManager);
-
+    this.vestingManager = new VestingManager();
+    this.vestingManager.initializeFoundingNodes();
+    this.safetyManager = new SafetyManager();
+    this.vibeCoding = new VibeCodingManager();
+    this.slicingEngine = new SlicingEngine();
+    this.printerIntegration = new PrinterIntegration();
+    this.familyVibeCoding = new FamilyVibeCodingManager();
+    this.cosmicTransitionManager = new CosmicTransitionManager();
+    this.criticalPathManager = new CriticalPathManager();
+    
+    // Initialize family and kids features
+    this.kidsMode = new KidsMode();
+    this.seniorMode = new SeniorMode();
+    this.storyMode = new EducationalStoryMode();
+    this.familyCoOp = new FamilyCoOpMode();
+    this.familyCoding = new FamilyCodingMode();
+    this.privacyManager = new PrivacyManager();
+    this.p31Parser = new P31LanguageParser();
+    this.p31Executor = new P31LanguageExecutor(this.familyCoOp, this.familyCoding, this);
+    this.infiniteSynergy = new InfiniteSynergy();
+    
     // Apply accessibility settings
     this.accessibilityManager.applySettings();
-
+    
     this.setupEventListeners();
   }
 
@@ -101,6 +163,22 @@ export class GameEngine {
       await this.initWithRecovery('AudioManager', () => this.audioManager.init());
       await this.initWithRecovery('InputManager', () => this.inputManager.init());
       await this.initWithRecovery('SaveManager', () => this.saveManager.init());
+      await this.initWithRecovery('SafetyManager', () => this.safetyManager.init());
+      await this.initWithRecovery('NetworkManager', () => this.networkManager.init());
+      await this.initWithRecovery('CloudSyncManager', () => this.cloudSyncManager.init());
+      await this.initWithRecovery('SpatialAudioManager', () => this.spatialAudioManager.init());
+      await this.initWithRecovery('VibeCoding', () => this.vibeCoding.init());
+      await this.initWithRecovery('SlicingEngine', () => this.slicingEngine.init());
+      await this.initWithRecovery('PrinterIntegration', () => this.printerIntegration.init());
+      await this.initWithRecovery('KidsMode', async () => { this.kidsMode.init(); });
+      await this.initWithRecovery('StoryMode', async () => { this.storyMode.init(); });
+      await this.initWithRecovery('FamilyCoOpMode', async () => { this.familyCoOp.init(); });
+      await this.initWithRecovery('FamilyCodingMode', async () => { this.familyCoding.init(); });
+      await this.initWithRecovery('PrivacyManager', async () => { this.privacyManager.init(); });
+      await this.initWithRecovery('FamilyVibeCoding', async () => { this.familyVibeCoding.init(); });
+      await this.initWithRecovery('CosmicTransitionManager', async () => { this.cosmicTransitionManager.init(); });
+      await this.initWithRecovery('CriticalPathManager', async () => { this.criticalPathManager.init(); });
+      // WalletManager doesn't need async init
       
       // Load player progress
       this.playerProgress = await this.saveManager.loadPlayerProgress();
@@ -108,10 +186,7 @@ export class GameEngine {
         this.playerProgress = this.createDefaultPlayerProgress();
         await this.saveManager.savePlayerProgress(this.playerProgress);
       }
-
-      // Ensure L.O.V.E. wallet exists for current player
-      this.ensurePlayerWallet();
-
+      
       // Set up build mode callbacks
       this.setupBuildModeCallbacks();
       
@@ -152,10 +227,16 @@ export class GameEngine {
   }
 
   /**
-   * Start the game loop
+   * Start the game loop with safety checks
    */
-  public start(): void {
+  public async start(userAge?: number): Promise<void> {
     if (this.isRunning) return;
+    
+    // Start safety session
+    const sessionStarted = await this.safetyManager.startSession(userAge);
+    if (!sessionStarted) {
+      throw new Error('Safety session could not be started');
+    }
     
     this.isRunning = true;
     this.lastTime = performance.now();
@@ -176,6 +257,9 @@ export class GameEngine {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
     }
+    
+    // End safety session
+    this.safetyManager.endSession();
     
     this.audioManager.stopAmbientSound();
     console.log('🛑 Game Engine stopped');
@@ -220,12 +304,22 @@ export class GameEngine {
     this.sceneManager.update(deltaTime);
     this.buildMode.update(deltaTime);
     this.challengeEngine.update(deltaTime);
+    
+    // Update safety checks
+    this.safetyManager.update(deltaTime);
+    
     const updateTime = performance.now() - updateStart;
 
     // Track render time
     const renderStart = performance.now();
     this.sceneManager.render();
     const renderTime = performance.now() - renderStart;
+
+    // Update spatial audio
+    this.spatialAudioManager.update();
+
+    // Update network manager
+    this.networkManager.cleanupDisconnectedPeers();
 
     // Track physics time (approximate)
     const physicsTime = deltaTime * 0.1; // Estimate
@@ -318,8 +412,22 @@ export class GameEngine {
       this.audioManager.playSound('place_piece');
       this.validateStructure();
       this.saveCurrentStructure();
+      
+      // Sync to cloud
+      if (this.currentStructure) {
+        this.cloudSyncManager.syncStructure(this.currentStructure);
+      }
+      
+      // Broadcast to network
+      if (this.currentStructure) {
+        this.networkManager.broadcastStructureUpdate(this.currentStructure);
+      }
+      
+      // Reward spoons for building
       this.metabolismIntegration.rewardSpoons('build');
-      this.applyRewardLoveForAction('BLOCK_PLACED', { piece });
+      
+      // Reward LOVE tokens for building (BLOCK_PLACED = 1.0 LOVE)
+      this.rewardLoveForAction('BLOCK_PLACED', { pieceId: piece.id });
     };
 
     // Piece removed callback
@@ -403,12 +511,20 @@ export class GameEngine {
   }
 
   /**
-   * Create new structure
+   * Create new structure with safety checks
    */
   public createNewStructure(name: string): void {
+    // Filter structure name for safety
+    const filteredName = this.safetyManager.filterStructureName(name);
+    
+    // Check if content is safe
+    if (!this.safetyManager.isContentSafe(filteredName)) {
+      throw new Error('Structure name contains unsafe content');
+    }
+    
     this.currentStructure = {
       id: this.generateId(),
-      name,
+      name: filteredName,
       createdBy: this.playerProgress?.familyMemberId || 'unknown',
       createdAt: Date.now(),
       primitives: [],
@@ -438,9 +554,27 @@ export class GameEngine {
       this.audioManager.playSound('challenge_complete');
       this.playerProgress!.totalLoveEarned += result.rewardLove;
       this.playerProgress!.completedChallenges.push(challenge.id);
+      
+      // Reward LOVE tokens to player wallet (MILESTONE_REACHED = 25.0 LOVE for major challenges)
+      const isMajorMilestone = result.rewardLove >= 25;
+      if (isMajorMilestone) {
+        this.rewardLoveForAction('MILESTONE_REACHED', { challengeId: challenge.id, challengeTitle: challenge.title });
+      } else {
+        // Regular challenge completion uses challenge reward amount
+        this.walletIntegration.rewardLove(
+          this.playerProgress!.familyMemberId,
+          result.rewardLove,
+          `Challenge: ${challenge.title}`,
+          'challenge'
+        );
+      }
+      
+      // Reward spoons for challenge completion
       this.metabolismIntegration.rewardSpoons('challenge');
-      this.applyRewardLoveForAction('MILESTONE_REACHED', { challengeId: challenge.id, rewardLove: result.rewardLove });
+      
+      // Update tier if needed
       this.updatePlayerTier();
+      
       this.saveManager.savePlayerProgress(this.playerProgress!);
       this.saveManager.saveChallengeCompletion(challenge.id, result);
     }
@@ -531,105 +665,265 @@ export class GameEngine {
   }
 
   /**
-   * Ensure a L.O.V.E. wallet and vesting registration exist for the current player (for rewards)
+   * Get network manager
    */
-  private ensurePlayerWallet(): void {
-    if (!this.playerProgress) return;
-    const memberId = this.playerProgress.familyMemberId;
-    try {
-      if (!this.walletManager.getMemberWallet(memberId)) {
-        const store = DataStore.getInstance();
-        store.insert('wallets', {
-          id: `wallet_${memberId}`,
-          memberId,
-          memberName: 'Player',
-          role: 'Player',
-          balance: 0,
-          currency: 'LOVE',
-          pools: { sovereigntyPool: 0, performancePool: 0 },
-        });
-      }
-      if (!this.vestingManager.getVestingStatus(memberId)) {
-        this.vestingManager.registerMember({
-          memberId,
-          memberName: 'Player',
-          birthdate: new Date(Date.now() - 18 * 365.25 * 24 * 60 * 60 * 1000),
-        });
-      }
-    } catch {
-      // DataStore may be unavailable (e.g. browser); rewards will no-op
-    }
+  public getNetworkManager(): NetworkManager {
+    return this.networkManager;
   }
 
-  /** Reward L.O.V.E. for a game action. Respects vesting. */
-  public rewardLoveForAction(type: string, _metadata?: object): boolean {
-    if (!this.playerProgress) return false;
-    const memberId = this.playerProgress.familyMemberId;
-    if (!this.vestingManager.canPerformAction(memberId, 'earn', true)) return false;
-    const amount = LOVE_REWARDS[type] ?? 0;
-    if (amount <= 0) return false;
-    const source: LoveRewardSource = type === 'MILESTONE_REACHED' ? 'challenge' : type === 'BLOCK_PLACED' ? 'build' : 'bonus';
-    return this.walletIntegration.rewardLove(memberId, amount, type, source);
+  /**
+   * Get cloud sync manager
+   */
+  public getCloudSyncManager(): CloudSyncManager {
+    return this.cloudSyncManager;
   }
 
-  /** Record a PING (verified contact) — 1.0 L.O.V.E. */
-  public recordPing(_targetMemberId?: string): boolean {
-    if (!this.playerProgress) return false;
-    const memberId = this.playerProgress.familyMemberId;
-    if (!this.vestingManager.canPerformAction(memberId, 'earn', true)) return false;
-    return this.walletIntegration.rewardLove(memberId, LOVE_REWARDS.PING, 'PING', 'bonus');
+  /**
+   * Get safety manager
+   */
+  public getSafetyManager(): SafetyManager {
+    return this.safetyManager;
   }
 
-  /** Record an external donation (crypto). No L.O.V.E.; log only. */
-  public recordDonation(cryptoValue: number, currency: string): void {
-    try {
-      const store = DataStore.getInstance();
-      store.insert('wallet_transactions', {
-        fromWalletId: 'external',
-        toWalletId: 'system',
-        amount: cryptoValue,
-        description: `Donation ${currency}`,
-        type: 'donation',
-        timestamp: new Date().toISOString(),
-      });
-    } catch {
-      // no-op if store unavailable
-    }
+  /**
+   * Get spatial audio manager
+   */
+  public getSpatialAudioManager(): SpatialAudioManager {
+    return this.spatialAudioManager;
   }
 
-  /** Record a care interaction; delegates to ProofOfCareManager. */
-  public recordCareInteraction(data: InteractionData) {
-    return this.proofOfCareManager.recordInteraction(data);
+  /**
+   * Get wallet manager
+   */
+  public getWalletManager(): WalletManager {
+    return this.walletManager;
   }
 
-  /** Verify a care task (e.g. from child's device). */
-  public verifyCareTask(memberId: string, taskId: string, description: string): boolean {
-    return this.proofOfCareManager.verifyTask(memberId, taskId, description);
-  }
-
-  /** Check if a member can perform an action (vesting + guardian approval). */
-  public canPerformAction(
-    memberId: string,
-    action: 'earn' | 'spend' | 'transfer' | 'deploy' | 'create_challenge',
-    guardianApproved: boolean = false
-  ): boolean {
-    return this.vestingManager.canPerformAction(memberId, action, guardianApproved);
-  }
-
+  /**
+   * Get wallet integration
+   */
   public getWalletIntegration(): WalletIntegration {
     return this.walletIntegration;
   }
 
-  public getVestingManager(): VestingManager {
-    return this.vestingManager;
+  /**
+   * Reward LOVE tokens to player (convenience method)
+   */
+  public rewardLoveTokens(memberId: string, amount: number, description: string, source: 'challenge' | 'build' | 'achievement' | 'daily' | 'bonus' = 'bonus'): boolean {
+    return this.walletIntegration.rewardLove(memberId, amount, description, source);
   }
 
-  public getProofOfCareManager(): ProofOfCareManager {
-    return this.proofOfCareManager;
+  /**
+   * Get player wallet balance (convenience method)
+   */
+  public getPlayerWalletBalance(memberId: string): number {
+    return this.walletIntegration.getBalance(memberId);
   }
 
-  public getWalletManager(): WalletManager {
-    return this.walletManager;
+  /**
+   * Get player wallet (convenience method)
+   */
+  public getPlayerWallet(memberId: string): FamilyWallet | null {
+    return this.walletManager.getMemberWallet(memberId);
+  }
+
+  /**
+   * Transfer LOVE tokens between players (convenience method)
+   */
+  public transferLoveTokens(fromMemberId: string, toMemberId: string, amount: number, description: string): boolean {
+    return this.walletIntegration.transfer(fromMemberId, toMemberId, amount, description);
+  }
+
+  /**
+   * Get vibe coding manager
+   */
+  public getVibeCodingManager(): VibeCodingManager {
+    return this.vibeCoding;
+  }
+
+  /**
+   * Get slicing engine
+   */
+  public getSlicingEngine(): SlicingEngine {
+    return this.slicingEngine;
+  }
+
+  /**
+   * Get printer integration
+   */
+  public getPrinterIntegration(): PrinterIntegration {
+    return this.printerIntegration;
+  }
+
+  /**
+   * Vibe Code → Build → Slice → Print workflow
+   * Complete pipeline from in-game coding to physical print
+   * 
+   * 💜 With love and light. As above, so below. 💜
+   */
+  public async vibeCodeToPrint(
+    code: string,
+    language: 'javascript' | 'typescript' | 'python' | 'glsl' | 'hlsl' = 'javascript',
+    sliceConfig?: Partial<import('../maker/SlicingEngine').SliceConfig>,
+    printerId?: string
+  ): Promise<{
+    projectId: string;
+    structureId: string;
+    slicedModelId: string;
+    printJobId: string;
+    gcode: string;
+  }> {
+    // Step 1: Create vibe coding project and execute
+    const project = this.vibeCoding.createProject('Vibe Print', language);
+    this.vibeCoding.updateProject(project.id, code);
+    const execution = await this.vibeCoding.executeCode(project.id);
+
+    if (execution.error) {
+      throw new Error(`Code execution failed: ${execution.error}`);
+    }
+
+    // Step 2: Get current structure (code execution should generate/modify structure)
+    const structure = this.currentStructure;
+    if (!structure) {
+      throw new Error('No structure available. Build something first or code should generate structure.');
+    }
+
+    // Step 3: Export structure geometry
+    const geometry = await this.exportStructureToGeometry(structure);
+    
+    // Step 4: Slice the geometry
+    const slicedModel = await this.slicingEngine.sliceModel(geometry, sliceConfig);
+    
+    // Step 5: Generate G-code
+    const gcode = this.slicingEngine.exportToGCode(slicedModel);
+    
+    // Step 6: Push to printer
+    const printJob = await this.printerIntegration.printGCode(gcode, printerId);
+
+    console.log(`💜 Vibe Code → Print complete!`);
+    console.log(`   Project: ${project.id}`);
+    console.log(`   Structure: ${structure.id || 'current'}`);
+    console.log(`   Sliced: ${slicedModel.id}`);
+    console.log(`   Print Job: ${printJob.id}`);
+    console.log(`   Estimated Time: ${slicedModel.estimatedTime.toFixed(1)} min`);
+    console.log(`   Estimated Material: ${slicedModel.estimatedMaterial.toFixed(1)}g`);
+
+    return {
+      projectId: project.id,
+      structureId: structure.id || 'current',
+      slicedModelId: slicedModel.id,
+      printJobId: printJob.id,
+      gcode
+    };
+  }
+
+  /**
+   * Export current structure to Three.js geometry
+   */
+  private async exportStructureToGeometry(structure: any): Promise<import('three').BufferGeometry> {
+    // Get all blocks/pieces from structure
+    const blocks = structure.blocks || structure.pieces || [];
+    
+    // Create merged geometry from all blocks
+    const geometries: import('three').BufferGeometry[] = [];
+    
+    for (const block of blocks) {
+      // Create geometry for each block
+      let geometry: import('three').BufferGeometry;
+      
+      if (block.type === 'box' || block.type === 'cube') {
+        geometry = new THREE.BoxGeometry(
+          block.size?.x || 1,
+          block.size?.y || 1,
+          block.size?.z || 1
+        );
+      } else if (block.type === 'sphere') {
+        geometry = new THREE.SphereGeometry(block.radius || 0.5);
+      } else if (block.type === 'cylinder') {
+        geometry = new THREE.CylinderGeometry(
+          block.radius || 0.5,
+          block.radius || 0.5,
+          block.height || 1
+        );
+      } else if (block.type === 'tetrahedron') {
+        geometry = new THREE.TetrahedronGeometry(block.radius || 0.5);
+      } else {
+        // Default to box
+        geometry = new THREE.BoxGeometry(1, 1, 1);
+      }
+
+      // Apply position
+      if (block.position) {
+        geometry.translate(block.position.x || 0, block.position.y || 0, block.position.z || 0);
+      }
+
+      // Apply rotation
+      if (block.rotation) {
+        const rotation = new THREE.Euler(
+          block.rotation.x || 0,
+          block.rotation.y || 0,
+          block.rotation.z || 0
+        );
+        geometry.rotateX(rotation.x);
+        geometry.rotateY(rotation.y);
+        geometry.rotateZ(rotation.z);
+      }
+
+      geometries.push(geometry);
+    }
+
+    // Merge all geometries into one
+    if (geometries.length === 0) {
+      // Return empty geometry if no blocks
+      return new THREE.BufferGeometry();
+    }
+
+    // Use BufferGeometryUtils if available, otherwise merge manually
+    let mergedGeometry: import('three').BufferGeometry;
+    
+    try {
+      // Try to use BufferGeometryUtils for proper merging
+      const BufferGeometryUtils = await import('three/examples/jsm/utils/BufferGeometryUtils.js');
+      mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries) || new THREE.BufferGeometry();
+    } catch {
+      // Fallback: use first geometry if merge fails
+      // In production, implement manual merge
+      mergedGeometry = geometries[0] || new THREE.BufferGeometry();
+      console.warn('⚠️ BufferGeometryUtils not available, using first primitive only');
+    }
+
+    return mergedGeometry;
+  }
+
+  /**
+   * Quick print: Slice current structure and print
+   * Direct workflow: Build → Slice → Print
+   */
+  public async quickPrint(
+    sliceConfig?: Partial<import('../maker/SlicingEngine').SliceConfig>,
+    printerId?: string
+  ): Promise<{
+    slicedModelId: string;
+    printJobId: string;
+    gcode: string;
+  }> {
+    const structure = this.currentStructure;
+    if (!structure) {
+      throw new Error('No structure to print. Build something first.');
+    }
+
+    const geometry = await this.exportStructureToGeometry(structure);
+    const slicedModel = await this.slicingEngine.sliceModel(geometry, sliceConfig);
+    const gcode = this.slicingEngine.exportToGCode(slicedModel);
+    const printJob = await this.printerIntegration.printGCode(gcode, printerId);
+
+    console.log(`🖨️ Quick print started: ${printJob.id}`);
+
+    return {
+      slicedModelId: slicedModel.id,
+      printJobId: printJob.id,
+      gcode
+    };
   }
 
   /**
@@ -645,8 +939,16 @@ export class GameEngine {
     this.audioManager.dispose();
     this.saveManager.dispose();
     this.challengeEngine.dispose();
+    this.coopManager.dispose();
+    this.safetyManager.dispose();
     this.performanceMonitor.reset();
     this.errorRecovery.clearErrorHistory();
+    this.networkManager.dispose();
+    this.cloudSyncManager.dispose();
+    this.spatialAudioManager.dispose();
+    this.familyVibeCoding.dispose();
+    this.cosmicTransitionManager.dispose();
+    this.criticalPathManager.dispose();
     
     console.log('🧹 Game Engine disposed');
   }
@@ -675,83 +977,6 @@ export class GameEngine {
     return 'struct_' + Math.random().toString(36).substr(2, 9);
   }
 
-  /**
-   * Ensure L.O.V.E. wallet exists for current player (no-op if already exists).
-   */
-  private ensurePlayerWallet(): void {
-    if (!this.playerProgress?.familyMemberId) return;
-    this.walletManager.ensureMemberWallet(
-      this.playerProgress.familyMemberId,
-      'Player',
-      'player'
-    );
-  }
-
-  /**
-   * Reward LOVE for a game action; maps type to amount and credits wallet (50/50 pools).
-   */
-  private applyRewardLoveForAction(type: string, _metadata?: object): void {
-    const amount = LOVE_REWARDS[type] ?? 0;
-    if (amount <= 0) return;
-    const memberId = this.playerProgress?.familyMemberId;
-    if (!memberId) return;
-    const source: LoveRewardSource = type === 'MILESTONE_REACHED' ? 'achievement' : 'build';
-    this.walletIntegration.rewardLove(memberId, amount, type, source);
-  }
-
-  // --- L.O.V.E. API (documented in GAME_ENGINE_OPUS_BRIEF) ---
-
-  public getWalletManager(): WalletManager {
-    return this.walletManager;
-  }
-
-  public getWalletIntegration(): WalletIntegration {
-    return this.walletIntegration;
-  }
-
-  public getVestingManager(): VestingManager {
-    return this.vestingManager;
-  }
-
-  public getProofOfCareManager(): ProofOfCareManager {
-    return this.proofOfCareManager;
-  }
-
-  /**
-   * Reward LOVE for an action type (public API for demos/scripts).
-   */
-  public rewardLoveForAction(type: string, metadata?: object): void {
-    this.applyRewardLoveForAction(type, metadata);
-  }
-
-  /** PING: 1.0 LOVE (verified contact). */
-  public recordPing(targetMemberId?: string): void {
-    const memberId = targetMemberId ?? this.playerProgress?.familyMemberId;
-    if (!memberId) return;
-    this.walletIntegration.rewardLove(memberId, LOVE_REWARDS.PING, 'PING', 'bonus');
-  }
-
-  /** Record care interaction; delegates to ProofOfCareManager. */
-  public recordCareInteraction(data: InteractionData): CareMetrics | null {
-    return this.proofOfCareManager.recordInteraction(data);
-  }
-
-  /** DONATION: log only, no LOVE. */
-  public recordDonation(cryptoValue: number, currency: string): void {
-    // Log-only per spec; could write to audit or donations collection
-    console.log(`[GameEngine] Donation recorded: ${cryptoValue} ${currency}`);
-  }
-
-  /** Verify a care task for a member. */
-  public verifyCareTask(memberId: string, taskId: string, description: string): boolean {
-    return this.proofOfCareManager.verifyTask(memberId, taskId, description);
-  }
-
-  /** Whether member can perform action (vesting + guardian approval). */
-  public canPerformAction(memberId: string, action: string, guardianApproved: boolean): boolean {
-    return this.vestingManager.canPerformAction(memberId, action, guardianApproved);
-  }
-
   // Getters for external access
   public getSceneManager(): SceneManager {
     return this.sceneManager;
@@ -767,5 +992,283 @@ export class GameEngine {
 
   public getPlayerProgress(): PlayerProgress | null {
     return this.playerProgress;
+  }
+
+  /**
+   * Get Family Co-Op Mode instance
+   */
+  public getFamilyCoOp(): FamilyCoOpMode {
+    return this.familyCoOp;
+  }
+
+  /**
+   * Get Kids Mode instance
+   */
+  public getKidsMode(): KidsMode {
+    return this.kidsMode;
+  }
+
+  /**
+   * Get Senior Mode instance
+   */
+  public getSeniorMode(): SeniorMode {
+    return this.seniorMode;
+  }
+
+  /**
+   * Get Story Mode instance
+   */
+  public getStoryMode(): EducationalStoryMode {
+    return this.storyMode;
+  }
+
+  /**
+   * Get Privacy Manager instance
+   */
+  public getPrivacyManager(): PrivacyManager {
+    return this.privacyManager;
+  }
+
+  /**
+   * Get P31 language bridge (synergized system + runtime)
+   * "Synergize x infinity"
+   */
+  public getP31LanguageBridge(): P31LanguageBridge {
+    return new P31LanguageBridge(this.p31Executor);
+  }
+
+  /**
+   * Execute P31 code with full synergy
+   * Auto-detects system vs runtime, loads system context, executes runtime
+   * "Synergize x infinity"
+   */
+  public async executeP31Code(
+    code: string,
+    systemCode?: string,
+    mode: 'system' | 'runtime' | 'auto' = 'auto'
+  ): Promise<any> {
+    const bridge = this.getP31LanguageBridge();
+    
+    if (systemCode) {
+      // Load system first, then execute runtime
+      return await bridge.synergize(systemCode, code);
+    } else {
+      // Auto-detect and execute
+      return await bridge.execute(code, mode);
+    }
+  }
+
+  /**
+   * Get Infinite Synergy System
+   */
+  public getInfiniteSynergy(): InfiniteSynergy {
+    return this.infiniteSynergy;
+  }
+
+  /**
+   * Generate infinite synergy
+   */
+  public generateInfiniteSynergy(levels: number = 10): any {
+    return this.infiniteSynergy.generateInfinite(levels);
+  }
+
+  /**
+   * Visualize tetrahedron topology
+   * Shows/hides topology visualization for current structure
+   */
+  public visualizeTopology(visible: boolean): void {
+    if (visible) {
+      if (this.currentStructure) {
+        this.tetrahedronTopologyVisualizer.visualizeTopology(this.currentStructure);
+      }
+    } else {
+      this.tetrahedronTopologyVisualizer.clear();
+    }
+  }
+
+  /**
+   * Get enhanced accessibility manager
+   * Provides advanced accessibility features beyond basic manager
+   */
+  public getEnhancedAccessibility(): EnhancedAccessibilityManager {
+    return this.enhancedAccessibilityManager;
+  }
+
+  /**
+   * Generate dynamic challenge based on current state
+   * Creates context-aware challenges that adapt to player progress
+   */
+  public generateDynamicChallenge(config?: {
+    minDifficulty?: number;
+    maxDifficulty?: number;
+    preferredTypes?: string[];
+    coopBonus?: boolean;
+    timeLimit?: number;
+  }): any {
+    const playerTier = this.playerProgress?.tier || 'seedling';
+    const completedCount = this.playerProgress?.completedChallenges.length || 0;
+    
+    return this.dynamicChallengeEngine.generateChallenge({
+      tier: playerTier,
+      completedChallenges: completedCount,
+      currentStructure: this.currentStructure,
+      ...config
+    });
+  }
+
+  /**
+   * Enhanced LOVE economy integration
+   * Rewards LOVE tokens for various game actions according to economy spec
+   * All 10 transaction types supported
+   */
+  private rewardLoveForAction(
+    action: 'BLOCK_PLACED' | 'COHERENCE_GIFT' | 'ARTIFACT_CREATED' | 'CARE_RECEIVED' | 'CARE_GIVEN' | 'TETRAHEDRON_BOND' | 'VOLTAGE_CALMED' | 'MILESTONE_REACHED' | 'PING' | 'DONATION',
+    metadata?: Record<string, any>
+  ): void {
+    if (!this.playerProgress) return;
+
+    const LOVE_REWARDS: Record<string, number> = {
+      BLOCK_PLACED: 1.0,
+      COHERENCE_GIFT: 5.0,
+      ARTIFACT_CREATED: 10.0,
+      CARE_RECEIVED: 3.0,
+      CARE_GIVEN: 2.0,
+      TETRAHEDRON_BOND: 15.0,
+      VOLTAGE_CALMED: 2.0,
+      MILESTONE_REACHED: 25.0,
+      PING: 1.0,
+      DONATION: 0  // Crypto value only, no LOVE
+    };
+
+    const amount = LOVE_REWARDS[action] || 0;
+    
+    // DONATION type: record but don't award LOVE (crypto value only)
+    if (action === 'DONATION') {
+      // Record donation but don't mint LOVE tokens
+      // This would be handled by external donation system
+      this.logger.info(`Donation recorded for ${this.playerProgress.familyMemberId}: ${metadata?.cryptoValue || 0} (no LOVE awarded)`);
+      return;
+    }
+    
+    if (amount > 0) {
+      this.walletIntegration.rewardLove(
+        this.playerProgress.familyMemberId,
+        amount,
+        `Game action: ${action}`,
+        'game'
+      );
+    }
+  }
+
+  /**
+   * Record PING transaction (verified contact)
+   * @param targetMemberId The member who was pinged
+   */
+  public recordPing(targetMemberId?: string): void {
+    if (!this.playerProgress) return;
+    
+    // PING rewards 1.0 LOVE for verified contact
+    this.rewardLoveForAction('PING', { targetMemberId });
+  }
+
+  /**
+   * Record DONATION transaction (external crypto donation)
+   * @param cryptoValue The crypto value donated (no LOVE awarded)
+   * @param currency The cryptocurrency (e.g., 'ETH', 'USDC')
+   */
+  public recordDonation(cryptoValue: number, currency: string = 'ETH'): void {
+    if (!this.playerProgress) return;
+    
+    // DONATION records crypto value but awards 0 LOVE
+    this.rewardLoveForAction('DONATION', { cryptoValue, currency });
+  }
+
+  /**
+   * Get current structure
+   * Returns the currently active structure being built
+   */
+  public getCurrentStructure(): any {
+    return this.currentStructure;
+  }
+
+  /**
+   * Get Cosmic Transition Manager
+   * Returns the cosmic transition manager for planetary/astrological features
+   */
+  public getCosmicTransition(): CosmicTransitionManager {
+    return this.cosmicTransitionManager;
+  }
+
+  /**
+   * Get Critical Path Manager
+   * Returns the critical path manager for task dependency analysis
+   */
+  public getCriticalPathManager(): CriticalPathManager {
+    return this.criticalPathManager;
+  }
+
+  /**
+   * Get Family Vibe Coding Manager
+   * Returns the family vibe coding manager for collaborative coding sessions
+   */
+  public getFamilyVibeCoding(): FamilyVibeCodingManager {
+    return this.familyVibeCoding;
+  }
+
+  /**
+   * Get vesting manager
+   * Returns the vesting manager for age-based access control
+   */
+  public getVestingManager(): VestingManager {
+    return this.vestingManager;
+  }
+
+  /**
+   * Get vesting status for a member
+   */
+  public getVestingStatus(memberId: string) {
+    return this.vestingManager.getVestingStatus(memberId);
+  }
+
+  /**
+   * Check if member can perform action (with vesting phase checks)
+   */
+  public canPerformAction(
+    memberId: string,
+    action: 'earn' | 'spend' | 'transfer' | 'deploy' | 'create_challenge',
+    guardianApproved: boolean = false
+  ): boolean {
+    return this.vestingManager.canPerformAction(memberId, action, guardianApproved);
+  }
+
+  /**
+   * Get Proof of Care manager
+   */
+  public getProofOfCareManager(): ProofOfCareManager {
+    return this.proofOfCareManager;
+  }
+
+  /**
+   * Record care interaction (for Proof of Care)
+   */
+  public recordCareInteraction(data: {
+    memberId: string;
+    interactionTime: Date;
+    hrvSync: number;
+    interactionDuration: number;
+    engagementDepth: number;
+    tasksVerified: number;
+  }) {
+    return this.proofOfCareManager.recordInteraction({
+      ...data,
+      interactionId: `interaction_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    });
+  }
+
+  /**
+   * Verify care task (called by child's device)
+   */
+  public verifyCareTask(memberId: string, taskId: string, taskDescription: string): boolean {
+    return this.proofOfCareManager.verifyTask(memberId, taskId, taskDescription);
   }
 }

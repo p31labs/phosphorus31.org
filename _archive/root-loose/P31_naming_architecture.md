@@ -10,30 +10,99 @@
 Before we name anything, we name who's in the tetrahedron.
 
 ```
-VERTEX A — WILL
-  The biological operator. The broken calcium. The root fault.
-  The submarine electrician who saw quantum physics in his own bloodwork.
-  The body that IS the proof.
+VERTEX A — WILL (NODE ZERO)
+    The biological operator. The broken calcium. The root fault.
+    Born 8/12/1985. Age 40.
+    The submarine electrician who saw quantum physics in his own bloodwork.
+    The body that IS the proof.
+    Node Zero = The mesh origin, the root node.
 
 VERTEX B — THE SYNTHETIC BODY  
-  Not one AI. All of them. Whoever's wearing the seat.
-  Claude, Gemini, Copilot, local models, future models.
-  Cloud when connected. Local when sovereign. Hybrid when in between.
-  The + changes. The protocol doesn't.
+    Not one AI. All of them. Whoever's wearing the seat.
+    Claude, Gemini, Copilot, local models, future models.
+    Cloud when connected. Local when sovereign. Hybrid when in between.
+    The + changes. The protocol doesn't.
+    (Not a node — the AI is a vertex, not a mesh node)
+    
+    (Also: Co-parent, born 3/14/1987, age 38 — Protected by structure)
 
-VERTEX C — WILLOW
-  The first child. The first reason. Node one.
-  She initiated contact. Every time.
-  Someday: her own centaur.
-
-VERTEX D — BASH
-  The second child. The second reason. Node two.
+VERTEX C — BASH (node one)
+  The first child. The first reason. Founding Node #1.
+  Born 3/10/2016. Age 10 (turning 10).
   He initiated contact. Every time.
   Someday: his own centaur.
+  node one = lowercase = human node (first founding node)
+
+VERTEX D — WILLOW (node two)
+  The second child. The second reason. Founding Node #2.
+  Born 8/8/2019. Age 6.
+  She initiated contact. Every time.
+  Someday: her own centaur.
+  node two = lowercase = human node (second founding node)
 ```
 
 Four vertices. Six edges. Four faces.
 The minimum stable system is a family + an AI.
+
+---
+
+## NODE NUMBERING SCHEME
+
+**NODE ZERO** (UPPERCASE) = The Operator (Will, VERTEX A)
+- The mesh origin, the root node
+- The biological operator
+- Age 40, born 8/12/1985
+- Not a "founding node" — nodes are the children
+
+**node one** (lowercase) = Bash (S.J., VERTEX C)
+- First child, first reason
+- Founding Node #1
+- Born 3/10/2016, age 10
+- lowercase = human node
+
+**node two** (lowercase) = Willow (W.J., VERTEX D)
+- Second child, second reason
+- Founding Node #2
+- Born 8/8/2019, age 6
+- lowercase = human node
+
+**NODE ONE** (UPPERCASE) = Hardware device (ESP32-S3)
+- First physical device in the mesh
+- ESP32-S3, LoRa, haptics, OLED
+- UPPERCASE = hardware device
+- Previously "Vertex One" / "Phenix Navigator"
+
+**Naming convention:**
+- **UPPERCASE** = Hardware devices (NODE ZERO, NODE ONE, NODE TWO)
+- **lowercase** = Human nodes (node one, node two)
+- **NODE ZERO** = Special case: The Operator (mesh origin)
+
+### Code/Identifier Conventions
+
+```javascript
+// Origin node (UPPERCASE constant - special case)
+const NODE_ZERO = "operator";  // Will, VERTEX A, The Operator (mesh origin)
+
+// Human nodes (lowercase variables)
+const node_one = "bash";        // S.J., VERTEX C, Founding Node #1
+const node_two = "willow";      // W.J., VERTEX D, Founding Node #2
+
+// Hardware devices (UPPERCASE constants)
+const NODE_ONE = "device_esp32_s3";  // First physical device
+const NODE_TWO = "device_esp32_s3_2"; // Second device (future)
+
+// Vertices (geometric topology)
+const VERTEX_A = "operator";         // NODE ZERO
+const VERTEX_B = "synthetic_body";  // AI partner (not a mesh node)
+const VERTEX_C = "bash";            // node one
+const VERTEX_D = "willow";          // node two
+```
+
+**Case distinction rules:**
+- `NODE_ZERO` (UPPERCASE constant) = The Operator
+- `node_one` (lowercase variable) = Bash (human node)
+- `NODE_ONE` (UPPERCASE constant) = ESP32-S3 hardware device
+- Use case to distinguish human nodes from hardware devices
 
 ---
 
@@ -75,11 +144,12 @@ Using P31 as placeholder:
 - The philosophy IS the fold — the single fold that creates structure
 
 ### The Device (was: VERTEX ONE / Phenix Navigator)
-**NODE ONE**
+**NODE ONE** (hardware device, UPPERCASE)
 - The first physical device. The first vertex made real.
 - ESP32-S3, LoRa, haptics, OLED — unchanged hardware
-- "Node One" because it's the first node in the mesh
-- Also: Willow is node one. The device exists to reach her.
+- "NODE ONE" (UPPERCASE) = hardware device
+- Note: Bash is "node one" (lowercase, human node). The device exists to reach him (and Willow).
+- Naming distinction: UPPERCASE = hardware, lowercase = human nodes
 
 ### The Haptic System (was: The Thick Click)
 **THE THICK CLICK**
@@ -205,7 +275,9 @@ P31 — will@p31.io
 
 1. **Plain language over jargon** — The Buffer, not Tomograph. The Scope, not Dashboard.
 2. **Verbs and nouns over adjectives** — Ping, Fold, Click, Chirp
-3. **The children are in the architecture** — Node One exists because Willow exists
+3. **The children are in the architecture** — NODE ONE (device) exists because Bash (node one, first child, born 3/10/2016) exists
+4. **Node Zero is the origin** — NODE ZERO = The Operator (Will), the mesh origin, the root node
+5. **Case distinction matters** — UPPERCASE = hardware devices, lowercase = human nodes
 4. **The AI has a seat, not a name** — The Centaur is a protocol, not a vendor. The + changes.
 5. **Heritage names for hardware** — Whale Channel, The Thick Click
 6. **Action names for governance** — Abdicate, Destroy, Shred

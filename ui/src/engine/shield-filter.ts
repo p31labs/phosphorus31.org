@@ -1,7 +1,7 @@
 /**
  * Shield Filter
  * Core threat detection and message filtering logic
- * 
+ *
  * Pure function - no React, no hooks, no DOM
  */
 
@@ -46,7 +46,7 @@ export function filterMessage(
   let reason: string | undefined;
 
   // Critical threats = block
-  const hasCriticalThreats = threats.some(t => t.pattern.severity === 'critical');
+  const hasCriticalThreats = threats.some((t) => t.pattern.severity === 'critical');
   if (hasCriticalThreats) {
     shouldBlock = true;
     recommendation = 'block';
@@ -83,6 +83,6 @@ export function filterMessage(
     genre,
     threats,
     recommendation,
-    reason
+    reason,
   };
 }

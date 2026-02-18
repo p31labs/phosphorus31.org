@@ -72,7 +72,7 @@ red: 30
 ## File Locations
 
 ```
-phenix-navigator-creator67/
+p31/
 ├── SUPER-CENTAUR/     # The Centaur
 ├── ui/                 # The Scope
 ├── apps/shelter/      # The Buffer (P31 Shelter)

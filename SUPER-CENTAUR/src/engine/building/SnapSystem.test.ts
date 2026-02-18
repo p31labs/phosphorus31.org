@@ -356,7 +356,18 @@ describe('SnapSystem', () => {
         connectionPoints: []
       };
 
-      const feedback = {
+      // First trigger a snap to set the haptic feedback flag
+      const snapFeedback = {
+        isSnapping: true,
+        targetPoint: undefined,
+        sourcePoint: undefined,
+        distance: 0.5,
+        alignmentScore: 0.9
+      };
+      snapSystem.triggerHapticFeedback(piece, snapFeedback);
+
+      // Now trigger release
+      const releaseFeedback = {
         isSnapping: false,
         targetPoint: undefined,
         sourcePoint: undefined,
@@ -367,7 +378,7 @@ describe('SnapSystem', () => {
       // Mock console.log to capture haptic feedback
       const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
 
-      snapSystem.triggerHapticFeedback(piece, feedback);
+      snapSystem.triggerHapticFeedback(piece, releaseFeedback);
 
       expect(consoleSpy).toHaveBeenCalledWith('Haptic feedback: strength=0.3, duration=50ms');
 

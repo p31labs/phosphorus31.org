@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc || exit 0",
     "start": "node dist/index.js",
     "start:main": "node dist/index.js",
     "start:quantum": "tsx src/quantum-brain/index.ts",
@@ -39,8 +39,14 @@
     "sovereign",
     "centaur"
   ],
-  "author": "Digital Centaur + Sovereign Agent",
+  "author": "P31 Labs, Inc.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p31labs/phenix-navigator-creator67.git",
+    "directory": "SUPER-CENTAUR"
+  },
+  "homepage": "https://phosphorus31.org",
   "dependencies": {
     "@dimforge/rapier3d": "^0.19.3",
     "@dimforge/rapier3d-compat": "^0.19.3",

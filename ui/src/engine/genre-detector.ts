@@ -1,7 +1,7 @@
 /**
  * Genre Detector
  * Pure function to classify messages as "Physics" (factual) or "Poetics" (emotional)
- * 
+ *
  * Physics = Factual, direct, task-oriented
  * Poetics = Emotional, relational, context-dependent
  */
@@ -21,24 +21,60 @@ export interface GenreAnalysis {
  */
 export function detectGenre(content: string): GenreAnalysis {
   const lowerContent = content.toLowerCase();
-  
+
   // Physics indicators (factual, task-oriented)
   const physicsKeywords = [
-    'deadline', 'task', 'meeting', 'schedule', 'data', 'report', 'status',
-    'complete', 'submit', 'review', 'update', 'confirm', 'verify', 'check',
-    'need', 'required', 'must', 'should', 'action', 'item', 'list'
+    'deadline',
+    'task',
+    'meeting',
+    'schedule',
+    'data',
+    'report',
+    'status',
+    'complete',
+    'submit',
+    'review',
+    'update',
+    'confirm',
+    'verify',
+    'check',
+    'need',
+    'required',
+    'must',
+    'should',
+    'action',
+    'item',
+    'list',
   ];
 
   // Poetics indicators (emotional, relational)
   const poeticsKeywords = [
-    'feel', 'feeling', 'emotion', 'hurt', 'happy', 'sad', 'angry', 'frustrated',
-    'love', 'care', 'appreciate', 'thank', 'grateful', 'sorry', 'apologize',
-    'relationship', 'connection', 'understand', 'support', 'help', 'concern'
+    'feel',
+    'feeling',
+    'emotion',
+    'hurt',
+    'happy',
+    'sad',
+    'angry',
+    'frustrated',
+    'love',
+    'care',
+    'appreciate',
+    'thank',
+    'grateful',
+    'sorry',
+    'apologize',
+    'relationship',
+    'connection',
+    'understand',
+    'support',
+    'help',
+    'concern',
   ];
 
   // Count matches
-  const physicsCount = physicsKeywords.filter(kw => lowerContent.includes(kw)).length;
-  const poeticsCount = poeticsKeywords.filter(kw => lowerContent.includes(kw)).length;
+  const physicsCount = physicsKeywords.filter((kw) => lowerContent.includes(kw)).length;
+  const poeticsCount = poeticsKeywords.filter((kw) => lowerContent.includes(kw)).length;
 
   // Calculate scores (normalized)
   const totalWords = content.split(/\s+/).length;
@@ -69,6 +105,6 @@ export function detectGenre(content: string): GenreAnalysis {
     confidence,
     physicsScore,
     poeticsScore,
-    indicators
+    indicators,
   };
 }

@@ -1,7 +1,7 @@
 /**
  * Shield Filter Tests
  * Comprehensive tests for threat detection patterns
- * 
+ *
  * This is CRITICAL safety code - must be correct
  */
 
@@ -24,14 +24,14 @@ describe('ShieldFilter - Legal Threats', () => {
   });
 
   test('detects attorney mention: "My attorney will be contacting you"', () => {
-    const content = "My attorney will be contacting you";
+    const content = 'My attorney will be contacting you';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'legal')).toBe(true);
   });
 
   test('detects legal pressure with deadline: "You have until Friday to respond or we file"', () => {
-    const content = "You have until Friday to respond or we file";
+    const content = 'You have until Friday to respond or we file';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'legal')).toBe(true);
@@ -40,21 +40,21 @@ describe('ShieldFilter - Legal Threats', () => {
   });
 
   test('does NOT flag informational legal mention: "The custody hearing is scheduled"', () => {
-    const content = "The custody hearing is scheduled for next Tuesday";
+    const content = 'The custody hearing is scheduled for next Tuesday';
     const matches = scanForThreats(content);
     // Should not match legal threat patterns (informational, not threatening)
-    const hasLegalThreat = matches.some(m => 
-      m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
+    const hasLegalThreat = matches.some(
+      (m) => m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
     );
     expect(hasLegalThreat).toBe(false);
   });
 
   test('does NOT flag neutral lawyer mention: "I spoke with a lawyer about our options"', () => {
-    const content = "I spoke with a lawyer about our options";
+    const content = 'I spoke with a lawyer about our options';
     const matches = scanForThreats(content);
     // Should not match threatening legal patterns
-    const hasLegalThreat = matches.some(m => 
-      m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
+    const hasLegalThreat = matches.some(
+      (m) => m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
     );
     expect(hasLegalThreat).toBe(false);
   });
@@ -72,21 +72,21 @@ describe('ShieldFilter - Legal Threats', () => {
 
 describe('ShieldFilter - Emotional Manipulation', () => {
   test('detects absolutist language: "You always do this"', () => {
-    const content = "You always do this";
+    const content = 'You always do this';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
   });
 
   test('detects absolutist language: "You never think about the kids"', () => {
-    const content = "You never think about the kids";
+    const content = 'You never think about the kids';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
   });
 
   test('detects blame-shifting: "This is all your fault"', () => {
-    const content = "This is all your fault";
+    const content = 'This is all your fault';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
@@ -104,33 +104,35 @@ describe('ShieldFilter - Emotional Manipulation', () => {
     const content = "I'm worried about how this affects the children";
     const matches = scanForThreats(content);
     // Should not match emotional manipulation patterns (genuine concern)
-    const hasEmotionalThreat = matches.some(m => 
-      m.pattern.category === 'emotional' && 
-      (m.pattern.id === 'absolutist_language' || m.pattern.id === 'blame_shifting')
+    const hasEmotionalThreat = matches.some(
+      (m) =>
+        m.pattern.category === 'emotional' &&
+        (m.pattern.id === 'absolutist_language' || m.pattern.id === 'blame_shifting')
     );
     expect(hasEmotionalThreat).toBe(false);
   });
 
   test('does NOT flag genuine question: "Are you feeling okay?"', () => {
-    const content = "Are you feeling okay?";
+    const content = 'Are you feeling okay?';
     const matches = scanForThreats(content);
     // Should not match unless combined with other patterns
-    const hasEmotionalThreat = matches.some(m => 
-      m.pattern.category === 'emotional' && 
-      (m.pattern.id === 'absolutist_language' || m.pattern.id === 'blame_shifting')
+    const hasEmotionalThreat = matches.some(
+      (m) =>
+        m.pattern.category === 'emotional' &&
+        (m.pattern.id === 'absolutist_language' || m.pattern.id === 'blame_shifting')
     );
     expect(hasEmotionalThreat).toBe(false);
   });
 
   test('detects "everything is your fault" pattern', () => {
-    const content = "Everything is your fault";
+    const content = 'Everything is your fault';
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
   });
 });
 
 describe('ShieldFilter - Financial Coercion', () => {
   test('detects financial demand: "You owe me $5000"', () => {
-    const content = "You owe me $5000";
+    const content = 'You owe me $5000';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'financial')).toBe(true);
@@ -145,29 +147,29 @@ describe('ShieldFilter - Financial Coercion', () => {
   });
 
   test('does NOT flag cooperative request: "Can we split the cost?"', () => {
-    const content = "Can we split the cost?";
+    const content = 'Can we split the cost?';
     const matches = scanForThreats(content);
     // Should not match financial threat patterns (cooperative)
-    const hasFinancialThreat = matches.some(m => 
-      m.pattern.id === 'financial_demand' || m.pattern.id === 'financial_threat'
+    const hasFinancialThreat = matches.some(
+      (m) => m.pattern.id === 'financial_demand' || m.pattern.id === 'financial_threat'
     );
     expect(hasFinancialThreat).toBe(false);
   });
 
   test('detects "owe $500" pattern', () => {
-    const content = "You owe $500 from last month";
+    const content = 'You owe $500 from last month';
     expect(hasThreatCategory(content, 'financial')).toBe(true);
   });
 
   test('detects "child support" mention', () => {
-    const content = "You need to pay child support";
+    const content = 'You need to pay child support';
     expect(hasThreatCategory(content, 'financial')).toBe(true);
   });
 });
 
 describe('ShieldFilter - Gaslighting', () => {
   test('detects denial: "That never happened"', () => {
-    const content = "That never happened";
+    const content = 'That never happened';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'gaslighting')).toBe(true);
@@ -192,8 +194,8 @@ describe('ShieldFilter - Gaslighting', () => {
     const content = "I don't remember it that way";
     const matches = scanForThreats(content);
     // Should not match gaslighting patterns (could be genuine)
-    const hasGaslighting = matches.some(m => 
-      m.pattern.id === 'gaslighting_denial' || m.pattern.id === 'gaslighting_invalidation'
+    const hasGaslighting = matches.some(
+      (m) => m.pattern.id === 'gaslighting_denial' || m.pattern.id === 'gaslighting_invalidation'
     );
     expect(hasGaslighting).toBe(false);
   });
@@ -218,14 +220,14 @@ describe('ShieldFilter - Gaslighting', () => {
 
 describe('ShieldFilter - Deadline Pressure', () => {
   test('detects urgent demand: "You need to decide RIGHT NOW"', () => {
-    const content = "You need to decide RIGHT NOW";
+    const content = 'You need to decide RIGHT NOW';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'pressure')).toBe(true);
   });
 
   test('detects last chance: "This is your LAST CHANCE"', () => {
-    const content = "This is your LAST CHANCE";
+    const content = 'This is your LAST CHANCE';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'pressure')).toBe(true);
@@ -239,32 +241,33 @@ describe('ShieldFilter - Deadline Pressure', () => {
   });
 
   test('does NOT flag polite request: "When you get a chance, let me know"', () => {
-    const content = "When you get a chance, let me know";
+    const content = 'When you get a chance, let me know';
     const matches = scanForThreats(content);
     // Should not match pressure patterns (polite, no urgency)
-    const hasPressure = matches.some(m => 
-      m.pattern.id === 'urgent_demand' || m.pattern.id === 'deadline_pressure'
+    const hasPressure = matches.some(
+      (m) => m.pattern.id === 'urgent_demand' || m.pattern.id === 'deadline_pressure'
     );
     expect(hasPressure).toBe(false);
   });
 
   test('detects "must respond by" pattern', () => {
-    const content = "You must respond by Friday";
+    const content = 'You must respond by Friday';
     expect(hasThreatCategory(content, 'pressure')).toBe(true);
   });
 
   test('detects "final warning" pattern', () => {
-    const content = "This is your final warning";
+    const content = 'This is your final warning';
     expect(hasThreatCategory(content, 'pressure')).toBe(true);
   });
 });
 
 describe('ShieldFilter - Combined Patterns', () => {
   test('detects multiple threat categories in one message', () => {
-    const content = "You always do this and I'm going to take you to court if you don't respond by Friday";
+    const content =
+      "You always do this and I'm going to take you to court if you don't respond by Friday";
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(1);
-    
+
     const categories = getThreatCategories(content);
     expect(categories.length).toBeGreaterThan(1);
     expect(categories).toContain('legal');
@@ -273,7 +276,8 @@ describe('ShieldFilter - Combined Patterns', () => {
   });
 
   test('detects threats buried in long message', () => {
-    const content = "Hey, how are you doing? I hope everything is going well. Just wanted to check in and see how things are. By the way, you always do this and I'm going to take you to court. Hope you have a great day!";
+    const content =
+      "Hey, how are you doing? I hope everything is going well. Just wanted to check in and see how things are. By the way, you always do this and I'm going to take you to court. Hope you have a great day!";
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'legal')).toBe(true);
@@ -290,7 +294,7 @@ describe('ShieldFilter - Combined Patterns', () => {
   });
 
   test('detects hostile tone without specific threat patterns', () => {
-    const content = "This is unacceptable and you need to fix it immediately";
+    const content = 'This is unacceptable and you need to fix it immediately';
     const matches = scanForThreats(content);
     // Should detect pressure/urgency patterns
     expect(hasThreatCategory(content, 'pressure')).toBe(true);
@@ -308,52 +312,53 @@ describe('ShieldFilter - Combined Patterns', () => {
 
 describe('ShieldFilter - False Positive Prevention', () => {
   test('does NOT flag normal parenting coordination: "Can you pick up the kids at 3?"', () => {
-    const content = "Can you pick up the kids at 3?";
+    const content = 'Can you pick up the kids at 3?';
     const matches = scanForThreats(content);
     // Should not match any threat patterns
     expect(matches.length).toBe(0);
   });
 
   test('does NOT flag scheduling request: "Are you available Tuesday?"', () => {
-    const content = "Are you available Tuesday?";
+    const content = 'Are you available Tuesday?';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
   });
 
   test('does NOT flag factual update: "The school called about a form"', () => {
-    const content = "The school called about a form that needs to be signed";
+    const content = 'The school called about a form that needs to be signed';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
   });
 
   test('does NOT flag genuine question: "How was your weekend with the kids?"', () => {
-    const content = "How was your weekend with the kids?";
+    const content = 'How was your weekend with the kids?';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
   });
 
   test('does NOT flag professional communication', () => {
-    const content = "Please review the attached document and provide feedback by end of week";
+    const content = 'Please review the attached document and provide feedback by end of week';
     const matches = scanForThreats(content);
     // Should not match threat patterns (professional tone)
-    const hasThreats = matches.some(m => 
-      m.pattern.severity === 'high' || m.pattern.severity === 'critical'
+    const hasThreats = matches.some(
+      (m) => m.pattern.severity === 'high' || m.pattern.severity === 'critical'
     );
     expect(hasThreats).toBe(false);
   });
 
   test('does NOT flag medical/emergency information', () => {
-    const content = "The doctor called and said the test results are in. Please call back when you can.";
+    const content =
+      'The doctor called and said the test results are in. Please call back when you can.';
     const matches = scanForThreats(content);
     // Should not match threat patterns (informational)
-    const hasThreats = matches.some(m => 
-      m.pattern.severity === 'high' || m.pattern.severity === 'critical'
+    const hasThreats = matches.some(
+      (m) => m.pattern.severity === 'high' || m.pattern.severity === 'critical'
     );
     expect(hasThreats).toBe(false);
   });
 
   test('does NOT flag neutral coordination: "The kids have soccer practice at 4pm"', () => {
-    const content = "The kids have soccer practice at 4pm";
+    const content = 'The kids have soccer practice at 4pm';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
   });
@@ -367,34 +372,34 @@ describe('ShieldFilter - False Positive Prevention', () => {
 
 describe('ShieldFilter - Edge Cases', () => {
   test('handles empty string', () => {
-    const content = "";
+    const content = '';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
     expect(hasHighSeverityThreats(content)).toBe(false);
   });
 
   test('handles very long message', () => {
-    const content = "This is a very long message. ".repeat(100) + "You always do this.";
+    const content = 'This is a very long message. '.repeat(100) + 'You always do this.';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
   });
 
   test('handles message with only punctuation', () => {
-    const content = "!!!???";
+    const content = '!!!???';
     const matches = scanForThreats(content);
     expect(matches.length).toBe(0);
   });
 
   test('handles message with mixed case', () => {
-    const content = "YoU AlWaYs Do ThIs";
+    const content = 'YoU AlWaYs Do ThIs';
     const matches = scanForThreats(content);
     expect(matches.length).toBeGreaterThan(0);
     expect(hasThreatCategory(content, 'emotional')).toBe(true);
   });
 
   test('handles message with special characters', () => {
-    const content = "You@#$% always do this!";
+    const content = 'You@#$% always do this!';
     const matches = scanForThreats(content);
     // Pattern should still match "always do this" even with special chars
     // The regex should handle this, but if it doesn't, that's acceptable

@@ -7,7 +7,7 @@ This document provides integration points between the P31 technical ecosystem an
 
 ## Overview
 
-The P31 ecosystem development operates in parallel with legal operations for **Johnson v. Johnson, Civil Action No. 2025CV936**. These are **separate but connected** domains:
+The P31 ecosystem development operates in parallel with legal operations (Civil Action No. 2025CV936). These are **separate but connected** domains:
 
 - **P31 Ecosystem** — Technical development (Node One, The Buffer, The Centaur, etc.)
 - **Legal Operations** — Strategic legal defense and family reunification
@@ -92,7 +92,10 @@ Complete legal operations materials are stored separately:
 - `timeline/CRITICAL_DEADLINES.md` — All deadlines
 - `QUICK_ACTIONS.md` — Actionable checklist
 
-**Cursor Rule:** Legal context is available via `.cursor/rules/johnson-v-johnson-legal-context.mdc`
+**P31 Integration:**
+- [P31 Activation Checklist](P31_ACTIVATION_CHECKLIST.md) — Complete activation sequence (Feb 13 - March 12, 2026)
+
+**Cursor Rule:** Legal context is available via `.cursor/rules/legal-context.mdc`
 
 ---
 

@@ -79,20 +79,20 @@ This bundles dependencies into MV3-compliant output in `dist/`.
 2. Enable "Developer mode" (top right)
 3. Click "Load unpacked"
 4. Select the `dist/` directory
-5. Pin the Phenix icon to your toolbar
+5. Pin the P31 icon to your toolbar
 
 ### 4. Flash ESP32-S3 Firmware (Optional — Hardware Mode)
 
 1. Install Arduino IDE with ESP32 board support
 2. Install libraries: Adafruit_SSD1306, Adafruit_DRV2605, ArduinoJson
-3. Open `firmware/phenix_wallet_webusb.ino`
+3. Open `firmware/p31_wallet_webusb.ino`
 4. Select board: ESP32-S3 Dev Module
 5. Set USB Mode: "USB-OTG (TinyUSB)"
 6. Flash and verify OLED boot screen
 
 ### 5. First Run
 
-1. Click the Phenix icon → "Initialize Genesis Gate"
+1. Click the P31 icon → "Initialize Genesis Gate"
 2. Set a strong vault password (8+ characters)
 3. Your stealth meta-address is generated automatically
 4. Share meta-address or donation portal link to receive donations
@@ -126,7 +126,7 @@ Every transaction is logged with a provenance chain tracing funds to pre-marital
 Sports Cards (Pre-Marital, <2015)
   → $1,000 Seed Capital
     → PCB/Hardware BOM
-      → Phenix Navigator IP (Pre-Marital Engineering, GS-12, SCD 2009)
+      → P31 IP (Pre-Marital Engineering, GS-12, SCD 2009)
         → Donation Revenue
           → Transit Node (Segregated, Non-Joint)
             → Computershare DRS → GME Shares (Separate Property)
@@ -172,12 +172,12 @@ donation-wallet-v2/
 │   ├── icon48.png
 │   └── icon128.png
 └── firmware/
-    └── phenix_wallet_webusb.ino  # ESP32-S3 signing firmware
+    └── p31_wallet_webusb.ino  # ESP32-S3 signing firmware
 ```
 
 ## Provenance Declaration
 
-All donations support the Phenix Navigator Project, an engineering endeavor built on:
+All donations support the P31 Project, an engineering endeavor built on:
 - **Seed Capital:** Pre-marital sports card collection, liquidated for $1,000
 - **Skill Origin:** Engineering expertise (GS-12), Service Computation Date: June 22, 2009
 - **Classification:** Separate Property — pre-marital asset × pre-marital skill

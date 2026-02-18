@@ -25,6 +25,9 @@ import { QuantumBrainBridge } from '../quantum-brain';
 import { createSOPRoutes } from '../quantum-brain/sop-routes';
 import { QuantumLab } from '../quantum';
 import { createQuantumLabRoutes } from '../quantum/quantum-lab-routes';
+import { createCognitiveProstheticsRoutes } from '../cognitive-prosthetics/cognitive-prosthetics-routes';
+import { createDeadlineRoutes } from '../strategic/deadline-routes';
+import { createSynergyRoutes } from '../synergy/synergy-routes';
 import { SpoonEngine } from '../spoons';
 import { WalletManager } from '../wallet';
 import { GoogleDriveManager } from '../google-drive';
@@ -306,6 +309,7 @@ export class SuperCentaurServer {
     this.setupSOPRoutes();
     this.setupQuantumLabRoutes();
     this.setupBufferRoutes();
+    this.setupBufferClientRoutes();
 
     // Frontend proxy
     this.app.use('/frontend', express.static(this.config.frontend.buildDir));
@@ -655,7 +659,8 @@ export class SuperCentaurServer {
     this.app.get('/api/messages/:messageId', async (req: Request, res: Response) => {
       try {
         const { messageId } = req.params;
-        const message = this.store.find('messages', (m: any) => m.id === messageId);
+        const messages = this.store.list('messages', { id: messageId });
+        const message = messages.length > 0 ? messages[0] : null;
         
         if (!message) {
           return res.status(404).json({ error: 'Message not found' });
@@ -1338,8 +1343,8 @@ export class SuperCentaurServer {
     });
   }
 
-  // ── Buffer routes ───────────────────────────────────────────
-  private setupBufferRoutes(): void {
+  // ── Buffer routes (client API) ───────────────────────────────────────────
+  private setupBufferClientRoutes(): void {
     // Submit message to Buffer
     this.app.post('/api/buffer/message', async (req: Request, res: Response) => {
       if (!this.bufferClient) return res.status(503).json({ error: 'Buffer client unavailable' });
@@ -1498,6 +1503,33 @@ export class SuperCentaurServer {
     this.app.use('/api/quantum-lab', quantumLabRoutes);
     
     this.logger.info('Quantum Lab routes registered');
+  }
+
+  // ── Cognitive Prosthetics routes ────────────────────────────────
+  private setupCognitiveProstheticsRoutes(): void {
+    // Mount Cognitive Prosthetics routes with Buffer integration
+    const cognitiveProstheticsRoutes = createCognitiveProstheticsRoutes(this.bufferClient);
+    this.app.use('/api/cognitive-prosthetics', cognitiveProstheticsRoutes);
+    
+    this.logger.info('Cognitive Prosthetics routes registered (with Buffer integration)');
+  }
+
+  // ── Strategic routes ────────────────────────────────────────────
+  private setupStrategicRoutes(): void {
+    // Mount Strategic routes (deadline tracking, etc.)
+    const deadlineRoutes = createDeadlineRoutes();
+    this.app.use('/api/strategic/deadlines', deadlineRoutes);
+    
+    this.logger.info('Strategic routes registered');
+  }
+
+  // ── Synergy routes ──────────────────────────────────────────────
+  private setupSynergyRoutes(): void {
+    // Mount Synergy routes (infinite compounding)
+    const synergyRoutes = createSynergyRoutes();
+    this.app.use('/api/synergy', synergyRoutes);
+    
+    this.logger.info('Synergy routes registered (x infinity)');
   }
 
   private setupWebSocket(): void {

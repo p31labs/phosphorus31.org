@@ -24,7 +24,7 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('high voltage alone = sanitize (not block)', () => {
-      const content = "URGENT!!! CRITICAL!!! EMERGENCY!!!";
+      const content = 'URGENT!!! CRITICAL!!! EMERGENCY!!!';
       const result = filterMessage(content);
       expect(result.shouldBlock).toBe(false);
       expect(result.shouldBuffer).toBe(true);
@@ -45,7 +45,7 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('high voltage = sanitize (which includes buffering)', () => {
-      const content = "URGENT!!! This is critical and requires immediate attention!!!";
+      const content = 'URGENT!!! This is critical and requires immediate attention!!!';
       const result = filterMessage(content);
       // Voltage needs to be >= 7 to sanitize
       if (result.voltage.score >= 7) {
@@ -57,7 +57,7 @@ describe('ShieldFilter - Integration', () => {
 
   describe('Safe messages', () => {
     test('low voltage = safe', () => {
-      const content = "Hello, how are you?";
+      const content = 'Hello, how are you?';
       const result = filterMessage(content);
       expect(result.shouldBlock).toBe(false);
       expect(result.shouldBuffer).toBe(false);
@@ -65,7 +65,7 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('neutral informational = safe', () => {
-      const content = "The meeting is scheduled for Tuesday at 3pm";
+      const content = 'The meeting is scheduled for Tuesday at 3pm';
       const result = filterMessage(content);
       expect(result.recommendation).toBe('safe');
     });
@@ -73,7 +73,7 @@ describe('ShieldFilter - Integration', () => {
 
   describe('Complete analysis', () => {
     test('result includes voltage analysis', () => {
-      const content = "This is urgent";
+      const content = 'This is urgent';
       const result = filterMessage(content);
       expect(result.voltage).toBeDefined();
       expect(result.voltage.score).toBeGreaterThanOrEqual(0);
@@ -81,7 +81,7 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('result includes genre analysis', () => {
-      const content = "I feel hurt";
+      const content = 'I feel hurt';
       const result = filterMessage(content);
       expect(result.genre).toBeDefined();
       expect(result.genre.genre).toBeDefined();
@@ -89,14 +89,14 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('result includes threat matches', () => {
-      const content = "You always do this";
+      const content = 'You always do this';
       const result = filterMessage(content);
       expect(result.threats).toBeDefined();
       expect(Array.isArray(result.threats)).toBe(true);
     });
 
     test('result includes recommendation reason', () => {
-      const content = "Hello";
+      const content = 'Hello';
       const result = filterMessage(content);
       expect(result.reason).toBeDefined();
       expect(typeof result.reason).toBe('string');
@@ -105,10 +105,10 @@ describe('ShieldFilter - Integration', () => {
 
   describe('Metadata handling', () => {
     test('metadata is passed to voltage calculator', () => {
-      const content = "Test message";
+      const content = 'Test message';
       const metadata = {
-        sender: "test-sender",
-        source: "test-source",
+        sender: 'test-sender',
+        source: 'test-source',
         timestamp: new Date(),
       };
       const result = filterMessage(content, metadata);
@@ -117,7 +117,7 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('works without metadata', () => {
-      const content = "Test message";
+      const content = 'Test message';
       const result = filterMessage(content);
       expect(result).toBeDefined();
       expect(result.recommendation).toBeDefined();
@@ -143,14 +143,14 @@ describe('ShieldFilter - Integration', () => {
     });
 
     test('normal coordination → safe', () => {
-      const content = "Can you pick up the kids at 3pm?";
+      const content = 'Can you pick up the kids at 3pm?';
       const result = filterMessage(content);
       expect(result.recommendation).toBe('safe');
       expect(result.shouldBlock).toBe(false);
     });
 
     test('urgent but not threatening → sanitize', () => {
-      const content = "URGENT: Please call me when you get a chance";
+      const content = 'URGENT: Please call me when you get a chance';
       const result = filterMessage(content);
       // High voltage but no threats = sanitize
       if (result.voltage.score >= 7) {

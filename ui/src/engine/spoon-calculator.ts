@@ -1,7 +1,7 @@
 /**
  * Spoon Calculator
  * Pure function to estimate cognitive cost (spoons) of tasks
- * 
+ *
  * Spoons represent finite cognitive energy. Each task costs spoons.
  * Recovery activities restore spoons.
  */
@@ -45,7 +45,7 @@ export function calculateSpoonCost(message: {
 
   // Threat multiplier (multiple threat categories increase cost)
   if (message.threatFlags && message.threatFlags > 0) {
-    cost *= (1 + message.threatFlags * 0.3); // 30% increase per threat category
+    cost *= 1 + message.threatFlags * 0.3; // 30% increase per threat category
   }
 
   // Hostile contact multiplier (messages from known hostile contacts cost more)
@@ -86,7 +86,7 @@ export function calculateSpoonCost(message: {
   return {
     cost: Math.round(cost * 10) / 10,
     category,
-    description
+    description,
   };
 }
 

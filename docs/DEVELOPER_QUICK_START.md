@@ -95,7 +95,7 @@ See [GOD_CONFIG Reference](god-config.md) for details.
 ## File Structure
 
 ```
-phenix-navigator-creator67/
+p31/
 ├── SUPER-CENTAUR/     # The Centaur (backend)
 ├── ui/                 # The Scope (frontend)
 ├── apps/shelter/      # The Buffer (P31 Shelter)
