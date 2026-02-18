@@ -32,12 +32,12 @@ This document is canonical. Gemini, Cursor, Claude, DeepSeek, and every future a
 
 | Product | Type | Description | Status |
 |---------|------|-------------|--------|
-| **The Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | **V1 SHIPPED Feb 18, 2026** — PWA + Chrome extension + Workers API. Tag: v1.0.0-buffer |
+| **The Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | **V1 SHIPPED Feb 18, 2026** — PWA + Chrome extension + Workers API. Tag: v1.0.0-buffer. **Ecosystem wired Feb 18, 2026** — Shelter API on Centaur, Buffer Server separated at apps/buffer-server. Tag: v1.1.0-wiring |
 | **Node One** | Hardware | ESP32-S3 + DRV2605L haptics + LoRa (Meshtastic) + BLE | Firmware spec complete, hardware prototyped |
-| **The Scope** | Software | Cognitive dashboard, energy tracking, medication management | React components exist, build broken |
+| **The Scope** | Software | Cognitive dashboard, energy tracking, medication management | Build passing. Wired to Centaur via ShelterBridge. L.O.V.E. mining syncs to backend. |
 | **Ping** | Protocol | Heartbeat/check-in system | Implemented in Buffer |
 | **Thick Click** | Hardware | Haptic feedback interaction pattern | DRV2605L effects mapped |
-| **The Centaur** | Protocol | Human-AI collaboration framework | This document IS the implementation |
+| **The Centaur** | Protocol | Human-AI collaboration framework + Shelter API backend | Running on port 3001. Shelter API live at /api/shelter/*. Wired to Buffer Server (4000) and Scope (5173). |
 | **Whale Channel** | Software | (In development) | Spec only |
 | **GENESIS_GATE** | Automation | Google Apps Script ecosystem (P31 Entangle) | v7 deployed, 15 files, 1,888 lines |
 | **Phenix Navigator** | Platform | Umbrella for all hardware/firmware | Architecture defined |
