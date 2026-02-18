@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate · P31 Labs</title>
+  <meta name="description" content="Support P31 Labs' open-source assistive technology development. Tax-deductible donations via HCB or direct crypto donations to Base L2 wallet.">
+  <meta property="og:title" content="Donate · P31 Labs">
+  <meta property="og:description" content="Support open-source assistive technology for neurodivergent minds. Tax-deductible donations via HCB or direct crypto.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ── QUANTUM CANVAS ── */
+    #quantum-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+    
+    /* ── QUANTUM DECORATIVE EQUATIONS ── */
+    .quantum-equation {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(46, 204, 113, 0.12);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    
+    /* ── QUANTUM DONATE OPTIONS ── */
+    .donate-option {
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .donate-option::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(45deg, rgba(46, 204, 113, 0.3), rgba(96, 165, 250, 0.3), rgba(46, 204, 113, 0.3));
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      animation: quantum-gradient-flow 3s ease infinite;
+    }
+    
+    .donate-option:hover::before {
+      opacity: 1;
+    }
+    
+    @keyframes quantum-gradient-flow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* ── QUANTUM STATE TRANSITION ── */
+    .donate-option.quantum-enter {
+      animation: quantum-collapse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @keyframes quantum-collapse {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    /* ── QUANTUM WALLET ADDRESS GLOW ── */
+    .wallet-address {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .wallet-address::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(46, 204, 113, 0.2), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    .wallet-address:hover::after {
+      opacity: 1;
+      animation: quantum-pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes quantum-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.2; }
+      50% { transform: scale(1.05); opacity: 0.4; }
+    }
+    
+    /* ── QUANTUM BADGE ANIMATION ── */
+    .donate-badge {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .donate-badge::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    
+    .donate-option:hover .donate-badge::before {
+      transform: translateX(100%);
+    }
+    
+    /* ── MAIN CONTENT LAYER ── */
+    main {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- QUANTUM BACKGROUND CANVAS -->
+  <canvas id="quantum-bg" aria-hidden="true"></canvas>
+  
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/" aria-current="page">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Support the Mesh</span>
+          <h1>Donate</h1>
+          <p>Every contribution strengthens the mesh. All donations support open-source development and hardware prototyping.</p>
+        </div>
+
+        <div class="donate-content">
+          <!-- Quantum equation decoration -->
+          <div class="quantum-equation" style="top: 10%; right: 5%;">|ψ⟩ = α|DONATE⟩ + β|SUPPORT⟩</div>
+          <div class="quantum-equation" style="top: 60%; left: 5%;">Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ|</div>
+          
+          <div class="donate-grid">
+            <!-- HCB Fiat Donations -->
+            <div class="donate-option quantum-enter" style="animation-delay: 0.1s;">
+              <div class="donate-option-header">
+                <h3>Donate with Card</h3>
+                <span class="donate-badge donate-badge-tax">Tax-Deductible</span>
+              </div>
+              <p class="donate-option-desc">One-time or monthly recurring donations via credit card. Automatic tax receipts included.</p>
+              <a href="https://hcb.hackclub.com/donations/start/p31-labs" 
+                 class="btn btn-primary donate-btn" 
+                 target="_blank" 
+                 rel="noopener">
+                Donate via HCB →
+              </a>
+              <p class="donate-option-note">7% fiscal sponsor fee (donors can cover fees). Includes Stripe processing, tax compliance, and bookkeeping.</p>
+            </div>
+
+            <!-- Crypto Donations -->
+            <div class="donate-option quantum-enter" style="animation-delay: 0.2s;">
+              <div class="donate-option-header">
+                <h3>Donate with Crypto</h3>
+                <span class="donate-badge donate-badge-crypto">Base L2</span>
+              </div>
+              <p class="donate-option-desc">Direct cryptocurrency donations to our Base L2 wallet. Supports Base, Ethereum, and Optimism networks.</p>
+              <div class="donate-wallet">
+                <div class="wallet-label">Base L2 Wallet</div>
+                <div class="wallet-address" id="wallet-addr">0x90048cbb3CDCef200a54D6D336EbB4e0ce18d82c</div>
+                <button class="btn btn-ghost" id="copy-wallet-btn" type="button" aria-label="Copy wallet address to clipboard">Copy Address</button>
+              </div>
+              <div class="donate-networks">
+                <span class="network-badge">Base</span>
+                <span class="network-badge">Ethereum</span>
+                <span class="network-badge">Optimism</span>
+              </div>
+              <p class="donate-option-note">Crypto donations may not be tax-deductible unless processed through The Hack Foundation. Funds support open-source development.</p>
+            </div>
+          </div>
+
+          <div class="donate-disclosure">
+            <p><strong>Fiscal Sponsorship:</strong> P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations made through HCB are tax-deductible to the extent permitted by law. Automatic email receipts are provided for all HCB donations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">P<sup>31</sup></a>
+          <p class="footer-tagline">The Mesh Holds. 🔺</p>
+        </div>
+        <div class="footer-links">
+          <a href="/about/">About</a>
+          <a href="/docs/">Docs</a>
+          <a href="/roadmap/">Roadmap</a>
+          <a href="/donate/">Donate</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 P31 Labs. Open source. Built with tetrahedron topology.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <script>
+    // ═══════════════════════════════════════════════
+    //  QUANTUM BACKGROUND — Wave function visualization
+    // ═══════════════════════════════════════════════
+    (function() {
+      'use strict';
+      
+      const quantumCanvas = document.getElementById('quantum-bg');
+      if (quantumCanvas) {
+        const ctx = quantumCanvas.getContext('2d');
+        let time = 0;
+        
+        function resizeCanvas() {
+          quantumCanvas.width = window.innerWidth;
+          quantumCanvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        function drawQuantumField() {
+          ctx.clearRect(0, 0, quantumCanvas.width, quantumCanvas.height);
+          
+          const w = quantumCanvas.width;
+          const h = quantumCanvas.height;
+          const centerX = w / 2;
+          const centerY = h / 2;
+          
+          // Wave function: ψ(x,t) = A·sin(kx - ωt + φ)
+          ctx.strokeStyle = 'rgba(46, 204, 113, 0.06)';
+          ctx.lineWidth = 1;
+          
+          // Multiple wave frequencies (quantum superposition)
+          for (let wave = 0; wave < 3; wave++) {
+            const amplitude = 40 + wave * 25;
+            const frequency = 0.008 + wave * 0.004;
+            const phase = time * 0.002 + wave * Math.PI / 3;
+            
+            ctx.beginPath();
+            for (let x = 0; x < w; x += 2) {
+              const y = centerY + amplitude * Math.sin(frequency * x - phase);
+              if (x === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          }
+          
+          // Quantum particles (SIC-POVM inspired) — donation flow visualization
+          ctx.fillStyle = 'rgba(96, 165, 250, 0.08)';
+          for (let i = 0; i < 25; i++) {
+            const angle = (time * 0.001 + i * Math.PI / 12.5) % (Math.PI * 2);
+            const radius = 120 + 60 * Math.sin(time * 0.001 + i);
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            const size = 2.5 + Math.sin(time * 0.002 + i) * 1.5;
+            
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          
+          // Tetrahedron connection lines (mesh topology)
+          ctx.strokeStyle = 'rgba(46, 204, 113, 0.04)';
+          ctx.lineWidth = 0.5;
+          const nodes = 4;
+          for (let i = 0; i < nodes; i++) {
+            const angle1 = (i / nodes) * Math.PI * 2 + time * 0.0005;
+            const x1 = centerX + 150 * Math.cos(angle1);
+            const y1 = centerY + 150 * Math.sin(angle1);
+            
+            for (let j = i + 1; j < nodes; j++) {
+              const angle2 = (j / nodes) * Math.PI * 2 + time * 0.0005;
+              const x2 = centerX + 150 * Math.cos(angle2);
+              const y2 = centerY + 150 * Math.sin(angle2);
+              
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+            }
+          }
+          
+          time += 1;
+          requestAnimationFrame(drawQuantumField);
+        }
+        
+        drawQuantumField();
+      }
+    })();
+  </script>
+</body>
+</html>

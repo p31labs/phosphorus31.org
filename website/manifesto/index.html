@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manifesto · P31 Labs</title>
+  <meta name="description" content="A world where technology adapts to the human mind. A mesh that cannot be controlled. An economy of care. This is our manifesto.">
+  <meta property="og:title" content="Manifesto · P31 Labs">
+  <meta property="og:description" content="A world where technology adapts to the human mind. A mesh that cannot be controlled. An economy of care. This is our manifesto.">
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Manifesto page – world‑changing design */
+    .manifesto-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: radial-gradient(circle at 30% 50%, rgba(46, 204, 113, 0.1), transparent 50%);
+      padding: 4rem 2rem;
+      margin-bottom: 2rem;
+    }
+    .manifesto-hero h1 {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .manifesto-hero .highlight {
+      color: #2ecc71;
+      font-weight: 400;
+    }
+    .manifesto-section {
+      max-width: 800px;
+      margin: 6rem auto;
+      padding: 0 1.5rem;
+    }
+    .manifesto-section h2 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      color: #60a5fa;
+    }
+    .manifesto-section p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #e2e8f0;
+    }
+    .manifesto-section .lead {
+      font-size: 1.5rem;
+      font-weight: 300;
+      border-left: 4px solid #2ecc71;
+      padding-left: 2rem;
+      margin: 2rem 0;
+    }
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 4rem 0;
+    }
+    .manifesto-card {
+      background: rgba(10, 10, 20, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 2rem;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .manifesto-card:hover,
+    .manifesto-card:focus-within {
+      border-color: #2ecc71;
+      transform: translateY(-4px);
+    }
+    .manifesto-card .card-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .manifesto-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .manifesto-card p {
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .manifesto-quote {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 200;
+      font-style: italic;
+      margin: 4rem 0;
+      color: #94a3b8;
+    }
+    .manifesto-quote cite {
+      display: block;
+      font-size: 1rem;
+      margin-top: 1rem;
+      color: #2ecc71;
+    }
+    .manifesto-callout {
+      background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(96, 165, 250, 0.1));
+      border: 1px solid #2ecc71;
+      border-radius: 2rem;
+      padding: 3rem;
+      text-align: center;
+      margin: 4rem 0;
+    }
+    .manifesto-callout h2 {
+      color: #2ecc71;
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-callout .btn {
+      font-size: 1.2rem;
+      padding: 1rem 3rem;
+    }
+    @media (max-width: 768px) {
+      .manifesto-hero h1 {
+        font-size: 2.5rem;
+      }
+      .manifesto-section h2 {
+        font-size: 2rem;
+      }
+      .manifesto-section p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV (same as homepage) -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <!-- Hero -->
+    <div class="manifesto-hero">
+      <h1>
+        <span class="highlight">Technology</span> that adapts to the human mind.<br>
+        A <span class="highlight">mesh</span> that cannot be controlled.<br>
+        An <span class="highlight">economy</span> of care.
+      </h1>
+    </div>
+
+    <div class="container">
+      <!-- Introduction -->
+      <section class="manifesto-section" aria-labelledby="intro-heading">
+        <h2 id="intro-heading">The world we want</h2>
+        <p class="lead">We believe that technology should be a liberating force — not one that surveils, excludes, or overwhelms. For too long, assistive tools have been afterthoughts, designed for the "average" user, leaving neurodivergent minds to adapt to ill‑fitting systems.</p>
+        <p>P31 Labs was founded to flip that paradigm. We build tools that listen to the body, that respect privacy, that connect us to each other without central control. Our work is rooted in science, but guided by a simple truth: <strong>the geometry protects the signal.</strong></p>
+      </section>
+
+      <!-- Core principles as cards -->
+      <section class="manifesto-section" aria-labelledby="principles-heading">
+        <h2 id="principles-heading">Our principles</h2>
+        <div class="manifesto-grid">
+          <div class="manifesto-card">
+            <div class="card-icon">🔺</div>
+            <h3>Delta Topology</h3>
+            <p>Resilience through decentralisation. Every node strengthens the mesh. No single point of failure, no central authority.</p>
+          </div>
+          <div class="manifesto-card">
+            <div class="card-icon">🛡️</div>
+            <h3>Privacy by Design</h3>
+            <p>Your data is yours. We build systems that never track, never profile, never sell. The mesh remembers only what it needs to route.</p>
+          </div>
+          <div class="manifesto-card">
+            <div class="card-icon">💚</div>
+            <h3>Proof of Care</h3>
+            <p>Value flows to those who nurture the network. Uptime, relays, and support are rewarded. An economy that incentivises generosity.</p>
+          </div>
+          <div class="manifesto-card">
+            <div class="card-icon">🧩</div>
+            <h3>Universal Accessibility</h3>
+            <p>Designed for neurodivergent minds, but usable by everyone. Screen readers, haptics, switch control — not add‑ons, but foundations.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The vision expanded -->
+      <section class="manifesto-section" aria-labelledby="vision-heading">
+        <h2 id="vision-heading">A world connected, not controlled</h2>
+        <p>Imagine a network that works when the internet goes down. A device that grounds you with gentle haptic pulses. A token you earn by helping others stay connected. This is not a distant dream — it's being built today, by a community of neurodivergent engineers, artists, and dreamers.</p>
+        <p>We are creating the <strong>Phenix Navigator</strong>: a routing protocol that learns the topology of care. The <strong>Buffer</strong>: software that translates between bodies and machines. The <strong>Scope</strong>: an interface that reveals the mesh without overwhelming. And at the centre, <strong>Node One</strong> — a device you can hold, that holds you back.</p>
+      </section>
+
+      <!-- Inspirational quote -->
+      <div class="manifesto-quote">
+        "The only stable isotope is connection."
+        <cite>— Will, founder</cite>
+      </div>
+
+      <!-- Call to action -->
+      <section class="manifesto-callout" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Join the mesh</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Whether you code, design, write, or simply care — there's a place for you.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/docs/" class="btn btn-primary">Explore the docs</a>
+          <a href="/donate/" class="btn btn-ghost">Support the work</a>
+          <a href="https://github.com/p31labs" target="_blank" rel="noopener" class="btn btn-ghost">Contribute on GitHub</a>
+        </div>
+      </section>
+
+      <!-- The formula (as a reminder) -->
+      <section class="manifesto-section" style="text-align: center;">
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #2ecc71; opacity: 0.6;">
+          Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        </p>
+        <p style="color: #94a3b8;">The geometry protects the signal.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER (same as homepage) -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-logo">P<sup>31</sup> Labs</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+        </div>
+        <span class="footer-tagline">The only stable isotope.</span>
+      </div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/node-one/">Node One</a>
+        <a href="/wallet/">Wallet</a>
+        <a href="/games/">Games</a>
+        <a href="/education/">Learn</a>
+        <a href="/blog/">Blog</a>
+        <a href="/legal/">Legal</a>
+        <a href="/accessibility/">A11y</a>
+        <a href="/press/">Press</a>
+        <a href="/manifesto/" aria-current="page">Manifesto</a>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+      <p class="footer-sponsor">
+        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <!-- No extra JS needed for manifesto page -->
+</body>
+</html>

@@ -1,0 +1,46 @@
+# P31 Labs Website — .gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Build artifacts (if any)
+dist/
+build/
+.cache/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Documentation/status files (keep these for now, but can exclude later)
+# AGENT*.md
+# DEPLOY*.md
+# *_STATUS.md
+# *_SUMMARY.md
+
+# Test files (optional - keep for now)
+# test.html
+# sine-wave-optest.html
+
+# STL files (3D models - keep for now, but can exclude if large)
+# VolumeEncoderParts_stls/
