@@ -173,3 +173,8 @@ _archive/omniscio-package/
 
 # Archive: personal (not P31)
 _archive/GME DD/
+
+# Large binaries (use LFS or download separately)
+*.exe
+*.pdf
+organized/
