@@ -81,3 +81,10 @@ coverage/
 tmp/
 temp/
 *.tmp
+
+# Archive (provenance in git, not needed for dev)
+_archive/
+
+# Third-party SDKs
+esp-idf-v5.5.2/
+firmware/xiaozhi-esp32/
