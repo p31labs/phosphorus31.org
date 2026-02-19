@@ -1,5 +1,5 @@
 /**
- * Buffer Dashboard - Main interface for The Buffer
+ * Buffer Dashboard - Main interface for P31 Buffer
  * Shows queue status, ping visualization, and message submission
  */
 
@@ -83,7 +83,7 @@ export const BufferDashboard: React.FC = () => {
     <div className="buffer-dashboard">
       <div className="dashboard-header">
         <div>
-          <h1>The Buffer</h1>
+          <h1>P31 Buffer</h1>
           <p className="subtitle">Communication Processing Layer - P31</p>
         </div>
         <div className="connection-status">

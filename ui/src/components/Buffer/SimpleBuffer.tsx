@@ -80,7 +80,7 @@ export const SimpleBuffer: React.FC = () => {
   return (
     <div className={`simple-buffer container-${containerSize}`}>
       <div className="simple-header">
-        <h1>The Buffer</h1>
+        <h1>P31 Buffer</h1>
         <div className={`status-indicator ${status}`}>
           <span className="status-dot" />
           <span>{status === 'connected' ? 'Connected' : 'Not Connected'}</span>

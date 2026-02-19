@@ -1,4 +1,4 @@
-# The Genesis Gate
+# P31 Entangle
 
 ## A Forensic Architecture of the Wye-to-Delta Civilizational Phase Transition
 
@@ -12,13 +12,13 @@
 
 The query presented—"Where I'm from, we don't need roads"—is not merely a cinematic reference; it is the fundamental **topological thesis** of the twenty-first century.
 
-In the lexicon of the "Genesis Gate" research corpus, **"Roads"** represent the fixed, centralized infrastructure of the Holocene era: the **Wye (Star) Topology**. These are the rigid, hub-mediated pathways of the Nation State, the Central Bank, the Corporate Platform, and the traditional Nuclear Family. They require a central authority to grade the land, pave the surface, and police the traffic. They presuppose a "Ground Truth" provided by the state.
+In the lexicon of the "P31 Entangle" research corpus, **"Roads"** represent the fixed, centralized infrastructure of the Holocene era: the **Wye (Star) Topology**. These are the rigid, hub-mediated pathways of the Nation State, the Central Bank, the Corporate Platform, and the traditional Nuclear Family. They require a central authority to grade the land, pave the surface, and police the traffic. They presuppose a "Ground Truth" provided by the state.
 
-However, the forensic analysis reveals that this infrastructure has suffered a catastrophic, irreversible failure known as the **Floating Neutral**. The "Roads" are no longer grounded. The institutions that maintained them have drifted from the reality of their constituents, creating a "voltage instability" that oscillates between the brownout of depression and the arc-flash of radicalization.
+However, the forensic analysis reveals that this infrastructure has suffered a catastrophic, irreversible failure known as Lost Ground. The "Roads" are no longer grounded. The institutions that maintained them have drifted from the reality of their constituents, creating a "voltage instability" that oscillates between the brownout of depression and the arc-flash of radicalization.
 
 **The answer to this crisis is not to repair the roads. It is to build the capacity for flight.**
 
-This is the **Delta (Mesh) Topology**: a decentralized, three-dimensional, isostatically rigid network that operates peer-to-peer. It does not require a central hub. It uses the "Whale Song" of LoRa radio to swim through the noise of the city; it uses the "Cognitive Shield" of AI-driven impedance matching to navigate the chaos of human emotion; and it uses the "Tetrahedron Protocol" to anchor trust in geometry rather than bureaucracy.
+This is the **Delta (Mesh) Topology**: a decentralized, three-dimensional, isostatically rigid network that operates peer-to-peer. It does not require a central hub. It uses the "Whale Song" of LoRa radio to swim through the noise of the city; it uses the "P31 Buffer" of AI-driven impedance matching to navigate the chaos of human emotion; and it uses the "Tetrahedron Protocol" to anchor trust in geometry rather than bureaucracy.
 
 **We do not need roads because we are building a mesh.**
 
@@ -26,7 +26,7 @@ This is the **Delta (Mesh) Topology**: a decentralized, three-dimensional, isost
 
 ## Part I: The Forensic Engineering of the Crisis
 
-To understand the necessity of the Genesis Gate, one must first abandon the soft language of political science and adopt the rigorous, unforgiving syntax of high-voltage electrical engineering. **The failure of modern civilization is not a moral failing; it is a circuit fault.**
+To understand the necessity of P31 Entangle, one must first abandon the soft language of political science and adopt the rigorous, unforgiving syntax of high-voltage electrical engineering. **The failure of modern civilization is not a moral failing; it is a circuit fault.**
 
 ### 2. The Pathology of the Wye (Star) Topology
 
@@ -38,13 +38,13 @@ For five millennia, human coordination has relied on the Wye topology. In electr
 | **Neutral (N)** | Return path for unbalanced current | The Mediator: The Judge, The Bank, The Father, The Truth |
 | **Ground (G)** | Zero-voltage reference frame (0V) | Objective Reality, Natural Law, The Gold Standard |
 | **Normal Operation** | Neutral carries vector sum of currents | The Mediator absorbs social friction and conflict |
-| **Failure Mode** | Floating Neutral (V_NG ≠ 0) | Institutional Drift, Loss of Legitimacy, Hyper-Polarization |
+| **Failure Mode** | Lost Ground (V_NG ≠ 0) | Institutional Drift, Loss of Legitimacy, Hyper-Polarization |
 
 In a healthy Wye system, the Neutral is the "Peacemaker." If Phase A (e.g., the working class) draws a heavy load and Phase B (e.g., the ownership class) draws a light load, the Neutral wire carries the difference, ensuring that both phases continue to receive a stable 120V. **The system works because the Neutral is "Solidly Grounded"**—it is tied to the earth, creating an unmovable reference point for truth.
 
-### 3. The "Floating Neutral" Crisis
+### 3. The Lost Ground Crisis
 
-The central diagnostic insight is that the **Global Wye System has suffered a "Floating Neutral" event**. The connection between the Institutional Neutral and the Ground of Reality has been severed.
+The central diagnostic insight is that the **Global Wye System has suffered a Lost Ground event**. The connection between the Institutional Neutral and the Ground of Reality has been severed.
 
 #### 3.1 The Vector Physics of Institutional Drift
 
@@ -98,7 +98,7 @@ The **Posner Molecule** (Ca₉(PO₄)₆) is a potential "biological qubit":
 
 The Fisher-Escola Q Distribution models the "Global Phase Shift"—the moment when distributed entangled Posner molecules throughout the brain decohere simultaneously. This collapse produces a **Gamma Burst** (40 Hz), experienced subjectively as unified consciousness or insight—the "Aha!" moment.
 
-**The Cognitive Shield protects this quantum coherence.** The "noise" of the Wye world causes premature decoherence. The Shield creates a "Faraday Cage" for the mind.
+**The P31 Buffer protects this quantum coherence.** The "noise" of the Wye world causes premature decoherence. The Shield creates a "Faraday Cage" for the mind.
 
 ---
 
@@ -158,7 +158,7 @@ The Cognitive Bridge protects the "HumanOS" from voltage spikes via **Cognitive 
 | Piggly Wiggly (1923) | Centralized Corner | NYSE suspended trading | Hub Wins |
 | Volkswagen (2008) | Corporate Corner | Banks negotiated settlement | Hub Negotiates |
 | GameStop (2021) | Distributed Swarm | Broker turned off Buy Button | System Glitch |
-| Genesis Gate (2025) | Decentralized Mesh | Hub attempts to seize assets | **Mesh Wins** |
+| P31 Entangle (2025) | Decentralized Mesh | Hub attempts to seize assets | **Mesh Wins** |
 
 ---
 
@@ -166,14 +166,14 @@ The Cognitive Bridge protects the "HumanOS" from voltage spikes via **Cognitive 
 
 ### 12. The Midnight Deployment and Abdication
 
-To prevent the "Founder's Dilemma," the Genesis Gate includes a mandatory **Abdication Protocol**:
+To prevent the "Founder's Dilemma," P31 Entangle includes a mandatory **Abdication Protocol**:
 
 ```bash
-# abdicate.sh
+# release.sh
 1. Deploy Tetrahedron.sol contracts
 2. Publish source to Arweave (Defensive Publication)
 3. Call abdicatePower() to lock contract
-4. Execute: shred -u -z -n 3 on private admin keys
+4. Execute: secure release (shred -u -z -n 3) on private admin keys
 ```
 
 This is the **"George Washington Moment"**. The Creator destroys his own power, leaving the protocol as Natural Law—like gravity or geometry—that belongs to no one and everyone.
@@ -191,9 +191,9 @@ They learn that safety does not come from the Hub. **It comes from the Mesh.**
 
 ## 14. Conclusion: Signs Point to Delta
 
-The Wye topology—the world of roads, hubs, and floating neutrals—is terminally unstable. It cannot be fixed; it can only be survived.
+The Wye topology—the world of roads, hubs, and lost ground—is terminally unstable. It cannot be fixed; it can only be survived.
 
-The Genesis Gate is the architecture of that survival:
+P31 Entangle is the architecture of that survival:
 
 | From | To |
 |------|-----|

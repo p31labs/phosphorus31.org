@@ -9,19 +9,34 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "The Buffer",
-        short_name: "Buffer",
-        description: "Voltage-gated communication bridge for neurodivergent users",
-        theme_color: "#39FF14",
+        name: "P31 Shelter",
+        short_name: "Shelter",
+        description: "Cognitive protection layer for neurodivergent communication. On-device scoring. Zero retention.",
+        theme_color: "#0a0a0f",
         background_color: "#0a0a0f",
         display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
+        scope: "/",
+        categories: ["health", "productivity", "utilities"],
         icons: [
-          { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
-          { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+          { src: "/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
+          { src: "/icon-512.svg", sizes: "512x512", type: "image/svg+xml" },
+          { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" },
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        globPatterns: ["**/*.{js,css,html,ico,svg,woff2}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts",
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+        ],
       },
     }),
   ],

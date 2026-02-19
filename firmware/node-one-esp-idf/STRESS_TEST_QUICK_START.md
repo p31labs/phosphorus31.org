@@ -1,10 +1,10 @@
-# 🧪 Battle Test Quick Start
+# 🧪 Stress Test Quick Start
 
 ## Quick Run
 
 ```bash
 cd firmware/node-one-esp-idf
-./run_battle_test.sh
+./run_stress_test.sh
 ```
 
 ## Manual Steps
@@ -38,7 +38,7 @@ idf.py monitor
 
 ```
 ╔════════════════════════════════════════╗
-║   LORA RADIO BATTLE TEST SUITE        ║
+║   LORA RADIO STRESS TEST SUITE        ║
 ║   Pre-Abdication Verification         ║
 ╚════════════════════════════════════════╝
 
@@ -86,7 +86,7 @@ idf.py monitor
 
 ## Next Steps
 
-After battle tests pass:
+After stress tests pass:
 1. ✅ Review test results
 2. ✅ Run abdication readiness check: `./verify_abdication_readiness.sh`
 3. ✅ Proceed to 9:00 AM abdication

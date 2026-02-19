@@ -1,5 +1,5 @@
 /**
- * Main Dashboard - The Scope
+ * Main Dashboard - P31 Spectrum
  * Complete P31 system overview
  */
 
@@ -13,7 +13,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>P31 - The Scope</h1>
+        <h1>P31 - P31 Spectrum</h1>
         <p className="subtitle">Phosphorus-31. The biological qubit. The atom in the bone.</p>
       </div>
 
@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
         </section>
 
         <section className="dashboard-section">
-          <h2>The Buffer</h2>
+          <h2>P31 Buffer</h2>
           <BufferDashboard />
         </section>
 

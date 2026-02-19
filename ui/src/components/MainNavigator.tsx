@@ -40,7 +40,7 @@ export default function MainNavigator() {
           <span role="img" aria-label="shield">
             🛡️
           </span>{' '}
-          The Buffer
+          P31 Buffer
         </div>
         <div className={styles.navList}>
           {NAV_ITEMS.map((item) => (

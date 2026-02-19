@@ -1,9 +1,9 @@
 /**
  * P31 Game Integration — Shelter API bridge for React/frontend
  *
- * Talks to the Centaur Shelter-compat API at /api/shelter/*.
+ * Talks to the P31 Tandem Shelter-compat API at /api/shelter/*.
  * All methods are null-safe: on network failure they return null (or empty)
- * so the UI never crashes when Centaur is down.
+ * so the UI never crashes when P31 Tandem is down.
  */
 
 import type { P31Molecule, BrainState, GameClient } from './types/molecule';

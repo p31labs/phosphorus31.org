@@ -1,6 +1,6 @@
-# QUICK DEPLOY — One-Page Guide
+# QUICK LAUNCH — One-Page Guide
 
-## 🚀 6 Steps to Deploy phosphorus31.org
+## 🚀 6 Steps to Launch phosphorus31.org
 
 ### 1. Create GitHub Repo (5 min)
 - Go to: https://github.com/new
@@ -46,7 +46,7 @@ git push -u origin main
 
 **Done!** ✅
 
-**Full details:** See `DEPLOY_PROMPT.md`
+**Full details:** See `LAUNCH_PROMPT.md`
 
 ---
 

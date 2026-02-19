@@ -180,7 +180,7 @@ Willow, who was born on a special day (8/8/2019), was the keeper of this world. 
 
 Every day, new adventures happened. Sometimes the molecules would form beautiful shapes called Posner molecules - they looked like tiny crystals that glowed with quantum light.
 
-The best part? Everything in Willow's World worked together, just like a family. The Buffer helped messages travel, The Centaur helped with thinking, and The Scope showed everything in beautiful 3D.
+The best part? Everything in Willow's World worked together, just like a family. P31 Buffer helped messages travel, P31 Tandem helped with thinking, and P31 Spectrum showed everything in beautiful 3D.
 
 And Willow knew: The Mesh Holds. Everything is connected. With love and light. 💜`;
 

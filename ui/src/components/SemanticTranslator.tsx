@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import { GOD_CONFIG } from '@/god.config';
 // The Universal Translation Matrix
 const TRANSLATION_MATRIX: TranslationEntry[] = [
   {
-    engineering: 'Floating Neutral',
+    engineering: 'Lost Ground',
     cosmetology: 'Hot Roots',
     astrology: 'Mercury Retrograde',
     meaning:

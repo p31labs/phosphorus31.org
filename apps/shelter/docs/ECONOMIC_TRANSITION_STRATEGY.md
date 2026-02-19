@@ -6,11 +6,11 @@
 
 ## 1. Executive Introduction: The Physics of Civilizational Phase Transition
 
-The early decades of the 21st century are characterized not merely by a cyclical economic downturn or a transient period of political polarization, but by a fundamental, irreversible topological shift in the structure of human civilization. This phenomenon, identified in the Genesis Gate and GenSync documentation as the "Great Bifurcation," represents a thermodynamic phase transition analogous to water boiling into steam.
+The early decades of the 21st century are characterized not merely by a cyclical economic downturn or a transient period of political polarization, but by a fundamental, irreversible topological shift in the structure of human civilization. This phenomenon, identified in the P31 Entangle and GenSync documentation as the "Great Bifurcation," represents a thermodynamic phase transition analogous to water boiling into steam.
 
 The structures that contained and organized human energy for the past century—the nuclear family, the centralized banking system, the corporate hierarchy, and the judicial process—are failing simultaneously. This failure is not a result of individual incompetence or isolated corruption, but of a structural obsolescence inherent to their geometry.
 
-### 1.1 The Operational Theater: A Crisis of Linearity and the Floating Neutral
+### 1.1 The Operational Theater: A Crisis of Linearity and Lost Ground
 
 The prevailing socio-economic architecture is built on the "Wye" topology. In this configuration, stability is not inherent to the participants (the nodes) but is entirely mediated by a central "Neutral Point" or Hub.
 
@@ -20,14 +20,14 @@ The prevailing socio-economic architecture is built on the "Wye" topology. In th
 
 The Hub serves as the ground reference (V_NG = 0), the absolute zero against which all other values—moral, financial, and legal—are measured.
 
-**The Floating Neutral Event:** When this connection is severed or "floats," the system loses its reference frame. Phases with the heaviest load pull the neutral point toward themselves, operating with little resistance. Conversely, the phases with lighter loads—families, retail investors, children, and the neurodivergent—experience a massive "Voltage Spike."
+**The Lost Ground Event:** When this connection is severed or "floats," the system loses its reference frame. Phases with the heaviest load pull the neutral point toward themselves, operating with little resistance. Conversely, the phases with lighter loads—families, retail investors, children, and the neurodivergent—experience a massive "Voltage Spike."
 
 This voltage spike manifests as:
 - **Sociologically:** "Institutional Anomie"—a state of normlessness where the rules no longer guarantee safety
 - **Economically:** Hyper-inflation of assets held by the Hub and devaluation of labor provided by the Periphery
 - **Psychologically:** The "Crisis of Grievance," a high-voltage accumulation of resentment and trauma
 
-**Conclusion:** One cannot build a resilient life on top of a hostile Wye topology. The only path to survival is to disconnect from the floating neutral and construct a new geometry.
+**Conclusion:** One cannot build a resilient life on top of a hostile Wye topology. The only path to survival is to disconnect from lost ground and construct a new geometry.
 
 ### 1.2 The Geodesic Imperative: From Epistemological to Ontological Security
 
@@ -65,7 +65,7 @@ For the neurodivergent individual:
 
 When interpreted through a standard social lens, this creates "Cognitive Impedance Mismatch"—energy is reflected rather than absorbed, manifesting as conflict and "heat."
 
-### 2.2 The Cognitive Shield: A Protocol for Energy Conservation
+### 2.2 The P31 Buffer: A Protocol for Energy Conservation
 
 #### The "No-Raw-Text" Rule
 
@@ -87,7 +87,7 @@ The "Machine Gun Effect"—fragmented, rapid-fire notifications—triggers conte
 
 | Type | Definition | Goal |
 |------|------------|------|
-| **Accidental** | Misunderstanding, noise, impedance mismatch | Eliminate via Cognitive Shield |
+| **Accidental** | Misunderstanding, noise, impedance mismatch | Eliminate via P31 Buffer |
 | **Strategic** | Deliberate design choices that slow interaction | Implement to ensure safety |
 
 Strategic friction forces the brain to switch from System 1 (automatic, reactive) to System 2 (deliberate, analytical).
@@ -188,7 +188,7 @@ The **Trimtab**—a miniature rudder that creates a low-pressure vacuum, pulling
 - **Book Name:** Assets held directly (sovereign ownership)
 
 **Abdication Value:**
-- Founder executes `abdicate.sh`, securely deleting private keys
+- Founder executes `release.sh`, securely deleting private keys
 - System becomes true public utility
 - No one can change rules, seize assets, or censor users
 - Network value grows as more nodes join
@@ -255,12 +255,12 @@ Society has been attempting to solve a **Systems Engineering problem** with **Mo
 
 **To survive and thrive during the transition:**
 
-1. **Metabolic Discipline:** Cognitive Shields to preserve energy
+1. **Metabolic Discipline:** P31 Buffer to preserve energy
 2. **Structural Integrity:** Tetrahedron over Dyad, Simmelian Ties for trust
 3. **Economic Sovereignty:** Trimtab → Bridge → Mesh → DAO
 4. **Physical Independence:** LoRa/Phenix for hub-independent communication
 
-We ensure people feel heard and safe not by asking them to "speak better," but by building a **Universal Communicator**—a system of Cognitive Shields, Translation Matrices, and Geodesic Engines—that allows them to speak their native neurological language and be heard in the language of the listener.
+We ensure people feel heard and safe not by asking them to "speak better," but by building a **Universal Communicator**—a system of P31 Buffer, Translation Matrices, and Geodesic Engines—that allows them to speak their native neurological language and be heard in the language of the listener.
 
 ---
 

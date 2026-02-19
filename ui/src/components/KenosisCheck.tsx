@@ -1,6 +1,6 @@
 /**
  * KENOSIS CHECK
- * Pre-Abdication verification to ensure structural integrity before destroying private keys
+ * Pre-Abdication verification to ensure structural integrity before releasing private keys
  */
 
 import { useState, useEffect } from 'react';
@@ -181,7 +181,7 @@ export function KenosisCheck() {
           </h2>
         </div>
         <p style={{ margin: 0, fontSize: 13, color: GOD_CONFIG.theme.text.secondary }}>
-          Verify structural integrity of the Digital Centaur stack before destroying private keys
+          Verify structural integrity of the Digital Centaur stack before releasing private keys
         </p>
       </div>
 
@@ -329,7 +329,7 @@ export function KenosisCheck() {
         >
           <strong>Action Required:</strong> Navigate to the <strong>Tetrahedron</strong> tab to
           visually verify symmetry ≥ 95% and positive curvature. The Delta Topology must be
-          volumetric and stable to prevent a Floating Neutral event.
+          volumetric and stable to prevent a Lost Ground event.
         </div>
       </div>
 
@@ -425,7 +425,7 @@ export function KenosisCheck() {
             lineHeight: 1.6,
           }}
         >
-          <strong>Critical:</strong> The Cognitive Shield must operate independently to protect your
+          <strong>Critical:</strong> P31 Buffer must operate independently to protect your
           nervous system from the "Phase-Destruction Machine" of external social conflict. Verify
           all guardrails are active before abdication.
         </div>
@@ -523,7 +523,7 @@ export function KenosisCheck() {
             lineHeight: 1.6,
           }}
         >
-          <strong>Important:</strong> Once keys are destroyed, you will rely entirely on the
+          <strong>Important:</strong> Once keys are released, you will rely entirely on the
           Restorative Reset phases (Immediate, Short-term, Medium-term, Long-term) to recover from
           neurodivergent burnout. Ensure you are 100% comfortable with the automated recovery
           protocols.

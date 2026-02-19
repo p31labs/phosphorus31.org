@@ -1,0 +1,8 @@
+{
+  "name": "P31 Navigator",
+  "short_name": "P31",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050508",
+  "theme_color": "#39FF14"
+}

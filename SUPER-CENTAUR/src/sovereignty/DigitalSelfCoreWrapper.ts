@@ -238,7 +238,7 @@ export class DigitalSelfCoreManager {
       
       const issues: string[] = [];
       if (!componentStatus.floatingNeutralDetector.passed) {
-        issues.push('Floating Neutral detected');
+        issues.push('Lost Ground detected');
       }
       if (!componentStatus.metabolicBaseline.passed) {
         issues.push('Metabolic instability');
@@ -298,7 +298,7 @@ export class DigitalSelfCoreManager {
 
       // Check each component for issues
       if (!componentStatus.floatingNeutralDetector.passed) {
-        issues.push('Floating Neutral - sovereignty grounding required');
+        issues.push('Lost Ground - sovereignty grounding required');
         if (componentStatus.floatingNeutralDetector.recommendations) {
           recommendations.push(...componentStatus.floatingNeutralDetector.recommendations);
         }

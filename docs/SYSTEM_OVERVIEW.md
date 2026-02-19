@@ -9,10 +9,10 @@
 
 P31 is a self-sovereign ecosystem for human-AI collaboration built on tetrahedron topology. It's not just software or hardware—it's a complete architecture that integrates:
 
-- **Hardware** (Node One - ESP32-S3 device)
-- **Software** (The Buffer, The Centaur, The Scope)
-- **AI Protocol** (Human + Synthetic = Centaur)
-- **Philosophy** (The Fold - tetrahedron geometry)
+- **Hardware** (P31 NodeZero - ESP32-S3 device)
+- **Software** (P31 Buffer, P31 Tandem, P31 Spectrum)
+- **AI Protocol** (Human + Synthetic = P31 Tandem)
+- **Philosophy** (P31 Core - tetrahedron geometry)
 
 ---
 
@@ -51,7 +51,7 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 
 ## Core Components
 
-### Node One
+### P31 NodeZero
 **Hardware device - ESP32-S3**
 
 - Physical interface to the mesh
@@ -63,7 +63,7 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 
 **Purpose:** The first physical node. The hardware anchor of the tetrahedron. Named for the first child (Bash, Node one).
 
-### The Buffer
+### P31 Buffer
 **Communication processing layer**
 
 - Buffers messages between internal thought and external signal
@@ -75,7 +75,7 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 
 **Purpose:** The impedance matching transformer. Protects the operator from signal volatility.
 
-### The Centaur
+### P31 Tandem
 **Backend AI protocol system**
 
 - Human + Synthetic = Centaur
@@ -88,7 +88,7 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 
 **Purpose:** The protocol, not a vendor. The + changes. The protocol doesn't.
 
-### The Scope
+### P31 Spectrum
 **Dashboard and visualization**
 
 - Network health visualization
@@ -149,26 +149,26 @@ P31 is built on tetrahedron topology. Four vertices form the minimum stable syst
 ### Data Flow
 
 ```
-User (Will) → Node One (hardware)
+User (Will) → P31 NodeZero (hardware)
     ↓
-The Buffer (processes message)
+P31 Buffer (processes message)
     ↓
-The Centaur (AI processing)
+P31 Tandem (AI processing)
     ↓
-The Buffer (processes response)
+P31 Buffer (processes response)
     ↓
-The Scope (displays to user)
+P31 Spectrum (displays to user)
     ↓
-Node One (haptic feedback)
+P31 NodeZero (haptic feedback)
 ```
 
 ### Communication Paths
 
-1. **Node One ↔ Whale Channel**: LoRa mesh (wireless)
-2. **Node One ↔ The Buffer**: USB/serial (direct)
-3. **The Buffer ↔ The Centaur**: HTTP/REST + WebSocket
-4. **The Centaur ↔ The Scope**: REST API + WebSocket
-5. **All ↔ User**: Visual (Scope) + Haptic (Node One)
+1. **P31 NodeZero ↔ Whale Channel**: LoRa mesh (wireless)
+2. **P31 NodeZero ↔ P31 Buffer**: USB/serial (direct)
+3. **P31 Buffer ↔ P31 Tandem**: HTTP/REST + WebSocket
+4. **P31 Tandem ↔ P31 Spectrum**: REST API + WebSocket
+5. **All ↔ User**: Visual (P31 Spectrum) + Haptic (P31 NodeZero)
 
 ---
 
@@ -270,7 +270,7 @@ Node One (haptic feedback)
 
 ## The Philosophy
 
-**The Fold** - The single fold that creates structure.
+**P31 Core** - The single fold that creates structure.
 
 P31 is not just technology. It's a philosophy:
 

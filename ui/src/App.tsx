@@ -286,7 +286,7 @@ function App() {
                 <div className="app-header-enhanced p-4 text-white">
                   <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                     <div className="flex-shrink-0">
-                      <h1 className="app-title text-2xl lg:text-3xl">The Scope - P31</h1>
+                      <h1 className="app-title text-2xl lg:text-3xl">P31 Spectrum - P31</h1>
                       <p className="app-subtitle">
                         Phosphorus-31. The biological qubit. The atom in the bone.
                       </p>
@@ -361,7 +361,7 @@ function App() {
                           },
                           {
                             id: 'scopeDashboard',
-                            label: showScopeDashboard ? '◎ Hide Scope' : '◎ Full Scope',
+                            label: showScopeDashboard ? '◎ Hide P31 Spectrum' : '◎ Full P31 Spectrum',
                             icon: P31_PRODUCT_ICONS.scope,
                             onClick: () => setShowScopeDashboard(!showScopeDashboard),
                             isActive: showScopeDashboard,

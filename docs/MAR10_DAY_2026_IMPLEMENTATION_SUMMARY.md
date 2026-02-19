@@ -56,9 +56,9 @@ End-to-end celebration system that turns coding into a family experience. What w
 
 ---
 
-## Task E – MAR10 / Level 10 Banner in The Scope
+## Task E – MAR10 / Level 10 Banner in P31 Spectrum
 
-- **Banner** at top of The Scope from now until March 11.
+- **Banner** at top of P31 Spectrum from now until March 11.
 - “✨ MAR10 Day 2026 – Build your Super Star Molecule! ✨” (or “Level 10 Celebration”); **Start Quest** → `/bonding`. Use generic star emoji; no third-party branding.
 - Dismissible (session-only; reappears in new session until March 11).
 - P31 colours; gentle pulse (disabled for reduced motion). Component: `Mar10DayBanner.tsx` + `Mar10DayBanner.css`.
@@ -79,7 +79,7 @@ End-to-end celebration system that turns coding into a family experience. What w
 
 ## Testing the Full Flow
 
-1. Open The Scope – MAR10 / Level 10 banner appears.
+1. Open P31 Spectrum – MAR10 / Level 10 banner appears.
 2. Click **Start Quest** – navigates to Bonding.
 3. Toggle **Birthday Mode** (cake icon) – Wonky Cap, Sparkle Star, Tunnel Tube in picker.
 4. Two-player (or simulated):

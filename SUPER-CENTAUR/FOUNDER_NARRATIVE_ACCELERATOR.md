@@ -1,6 +1,6 @@
-# Founder Narrative: William R. Johnson
+# Founder Narrative: Will
 
-For 16 years, William Johnson maintained electrical systems for nuclear power applications as a Department of Defense civilian engineer. His work required redundancy, fault tolerance, and safety margins measured in multiple layers. When power distribution failures could compromise safety-critical operations, the engineering discipline becomes non-negotiable. He specialized in motor controls, safety-critical infrastructure, and systems that protect lives.
+For 16 years, Will maintained electrical systems for nuclear power applications as a Department of Defense civilian engineer. His work required redundancy, fault tolerance, and safety margins measured in multiple layers. When power distribution failures could compromise safety-critical operations, the engineering discipline becomes non-negotiable. He specialized in motor controls, safety-critical infrastructure, and systems that protect lives.
 
 In May 2025, he left that position. In the same year, at age 39, he received a diagnosis that recontextualized everything: AuDHD, the co-occurrence of autism and ADHD. Every workaround he'd built over two decades, every "why can't you just" moment, every system he'd constructed to function in unaccommodated workplaces—these weren't character flaws or personal failures. They were undiagnosed neurodivergent adaptations.
 

@@ -1,7 +1,7 @@
 # P31 Form Design System — Inventory & Validation
 
 **Date:** 2026-02-16  
-**Scope:** Scope, Web, Shelter, Buffer UI (ui), Cognitive Shield frontend.
+**Scope:** Scope, Web, Shelter, Buffer UI (ui), P31 Buffer frontend.
 
 ---
 

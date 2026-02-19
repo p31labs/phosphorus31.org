@@ -41,7 +41,7 @@ const SHADER_INFO = {
   },
   rainbowDecoherence: {
     name: 'Prismatic Collapse',
-    description: 'Wave function decoherence cascade - state reduction',
+    description: 'Wave function drift cascade - state reduction',
     entropy: 0.8,
     color: '#ec4899',
   },

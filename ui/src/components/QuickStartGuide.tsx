@@ -38,7 +38,7 @@ export default function QuickStartGuide() {
       id: 'understand-shield',
       title: 'Understand the Shield',
       description:
-        'The Cognitive Shield is your universal translator for human communication. It processes messages to reduce emotional voltage and improve understanding.',
+        'P31 Buffer is your universal translator for human communication. It processes messages to reduce emotional voltage and improve understanding.',
       icon: <Shield size={24} />,
       action: {
         label: 'Read About',
@@ -135,7 +135,7 @@ export default function QuickStartGuide() {
             marginBottom: '1.5rem',
           }}
         >
-          Your fast track to mastering Cognitive Shield
+          Your fast track to mastering P31 Buffer
         </p>
 
         {/* Progress Bar */}
@@ -325,7 +325,7 @@ export default function QuickStartGuide() {
               marginBottom: '1rem',
             }}
           >
-            You've completed the Cognitive Shield Quick Start Guide!
+            You've completed the P31 Buffer Quick Start Guide!
           </p>
           <p
             style={{

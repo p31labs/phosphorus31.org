@@ -55,7 +55,7 @@ const LIBRARY_ITEMS: LibraryItem[] = [
   // Research & Analysis
   {
     id: 'time-infrastructure',
-    title: 'The Floating Neutral: Time Infrastructure Analysis',
+    title: 'Lost Ground: Time Infrastructure Analysis',
     description:
       'Comprehensive analysis of centralized time vulnerabilities, Byzantine fault-tolerant solutions, and mesh topology resilience for temporal coordination.',
     category: 'legal',
@@ -275,7 +275,7 @@ const LIBRARY_ITEMS: LibraryItem[] = [
   },
   {
     id: 'cognitive-shield-unstoppable',
-    title: 'Cognitive Shield Unstoppable - Resilient Sovereign Network',
+    title: 'P31 Buffer Unstoppable - Resilient Sovereign Network',
     description:
       'Distributed, self-healing, energy-independent cognitive infrastructure with mesh networking, quantum security, and autonomous operation.',
     category: 'integration',
@@ -398,7 +398,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
             }}
           >
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
-              📄 This is the master technical specification for the Cognitive Shield ecosystem.
+              📄 This is the master technical specification for the P31 Buffer ecosystem.
             </p>
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
               🔬 Forensic engineering analysis of the Wye-to-Delta topological phase shift.
@@ -441,9 +441,9 @@ The digital infrastructure of the early 21st century is currently navigating a p
   },
   {
     id: 'ip-forensic-report',
-    title: 'Intellectual Property Forensic Report - Wonky Sprout Trademarks',
+    title: 'Intellectual Property Forensic Report - P31 Sprout Trademarks',
     description:
-      'Comprehensive trademark protection strategy for Haptic Trim Tab, Simmelian Pod, Gold Relief, and other source identifiers in the Wonky Sprout ecosystem.',
+      'Comprehensive trademark protection strategy for Haptic Trim Tab, Simmelian Pod, Gold Relief, and other source identifiers in the P31 Sprout ecosystem.',
     category: 'legal',
     tags: [
       'ip',
@@ -468,7 +468,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
               fontSize: '1.1rem',
             }}
           >
-            Trademark protection strategy for the Wonky Sprout ecosystem's proprietary source
+            Trademark protection strategy for the P31 Sprout ecosystem's proprietary source
             identifiers.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -506,7 +506,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
                 fontWeight: '500',
               }}
             >
-              Wonky Sprout IP
+              P31 Sprout IP
             </span>
           </div>
         </div>
@@ -531,7 +531,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
               lineHeight: '1.5',
             }}
           >
-            {`Intellectual Property Forensic Report: The Wonky Sprout Ecosystem...
+            {`Intellectual Property Forensic Report: The P31 Sprout Ecosystem...
 
 [Complete legal analysis follows - see IP_FORENSIC_REPORT.md for full details]`}
           </pre>
@@ -546,7 +546,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
             }}
           >
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
-              📄 Master trademark protection strategy for the Cognitive Shield ecosystem.
+              📄 Master trademark protection strategy for the P31 Buffer ecosystem.
             </p>
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
               🛡️ Forensic analysis of Haptic Trim Tab, Simmelian Pod, and other source identifiers.
@@ -568,7 +568,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
     id: 'resonant-shield-copyright',
     title: 'The Resonant Shield - Copyright & Governance Framework',
     description:
-      'Strategic copyright protection and decentralized governance framework for the Wonky Sprout Master Codex using AGPLv3 and Wyoming DUNA.',
+      'Strategic copyright protection and decentralized governance framework for the P31 Sprout Master Codex using AGPLv3 and Wyoming DUNA.',
     category: 'legal',
     tags: ['copyright', 'agpl', 'duna', 'governance', 'legal', 'protection', 'decentralized'],
     icon: <FileText size={20} />,
@@ -684,7 +684,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
     id: 'delta-imperative-analysis',
     title: 'The Delta Imperative - Complete Ecosystem Architecture',
     description:
-      'Master forensic analysis of the Wonky Sprout ecosystem: Iron Dome legal engineering, Phenix Phantom infrastructure, L.O.V.E. economics, and Simmelian sociology for regulatory sovereignty.',
+      'Master forensic analysis of the P31 ecosystem: P31 Field legal engineering, P31 Compass infrastructure, L.O.V.E. economics, and Simmelian sociology for regulatory sovereignty.',
     category: 'research',
     tags: [
       'delta-topology',
@@ -710,7 +710,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
               fontSize: '1.1rem',
             }}
           >
-            The complete Wonky Sprout ecosystem architecture: from Floating Neutral crisis to Delta
+            The complete P31 Sprout ecosystem architecture: from Lost Ground crisis to Delta
             topology sovereignty.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -788,11 +788,11 @@ The digital infrastructure of the early 21st century is currently navigating a p
             }}
           >
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
-              📄 The master blueprint for Wonky Sprout regulatory sovereignty and Wye-to-Delta
+              📄 The master blueprint for P31 Sprout regulatory sovereignty and Wye-to-Delta
               transition.
             </p>
             <p style={{ margin: '0 0 1rem 0', color: GOD_CONFIG.theme.text.secondary }}>
-              🔻 Complete analysis of Iron Dome, Phenix Phantom, L.O.V.E. Protocol, and Simmelian
+              🔻 Complete analysis of P31 Field, P31 Compass, L.O.V.E. Protocol, and Simmelian
               Geometry.
             </p>
             <p style={{ margin: 0, color: GOD_CONFIG.theme.text.muted, fontSize: '0.9rem' }}>
@@ -810,7 +810,7 @@ The digital infrastructure of the early 21st century is currently navigating a p
   },
   {
     id: 'phenix-navigator-demo',
-    title: 'Phenix Navigator - Interactive SIC-POVM Demo',
+    title: 'P31 Compass - Interactive SIC-POVM Demo',
     description:
       'Stunning 3D visualization of tetrahedral quantum cryptography, demonstrating SIC-POVM geometry, autopoiesis, and attack detection capabilities.',
     category: 'demo',
@@ -967,9 +967,9 @@ The digital infrastructure of the early 21st century is currently navigating a p
   },
   {
     id: 'wonky-sprout-technical-manifest',
-    title: 'Wonky Sprout Technical & Operational Manifest',
+    title: 'P31 Sprout Technical & Operational Manifest',
     description:
-      'Complete technical specifications for ESP32-S3 LoRa hardware, Fisher-Escolà neuroscience protocols, Iron Dome legal structures, and GenSync AI communication.',
+      'Complete technical specifications for ESP32-S3 LoRa hardware, Fisher-Escolà neuroscience protocols, P31 Field legal structures, and P31 Link AI communication.',
     category: 'tool',
     tags: [
       'esp32-s3',
@@ -1202,7 +1202,7 @@ export default function CognitiveShieldLibrary() {
             marginBottom: '0.5rem',
           }}
         >
-          📚 Cognitive Shield Library
+          📚 P31 Buffer Library
         </h2>
         <p
           style={{
@@ -1615,7 +1615,7 @@ export default function CognitiveShieldLibrary() {
             fontSize: '1rem',
           }}
         >
-          🧠 The Cognitive Shield Ecosystem
+          🧠 The P31 Buffer Ecosystem
         </h4>
         <p
           style={{

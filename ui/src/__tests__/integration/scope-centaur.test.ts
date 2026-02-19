@@ -1,6 +1,6 @@
 /**
  * Integration Tests: Scope ↔ Centaur
- * Tests The Scope frontend communicating with The Centaur backend
+ * Tests P31 Spectrum frontend communicating with P31 Tandem backend
  */
 
 import { describe, test, expect, beforeAll, afterAll, vi } from 'vitest';

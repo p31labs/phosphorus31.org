@@ -1,6 +1,6 @@
 # Quantum UI/UX Upgrade
 
-Complete quantum coherence visualization system for Phenix Navigator.
+Complete quantum coherence visualization system for P31 Compass.
 
 ## Components
 
@@ -63,7 +63,7 @@ function App() {
     },
     {
       id: 'node-one',
-      label: 'Node One',
+      label: 'P31 NodeZero',
       icon: '🔗',
       color: '#9b59b6',
       onClick: () => setShowNodeOne(true),
@@ -95,7 +95,7 @@ All components automatically integrate with `useMetabolism` hook:
 
 Tetrahedron lock events trigger haptic feedback:
 - Browser: `navigator.vibrate([100, 50, 100])` (Thick Click pattern)
-- Node One: DRV2605L waveform sequence (when hardware connected)
+- P31 NodeZero: DRV2605L waveform sequence (when hardware connected)
 
 ## Architecture Compliance
 

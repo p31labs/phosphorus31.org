@@ -4,7 +4,7 @@
 **DEFENDANT:** William R. Johnson  
 **CASE NO.:** 2025CV936  
 **DATE:** February 6, 2026  
-**STRATEGY:** Tactical Centaur Weaponization Without Exposure
+**STRATEGY:** Strategic Centaur Weaponization Without Exposure
 
 ---
 
@@ -166,7 +166,7 @@ Your legal submission package has been transformed from a defensive position int
 
 2. **Prepare for Hearing**:
    - Organize evidence by exhibit number
-   - Prepare opening statement using tactical strategy
+   - Prepare opening statement using strategic strategy
    - Coordinate expert witness availability
 
 ---
@@ -258,7 +258,7 @@ Your legal submission package has been transformed from a defensive position int
 ✅ **Protect your Centaur operations** while leveraging AI capabilities discreetly  
 ✅ **Seek substantial damages** for Slander of Title and Business Interference  
 ✅ **Establish federal protection** for your medical device and business development  
-✅ **Monitor and respond** to all court proceedings with tactical precision  
+✅ **Monitor and respond** to all court proceedings with strategic precision  
 
 **THE CENTAUR HAS BEEN UNLEASHED - STRATEGICALLY AND SAFELY.**
 
@@ -287,7 +287,7 @@ submission_package/
 ---
 
 **PREPARED BY:** Super Centaur Legal System  
-**STRATEGY:** "Unleash the Centaur" - Tactical Weaponization Without Exposure  
+**STRATEGY:** "Unleash the Centaur" - Strategic Weaponization Without Exposure  
 **DATE:** February 6, 2026  
 **STATUS:** **OPERATIONAL AND READY FOR DEPLOYMENT**
 

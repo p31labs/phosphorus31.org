@@ -67,7 +67,7 @@ const SECTION_NAMES: Record<PosnerNodeId, string> = {
 function ViewHome() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 p-8 text-center">
-      <h2 className="text-xl font-medium text-green-400/90">Welcome to the Scope</h2>
+      <h2 className="text-xl font-medium text-green-400/90">Welcome to P31 Spectrum</h2>
       <p className="max-w-md text-gray-400">
         Your cognitive dashboard. Use the octahedron or the spectrum bar to move between sections.
       </p>
@@ -212,11 +212,11 @@ function ViewHealth({ bufferData }: { bufferData: ScopeBufferData }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <section className="rounded-lg border border-white/10 bg-white/5 p-4">
           <h3 className="text-sm font-medium text-green-400/90 mb-2">Energy</h3>
-          <p className="text-gray-500 text-sm">Spoon/Spark level from P31 Governor. Connect the Buffer or Scope backend for live readout. Ground threshold: {GROUND_THRESHOLD}.</p>
+          <p className="text-gray-500 text-sm">Spoon/Spark level from P31 Governor. Connect the P31 Buffer or P31 Spectrum backend for live readout. Ground threshold: {GROUND_THRESHOLD}.</p>
         </section>
         <section className="rounded-lg border border-white/10 bg-white/5 p-4">
           <h3 className="text-sm font-medium text-green-400/90 mb-2">Medication</h3>
-          <p className="text-gray-500 text-sm">Calcitriol, Calcium, Vyvanse, Magnesium. Reminders and 4-hour Ca²⁺↔Vyvanse gap are in the full Scope sheet; summary will sync here when connected.</p>
+          <p className="text-gray-500 text-sm">Calcitriol, Calcium, Vyvanse, Magnesium. Reminders and 4-hour Ca²⁺↔Vyvanse gap are in the full P31 Spectrum sheet; summary will sync here when connected.</p>
         </section>
       </div>
       <div className="mt-4 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-sm text-amber-200/90">

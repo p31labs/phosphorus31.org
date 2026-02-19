@@ -1,7 +1,7 @@
 /**
  * @p31/protocol — metabolism / spoon state (shared with game and Scope).
  * Three-state color aligns with Shelter brain state and GAS Brain.
- * Subset of ThreatLevel: GREEN | YELLOW | RED only.
+ * Subset of NoiseLevel: GREEN | YELLOW | RED only.
  */
 
 /** Spoon state color. GREEN = full, YELLOW = simplified, RED = rest. */

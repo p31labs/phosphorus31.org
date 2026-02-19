@@ -1,12 +1,12 @@
-# P31 Deployment Guide
+# P31 Launch Guide
 
-Complete guide for deploying the P31 ecosystem to production.
+Complete guide for launching the P31 ecosystem to production.
 
 ## Overview
 
-P31 can be deployed in multiple configurations:
+P31 can be launched in multiple configurations:
 - **Local Development** - All components on localhost
-- **Self-Hosted** - Deploy to your own infrastructure
+- **Self-Hosted** - Launch to your own infrastructure
 - **Hybrid** - Mix of local and cloud services
 - **Sovereign** - Fully local, no cloud dependencies
 
@@ -14,16 +14,16 @@ P31 can be deployed in multiple configurations:
 
 ### Required
 - Node.js 18.0.0+
-- Docker and Docker Compose (for containerized deployment)
-- PostgreSQL or SQLite (for The Centaur)
-- Redis (for The Buffer message queue)
+- Docker and Docker Compose (for containerized hosting)
+- PostgreSQL or SQLite (for P31 Tandem)
+- Redis (for P31 Buffer message queue)
 
 ### Optional
 - Neo4j (for knowledge graph)
 - Nginx (for reverse proxy)
 - SSL certificates (for HTTPS)
 
-## Deployment Configurations
+## Launch Configurations
 
 ### Local Development
 
@@ -46,11 +46,11 @@ npm run build
 ```
 
 Build outputs:
-- The Centaur: `SUPER-CENTAUR/dist/`
-- The Scope: `ui/dist/`
-- The Buffer (P31 Shelter): `apps/shelter/dist/`
+- P31 Tandem: `SUPER-CENTAUR/dist/`
+- P31 Spectrum: `ui/dist/`
+- P31 Buffer (P31 Shelter): `apps/shelter/dist/`
 
-## Docker Deployment (LAUNCH-06)
+## Docker Launch (LAUNCH-06)
 
 ### Shelter + Redis (Buffer backend)
 
@@ -72,7 +72,7 @@ P31 also has Docker Compose for full-stack; use the compose file that matches yo
 
 ### Individual Services
 
-#### The Centaur
+#### P31 Tandem
 
 ```dockerfile
 # Dockerfile.bridge
@@ -85,7 +85,7 @@ RUN npm run build
 CMD ["npm", "start"]
 ```
 
-#### The Scope
+#### P31 Spectrum
 
 ```dockerfile
 # Dockerfile.dashboard
@@ -100,7 +100,7 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 ```
 
-#### The Buffer (P31 Shelter)
+#### P31 Buffer (P31 Shelter)
 
 See **`apps/shelter/Dockerfile`**. Build from `apps/shelter`:
 
@@ -115,7 +115,7 @@ docker run -p 4000:4000 -e REDIS_URL=redis://host.docker.internal:6379 p31-shelt
 
 See [Environment Variables Reference](../config/env-reference.md) for complete list.
 
-#### The Centaur
+#### P31 Tandem
 
 ```bash
 DATABASE_URL=postgresql://user:pass@db:5432/centaur
@@ -125,7 +125,7 @@ NODE_ENV=production
 PORT=3000
 ```
 
-#### The Buffer
+#### P31 Buffer
 
 ```bash
 REDIS_URL=redis://redis:6379
@@ -144,7 +144,7 @@ server {
     listen 80;
     server_name p31.example.com;
 
-    # The Scope (frontend)
+    # P31 Spectrum (frontend)
     location / {
         proxy_pass http://localhost:5173;
         proxy_http_version 1.1;
@@ -154,7 +154,7 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
-    # The Centaur API
+    # P31 Tandem API
     location /api {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -162,7 +162,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
     }
 
-    # The Buffer API
+    # P31 Buffer API
     location /buffer {
         proxy_pass http://localhost:4000;
         proxy_http_version 1.1;
@@ -216,18 +216,18 @@ SQLite databases are created automatically on first run.
 ### Health Checks
 
 ```bash
-# The Centaur
+# P31 Tandem
 curl http://localhost:3000/health
 
-# The Buffer
+# P31 Buffer
 curl http://localhost:4000/health
 ```
 
 ### Logging
 
 Logs are stored in:
-- The Centaur: `SUPER-CENTAUR/logs/`
-- The Buffer: Console output
+- P31 Tandem: `SUPER-CENTAUR/logs/`
+- P31 Buffer: Console output
 - Docker: `docker-compose logs`
 
 ## Backup
@@ -262,8 +262,8 @@ tar -czf config-backup.tar.gz .env* config/
 
 ### Horizontal Scaling
 
-- **The Centaur**: Use load balancer with multiple instances
-- **The Buffer**: Use Redis cluster for message queue
+- **P31 Tandem**: Use load balancer with multiple instances
+- **P31 Buffer**: Use Redis cluster for message queue
 - **Database**: Use read replicas for PostgreSQL
 
 ### Vertical Scaling
@@ -290,7 +290,7 @@ tar -czf config-backup.tar.gz .env* config/
 
 ## Cloudflare Pages (phosphorus31.org)
 
-The public site is launched to **Cloudflare Pages**. Each push to `main` (after CI) runs the P31 Launch workflow and deploys `apps/web` to the project **phosphorus31-org**.
+The public site is launched to **Cloudflare Pages**. Each push to `main` (after CI) runs the P31 Launch workflow and launches `apps/web` to the project **phosphorus31-org**.
 
 - **Dashboard:** [Cloudflare Pages → phosphorus31 → Domains](https://dash.cloudflare.com/ee05f70c889cb6f876b9925257e3a2fa/pages/view/phosphorus31/domains)
 - **Required secret:** `CLOUDFLARE_API_TOKEN` (Create API Token → Edit Cloudflare Workers → Account → Cloudflare Pages Edit)
@@ -349,4 +349,4 @@ If `RCLONE_CONFIG` is not set, the cloud-share job skips without failing.
 
 ## The Mesh Holds 🔺
 
-Deploy with confidence. The architecture is designed for resilience and sovereignty.
+Launch with confidence. The architecture is designed for resilience and sovereignty.

@@ -9,7 +9,7 @@
 
 ## SUMMARY
 
-SWARM 09 successfully created comprehensive integration testing infrastructure for all four core components of the P31 Labs tetrahedron system. Every connection between The Scope, The Buffer, The Centaur, and NODE ONE has been mapped, tested, and documented.
+SWARM 09 successfully created comprehensive integration testing infrastructure for all four core components of the P31 Labs tetrahedron system. Every connection between P31 Spectrum, P31 Buffer, P31 Tandem, and P31 NodeZero has been mapped, tested, and documented.
 
 ---
 

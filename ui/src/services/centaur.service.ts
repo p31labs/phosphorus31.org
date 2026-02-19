@@ -1,6 +1,6 @@
 /**
- * Centaur Service - Client for The Centaur API
- * Connects The Scope to The Centaur backend AI protocol system
+ * Centaur Service - Client for P31 Tandem API
+ * Connects P31 Spectrum to P31 Tandem backend AI protocol system
  */
 
 const CENTAUR_API_URL = import.meta.env.VITE_CENTAUR_API_URL || 'http://localhost:3000';
@@ -28,7 +28,7 @@ export class CentaurService {
   }
 
   /**
-   * Send message to The Centaur
+   * Send message to P31 Tandem
    */
   async sendMessage(message: CentaurMessage): Promise<CentaurResponse> {
     try {
@@ -52,7 +52,7 @@ export class CentaurService {
   }
 
   /**
-   * Get messages from The Centaur
+   * Get messages from P31 Tandem
    */
   async getMessages(limit: number = 50): Promise<any[]> {
     try {

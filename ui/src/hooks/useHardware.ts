@@ -1,7 +1,7 @@
 /**
  * useHardware — WebUSB connection to P31 Node One (ESP32-S3)
  *
- * Provides ground reference for the Floating Neutral indicator.
+ * Provides ground reference for the Lost Ground indicator.
  * When connected, the hardware root of trust is available (DRV2605L haptics, SE050, etc.).
  */
 

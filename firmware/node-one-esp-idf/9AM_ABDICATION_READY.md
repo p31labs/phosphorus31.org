@@ -17,7 +17,7 @@ All firmware components verified for G.O.D. Protocol compliance.
 - [ ] Verify headless boot
 
 ### At 9:00am
-1. Run `abdicate.sh` (if applicable)
+1. Run `release.sh` (if applicable)
 2. Verify system enters headless mode
 3. Confirm no admin access required
 4. Verify autonomous operation

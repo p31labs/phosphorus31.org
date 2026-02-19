@@ -51,7 +51,7 @@
 | Artifact | Location | Type | Notes |
 |----------|----------|------|--------|
 | **Firmware (primary)** | `firmware/node-one-esp-idf/` | ESP-IDF v5.x C/C++ | Target: ESP32-S3-Touch-LCD-3.5B. main/main.cpp, BSP, audio (ES8311), LoRa (E22-900M30S), MCP23017 buttons, LVGL display, WiFi AP + HTTP server + WebSocket. SWARM 08 complete. |
-| **Cognitive Shield Web (on device)** | Optional | Served from device | Not required for MVP hardware test (per SWARM 08). HTTP server can serve static files; ui/ can be built for SPIFFS (`npm run build:spiffs` in ui/, copy to firmware SPIFFS). |
+| **P31 Buffer Web (on device)** | Optional | Served from device | Not required for MVP hardware test (per SWARM 08). HTTP server can serve static files; ui/ can be built for SPIFFS (`npm run build:spiffs` in ui/, copy to firmware SPIFFS). |
 | **Other firmware variants** | Various | — | Git status and docs reference ESP32-S3-Touch-LCD-3.5-2Dand3D, ESP32-S3-Touch-LCD-3.5-Demo, etc. Primary build path documented: `firmware/node-one-esp-idf` (BUILD_AND_TEST.ps1, QUICK_START_BUILD.md). |
 
 ### 1.5 Website (public)

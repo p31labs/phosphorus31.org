@@ -2,7 +2,7 @@ import { SAMSON } from "./constants";
 import type { SamsonState, PTerm, DriftTerm, BurnoutTerm } from "./types";
 
 /**
- * Samson V2 PID Controller — governs system behavior toward the Mark 1 Attractor.
+ * P31 Governor PID Controller — governs system behavior toward the Home Frequency.
  *
  * dH/dt = -k(H - 0.35)
  *

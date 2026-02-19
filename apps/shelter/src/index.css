@@ -18,3 +18,42 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+@keyframes xpFloat {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+
+@keyframes toastSlideIn {
+  0% { opacity: 0; transform: translateX(100%); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastSlideOut {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+
+@keyframes breatheIn {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
+
+@keyframes breatheOut {
+  from { transform: scale(1); }
+  to { transform: scale(0.5); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes jitterbugBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.animate-jitterbug-breathe {
+  animation: jitterbugBreathe 3s ease-in-out infinite;
+}

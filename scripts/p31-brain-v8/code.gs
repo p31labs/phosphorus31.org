@@ -111,7 +111,7 @@ var TREE = {
   "The Fold": { note: "Philosophy, published works, immutable truth", branches: ["Geodesic Self", "Floating Neutral", "Tetrahedron Protocol", "Field Notes", "Doctrine"] },
   "Node One": { note: "Hardware, schematics, firmware, device logs", branches: ["Schematics", "Firmware", "Whale Channel", "Thick Click", "Device Logs"] },
   "The Buffer": { note: "Software, intercepts, live operations", branches: ["Intercepts", "Legal Filings", "Financial Records", "Communications", "Metabolic Records"] },
-  "The Scope": { note: "Dashboard, monitoring, telemetry, accommodation evidence", branches: ["Daily Logs", "Accommodation Evidence", "Exports", "Archives"] },
+  "P31 Spectrum": { note: "Dashboard, monitoring, telemetry, accommodation evidence", branches: ["Daily Logs", "Accommodation Evidence", "Exports", "Archives"] },
   "The Centaur": { note: "AI collaboration, creative work, the workshop", branches: ["Workshop", "Apprentice Tests", "Cold Storage", "Kids"] }
 };
 

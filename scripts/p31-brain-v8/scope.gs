@@ -1,5 +1,5 @@
 /**
- * P31 — The Scope
+ * P31 — P31 Spectrum
  * Data aggregator for the dashboard.
  * This is the ONE function the frontend calls.
  */

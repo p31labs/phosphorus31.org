@@ -249,7 +249,7 @@ export default function CognitiveShieldUnstoppable() {
             marginBottom: '0.5rem',
           }}
         >
-          {emergencyMode ? '🚨' : '🛡️'} Cognitive Shield Unstoppable
+          {emergencyMode ? '🚨' : '🛡️'} P31 Buffer Unstoppable
         </h2>
         <p
           style={{
@@ -1087,7 +1087,7 @@ export default function CognitiveShieldUnstoppable() {
             fontSize: '1rem',
           }}
         >
-          ♾️ Cognitive Shield Unstoppable
+          ♾️ P31 Buffer Unstoppable
         </h4>
         <p
           style={{

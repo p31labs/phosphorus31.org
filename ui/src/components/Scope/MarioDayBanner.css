@@ -1,0 +1,117 @@
+/* Mario Day 2026 banner — red, green, yellow; subtle pulse. Respects reduced-motion. */
+
+.mario-day-banner {
+  --mario-red: #e52521;
+  --mario-green: #00a651;
+  --mario-yellow: #fbd000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px 10px 16px;
+  margin: 0 0 20px 0;
+  background: linear-gradient(135deg, var(--mario-red) 0%, #c41e1a 50%, var(--mario-red) 100%);
+  border: 2px solid var(--mario-yellow);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(229, 37, 33, 0.35), 0 0 0 1px rgba(251, 208, 0, 0.2);
+  animation: mario-day-banner-pulse 2.5s ease-in-out infinite;
+}
+
+.mario-day-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.mario-day-banner__star {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px var(--mario-yellow));
+}
+
+.mario-day-banner__text {
+  font-family: 'Oxanium', 'Space Mono', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.mario-day-banner__cta {
+  padding: 6px 14px;
+  background: var(--mario-yellow);
+  color: #1a1a1a;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.mario-day-banner__cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mario-day-banner__cta:focus-visible {
+  outline: 2px solid var(--mario-yellow);
+  outline-offset: 2px;
+}
+
+.mario-day-banner__close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mario-day-banner__close:hover {
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--mario-yellow);
+}
+
+.mario-day-banner__close:focus-visible {
+  outline: 2px solid var(--mario-yellow);
+  outline-offset: 2px;
+}
+
+@keyframes mario-day-banner-pulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 12px rgba(229, 37, 33, 0.35), 0 0 0 1px rgba(251, 208, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 18px rgba(229, 37, 33, 0.5), 0 0 0 2px rgba(251, 208, 0, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mario-day-banner {
+    animation: none;
+  }
+  .mario-day-banner__cta:hover {
+    transform: none;
+  }
+  .mario-day-banner__cta,
+  .mario-day-banner__close {
+    transition-duration: 0.01ms;
+  }
+}

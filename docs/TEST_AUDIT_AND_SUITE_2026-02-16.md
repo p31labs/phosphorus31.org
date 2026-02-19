@@ -20,7 +20,7 @@
 
 ## 2. Test Infrastructure by Component
 
-### 2.1 ui (The Scope)
+### 2.1 ui (P31 Spectrum)
 
 - **Config:** `ui/vitest.config.ts` — jsdom, coverage thresholds 60% stmt/line, 50% branches.
 - **Setup:** `ui/src/test/setup.ts`.

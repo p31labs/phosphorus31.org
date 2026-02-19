@@ -12,7 +12,7 @@ Use this checklist when connecting the repo to Cloudflare Pages and going live. 
 - [x] `_redirects` configured (www → apex, favicon, guides → docs)
 - [x] `CNAME` contains `phosphorus31.org`
 - [x] `wrangler.toml` present for Cloudflare Pages (bucket = "./", no build)
-- [x] No design or content changes — deployable as-is
+- [x] No design or content changes — launch-ready as-is
 
 ---
 

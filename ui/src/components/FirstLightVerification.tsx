@@ -289,7 +289,7 @@ export function FirstLightVerification() {
               </div>
             </div>
             <p style={{ margin: 0, fontSize: 13, color: GOD_CONFIG.theme.text.primary }}>
-              All verification steps passed. The Cognitive Shield is operational and ready for use.
+              All verification steps passed. P31 Buffer is operational and ready for use.
             </p>
           </div>
         )}

@@ -914,7 +914,7 @@ export function MeshMaintenance() {
               Kenosis Audit
             </div>
             <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>
-              Verify that administrative keys remain destroyed and that power is decentralized via
+              Verify that administrative keys remain released and that power is decentralized via
               the G.O.D. DAO
             </div>
           </div>
@@ -937,7 +937,7 @@ export function MeshMaintenance() {
               Coordinate Check
             </div>
             <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>
-              Teleport the observation window to a new coordinate in the Universal ROM lattice to
+              Teleport the observation window to a new coordinate in the P31 Pulse lattice to
               ensure stability via Samson's Law
             </div>
           </div>
@@ -960,7 +960,7 @@ export function MeshMaintenance() {
               Mesh Verification
             </div>
             <div style={{ fontSize: 12, color: GOD_CONFIG.theme.text.muted }}>
-              Test the Node One peer-to-peer connection to ensure the mesh survives if the "Wye"
+              Test the P31 NodeZero peer-to-peer connection to ensure the mesh survives if the "Wye"
               fails
             </div>
           </div>

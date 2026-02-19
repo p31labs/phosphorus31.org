@@ -24,7 +24,7 @@
 ### §05 — TECHNICAL DOCS (Embedded)
 - **The Buffer:** Voltage assessment (0-10 scale), ≥6 auto-held, ≥8 critical alert
 - **G.O.D. Protocol:** Type-level encryption (EncryptedBlob), local-first (SQLite), privacy-first
-- **Integration:** The Centaur (backend API), The Scope (frontend), Node One (hardware)
+- **Integration:** P31 Tandem (backend API), P31 Spectrum (frontend), P31 NodeZero (hardware)
 
 ---
 
@@ -388,10 +388,10 @@ Create: `cognitive-shield/AGENT8_GOD_COMPLIANCE_AUDIT.md`
 ## AGENT 9: INTEGRATION TESTING
 
 ### Mission
-Test integration with The Centaur, The Scope, and Node One.
+Test integration with P31 Tandem, P31 Spectrum, and P31 NodeZero.
 
 ### Tasks
-1. **The Centaur Integration**
+1. **P31 Tandem Integration**
    - [ ] Messages route through Buffer
    - [ ] API endpoints accessible
    - [ ] Error handling works

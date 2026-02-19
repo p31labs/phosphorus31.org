@@ -4,7 +4,7 @@
  *
  * Verifies:
  * 1. Structural & Mathematical Calibration (SIC-POVM, Curvature, Coordinate Lock)
- * 2. Cognitive Shield Hardening (Catcher's Mitt, Vacuum of Time, Universal Translation)
+ * 2. P31 Buffer Hardening (Catcher's Mitt, Vacuum of Time, Universal Translation)
  * 3. Somatic & Metabolic Guardrails (Spoon Budgeting, Vagus Nerve Sync, Restorative Reset)
  */
 
@@ -167,12 +167,12 @@ export function CalibrationReport() {
       {
         id: 'coordinate-lock',
         category: 'structural',
-        label: 'Nexus Kernel Coordinate Lock',
-        description: 'Ensure Nexus Kernel references Universal ROM (π-lattice) for stability',
+        label: 'P31 Sync Kernel Coordinate Lock',
+        description: 'Ensure P31 Sync Kernel references P31 Pulse (π-lattice) for stability',
         status: statusPercentage !== null && statusPercentage >= 50 ? 'pass' : 'warning',
         details:
           statusPercentage !== null
-            ? `Status Percentage: ${Math.round(statusPercentage)}%. Nexus Kernel coordinate system ${statusPercentage >= 50 ? 'locked' : 'unstable'}.`
+            ? `Status Percentage: ${Math.round(statusPercentage)}%. P31 Sync Kernel coordinate system ${statusPercentage >= 50 ? 'locked' : 'unstable'}.`
             : 'No daily check-in data. Complete check-in to lock coordinate system.',
         recommendation:
           statusPercentage !== null && statusPercentage < 50
@@ -183,7 +183,7 @@ export function CalibrationReport() {
     return checks;
   }, [statusPercentage]);
 
-  // Phase 2: Cognitive Shield Hardening
+  // Phase 2: P31 Buffer Hardening
   const cognitiveChecks = useMemo<CalibrationCheck[]>(() => {
     const batchingWindowActive = buffer.length > 0 || processed.length > 0;
     const hasHighVoltageMessages = processed.some((p) => (p.voltage?.score ?? 0) > 0.5);
@@ -356,7 +356,7 @@ export function CalibrationReport() {
     },
     {
       id: 'cognitive',
-      label: 'Phase 2: Cognitive Shield Hardening',
+      label: 'Phase 2: P31 Buffer Hardening',
       icon: Shield,
       checks: cognitiveChecks,
     },

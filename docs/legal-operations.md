@@ -7,7 +7,7 @@ This document provides integration points between the P31 technical ecosystem an
 
 ## Overview
 
-The P31 ecosystem development operates in parallel with legal operations (Civil Action No. 2025CV936). These are **separate but connected** domains:
+The P31 ecosystem development operates in parallel with legal operations (active civil action). These are **separate but connected** domains:
 
 - **P31 Ecosystem** — Technical development (Node One, The Buffer, The Centaur, etc.)
 - **Legal Operations** — Strategic legal defense and family reunification
@@ -74,7 +74,7 @@ When Will uses engineering metaphors, translate for court documents:
 | P31 | The brand and ecosystem name |
 
 **Do NOT use in court documents:**
-- "Floating Neutral" or other engineering metaphors
+- "Lost Ground" or other engineering metaphors
 - Deprecated names (Wonky Sprout, Phenix Navigator, etc.)
 - Technical jargon without translation
 

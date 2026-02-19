@@ -45,7 +45,10 @@ export type XPAction =
   | "birthday_quest_step_1"
   | "birthday_quest_step_2"
   | "birthday_quest_step_3"
-  | "birthday_quest_step_4";
+  | "birthday_quest_step_4"
+  | "tandem_chat"
+  | "tandem_draft_scored"
+  | "tandem_coaching";
 
 // ═══════════════════════════════════════════════════════════════
 // ACHIEVEMENTS

@@ -36,13 +36,13 @@ for ($i = 1; $i -le 30; $i++) {
     try {
         $response = Invoke-WebRequest -Uri "http://localhost:3000/health" -UseBasicParsing -TimeoutSec 2
         if ($response.StatusCode -eq 200) {
-            Write-Host "✅ The Centaur is healthy" -ForegroundColor Green
+            Write-Host "✅ P31 Tandem is healthy" -ForegroundColor Green
             $centaurHealthy = $true
             break
         }
     } catch {
         if ($i -eq 30) {
-            Write-Host "❌ The Centaur failed to start" -ForegroundColor Red
+            Write-Host "❌ P31 Tandem failed to start" -ForegroundColor Red
             docker-compose -f docker-compose.integration.yml logs centaur
             exit 1
         }

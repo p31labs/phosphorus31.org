@@ -70,7 +70,7 @@ NODE ONE is a Class II assistive medical device (ESP32-S3) providing:
 - `README.md` — Complete setup guide
 - `ABDICATION_CHECKLIST.md` — Governance protocol
 - `P31_NAMING_COMPLIANCE.md` — Naming verification
-- `BATTLE_TEST.md` — Hardware stress testing
+- `STRESS_TEST.md` — Hardware stress testing
 - `BATTERY_TEST.md` — Power optimization
 
 #### 🔗 Integration Points

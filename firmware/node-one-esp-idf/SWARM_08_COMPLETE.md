@@ -19,7 +19,7 @@
 | 6 | MCP23017 Buttons | ✅ | 14 inputs, interrupt mode, debouncing |
 | 7 | LVGL Display | ✅ | Status bar, voice activity, spoon meter |
 | 8 | WiFi + HTTP Server | ✅ | AP mode, REST API, WebSocket |
-| 9 | Cognitive Shield Web | ⚠️ | Not required for MVP hardware test |
+| 9 | P31 Buffer Web | ⚠️ | Not required for MVP hardware test |
 | 10 | Main Orchestrator | ✅ | Boot sequence, callbacks, main loop |
 
 ---
@@ -116,7 +116,7 @@ cd C:\Users\sandra\Downloads\phenix-navigator-creator67\firmware\node-one-esp-id
 ## 🧪 TEST COVERAGE
 
 ### Unit Tests
-- LoRa radio battle tests (see `BATTLE_TEST.md)
+- LoRa radio stress tests (see `STRESS_TEST.md`)
 - Component initialization tests
 
 ### Integration Tests
@@ -135,7 +135,7 @@ cd C:\Users\sandra\Downloads\phenix-navigator-creator67\firmware\node-one-esp-id
 
 ### MVP Scope
 - Web app (Agent 9) not required for hardware test
-- Can be added later for full Cognitive Shield integration
+- Can be added later for full P31 Buffer integration
 - HTTP server ready to serve web app when built
 
 ### Hardware Dependencies
@@ -179,7 +179,7 @@ cd C:\Users\sandra\Downloads\phenix-navigator-creator67\firmware\node-one-esp-id
 
 ### Testing
 - `BENCH_TEST_CHECKLIST.md` - Complete hardware test plan
-- `BATTLE_TEST.md` - LoRa radio stress tests
+- `STRESS_TEST.md` - LoRa radio stress tests
 
 ### Reference
 - `BUILD_STATUS.md` - Build readiness summary

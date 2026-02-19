@@ -48,8 +48,8 @@ npm run security:scan
 # Threat assessment
 npm run security:threat-assessment
 
-# Lockdown system
-npm run security:lockdown
+# Quiet mode
+npm run security:quiet-mode
 
 # View security logs
 tail -f logs/security.log
@@ -58,7 +58,7 @@ tail -f logs/security.log
 ### **Emergency Security**
 - **Lost Password:** Contact admin or use recovery email
 - **Suspicious Activity:** Run `npm run security:incident-response`
-- **System Compromise:** Execute `npm run security:lockdown`
+- **System Compromise:** Execute `npm run security:quiet-mode`
 
 ## 🧠 QUANTUM BRAIN COMMANDS
 
@@ -419,7 +419,7 @@ npm run db:optimize        # Optimize database
 ```bash
 npm run security:scan      # Security scan
 npm run security:audit     # Security audit
-npm run security:lockdown  # Lockdown system
+npm run security:quiet-mode  # Quiet mode
 npm run security:incident-response  # Incident response
 ```
 

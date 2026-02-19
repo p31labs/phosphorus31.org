@@ -52,7 +52,7 @@ export const App = () => {
             <h2>3D World Viewer</h2>
             <div className="world-placeholder">
               <p>3D Voxel World Rendering</p>
-              <p>Connect Phenix Navigator to interact with the world</p>
+              <p>Connect P31 Compass to interact with the world</p>
             </div>
           </div>
         );
@@ -95,7 +95,7 @@ export const App = () => {
             <h2>Hardware Panel</h2>
             <div className="hardware-status">
               <div className="device-card">
-                <h3>Phenix Navigator</h3>
+                <h3>P31 Compass</h3>
                 <div className="status-indicator">Disconnected</div>
                 <button className="connect-btn">Connect Device</button>
               </div>
@@ -117,7 +117,7 @@ export const App = () => {
             <div className="agent-chat">
               <div className="chat-messages">
                 <div className="message bot">
-                  <strong>Genesis AI:</strong> Welcome to the Genesis Gate platform. How can I
+                  <strong>Genesis AI:</strong> Welcome to the P31 Entangle platform. How can I
                   assist you today?
                 </div>
               </div>
@@ -165,7 +165,7 @@ export const App = () => {
     <div className="genesis-gate-app">
       <header className="app-header">
         <div className="header-content">
-          <h1>Genesis Gate Platform</h1>
+          <h1>P31 Entangle Platform</h1>
           <p>Unified neurodiversity-first metaverse</p>
           <div className="status-indicators">
             <span className="spoon-count">
@@ -220,7 +220,7 @@ export const App = () => {
 
       <footer className="app-footer">
         <div className="footer-content">
-          <span>Genesis Gate v1.0.0</span>
+          <span>P31 Entangle v1.0.0</span>
           <span>Neurodiversity-First Metaverse Platform</span>
           <span>© 2026</span>
         </div>

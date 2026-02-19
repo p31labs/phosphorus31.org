@@ -1,6 +1,6 @@
 /**
  * Integration Tests: Scope ↔ Buffer
- * Tests The Scope displaying Buffer output correctly
+ * Tests P31 Spectrum displaying Buffer output correctly
  */
 
 import { describe, test, expect, beforeAll, afterAll, vi } from 'vitest';

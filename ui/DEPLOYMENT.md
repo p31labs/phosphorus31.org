@@ -1,6 +1,6 @@
 # Compatibility with GitHub Pages & Cloudflare Pages
 
-**Short answer:** Yes, the P31 Scope (React app in `ui/`) works on GitHub Pages and Cloudflare Pages. Wallet integration degrades gracefully when the extension is not installed, so the site remains fully functional.
+**Short answer:** Yes, P31 Spectrum (React app in `ui/`) works on GitHub Pages and Cloudflare Pages. Wallet integration degrades gracefully when the extension is not installed, so the site remains fully functional.
 
 ---
 
@@ -46,7 +46,7 @@ Use RPC endpoints that are publicly accessible and support CORS. The defaults in
 
 ## Testing Without the Extension
 
-With the extension absent, the Scope uses mock wallet data:
+With the extension absent, P31 Spectrum uses mock wallet data:
 
 1. Open the deployed site.
 2. Use the wallet connect control — it should simulate a connection and show a fake balance and address.

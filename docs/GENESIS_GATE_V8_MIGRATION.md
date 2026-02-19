@@ -16,7 +16,7 @@ Replace the CONFIG object. Changes marked with `// CHANGED`:
 
 ```javascript
 const CONFIG = {
-  OPERATOR: "William R. Johnson",
+  OPERATOR: "Will",
   TITLE: "Founder & CEO",                              // CHANGED from "Incorporator & CEO"
   SYSTEM_ID: "P31-LABS-001",                            // CHANGED from "P31-LABS-INC-001"
   CODENAME: "GEODESIC_OPERATOR",
@@ -31,19 +31,19 @@ const CONFIG = {
     EIN: "PENDING",                                     // Update when received
     GA_CONTROL_NUMBER: "PENDING",                       // Update after SOS filing
     FISCAL_SPONSOR: "Hack Club HCB",                    // Or "NONE" after 501(c)(3) approved
-    REGISTERED_AGENT: "William R. Johnson",
+    REGISTERED_AGENT: "Will",
     FORMATION_DATE: "2026-02-27"                        // Target
   },
 
   // GOVERNANCE — NEW BLOCK
   BOARD: [
-    { seat: 1, name: "William R. Johnson", role: "CEO & Director", email: "will@p31ca.org", status: "ACTIVE" },
+    { seat: 1, name: "Will", role: "CEO & Director", email: "will@p31ca.org", status: "ACTIVE" },
     { seat: 2, name: "Mama", role: "Director (CMO)", email: "", status: "PROPOSED" },
     { seat: 3, name: "Ashley", role: "Secretary & Director", email: "", status: "PROPOSED" },
     { seat: 4, name: "OPEN", role: "Independent Director", email: "", status: "RECRUITING" }
   ],
   OFFICERS: {
-    CEO: "William R. Johnson",
+    CEO: "Will",
     SECRETARY: "Ashley",
     TREASURER: "Carrie"
   },

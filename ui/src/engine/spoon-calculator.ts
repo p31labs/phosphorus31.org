@@ -19,7 +19,9 @@ export function calculateSpoonCost(message: {
   voltage: number;
   length: number;
   complexity?: number;
-  threatFlags?: number; // Number of threat categories detected
+  noiseFlags?: number; // Number of noise categories detected
+  /** @deprecated Use noiseFlags instead */
+  threatFlags?: number;
   isHostileContact?: boolean; // Known hostile contact
   timestamp?: Date; // Time of day affects cost
 }): SpoonCost {
@@ -43,9 +45,10 @@ export function calculateSpoonCost(message: {
     cost += message.complexity * 1.5;
   }
 
-  // Threat multiplier (multiple threat categories increase cost)
-  if (message.threatFlags && message.threatFlags > 0) {
-    cost *= 1 + message.threatFlags * 0.3; // 30% increase per threat category
+  // Noise multiplier (multiple noise categories increase cost)
+  const noiseCount = message.noiseFlags ?? message.threatFlags ?? 0;
+  if (noiseCount > 0) {
+    cost *= 1 + noiseCount * 0.3; // 30% increase per noise category
   }
 
   // Hostile contact multiplier (messages from known hostile contacts cost more)

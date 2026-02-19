@@ -46,7 +46,7 @@ const WonkySprout: React.FC<WonkySproutProps> = ({ onEnter, onThemeToggle, isDar
   >('peace');
   const [isListening, setIsListening] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(
-    "Hello, beautiful mind. I'm Wonky Sprout. I'm here whenever you're ready. 🌸"
+    "Hello, beautiful mind. I'm P31 Sprout. I'm here whenever you're ready. 🌸"
   );
   const [isBlooming, setIsBlooming] = useState(false);
   const [sensoryLoad, setSensoryLoad] = useState<'quiet' | 'gentle' | 'active'>('gentle');

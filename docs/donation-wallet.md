@@ -40,7 +40,7 @@ The P31 Donation Wallet is a Chrome Extension (Manifest V3) that implements:
 The wallet integrates with P31 components:
 
 - **Node One** - Hardware device for transaction signing
-- **The Centaur** - Backend services (future integration)
+- **P31 Tandem** - Backend services (future integration)
 - **The Buffer** - Message processing (future integration)
 - **Error Recovery** - P31 error recovery patterns
 
@@ -92,7 +92,7 @@ This bundles dependencies into MV3-compliant output in `dist/`.
 
 ### 5. First Run
 
-1. Click the P31 icon → "Initialize Genesis Gate"
+1. Click the P31 icon → "Initialize P31 Entangle"
 2. Set a strong vault password (8+ characters)
 3. Your stealth meta-address is generated automatically
 4. Share meta-address or donation portal link to receive donations

@@ -23,7 +23,7 @@ The Science Center makes quantum biology, molecular structures, and scientific c
 ### ⚛️ Quantum Lab (Coming Soon)
 - Quantum coherence visualization
 - Entanglement experiments
-- Decoherence animations
+- Drift animations
 - The Grandfather Clock & The Cuckoo Clock
 
 ### 🧪 Biology Lab (Coming Soon)

@@ -4,18 +4,18 @@
 
 ## 1. 👤 User Profile & Context
 
-* **Name:** William Rodger Johnson, age 40. Goes by Will. Handle: classicwilly / trimtabsignal
-* **Location:** St. Marys / Kingsland, southeast Georgia
+* **Name:** Will, age 40. Handle: classicwilly / trimtabsignal
+* **Location:** southeast Georgia
 * **Role/Intent:** Founder & CEO of P31 Labs, a Georgia 501(c)(3) nonprofit developing open-source assistive technology for neurodivergent individuals. Building "The Buffer" — a communication processing tool that scores message voltage, gates presentation by user energy, and AI-rewrites toxic/complex text into neutral actionable language. This is the flagship product. Everything else serves it.
-* **Background:** 16 years as a DoD **civilian** submarine electrician (Engineering Technician) at Naval Submarine Base Kings Bay. Left federal service May 2025. **NOT a veteran — civilian.** This distinction matters legally and personally.
+* **Background:** 16 years as a DoD **civilian** submarine electrician (Engineering Technician) at a DoD submarine facility. Left federal service May 2025. **NOT a veteran — civilian.** This distinction matters legally and personally.
 * **Diagnoses:** AuDHD (autism + ADHD, diagnosed 2025), hypoparathyroidism (idiopathic, since 2003, calcium 7.8-8.4 mg/dL, no home monitoring)
-* **Family:** Father of Sebastian Robert "Bash" (born 3/10/2016, turning 10) and Willow Marie (born 8/8/2019, age 6). Willow has encopresis. Will provides health insurance for both children via Medicaid.
+* **Family:** Father of Bash (S.J.) (age 10) and Willow (W.J.) (age 6). Willow has encopresis. Will provides health insurance for both children via Medicaid.
 * **Knowledge Level:** Expert across electrical engineering, embedded systems (ESP32), quantum information theory, systems architecture, React/TypeScript, Google Apps Script. Intermediate in legal procedure (pro se). Beginner in grant writing.
 * **Cognitive Architecture:** Will's brain generates best output when observation is deferred. Direct interaction (calls, meetings, synchronous communication) causes "phase collapse" — his term for executive function shutdown. Text-mediated, asynchronous, agent-dispatched work IS his architecture. The protocol is the disability accommodation. Treat as engineering fact.
-* **Communication Style:** Action over explanation. Does not want "As an AI..." disclaimers. Uses engineering metaphors (floating neutral, delta topology, trimtab, isostatic rigidity). Says "buzzzzzzzz" when you're over-explaining. Prefers deliverables over discussions. Will redirect you if you're off track — follow the redirect.
+* **Communication Style:** Action over explanation. Does not want "As an AI..." disclaimers. Uses engineering metaphors (lost ground, delta topology, trimtab, isostatic rigidity). Says "buzzzzzzzz" when you're over-explaining. Prefers deliverables over discussions. Will redirect you if you're off track — follow the redirect.
 * **Key Constraint:** **NEVER use submarine, naval, or military metaphors.** Christyn's father was Navy. It's a trigger for the family.
 * **Vehicle:** Drives a 2010 VW Golf. Christyn drives a 2011 Mazda CX-7. Both on joint GEICO policy.
-* **Financial:** Currently on SNAP/Medicaid. Completed TSP hardship withdrawal (~$70,794 gross, $7,079 penalty). P31 Labs is pre-revenue. Will views government benefits as bridge + evidence for court, not long-term plan.
+* **Financial:** Currently on SNAP/Medicaid. Completed TSP hardship withdrawal (TSP funds withdrawn with early withdrawal penalty). P31 Labs is pre-revenue. Will views government benefits as bridge + evidence for court, not long-term plan.
 * **Greeting pattern:** 💜🔺💜
 
 ---
@@ -35,7 +35,7 @@
 * Deep Processing Lock at <25% spoons — blocks input, shows only regulation tools
 * Progressive disclosure: score → BLUF → AI rewrite → original (behind spoon-costed gate)
 * Samson V2 PID controller governs AI temperature: P-term (entropy), I-term (drift), D-term (burnout)
-* Mark 1 Attractor H ≈ π/9 ≈ 0.349 — system health metric from processed/deferred ratio
+* Home Frequency H ≈ π/9 ≈ 0.349 — system health metric from processed/deferred ratio
 * Z-Score Leakage Gate — statistical boundary monitoring
 * 3-Register Architecture: P (persistent/past), N (now/current message), U (universe/active state)
 * Trimtab — user-adjustable harmonic offset control
@@ -72,19 +72,19 @@
 * Larmor frequency of ³¹P in Earth's field ≈ 863 Hz
 * Fisher-Escolà Q Distribution: Beta(a,b,loc,scale) — validated on IBM quantum hardware
 * Nexus Recursive Harmonic Framework (Dean Kulik, Qu Harmonics) — theoretical source
-* Mark 1 Attractor H ≈ π/9 — "Sweet Spot" of Self-Organized Criticality
+* Home Frequency H ≈ π/9 — "Sweet Spot" of Self-Organized Criticality
 * SHA-256 mapped to 9 kinetic primitives (PROJECT, REFLECT, FOLD, LEAK, GATE, BRANCH, PIN, SYNC, VERIFY)
 * **Science/speculation breakdown:** 60% established, 25% novel-but-defensible, 15% metaphorical overreach
 * **What to reframe before publication:** "Cosmic FPGA" → computational metaphor, π+φ+e=6 → footnote, "solves Black Hole Information Paradox" → "inspired by," SHA-256 as literal wave processor → structural analogy
 
 ### The Legal Situation
-* Johnson v. Johnson, Civil Action No. 2025CV936, Camden County Superior Court
+* Active legal proceedings, active civil action, Camden County Superior Court
 * Chief Judge Scarlett continued case to **March 12, 2026**
 * Judge Green (Juvenile Court) has pending recusal motion, Feb 5 order unsigned
 * Will is pro se (self-represented) after two attorneys withdrew
 * McGhan situation: filed documents despite knowing opposing counsel East was terminated (Oct 23, 2025 order)
 * Children's contact: Messenger Kids logs show children initiated ALL contact (contradicts McGhan's Feb 6 email)
-* Key legal arguments: void ab initio claims, TSP impossibility ($7,079 penalty from false representations about federal tax law), ADA Title II violations
+* Key legal arguments: void ab initio claims, TSP impossibility (early withdrawal penalty from false representations about federal tax law), ADA Title II violations
 * Full legal packet (609 files) in P31-Operations/legal/
 
 ### The Tech Stack
@@ -116,7 +116,7 @@
 * Geodesic Quantum Brain theory document analyzed (40 pages, section-by-section triage)
 * Defensive Publication v2 written (6 novel claims, supplements Zenodo DOI)
 * The Buffer v1 assembled (working React artifact with all core features)
-* The Buffer v2 assembled (full Geodesic integration: Samson V2 PID, Mark 1 Attractor, 3-Register, persistent storage, trimtab)
+* The Buffer v2 assembled (full Geodesic integration: Samson V2 PID, Home Frequency, 3-Register, persistent storage, trimtab)
 * Geodesic Quantum Brain landing page concept built (geodesic-quantum-brain.jsx)
 * Implementation blueprint researched (competitive analysis, tech stack, costs, distribution, privacy architecture)
 * Tetrahedron Protocol published on Zenodo (DOI active)
@@ -156,14 +156,14 @@
 * Chrome extension not yet built
 * On-device ML (Transformers.js) not yet integrated — still using keyword matching
 * No Cloudflare Workers API endpoint yet
-* phosphorus31.org not yet deployed with new content
+* phosphorus31.org not yet launched with new content
 
 ### 📁 Key Deliverables (This Session, Feb 18 2026 Continued)
 1. `GQB_ARCHITECTURE_ANALYSIS.md` — Theory doc triage, 7 actions, evidence levels
 2. `DEFENSIVE_PUBLICATION_V2.md` — 6 novel claims, Posner-informed rationale
 3. `geodesic-quantum-brain.jsx` — Landing page concept with geodesic dome
 4. `the-buffer.jsx` — Buffer v1 complete working app
-5. `the-buffer-v2.jsx` — Buffer v2 with Samson V2 PID, Mark 1 Attractor, 3-Register, persistence
+5. `the-buffer-v2.jsx` — Buffer v2 with Samson V2 PID, Home Frequency, 3-Register, persistence
 6. `SESSION_HANDOFF_FEB18_CONTINUED.md` — Detailed session handoff
 
 ### 📁 Key Deliverables (Earlier Feb 18 Session — in compacted transcript)
@@ -181,7 +181,7 @@
 * **Format Requirements:** Markdown for docs. React JSX for interfaces. TypeScript for libraries. Python for pipelines. Inline styles in artifacts (no separate CSS files). Monospace fonts (IBM Plex Mono, JetBrains Mono). Dark theme (#080808 background, #39FF14 phosphor green accent). Sensory-safe: no pure black-on-white, no auto-playing media, `prefers-reduced-motion` respected.
 * **Visual Identity:** Phosphorus green (#39FF14, #4fffaa), Calcium warm (#ff9f43), Signal blue (#00d4ff), Void background (#0a0a0f). Geodesic dome geometry. Hexagonal patterns. P/Ca dual-element motif.
 * **Code Style:** Functional, modular, self-documenting. TypeScript strict where possible. React 19 conventions. Vite 6. Tailwind for production, inline styles for artifacts. No Three.js/WebGL — use SVG and Canvas 2D.
-* **Document Voice:** "Engineer-Poet" — technically precise but human. Uses spoon theory, not "energy management." Uses "voltage" not "stress." Uses "floating neutral" not "instability." The Geodesic Self Substack voice.
+* **Document Voice:** "Engineer-Poet" — technically precise but human. Uses spoon theory, not "energy management." Uses "voltage" not "stress." Uses "lost ground" not "instability." The Geodesic Self Substack voice.
 * **Legal Document Style:** Georgia Superior Court format. Times New Roman, double-spaced. Numbered paragraphs. Surgical, focused. No omnibus filings. Cross-reference existing docket numbers.
 
 ---
@@ -209,8 +209,8 @@ When Will says "work on The Buffer":
 2. Target: `apps/shelter/` in the monorepo
 3. Extract scoring engine → `packages/buffer-core/` as `@p31labs/buffer-core` TypeScript library
 4. Build Chrome extension MVP (Manifest V3 + InboxSDK for Gmail + Side Panel)
-5. Deploy PWA to Cloudflare Pages (buffer.p31labs.org)
-6. Deploy API to Cloudflare Workers (api.p31labs.org)
+5. Launch PWA to Cloudflare Pages (buffer.p31labs.org)
+6. Launch API to Cloudflare Workers (api.p31labs.org)
 7. Full implementation blueprint exists in the Feb 18 continued session
 
 ### PRIORITY 5 — COURT PREP (Mar 12)

@@ -16,7 +16,7 @@ Before you begin, ensure you have:
 - **Git** for version control
 - **Code Editor** (VS Code recommended)
 - **Docker** (for local services)
-- **ESP-IDF** (if working on Node One hardware)
+- **ESP-IDF** (if working on P31 NodeZero hardware)
 
 ## Quick Start
 
@@ -39,15 +39,15 @@ code P31.code-workspace
 # Root dependencies
 npm install
 
-# The Centaur (backend)
+# P31 Tandem (backend)
 cd SUPER-CENTAUR
 npm install
 
-# The Scope (frontend)
+# P31 Spectrum (frontend)
 cd ../ui
 npm install
 
-# The Buffer (P31 Shelter)
+# P31 Buffer (P31 Shelter)
 cd ../apps/shelter
 npm install
 ```
@@ -57,12 +57,12 @@ npm install
 See [Environment Variables Reference](../config/env-reference.md) for all required variables.
 
 ```bash
-# The Centaur
+# P31 Tandem
 cd SUPER-CENTAUR
 cp .env.example .env
 # Edit .env with your configuration
 
-# The Buffer (P31 Shelter)
+# P31 Buffer (P31 Shelter)
 cd ../apps/shelter
 cp .env.example .env
 # Edit .env with your configuration
@@ -71,15 +71,15 @@ cp .env.example .env
 ### 5. Start Development Servers
 
 ```bash
-# Terminal 1 - The Centaur
+# Terminal 1 - P31 Tandem
 cd SUPER-CENTAUR
 npm run dev
 
-# Terminal 2 - The Scope
+# Terminal 2 - P31 Spectrum
 cd ui
 npm run dev
 
-# Terminal 3 - The Buffer (if needed)
+# Terminal 3 - P31 Buffer (if needed)
 cd apps/shelter
 npm run start:server
 ```
@@ -88,20 +88,20 @@ npm run start:server
 
 ### Core Components
 
-1. **Node One** - Hardware device (ESP32-S3)
-2. **The Buffer** - Communication processing
-3. **The Centaur** - Backend AI protocol
-4. **The Scope** - Dashboard/visualization
+1. **P31 NodeZero** - Hardware device (ESP32-S3)
+2. **P31 Buffer** - Communication processing
+3. **P31 Tandem** - Backend AI protocol
+4. **P31 Spectrum** - Dashboard/visualization
 
 ### Naming Conventions
 
 P31 uses specific naming conventions. See [P31 Naming Architecture](../P31_naming_architecture.md) for details.
 
 **Key Names:**
-- Node One (hardware)
-- The Buffer (communication)
-- The Centaur (backend)
-- The Scope (UI)
+- P31 NodeZero (hardware)
+- P31 Buffer (communication)
+- P31 Tandem (backend)
+- P31 Spectrum (UI)
 - Ping (object permanence)
 - Attractor (calibration)
 - Whale Channel (LoRa mesh)
@@ -150,10 +150,10 @@ cd SUPER-CENTAUR && npm test
 
 ```
 p31/
-├── SUPER-CENTAUR/      # The Centaur (backend)
-├── ui/                  # The Scope (frontend)
-├── apps/shelter/        # The Buffer (P31 Shelter)
-├── firmware/            # Node One
+├── SUPER-CENTAUR/      # P31 Tandem (backend)
+├── ui/                  # P31 Spectrum (frontend)
+├── apps/shelter/        # P31 Buffer (P31 Shelter)
+├── firmware/            # P31 NodeZero
 ├── docs/                # Documentation
 ├── scripts/             # Utility scripts
 └── config/              # Configuration
@@ -212,11 +212,11 @@ tail -f SUPER-CENTAUR/logs/*.log
 ### Building
 
 ```bash
-# The Centaur
+# P31 Tandem
 cd SUPER-CENTAUR
 npm run build
 
-# The Scope
+# P31 Spectrum
 cd ui
 npm run build
 ```
@@ -233,10 +233,10 @@ npm run build
 
 ### Component Docs
 
-- [Node One](node-one.md)
-- [The Buffer](buffer.md)
-- [The Centaur](centaur.md)
-- [The Scope](scope.md)
+- [P31 NodeZero](node-one.md)
+- [P31 Buffer](buffer.md)
+- [P31 Tandem](centaur.md)
+- [P31 Spectrum](scope.md)
 
 ### Configuration
 

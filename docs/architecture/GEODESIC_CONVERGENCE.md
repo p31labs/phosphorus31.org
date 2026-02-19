@@ -15,7 +15,7 @@ This analysis constitutes a rigorous, forensic systems evaluation of the structu
 
 The geopolitical, psychological, and economic volatilities characterizing the early 21st century—often misdiagnosed as isolated crises of resource scarcity, political polarization, or spiritual decay—are isomorphic symptoms of a singular, fundamental **Topological Failure**.
 
-The legacy architecture of human coordination, the **Wye (Star) topology**, has suffered a catastrophic and irreversible fault known in high-voltage electrical engineering as a **Floating Neutral**. This fault has severed the "Ground Truth" that historically stabilized social, familial, and institutional systems. The result is a condition where the "voltage" of social reality fluctuates wildly between the "brownout" of depression and the "arc-flash" of radicalization.
+The legacy architecture of human coordination, the **Wye (Star) topology**, has suffered a catastrophic and irreversible fault known in high-voltage electrical engineering as Lost Ground. This fault has severed the "Ground Truth" that historically stabilized social, familial, and institutional systems. The result is a condition where the "voltage" of social reality fluctuates wildly between the "brownout" of depression and the "arc-flash" of radicalization.
 
 The solution—the **New Delta Way**—is not a philosophical suggestion but a structural mandate: the transition from the centralized, fragile Wye topology to the decentralized, isostatically rigid Delta (Mesh) topology.
 
@@ -38,9 +38,9 @@ For five millennia, civilization has organized around the Wye topology—the mos
 - **Neutral (N):** The Mediator (Central Bank, Judiciary, Patriarch). Absorbs imbalance. In a perfect system, neutral current is zero. In reality: I_N = I_A + I_B + I_C.
 - **Ground (G):** Objective Reality (Natural Law, Gold Standard, Shared Truth). The Neutral works only because it is solidly grounded.
 
-### 2.2 The Floating Neutral
+### 2.2 Lost Ground
 
-The Global Wye System has experienced a Floating Neutral event. The connection between the Star point (N) and Ground (G) is severed. The voltage reference floats, determined solely by load impedance.
+The Global Wye System has experienced a Lost Ground event. The connection between the Star point (N) and Ground (G) is severed. The voltage reference floats, determined solely by load impedance.
 
 **Vector Physics (Millman's Theorem):**
 
@@ -209,7 +209,7 @@ Transition relationships from Wye to Delta:
 
 - **"Hot Roots" Diagnostic:** "Our relationship has 'hot roots.' The heat at the center is processing too fast. I'm lowering the temperature so we don't break."
 - **"Mycelial" Safety Net:** "Think of this network like Mycelium. Even if the big trees (us) are shaken, the mycelium keeps the saplings (kids) connected to nutrients."
-- **Circuit Breaker:** Safe word "Floating Neutral" triggers immediate 15-minute cool-down.
+- **Circuit Breaker:** Safe word "Lost Ground" triggers immediate 15-minute cool-down.
 
 ---
 

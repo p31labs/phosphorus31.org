@@ -12,7 +12,7 @@ This document maps old component names to P31 names and identifies where referen
 | SUPER-CENTAUR | **The Centaur** | ✅ Complete | Backend AI protocol system - Docs use "The Centaur", folder kept for compatibility |
 | Dashboard | **The Scope** | ✅ Complete | UI visualization layer - All docs updated |
 | Heartbeat Protocol | **Ping** | ✅ Complete | Object permanence automation - All docs updated |
-| Mark 1 Attractor | **Attractor** | ✅ Complete | Calibration system - All docs updated |
+| Mark 1 Attractor | **Home Frequency** | ✅ Complete | Calibration system - All docs updated |
 | SIMPLEX | **The Fold** | ✅ Complete | Philosophy layer - Referenced in naming doc |
 | Vertex One | **Node One** | ✅ Complete | Hardware device (deprecated name) - All docs updated |
 | Wonky Sprout | **DEAD** | ✅ Complete | No longer used - Removed from all documentation |

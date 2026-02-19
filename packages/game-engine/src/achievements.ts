@@ -17,6 +17,8 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: "prestige_1", name: "Rebirth", description: "Prestiged for the first time.", icon: "🌅", condition: (s) => s.prestige >= 1, xpReward: 5000, rarity: "legendary", hidden: true },
   { id: "wonky_and_proud", name: "It's Okay to Be a Little Wonky", description: "Reached Level 10.", icon: "🌱", condition: (s) => s.level >= 10, xpReward: 1000, rarity: "rare", hidden: true },
   { id: "geodesic_complete", name: "Geodesic Architect", description: "Reached Level 50.", icon: "🏛️", condition: (s) => s.level >= 50, xpReward: 10000, rarity: "legendary", hidden: true },
+  { id: "first_tandem", name: "First Contact", description: "Had your first conversation with the Tandem.", icon: ">>", condition: (_s, e) => e?.action === "tandem_chat", xpReward: 150, rarity: "common", hidden: false },
+  { id: "tandem_draft", name: "Co-Pilot", description: "Scored an outbound draft through the Tandem.", icon: "✎", condition: (_s, e) => e?.action === "tandem_draft_scored", xpReward: 200, rarity: "uncommon", hidden: false },
 ];
 
 export function checkAchievements(state: PlayerState, event?: XPEvent): Achievement[] {

@@ -36,7 +36,7 @@ cd firmware/node-one-esp-idf
 ### Execute Abdication (9:00 AM)
 ```bash
 cd /path/to/phenix-navigator-creator67
-./abdicate.sh
+./release.sh
 ```
 
 ### Key Files

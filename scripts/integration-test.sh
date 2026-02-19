@@ -38,11 +38,11 @@ echo -e "${YELLOW}🔍 Checking service health...${NC}"
 # Check Centaur
 for i in {1..30}; do
     if curl -f http://localhost:3000/health > /dev/null 2>&1; then
-        echo -e "${GREEN}✅ The Centaur is healthy${NC}"
+        echo -e "${GREEN}✅ P31 Tandem is healthy${NC}"
         break
     fi
     if [ $i -eq 30 ]; then
-        echo -e "${RED}❌ The Centaur failed to start${NC}"
+        echo -e "${RED}❌ P31 Tandem failed to start${NC}"
         docker-compose -f docker-compose.integration.yml logs centaur
         exit 1
     fi

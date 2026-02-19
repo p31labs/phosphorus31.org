@@ -19,7 +19,7 @@
 - ✅ `vercel.json` — Vercel deployment config (if needed)
 - ✅ `_headers` — Cloudflare headers config
 - ✅ `README.md` — Documentation
-- ✅ `DEPLOY_CLOUDFLARE.md` — Deployment guide
+- ✅ `LAUNCH_CLOUDFLARE.md` — Launch guide
 - ✅ `DEPLOY_NOW.ps1` — PowerShell deployment helper
 
 ---

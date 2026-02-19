@@ -16,7 +16,7 @@
 
 ### ✅ Documentation Created
 1. **WEBSITE_STATUS.md** — Current state and deployment options
-2. **DEPLOY_CLOUDFLARE.md** — Step-by-step Cloudflare Pages guide
+2. **LAUNCH_CLOUDFLARE.md** — Step-by-step Cloudflare Pages guide
 3. **DEPLOYMENT_CHECKLIST.md** — Quick checklist for manual deployment
 4. **DEPLOY_NOW.ps1** — Interactive deployment helper script
 
@@ -40,7 +40,7 @@
 
 2. **Follow deployment guide:**
    - See: `DEPLOYMENT_CHECKLIST.md` (quick version)
-   - Or: `DEPLOY_CLOUDFLARE.md` (detailed version)
+   - Or: `LAUNCH_CLOUDFLARE.md` (detailed version)
 
 3. **Verify deployment:**
    - Test: `https://phosphorus31.org`
@@ -81,7 +81,7 @@ website/
 ├── sitemap.xml         ✅ SEO file
 ├── vercel.json         ✅ Deployment config (if using Vercel)
 ├── WEBSITE_STATUS.md   ✅ Status document
-├── DEPLOY_CLOUDFLARE.md ✅ Cloudflare guide
+├── LAUNCH_CLOUDFLARE.md ✅ Cloudflare guide
 └── DEPLOYMENT_CHECKLIST.md ✅ Quick checklist
 ```
 

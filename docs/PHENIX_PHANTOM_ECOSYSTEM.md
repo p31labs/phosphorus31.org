@@ -83,7 +83,7 @@ The fundamental failure of modern systems is reliance on the **Triangle (Wye)** 
        A, B, C collapse               to every other node
 ```
 
-### 2.2 The Mark 1 Constant (H ≈ 0.35)
+### 2.2 The Home Frequency (H ≈ 0.35)
 
 The ideal equilibrium between Order and Entropy:
 
@@ -371,7 +371,7 @@ ENVIRONMENT                   MACHINE                      METHOD
 | **Topology** | Delta (Mesh) | Distributed 4-node connectivity | Synergetics / Graph Theory |
 | **Logic** | Nexus Kernel | π-Lattice, ZPHC | Recursive Harmonic Intelligence |
 | **Creation** | Vibe Coding | Natural Language to Code | Digital Centaur / ReAct |
-| **Validation** | Harmonic Linter | Mark 1 Constant (0.35) | Neuro-Metabolic Budgeting |
+| **Validation** | Harmonic Linter | Home Frequency (0.35) | Neuro-Metabolic Budgeting |
 | **Runtime** | WebContainers | Browser-based Node.js | Reference Frame Independence |
 | **Hardware** | EDID Emulator | ACR blocking | Privacy Engineering |
 | **Translation** | GenSync Matrix | HumanOS adaptation | Spiral Dynamics |

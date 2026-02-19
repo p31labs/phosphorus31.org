@@ -52,7 +52,7 @@ const CARDS = [
     id: 'viewer',
     title: 'P31 Viewer',
     subtitle: 'Tetrahedron & mesh',
-    description: 'Tetrahedron topology. Operator, Synthetic Body, Node One, Node Two.',
+    description: 'Tetrahedron topology. Operator, Synthetic Body, P31 NodeZero, Node Two.',
     route: '/molecule/viewer',
     emoji: '🔺',
     color: BRAND.cyan,

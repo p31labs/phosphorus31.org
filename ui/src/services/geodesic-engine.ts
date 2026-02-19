@@ -196,7 +196,7 @@ export async function analyzeRawMessage(message: RawMessage): Promise<ProcessedM
       ...message.metadata,
       filterRecommendation: filterResult.recommendation,
       filterReason: filterResult.reason,
-      threats: filterResult.threats.length,
+      noiseCount: filterResult.noiseMatches.length,
     },
   };
 

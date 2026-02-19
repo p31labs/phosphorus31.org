@@ -23,6 +23,9 @@ export const XP_TABLE: Record<XPAction, number> = {
   birthday_quest_step_2: 150,
   birthday_quest_step_3: 150,
   birthday_quest_step_4: 250,
+  tandem_chat: 15,
+  tandem_draft_scored: 40,
+  tandem_coaching: 25,
 };
 
 /** L.O.V.E. token base mining rates per action */
@@ -48,6 +51,9 @@ export const MINING_RATES: Record<XPAction, number> = {
   birthday_quest_step_2: 15,
   birthday_quest_step_3: 15,
   birthday_quest_step_4: 50,
+  tandem_chat: 2,
+  tandem_draft_scored: 5,
+  tandem_coaching: 3,
 };
 
 /** Level titles — synced with xp.ts getTitle() */

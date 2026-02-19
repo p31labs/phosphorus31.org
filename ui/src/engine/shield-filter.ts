@@ -1,11 +1,11 @@
 /**
  * Shield Filter
- * Core threat detection and message filtering logic
+ * Core noise detection and message filtering logic
  *
  * Pure function - no React, no hooks, no DOM
  */
 
-import { scanForThreats, hasHighSeverityThreats, type ThreatMatch } from './filter-patterns';
+import { scanForNoise, hasHighSeverityNoise, type NoiseMatch } from './filter-patterns';
 import { calculateVoltage, type VoltageResult } from './voltage-calculator';
 import { detectGenre, type GenreAnalysis } from './genre-detector';
 
@@ -14,7 +14,9 @@ export interface MessageFilterResult {
   shouldBuffer: boolean;
   voltage: VoltageResult;
   genre: GenreAnalysis;
-  threats: ThreatMatch[];
+  noiseMatches: NoiseMatch[];
+  /** @deprecated Use noiseMatches instead */
+  threats: NoiseMatch[];
   recommendation: 'safe' | 'buffer' | 'sanitize' | 'block';
   reason?: string;
 }
@@ -36,8 +38,8 @@ export function filterMessage(
   // Detect genre
   const genre = detectGenre(content);
 
-  // Scan for threats
-  const threats = scanForThreats(content);
+  // Scan for noise
+  const noiseMatches = scanForNoise(content);
 
   // Determine action
   let shouldBlock = false;
@@ -45,18 +47,18 @@ export function filterMessage(
   let recommendation: 'safe' | 'buffer' | 'sanitize' | 'block' = 'safe';
   let reason: string | undefined;
 
-  // Critical threats = block
-  const hasCriticalThreats = threats.some((t) => t.pattern.severity === 'critical');
-  if (hasCriticalThreats) {
+  // Critical noise = block
+  const hasCriticalNoise = noiseMatches.some((t) => t.pattern.severity === 'critical');
+  if (hasCriticalNoise) {
     shouldBlock = true;
     recommendation = 'block';
-    reason = 'Critical threat patterns detected';
+    reason = 'Critical noise patterns detected';
   }
-  // High voltage + high severity threats = block
-  else if (voltage.score >= 8 && hasHighSeverityThreats(content)) {
+  // High voltage + high severity noise = block
+  else if (voltage.score >= 8 && hasHighSeverityNoise(content)) {
     shouldBlock = true;
     recommendation = 'block';
-    reason = 'High voltage with threat patterns';
+    reason = 'High voltage with noise patterns';
   }
   // High voltage = sanitize
   else if (voltage.score >= 7) {
@@ -81,7 +83,8 @@ export function filterMessage(
     shouldBuffer,
     voltage,
     genre,
-    threats,
+    noiseMatches,
+    threats: noiseMatches,
     recommendation,
     reason,
   };

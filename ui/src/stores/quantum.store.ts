@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ const initialQuantumState: QuantumState = {
   phase: 0,
   purity: 0.9,
   entanglement: 0.7,
-  decoherenceRate: 0.0001, // Very slow decoherence
+  decoherenceRate: 0.0001, // Very slow drift
   lastUpdate: Date.now(),
 };
 

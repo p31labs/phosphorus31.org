@@ -44,6 +44,10 @@ p31/
 
 Start here: **[`AGENTS.md`](AGENTS.md)** — universal context for any AI collaborator.
 
+Then read **[`docs/GOD.md`](docs/GOD.md)** — architecture, dependency direction, constraints, build commands.
+
+Full ecosystem map (all agents, all products): **[`docs/P31_MASTER_SYNTHESIS.md`](docs/P31_MASTER_SYNTHESIS.md)**.
+
 Build health: **[`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md)** — what works, what's broken, what's next.
 
 Each major component has a `CLAUDE.md` with detailed agent context:

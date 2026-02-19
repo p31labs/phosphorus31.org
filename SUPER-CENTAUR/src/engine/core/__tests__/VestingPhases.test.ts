@@ -24,16 +24,16 @@ export enum VestingPhase {
 const NODE_ONE = {
   nickname: 'Bash',
   initials: 'S.J.',
-  birthdate: new Date('2016-03-10'), // March 10, 2016
-  currentAge: 10, // As of Feb 2026
+  birthdate: new Date('2016-01-01'),
+  currentAge: 10,
   phase: VestingPhase.TRUST,
 };
 
 const NODE_TWO = {
   nickname: 'Willow',
   initials: 'W.J.',
-  birthdate: new Date('2019-08-08'), // August 8, 2019
-  currentAge: 6, // As of Feb 2026
+  birthdate: new Date('2019-01-01'),
+  currentAge: 6,
   phase: VestingPhase.TRUST,
 };
 
@@ -301,10 +301,9 @@ describe('Vesting Phases', () => {
 
   describe('age calculation', () => {
     test('calculates age from birthdate correctly', () => {
-      const birthdate = new Date('2016-03-10');
+      const birthdate = new Date('2016-01-01');
       const age = calculateAge(birthdate);
       
-      // As of Feb 2026, should be approximately 9-10 years old
       expect(age).toBeGreaterThanOrEqual(9);
       expect(age).toBeLessThanOrEqual(10);
     });

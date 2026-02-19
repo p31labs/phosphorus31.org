@@ -1,8 +1,8 @@
-# The Buffer
+# P31 Buffer
 
 **Communication Processing Layer for P31**
 
-The Buffer processes messages between internal thought and external signal. Neurodivergent-first message processing with batching, priority queues, and object permanence automation.
+P31 Buffer processes messages between internal thought and external signal. Neurodivergent-first message processing with batching, priority queues, and object permanence automation.
 
 ## Features
 
@@ -68,10 +68,10 @@ Environment variables (see `.env.example`):
 
 ## Integration
 
-The Buffer integrates with:
-- **The Centaur** - Backend API routes messages through Buffer
-- **The Scope** - Frontend dashboard and visualization
-- **Node One** - Hardware device heartbeat
+P31 Buffer integrates with:
+- **P31 Tandem** - Backend API routes messages through Buffer
+- **P31 Spectrum** - Frontend dashboard and visualization
+- **P31 NodeZero** - Hardware device heartbeat
 
 ## G.O.D. Protocol Compliance
 

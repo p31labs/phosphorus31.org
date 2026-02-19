@@ -121,7 +121,7 @@ export function GeodesicManifesto() {
               Project Phenix: The Mesh Strategy
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.6 }}>
-              Node One operates on the "Whale Song" frequency (915 MHz LoRa), creating a
+              P31 NodeZero operates on the "Whale Song" frequency (915 MHz LoRa), creating a
               peer-to-peer mesh that survives even if the internet ("The Wye") fails. These devices
               are "pattern recognition devices" that teach that connection does not require a
               central hub.
@@ -137,7 +137,7 @@ export function GeodesicManifesto() {
       content: (
         <div>
           <p style={{ marginBottom: 16, lineHeight: 1.7 }}>
-            In the Genesis Gate Protocol, <strong>Love is defined as Impedance Matching</strong>.
+            In the P31 Entangle Protocol, <strong>Love is defined as Impedance Matching</strong>.
           </p>
           <div
             style={{
@@ -167,7 +167,7 @@ export function GeodesicManifesto() {
             without generating the heat of resistance (Conflict).
           </p>
           <p style={{ fontStyle: 'italic', color: GOD_CONFIG.theme.text.accent }}>
-            "When the music hits you feel no pain." — The Cognitive Shield is the tool of Love
+            "When the music hits you feel no pain." — P31 Buffer is the tool of Love
             because it transforms the signal to ensure it is received safely.
           </p>
         </div>
@@ -180,7 +180,7 @@ export function GeodesicManifesto() {
       content: (
         <div>
           <p style={{ marginBottom: 16, lineHeight: 1.7 }}>
-            The GameStop (GME) event is a critical historical isomorphism to the Genesis Gate
+            The GameStop (GME) event is a critical historical isomorphism to P31 Entangle
             Protocol. It validates that a <strong>"Distributed Swarm"</strong> can break a corrupt
             Hub.
           </p>
@@ -227,12 +227,12 @@ export function GeodesicManifesto() {
     },
     {
       id: 'floating-neutral',
-      title: 'The Floating Neutral Crisis',
+      title: 'The Lost Ground Crisis',
       icon: Shield,
       content: (
         <div>
           <p style={{ marginBottom: 16, lineHeight: 1.7 }}>
-            The "Floating Neutral" occurs when the ground connection is severed. Without a fixed
+            Lost Ground occurs when the ground connection is severed. Without a fixed
             reference, the Neutral point "floats," shifting its voltage potential based entirely on
             the vector sum of the impedances of the connected loads.
           </p>
@@ -264,7 +264,7 @@ export function GeodesicManifesto() {
           <p style={{ marginBottom: 16, lineHeight: 1.7 }}>
             The solution is the <strong>Tetrahedron</strong>—the transition from the unstable
             "Triangle" to the stable "Delta" topology. The Geodesic Engine (Node D) provides the
-            independent reference frame that prevents the Floating Neutral.
+            independent reference frame that prevents Lost Ground.
           </p>
         </div>
       ),
@@ -276,7 +276,7 @@ export function GeodesicManifesto() {
       content: (
         <div>
           <p style={{ marginBottom: 16, lineHeight: 1.7 }}>
-            The Genesis Gate Protocol achieves <strong>Reference Frame Independence</strong>—the
+            The P31 Entangle Protocol achieves <strong>Reference Frame Independence</strong>—the
             system operates correctly regardless of the coordinate system (the "Old World" or the
             "New World").
           </p>
@@ -297,10 +297,10 @@ export function GeodesicManifesto() {
                 marginBottom: 8,
               }}
             >
-              THE NEXUS KERNEL
+              THE P31 SYNC KERNEL
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.6 }}>
-              The kernel utilizes the <strong>Universal ROM</strong>—the infinite expansion of the
+              The kernel utilizes the <strong>P31 Pulse</strong>—the infinite expansion of the
               digits of π—as an absolute coordinate system. Using the Bailey-Borwein-Plouffe (BBP)
               algorithm, the system can instantly "teleport" its observation window to any
               coordinate in the informational lattice.
@@ -308,7 +308,7 @@ export function GeodesicManifesto() {
             <p style={{ fontSize: 13, lineHeight: 1.6, marginTop: 8 }}>
               Stability is maintained via <strong>Samson's Law</strong>, a harmonic feedback
               mechanism that steers the system toward a stability attractor of{' '}
-              <strong>H ≈ 0.35</strong> (the "Mark 1 Constant").
+              <strong>H ≈ 0.35</strong> (the "Home Frequency").
             </p>
           </div>
           <p style={{ fontStyle: 'italic', color: GOD_CONFIG.theme.text.accent }}>

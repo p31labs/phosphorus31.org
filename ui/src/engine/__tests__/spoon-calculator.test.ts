@@ -8,11 +8,11 @@ import { calculateSpoonCost, calculateSpoonRecovery, type SpoonCost } from '../s
 
 describe('SpoonCalculator', () => {
   describe('Voltage-based costs', () => {
-    test('high voltage + legal threat = high spoon cost (3-5)', () => {
+    test('high voltage + legal noise = high spoon cost (3-5)', () => {
       const result = calculateSpoonCost({
         voltage: 8,
         length: 50,
-        threatFlags: 1, // legal threat
+        noiseFlags: 1, // legal noise
       });
       expect(result.cost).toBeGreaterThanOrEqual(3);
       expect(result.cost).toBeLessThanOrEqual(6); // Allow slightly higher due to multipliers
@@ -23,7 +23,7 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 2,
         length: 20,
-        threatFlags: 0,
+        noiseFlags: 0,
       });
       expect(result.cost).toBeLessThanOrEqual(2);
       expect(result.category).toBe('low');
@@ -43,56 +43,56 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 10,
         length: 200,
-        threatFlags: 2,
+        noiseFlags: 2,
       });
       expect(result.cost).toBeGreaterThan(5);
       expect(result.category).toBe('critical');
     });
   });
 
-  describe('Threat multipliers', () => {
-    test('multiple threat flags multiply cost', () => {
+  describe('Noise multipliers', () => {
+    test('multiple noise flags multiply cost', () => {
       const baseResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
-        threatFlags: 0,
+        noiseFlags: 0,
       });
 
       const multiThreatResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
-        threatFlags: 2, // 2 threat categories
+        noiseFlags: 2, // 2 noise categories
       });
 
-      // Multiple threats should increase cost
+      // Multiple noise categories should increase cost
       expect(multiThreatResult.cost).toBeGreaterThan(baseResult.cost);
     });
 
-    test('3 threat flags significantly increase cost', () => {
+    test('3 noise flags significantly increase cost', () => {
       const result = calculateSpoonCost({
         voltage: 6,
         length: 150,
-        threatFlags: 3, // legal + financial + emotional
+        noiseFlags: 3, // legal + financial + emotional
       });
       expect(result.cost).toBeGreaterThan(4);
     });
 
-    test('threat multiplier is applied correctly', () => {
-      const noThreat = calculateSpoonCost({
+    test('noise multiplier is applied correctly', () => {
+      const noNoise = calculateSpoonCost({
         voltage: 5,
         length: 100,
-        threatFlags: 0,
+        noiseFlags: 0,
       });
 
-      const oneThreat = calculateSpoonCost({
+      const oneNoise = calculateSpoonCost({
         voltage: 5,
         length: 100,
-        threatFlags: 1,
+        noiseFlags: 1,
       });
 
-      // 1 threat = 30% increase
-      expect(oneThreat.cost).toBeGreaterThan(noThreat.cost * 1.2);
-      expect(oneThreat.cost).toBeLessThan(noThreat.cost * 1.4);
+      // 1 noise category = 30% increase
+      expect(oneNoise.cost).toBeGreaterThan(noNoise.cost * 1.2);
+      expect(oneNoise.cost).toBeLessThan(noNoise.cost * 1.4);
     });
   });
 
@@ -120,7 +120,7 @@ describe('SpoonCalculator', () => {
         voltage: 8,
         length: 200,
         isHostileContact: true,
-        threatFlags: 2,
+        noiseFlags: 2,
       });
       expect(result.cost).toBeGreaterThan(6);
       expect(result.category).toBe('critical');
@@ -261,7 +261,7 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 9,
         length: 400,
-        threatFlags: 3,
+        noiseFlags: 3,
         isHostileContact: true,
         timestamp: new Date('2024-01-01T02:00:00'), // 2 AM
       });
@@ -279,7 +279,7 @@ describe('SpoonCalculator', () => {
       const fullResult = calculateSpoonCost({
         voltage: 5,
         length: 100,
-        threatFlags: 2,
+        noiseFlags: 2,
         isHostileContact: true,
         timestamp: new Date('2024-01-01T01:00:00'),
       });
@@ -294,7 +294,7 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 10,
         length: 1000,
-        threatFlags: 5,
+        noiseFlags: 5,
         isHostileContact: true,
         complexity: 10,
         timestamp: new Date('2024-01-01T01:00:00'),
@@ -342,7 +342,7 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 7,
         length: 300,
-        threatFlags: 1,
+        noiseFlags: 1,
       });
       if (result.cost > 4 && result.cost <= 7) {
         expect(result.category).toBe('high');
@@ -354,7 +354,7 @@ describe('SpoonCalculator', () => {
       const result = calculateSpoonCost({
         voltage: 9,
         length: 400,
-        threatFlags: 2,
+        noiseFlags: 2,
         isHostileContact: true,
       });
       if (result.cost > 7) {

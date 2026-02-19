@@ -115,7 +115,7 @@ color: #e8e8f0;             /* Text Primary */
 
 **File:** `config/design-system.ts`
 
-**Issue:** This file appears to be for a different project (Genesis Gate) and doesn't follow P31 branding standards.
+**Issue:** This file appears to be for a different project (P31 Entangle) and doesn't follow P31 branding standards.
 
 **Current State:**
 ```typescript

@@ -94,7 +94,7 @@ export function ConnectionsView(): React.ReactElement {
         connected: isGASConfigured() || !!localStorage.getItem('p31:gas-url'),
         growing: false,
         configurable: true,
-        detail: localStorage.getItem('p31:gas-url') ? 'Connected to SIMPLEX v6' : undefined,
+        detail: localStorage.getItem('p31:gas-url') ? 'Connected to P31 Entangle' : undefined,
       },
       {
         id: 'shelter',

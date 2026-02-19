@@ -1,6 +1,6 @@
 # Phase 2 — Molecular Layer (Dashboard & Navigation)
 
-**Checkpoint 2** deliverables for the Scope dashboard and fractal ZUI.
+**Checkpoint 2** deliverables for the P31 Spectrum dashboard and fractal ZUI.
 
 ## What was added
 
@@ -17,7 +17,7 @@
 - **Quiet mode** or **force2D**: static 2D list (accessibility)
 - Connects to `useNavigationStore` and `useSensoryStore`
 
-### 2.3 — Scope dashboard (`src/organisms/ScopeDashboard.tsx`)
+### 2.3 — Spectrum dashboard (`src/organisms/ScopeDashboard.tsx`)
 
 - Full viewport shell: top bar (P31 logo, section name, **PulseIndicator**), left **OctahedralNav**, center content, bottom **SpectrumBar** (³¹P spectrum as nav)
 - **FIDTransition** on view changes; **PosnerBackground** when `activeNode === null` (home)
@@ -37,7 +37,7 @@
 - **FIDTransition** — smooth view transition (respects reduced motion)
 - **PosnerBackground** — low-opacity Posner dots when home
 
-## How to run the Scope dashboard
+## How to run the Spectrum dashboard
 
 In `App.tsx`, add state and a toggle, then render the dashboard:
 

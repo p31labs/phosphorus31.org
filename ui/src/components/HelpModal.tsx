@@ -52,7 +52,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
       icon: BookOpen,
       title: 'Getting Started',
       content:
-        'Welcome to The Buffer! Start with the Onboarding Center to learn about creating worlds, scripts, and quantum features.',
+        'Welcome to P31 Buffer! Start with the Onboarding Center to learn about creating worlds, scripts, and quantum features.',
       links: [
         { text: 'Quick Start Guide', href: '#' },
         { text: 'Video Tutorials', href: '#' },
@@ -102,7 +102,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         aria-labelledby="help-modal-title"
       >
         <div className={styles.header}>
-          <h2 id="help-modal-title">🛡️ The Buffer Help</h2>
+          <h2 id="help-modal-title">🛡️ P31 Buffer Help</h2>
           <button
             ref={closeBtnRef}
             className={styles.closeButton}

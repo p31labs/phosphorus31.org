@@ -89,7 +89,7 @@ OLLAMA_ORIGINS="http://localhost:3000"
 # Enable Vibe Coding module (Creator Mode)
 VIBE_CODER_ENABLED=true
 
-# Set default resonance target (Mark 1 Attractor)
+# Set default resonance target (Home Frequency)
 HARMONIC_TARGET=0.35
 ```
 

@@ -187,7 +187,7 @@ export function IdentityView(): React.ReactElement {
             cursor: 'pointer',
           }}
         >
-          {dissolveConfirm ? 'Tap again to confirm' : 'This will permanently destroy your molecule. Tap again.'}
+          {dissolveConfirm ? 'Tap again to confirm' : 'This will permanently release your molecule. Tap again.'}
         </button>
       </div>
     </div>

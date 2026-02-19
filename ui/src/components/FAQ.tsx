@@ -55,7 +55,7 @@ const FAQ_ITEMS: FAQItem[] = [
 
       `When communication breaks down—when every text becomes a minefield, when "I miss you" gets interpreted as manipulation, when the voltage is so high that any signal burns—the distance grows. Not physical distance. Impedance distance.`,
 
-      `The Cognitive Shield is a Universal Translation Layer. It takes your raw signal—your need, your love, your desperation—and transforms it into a form that can be received without triggering defensive walls. It doesn't change WHAT you're saying. It changes HOW the signal travels.`,
+      `P31 Buffer is a Universal Translation Layer. It takes your raw signal—your need, your love, your desperation—and transforms it into a form that can be received without triggering defensive walls. It doesn't change WHAT you're saying. It changes HOW the signal travels.`,
 
       `The goal is to lower the impedance until the connection can flow again. Until "I just want to hold you" can be heard as exactly that—not as a threat, not as a trap, but as love.`,
 
@@ -72,7 +72,7 @@ const FAQ_ITEMS: FAQItem[] = [
     icon: Radio,
     category: 'connection',
     answer: [
-      `The Cognitive Shield uses a peer-to-peer mesh network built on WebRTC (via PeerJS). Here's how it works:`,
+      `P31 Buffer uses a peer-to-peer mesh network built on WebRTC (via PeerJS). Here's how it works:`,
 
       `**1. Node ID Generation**: Each user gets a unique cryptographic identifier. This is your address in the mesh.`,
 
@@ -95,7 +95,7 @@ const FAQ_ITEMS: FAQItem[] = [
 
       `**Local-First Storage**: All your data lives on YOUR device first. The cloud is just for encrypted sync. If the internet disappears, your data doesn't.`,
 
-      `**LoRa Mesh (Future)**: The hardware component (Node One) operates on 915 MHz LoRa—"Whale Song" frequency. This penetrates concrete, travels miles, and works completely off-grid. Your phone connects to Node One via Bluetooth; Node One connects to other Node One devices via radio.`,
+      `**LoRa Mesh (Future)**: The hardware component (P31 NodeZero) operates on 915 MHz LoRa—"Whale Song" frequency. This penetrates concrete, travels miles, and works completely off-grid. Your phone connects to P31 NodeZero via Bluetooth; P31 NodeZero connects to other P31 NodeZero devices via radio.`,
 
       `**Offline Processing**: The Shield processes messages locally. You can compose, edit, and prepare communications even without connectivity. They'll send when connection returns.`,
     ],

@@ -1,5 +1,5 @@
 /**
- * @p31labs/game-engine — Gamification layer for The Buffer
+ * @p31labs/game-engine — Gamification layer for P31 Buffer
  *
  * Pure TypeScript: XP, achievements, streaks, L.O.V.E. economy, quests.
  * Zero React. Consumed by PWA, Chrome extension, GENESIS_GATE, and eventually ESP32 (BLE).

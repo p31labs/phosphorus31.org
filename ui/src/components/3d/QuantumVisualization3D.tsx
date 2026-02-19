@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.

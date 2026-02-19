@@ -19,10 +19,10 @@ import GOD_CONFIG from '@/god.config';
 const ONBOARDING_STEPS = [
   {
     id: 'welcome',
-    title: 'Welcome to Cognitive Shield',
+    title: 'Welcome to P31 Buffer',
     subtitle: 'Your Sovereign Development Universe',
     description:
-      'Step into the future of quantum-secure development. Cognitive Shield unites game engines, quantum primitives, and hardware sovereignty in one beautiful interface.',
+      'Step into the future of quantum-secure development. P31 Buffer unites game engines, quantum primitives, and hardware sovereignty in one beautiful interface.',
     visual: 'universe',
     duration: 8000,
     interactive: false,
@@ -77,7 +77,7 @@ const ONBOARDING_STEPS = [
     title: 'Hardware Integration',
     subtitle: 'Physical Roots of Trust',
     description:
-      'Connect your Node One for hardware-secured signing. ESP32 devices provide quantum-resistant communication. Physical silicon anchors digital sovereignty.',
+      'Connect your P31 NodeZero for hardware-secured signing. ESP32 devices provide quantum-resistant communication. Physical silicon anchors digital sovereignty.',
     visual: 'hardware',
     duration: 10000,
     interactive: false,
@@ -935,7 +935,7 @@ export default function PerfectOnboarding({
             >
               space
             </kbd>{' '}
-            to pause/resume • Use mouse to explore 3D visualizations • Cognitive Shield v1.0.0
+            to pause/resume • Use mouse to explore 3D visualizations • P31 Buffer v1.0.0
           </p>
         </div>
       </div>

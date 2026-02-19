@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?!= include("Styles") ?>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>P31</h1>
+    <div class="meta">
+      <span id="clock"></span> · P31 Spectrum · <span id="version"></span>
+    </div>
+  </div>
+
+  <!-- TOP ROW: Core vitals -->
+  <div class="grid">
+    <div class="card">
+      <div class="label">Spoons</div>
+      <div class="value" id="spoons">—</div>
+      <div class="sub" id="spoonSub">of —</div>
+      <div class="gauge"><div class="fill fill-green" id="spoonFill" style="width:100%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Level</div>
+      <div class="value" id="level">—</div>
+      <div class="sub" id="xpSub">— XP</div>
+      <div class="gauge"><div class="fill fill-green" id="xpFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Love</div>
+      <div class="value" style="color:var(--love)" id="love">—</div>
+      <div class="sub">tokens mined</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Buffered</div>
+      <div class="value" style="color:var(--red)" id="blocked">—</div>
+      <div class="sub">hostile intercepts</div>
+    </div>
+  </div>
+
+  <!-- MIDDLE ROW: Mesh + Meds + Countdown -->
+  <div class="grid">
+    <div class="card wide">
+      <div class="label">The Mesh</div>
+      <div class="mesh-grid" id="meshGrid"></div>
+      <div id="meshStability"></div>
+    </div>
+
+    <div class="card">
+      <div class="label">The Bone</div>
+      <div id="medList"></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Abdication</div>
+      <div class="countdown" id="abdication">—</div>
+      <div class="sub" id="abdStatus"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW: Log + Terminal -->
+  <div class="grid">
+    <div class="card wide">
+      <div class="label">Recent</div>
+      <div id="recentLog"></div>
+    </div>
+
+    <div class="card wide">
+      <div class="label">Terminal</div>
+      <div class="terminal">
+        <input type="text" id="chaosInput" placeholder="type something. it gets ingested." onkeydown="if(event.key==='Enter')submitChaos()">
+        <button onclick="submitChaos()">ingest</button>
+      </div>
+      <div id="terminalOutput" style="margin-top:8px;font-size:11px;color:var(--muted)"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    The mesh holds. 🔺
+  </div>
+
+  <?!= include("Client") ?>
+</body>
+</html>

@@ -33,8 +33,8 @@ function TopologyIcon({ topology }: { topology: NetworkTopology }) {
 function GroundLabel({ ground }: { ground: GroundReference }) {
   if (ground === 'hardware')
     return (
-      <span className="text-green-400" title="Node One connected">
-        🔒 Node One
+        <span className="text-green-400" title="P31 NodeZero connected">
+        🔒 P31 NodeZero
       </span>
     );
   if (ground === 'server')

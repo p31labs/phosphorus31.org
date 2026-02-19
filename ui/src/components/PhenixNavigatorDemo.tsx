@@ -39,9 +39,9 @@ interface SystemState {
   correlationI: number;
   depolarization: number;
   rotationAngle: number;
-  attackDetected: boolean;
+  noiseDetected: boolean;
   healing: boolean;
-  status: 'SECURE' | 'CAUTION' | 'ABORT';
+  status: 'SECURE' | 'CAUTION' | 'STOP';
 }
 
 const defaultState: SystemState = {
@@ -49,7 +49,7 @@ const defaultState: SystemState = {
   correlationI: 0.98,
   depolarization: 0.0,
   rotationAngle: 0,
-  attackDetected: false,
+  noiseDetected: false,
   healing: false,
   status: 'SECURE',
 };
@@ -74,7 +74,7 @@ export default function PhenixNavigatorDemo() {
 
   // Apply channel effects to vectors
   const transformedVectors = useMemo(() => {
-    const { depolarization, rotationAngle, attackDetected } = systemState;
+    const { depolarization, rotationAngle, noiseDetected } = systemState;
     const rotationMatrix = new THREE.Matrix4().makeRotationY(rotationAngle);
 
     return SIC_POVM_VECTORS.map((vector) => {
@@ -86,8 +86,8 @@ export default function PhenixNavigatorDemo() {
       // Apply depolarization (shrink toward origin)
       v.multiplyScalar(1 - depolarization);
 
-      // Apply anisotropic attack (ellipsoidal deformation)
-      if (attackDetected) {
+      // Apply anisotropic noise (ellipsoidal deformation)
+      if (noiseDetected) {
         v.x *= 1.5; // stretch X
         v.y *= 0.7; // compress Y
         v.z *= 0.8; // compress Z
@@ -114,10 +114,10 @@ export default function PhenixNavigatorDemo() {
   const applyAttack = useCallback(() => {
     setSystemState((prev) => ({
       ...prev,
-      attackDetected: true,
+      noiseDetected: true,
       qber: 0.25,
       correlationI: 0.1,
-      status: 'ABORT',
+      status: 'STOP',
     }));
   }, []);
 
@@ -206,7 +206,7 @@ export default function PhenixNavigatorDemo() {
             <div>QBER: {(systemState.qber * 100).toFixed(1)}%</div>
             <div>CORRELATION I: {(systemState.correlationI * 100).toFixed(1)}%</div>
             <div>
-              DETECTED: {systemState.attackDetected ? 'ANISOTROPIC ATTACK' : 'ISOTROPIC NOISE'}
+              DETECTED: {systemState.noiseDetected ? 'ANISOTROPIC NOISE' : 'ISOTROPIC NOISE'}
             </div>
           </div>
 

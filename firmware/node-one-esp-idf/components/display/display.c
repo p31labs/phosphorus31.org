@@ -1,5 +1,5 @@
 /**
- * Node One - The Scope (Display Component Implementation)
+ * P31 NodeZero - P31 Spectrum (Display Component Implementation)
  * P31 Ecosystem - Oscilloscope metaphor. Shows the signal.
  * Minimal LVGL display for voice-first interface
  */

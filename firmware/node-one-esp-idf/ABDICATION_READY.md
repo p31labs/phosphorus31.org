@@ -33,7 +33,7 @@
 - ✅ All authentication required
 
 ### 2. Key Destruction Readiness
-- ✅ Master keys documented in `abdicate.sh`
+- ✅ Master keys documented in `release.sh`
 - ✅ Shred commands ready (7-pass secure deletion)
 - ✅ Environment secrets can be destroyed
 - ✅ No persistent key storage
@@ -76,7 +76,7 @@
 
 ```bash
 cd /path/to/phenix-navigator-creator67
-./abdicate.sh
+./release.sh
 ```
 
 **Expected Output**:
@@ -120,7 +120,7 @@ cd /path/to/phenix-navigator-creator67
 ## G.O.D. Protocol Principles Verified
 
 1. ✅ **No Backdoors**: No "super-admin" recovery functions
-2. ✅ **Code for Departure**: All admin capabilities tethered to abdicate.sh
+2. ✅ **Code for Departure**: All admin capabilities tethered to release.sh
 3. ✅ **Key Destruction**: Master keys can be permanently destroyed
 4. ✅ **Constitutional Compliance**: System enforces G.O.D. Protocol rules
 5. ✅ **Headless Operation**: System can operate without human admin
@@ -142,7 +142,7 @@ cd /path/to/phenix-navigator-creator67
 
 3. **Execute Abdication** (9:00 AM)
    ```bash
-   ./abdicate.sh
+   ./release.sh
    ```
 
 4. **Post-Abdication Verification** (9:05 AM)

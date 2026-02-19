@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import * as THREE from 'three';
  * nuclear spins (qubits) from decoherence.
  *
  * Game Objective: Maintain "Quantum Coherence"
- * - User adjusts "Trimtab" to keep system aligned with Mark 1 Attractor (H ≈ 0.35)
+ * - User adjusts "Trimtab" to keep system aligned with Home Frequency (H ≈ 0.35)
  * - Entropy visualization via color/geometry changes
  * - Gamified meditation and focus tracking
  */
@@ -83,7 +83,7 @@ export const PosnerMolecule: React.FC = () => {
     setEntropy((prev) => Math.max(0, Math.min(1, prev - delta)));
   };
 
-  // Mark 1 Attractor constant (H ≈ 0.35 from research)
+  // Home Frequency constant (H ≈ 0.35 from research)
   const mark1Target = 0.35;
   const deviation = Math.abs(entropy - mark1Target);
   const isAligned = deviation < 0.1;
@@ -249,7 +249,7 @@ export const PosnerMolecule: React.FC = () => {
                 transition: 'width 0.3s ease',
               }}
             />
-            {/* Mark 1 Attractor indicator */}
+            {/* Home Frequency indicator */}
             <div
               style={{
                 position: 'absolute',

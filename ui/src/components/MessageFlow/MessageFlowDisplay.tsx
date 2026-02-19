@@ -1,6 +1,6 @@
 /**
  * Message Flow Display
- * Shows messages flowing through The Buffer → The Centaur → Response
+ * Shows messages flowing through P31 Buffer → P31 Tandem → Response
  */
 
 import React, { useEffect, useState } from 'react';
@@ -25,11 +25,11 @@ export const MessageFlowDisplay: React.FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        // Get messages from The Buffer
+        // Get messages from P31 Buffer
         const bufferResponse = await bufferService.getMessages({ limit: 10 });
         setBufferMessages(bufferResponse.messages || []);
 
-        // Get messages from The Centaur
+        // Get messages from P31 Tandem
         const centaurMsgs = await centaurService.getMessages(10);
         setCentaurMessages(centaurMsgs);
       } catch (error) {
@@ -61,7 +61,7 @@ export const MessageFlowDisplay: React.FC = () => {
 
       <div className="flow-diagram">
         <div className="flow-stage">
-          <div className="stage-header">The Buffer</div>
+          <div className="stage-header">P31 Buffer</div>
           <div className="messages-list">
             {bufferMessages.slice(0, 5).map((msg) => (
               <div key={msg.id} className={`message-item status-${msg.status}`}>
@@ -80,7 +80,7 @@ export const MessageFlowDisplay: React.FC = () => {
         <div className="flow-arrow">→</div>
 
         <div className="flow-stage">
-          <div className="stage-header">The Centaur</div>
+          <div className="stage-header">P31 Tandem</div>
           <div className="messages-list">
             {centaurMessages.slice(0, 5).map((msg, idx) => (
               <div key={msg.id || idx} className="message-item">

@@ -1,6 +1,6 @@
 /**
  * MODULE ABDICATION CEREMONY
- * Destroy update keys to lock module version
+ * Release update keys to lock module version
  */
 
 import { useState } from 'react';
@@ -30,7 +30,7 @@ export function ModuleAbdication({ module, onComplete }: ModuleAbdicationProps) 
     });
 
     // In production, you'd also:
-    // 1. Destroy any private keys associated with the module
+    // 1. Release any private keys associated with the module
     // 2. Sign the module hash with a one-time key
     // 3. Publish the signed hash to IPFS/ENS
     // 4. Clear local update capabilities
@@ -69,7 +69,7 @@ export function ModuleAbdication({ module, onComplete }: ModuleAbdicationProps) 
           Abdication Complete
         </h3>
         <p style={{ fontSize: 14, color: GOD_CONFIG.theme.text.secondary, marginTop: 8 }}>
-          Module update keys have been destroyed. The module is now immutable.
+          Module update keys have been released. The module is now immutable.
         </p>
       </div>
     );
@@ -139,7 +139,7 @@ export function ModuleAbdication({ module, onComplete }: ModuleAbdicationProps) 
               Warning: This action is irreversible
             </div>
             <div style={{ fontSize: 13, color: GOD_CONFIG.theme.text.secondary, lineHeight: 1.6 }}>
-              Abdicating a module will permanently destroy your ability to update it. The module
+              Abdicating a module will permanently release your ability to update it. The module
               will become immutable and governed solely by its code. This ensures the module is a
               "Public Good" - governed by geometry, not the will of the author.
             </div>

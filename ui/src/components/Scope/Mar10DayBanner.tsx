@@ -1,5 +1,5 @@
 /**
- * MAR10 Day 2026 — celebratory banner in The Scope.
+ * MAR10 Day 2026 — celebratory banner in P31 Spectrum.
  * Links to the Super Star Quest (Bonding game). Dismissible for the session; reappears until March 11.
  * Respects prefers-reduced-motion (no animation when reduced).
  */

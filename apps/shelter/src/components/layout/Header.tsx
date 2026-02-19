@@ -1,12 +1,9 @@
-import { HEARTBEATS, MARK1, type HeartbeatTier } from "@p31labs/buffer-core";
+import { HEARTBEATS, type HeartbeatTier } from "@p31labs/buffer-core";
 import { useSpoonStore } from "@/stores/spoon-store";
-import { useBufferStore } from "@/stores/buffer-store";
-
-interface HeaderProps {
-  samsonH: number;
-  onToggleSamson: () => void;
-  onToggleQueue: () => void;
-}
+import { useShelterStore } from "@/stores/shelter-store";
+import { useQuantumBrain } from "@/hooks/useQuantumBrain";
+import { coherenceColor } from "@/lib/quantum-brain";
+import { levelProgress } from "@p31labs/game-engine";
 
 const tierColors: Record<HeartbeatTier, string> = {
   GREEN: HEARTBEATS.GREEN.color,
@@ -15,12 +12,14 @@ const tierColors: Record<HeartbeatTier, string> = {
   RED: HEARTBEATS.RED.color,
 };
 
-export default function Header({ samsonH, onToggleSamson, onToggleQueue }: HeaderProps) {
+export default function Header() {
   const { current, max, tier } = useSpoonStore();
-  const queue = useBufferStore((s) => s.queue);
-  const hbConfig = HEARTBEATS[tier];
+  const { player, setActiveTab } = useShelterStore();
+  const brain = useQuantumBrain();
   const color = tierColors[tier];
-  const hDrifting = Math.abs(samsonH - MARK1) > 0.1;
+  const hbConfig = HEARTBEATS[tier];
+  const xpPct = levelProgress(player);
+  const qColor = coherenceColor(brain.coherence);
 
   return (
     <header
@@ -29,10 +28,10 @@ export default function Header({ samsonH, onToggleSamson, onToggleQueue }: Heade
     >
       <div className="flex items-center gap-2">
         <span className="text-sm text-phosphor">⬡</span>
-        <span className="text-[11px] font-bold tracking-[2px] text-phosphor">THE BUFFER</span>
+        <span className="text-[11px] font-bold tracking-[2px] text-phosphor">P31 SHELTER</span>
       </div>
 
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
         {/* Spoon bars */}
         <div className="flex items-center gap-[3px]">
           {Array.from({ length: max }, (_, i) => (
@@ -42,23 +41,39 @@ export default function Header({ samsonH, onToggleSamson, onToggleQueue }: Heade
               style={{ background: i < current ? color : "rgba(255,255,255,0.04)" }}
             />
           ))}
-          <span className="text-[9px] font-semibold ml-1" style={{ color }}>{current}</span>
+          <span className="text-[9px] font-semibold ml-1" style={{ color }}>
+            {current}
+          </span>
         </div>
 
-        {/* H badge */}
+        {/* Coherence badge — tap to go to Brain view */}
         <button
-          onClick={onToggleSamson}
-          className="px-1.5 py-0.5 rounded text-[8px] tracking-wider font-bold cursor-pointer font-mono border"
+          onClick={() => setActiveTab("brain")}
+          className="px-1.5 py-0.5 rounded text-[8px] tracking-wider font-bold cursor-pointer
+            font-mono border transition-colors"
           style={{
-            background: `${hDrifting ? "#f59e0b" : "#39FF14"}12`,
-            color: hDrifting ? "#fbbf24" : "#39FF14",
-            borderColor: `${hDrifting ? "#f59e0b" : "#39FF14"}22`,
+            background: `${qColor}12`,
+            color: qColor,
+            borderColor: `${qColor}22`,
           }}
         >
-          H:{samsonH.toFixed(2)}
+          Q:{(brain.coherence * 100).toFixed(0)}
         </button>
 
-        {/* Status badge */}
+        {/* XP / Level badge */}
+        <div className="flex items-center gap-1">
+          <span className="text-[8px] font-bold text-violet tracking-wider">
+            Lv{player.level}
+          </span>
+          <div className="w-8 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+            <div
+              className="h-full rounded-full bg-violet transition-all duration-300"
+              style={{ width: `${xpPct}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Tier badge */}
         <div
           className="px-1.5 py-0.5 rounded text-[8px] tracking-[1.5px] font-bold border"
           style={{
@@ -69,17 +84,6 @@ export default function Header({ samsonH, onToggleSamson, onToggleQueue }: Heade
         >
           {hbConfig.label}
         </div>
-
-        {/* Queue count */}
-        {queue.length > 0 && (
-          <button
-            onClick={onToggleQueue}
-            className="px-1.5 py-0.5 rounded text-[8px] cursor-pointer font-mono
-              bg-white/[0.04] border border-white/[0.08] text-white/35"
-          >
-            {queue.length} queued
-          </button>
-        )}
       </div>
     </header>
   );

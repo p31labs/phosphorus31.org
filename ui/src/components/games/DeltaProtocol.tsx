@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -570,7 +570,7 @@ export const DeltaProtocol: React.FC = () => {
             cursor: tetrahedronComplete ? 'pointer' : 'not-allowed',
           }}
         >
-          ⚔️ Resist Attack
+          🛡️ Resist Noise
         </button>
 
         <button

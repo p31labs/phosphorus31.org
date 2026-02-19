@@ -1,4 +1,5 @@
 import { useSpoonStore } from "@/stores/spoon-store";
+import { useGameAction } from "@/hooks/useGameAction";
 
 interface DeepLockProps {
   onBreathe: () => void;
@@ -6,6 +7,22 @@ interface DeepLockProps {
 
 export default function DeepLock({ onBreathe }: DeepLockProps) {
   const recover = useSpoonStore((s) => s.recover);
+  const gameAction = useGameAction();
+
+  const handleBreathe = () => {
+    gameAction("deep_lock_respected");
+    onBreathe();
+  };
+
+  const handleNap = () => {
+    gameAction("deep_lock_respected");
+    recover(2);
+  };
+
+  const handleHeavyWork = () => {
+    gameAction("deep_lock_respected");
+    recover(1);
+  };
 
   return (
     <div className="text-center p-8 bg-red-500/[0.04] rounded-[10px] border border-red-500/[0.12]">
@@ -16,21 +33,21 @@ export default function DeepLock({ onBreathe }: DeepLockProps) {
       </div>
       <div className="flex gap-1.5 justify-center mt-4 flex-wrap">
         <button
-          onClick={onBreathe}
+          onClick={handleBreathe}
           className="bg-phosphor/[0.06] border border-phosphor/15 text-phosphor
             rounded-[5px] px-4 py-2 text-[9px] cursor-pointer font-mono tracking-wider"
         >
-          BREATHE (4-2-6)
+          BREATHE (4-4-6)
         </button>
         <button
-          onClick={() => recover(2)}
+          onClick={handleNap}
           className="bg-white/[0.03] border border-white/[0.08] text-white/35
             rounded-[5px] px-4 py-2 text-[9px] cursor-pointer font-mono tracking-wider"
         >
           NAP (+2)
         </button>
         <button
-          onClick={() => recover(1)}
+          onClick={handleHeavyWork}
           className="bg-white/[0.03] border border-white/[0.08] text-white/35
             rounded-[5px] px-4 py-2 text-[9px] cursor-pointer font-mono tracking-wider"
         >

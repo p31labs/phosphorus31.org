@@ -5,7 +5,7 @@
  * Built with love and light. As above, so below. 💜
  *
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  * Licensed under the AGPLv3 License
  */
 
@@ -27,7 +27,7 @@ interface TetrahedronVertex {
 const P31_TETRAHEDRON: TetrahedronVertex[] = [
   { id: 'operator', name: 'Operator', position: [0, 1.633, 0], color: '#FF6B6B' },
   { id: 'synthetic', name: 'Synthetic Body', position: [-1.414, -0.816, 0], color: '#4ECDC4' },
-  { id: 'node1', name: 'Node One', position: [1.414, -0.816, 0], color: '#45B7D1' },
+  { id: 'node1', name: 'P31 NodeZero', position: [1.414, -0.816, 0], color: '#45B7D1' },
   { id: 'node2', name: 'Node Two', position: [0, -0.816, 2], color: '#FFA07A' },
 ];
 
@@ -367,7 +367,7 @@ export function P31MoleculeViewer() {
               <strong>Topology:</strong> Tetrahedron (K₄)
             </p>
             <p>
-              <strong>Vertices:</strong> 4 (Operator, Synthetic Body, Node One, Node Two)
+              <strong>Vertices:</strong> 4 (Operator, Synthetic Body, P31 NodeZero, Node Two)
             </p>
             <p>
               <strong>Edges:</strong> 6 (All vertices connected)
@@ -399,7 +399,7 @@ export function P31MoleculeViewer() {
                 <strong>Synthetic Body:</strong> AI/Protocol system
               </li>
               <li>
-                <strong>Node One:</strong> Hardware device (ESP32-S3)
+                <strong>P31 NodeZero:</strong> Hardware device (ESP32-S3)
               </li>
               <li>
                 <strong>Node Two:</strong> Additional node

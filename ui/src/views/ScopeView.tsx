@@ -1,5 +1,5 @@
 /**
- * The Scope — mission control. Spoon gauge, voltage, LOVE, Sprout signals,
+ * P31 Spectrum — mission control. Spoon gauge, voltage, LOVE, Sprout signals,
  * Safe Harbor (meds + sleep), Friction Log, Inverse Dashboard, Overload Guard.
  *
  * The prosthetic layer: if you don't log the struggle, it didn't happen.

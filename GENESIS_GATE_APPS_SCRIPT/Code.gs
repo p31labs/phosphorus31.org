@@ -1,24 +1,21 @@
 /**
- * @fileoverview GENESIS_GATE Apps Script Main Entry Point
- * @author GENESIS_GATE Team
- * @version 1.0.0
+ * @fileoverview P31 Entangle — Apps Script Backend
+ * Heartbeat, L.O.V.E. economy, Drive sync, coherence tracking.
+ * @version 2.0.0
  */
 
 /**
- * Web App doGet handler
- * Serves the main GENESIS_GATE interface
+ * Web App doGet handler — serves the P31 Entangle dashboard
  * @param {Object} e - Event object
- * @return {GoogleAppsScript.HTML.HtmlOutput} - HTML output
+ * @return {GoogleAppsScript.HTML.HtmlOutput}
  */
 function doGet(e) {
-  // Initialize if first run
   if (!PropertiesService.getScriptProperties().getProperty('INITIALIZED')) {
-    initGenesisGate();
+    initP31Entangle();
   }
   
-  // Serve the main interface
   return HtmlService.createHtmlOutputFromFile('Index')
-    .setTitle('GENESIS_GATE - Mission Control')
+    .setTitle('P31 Entangle — Heartbeat')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
@@ -58,25 +55,26 @@ function doPost(e) {
 }
 
 /**
- * Initialize GENESIS_GATE system
+ * Initialize P31 Entangle system
  */
-function initGenesisGate() {
-  Logger.log("🚀 Initializing GENESIS_GATE system...");
+function initP31Entangle() {
+  Logger.log("🚀 Initializing P31 Entangle...");
   
-  // Initialize Drive sync
   initDriveSync();
   
-  // Initialize system state
   const initialState = {
     initialized: true,
-    version: '1.0.0',
+    version: '2.0.0',
     timestamp: new Date().toISOString()
   };
   
   PropertiesService.getScriptProperties().setProperty('INITIALIZED', JSON.stringify(initialState));
   
-  Logger.log("✅ GENESIS_GATE system initialized");
+  Logger.log("✅ P31 Entangle initialized — the mesh holds.");
 }
+
+// Legacy alias for backward compatibility
+function initGenesisGate() { return initP31Entangle(); }
 
 /**
  * Get system status
@@ -89,14 +87,15 @@ function getSystemStatus() {
   return {
     success: true,
     system: {
-      version: '1.0.0',
+      version: '2.0.0',
+      name: 'P31 Entangle',
       initialized: true,
       timestamp: new Date().toISOString()
     },
     state: state,
     sync: syncStatus,
     drive: {
-      rootExists: DriveApp.getFoldersByName("PHENIX_NAVIGATOR_ROOT").hasNext()
+      rootExists: DriveApp.getFoldersByName("P31_ROOT").hasNext() || DriveApp.getFoldersByName("PHENIX_NAVIGATOR_ROOT").hasNext()
     }
   };
 }
@@ -180,24 +179,21 @@ function getOrCreateFolder(parent, name) {
 }
 
 /**
- * Test function for debugging
+ * Test function — verifies all P31 Entangle subsystems
  */
-function testGenesisGate() {
-  Logger.log("🧪 Testing GENESIS_GATE system...");
+function testP31Entangle() {
+  Logger.log("🧪 Testing P31 Entangle...");
   
   try {
-    // Test Drive sync
     initDriveSync();
     
-    // Test Love Economy
     const testResult = global.recordActivity("SPOON_RECOVERY", { test: true });
-    Logger.log(`Test result: ${JSON.stringify(testResult)}`);
+    Logger.log(`LP result: ${JSON.stringify(testResult)}`);
     
-    // Test system status
     const status = getSystemStatus();
     Logger.log(`System status: ${JSON.stringify(status)}`);
     
-    Logger.log("✅ All tests passed");
+    Logger.log("✅ All tests passed — coherence verified.");
     return { success: true, message: 'All tests passed' };
     
   } catch (e) {
@@ -206,17 +202,17 @@ function testGenesisGate() {
   }
 }
 
+function testGenesisGate() { return testP31Entangle(); }
+
 /**
- * Cleanup function for maintenance
+ * Cleanup — removes stale triggers and temp properties
  */
-function cleanupGenesisGate() {
-  Logger.log("🧹 Cleaning up GENESIS_GATE system...");
+function cleanupP31Entangle() {
+  Logger.log("🧹 Cleaning P31 Entangle...");
   
   try {
-    // Clean up old triggers
     global.cleanupTriggers();
     
-    // Clean up old properties (keep last 30 days)
     const props = PropertiesService.getScriptProperties();
     const keys = props.getKeys();
     
@@ -235,15 +231,46 @@ function cleanupGenesisGate() {
   }
 }
 
+function cleanupGenesisGate() { return cleanupP31Entangle(); }
+
 /**
- * Export functions for external access
+ * Heartbeat — scheduled function that runs on a timer trigger.
+ * Checks system coherence and sends daily digest email.
+ */
+function heartbeat() {
+  const state = getSystemState();
+  const now = new Date();
+  const hour = now.getHours();
+  
+  if (hour === 7) {
+    const subject = `P31 Heartbeat — ${now.toLocaleDateString()}`;
+    const body = [
+      `XP: ${state.xp || 0} | Level: ${state.level || 1}`,
+      `Tasks: ${state.tasksCompleted || 0}`,
+      `Alerts: ${(state.alerts || []).length}`,
+      '',
+      'phosphorus31.org | p31ca.org | The Geodesic Self',
+      '',
+      'The mesh holds. 🔺'
+    ].join('\n');
+    
+    MailApp.sendEmail(Session.getActiveUser().getEmail(), subject, body);
+  }
+}
+
+/**
+ * Exported functions
  */
 global.doGet = doGet;
 global.doPost = doPost;
+global.initP31Entangle = initP31Entangle;
 global.initGenesisGate = initGenesisGate;
 global.getSystemStatus = getSystemStatus;
 global.recordActivity = recordActivity;
 global.syncDrive = syncDrive;
 global.getSyncStatus = getSyncStatus;
+global.testP31Entangle = testP31Entangle;
 global.testGenesisGate = testGenesisGate;
+global.cleanupP31Entangle = cleanupP31Entangle;
 global.cleanupGenesisGate = cleanupGenesisGate;
+global.heartbeat = heartbeat;

@@ -6,7 +6,7 @@
 ### ✅ Constitutional Requirements
 
 - [ ] **No Backdoors**: No "super-admin" recovery functions exist
-- [ ] **Code for Departure**: All admin capabilities tethered to abdicate.sh
+- [ ] **Code for Departure**: All admin capabilities tethered to release.sh
 - [ ] **No Hardcoded Secrets**: All secrets in environment/config files
 - [ ] **Key Destruction Ready**: Master keys can be permanently destroyed
 - [ ] **Headless Mode**: System can operate without human admin access
@@ -63,7 +63,7 @@
 
 3. **Key Destruction**
    - [ ] List all master keys
-   - [ ] Verify shred commands ready
+   - [ ] Verify secure release commands ready
    - [ ] Test key destruction process
 
 4. **System Verification**
@@ -75,7 +75,7 @@
 
 **Time: 9:00 AM**
 
-1. Run `abdicate.sh`
+1. Run `release.sh`
 2. Verify all steps complete successfully
 3. Confirm system enters headless mode
 4. Verify admin access is revoked

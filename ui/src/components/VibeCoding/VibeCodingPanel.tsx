@@ -310,7 +310,7 @@ export const VibeCodingPanel: React.FC = () => {
               (editorMode === 'blocks' && kidBlocks.length === 0)
             }
           >
-            {isExecuting ? '⏳ Executing...' : editorMode === 'blocks' ? '▶️ Run' : '▶️ Execute'}
+            {isExecuting ? '⏳ Running...' : '▶️ Run'}
           </button>
         </div>
       </div>

@@ -1,0 +1,127 @@
+<script>
+  // Clock
+  function tick() {
+    var now = new Date();
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    document.getElementById("clock").textContent =
+      (h < 10 ? "0" : "") + h + ":" +
+      (m < 10 ? "0" : "") + m + ":" +
+      (s < 10 ? "0" : "") + s;
+  }
+  setInterval(tick, 1000);
+  tick();
+
+  // Refresh scope data
+  function refresh() {
+    google.script.run.withSuccessHandler(render).scopeData();
+  }
+
+  function render(d) {
+    if (!d) return;
+
+    // Version
+    var ver = document.getElementById("version");
+    if (ver && d.state) ver.textContent = "v7.0";
+
+    // Spoons
+    var sp = d.spoons;
+    document.getElementById("spoons").textContent = sp.current;
+    document.getElementById("spoonSub").textContent = "of " + sp.max;
+    var fill = document.getElementById("spoonFill");
+    fill.style.width = sp.pct + "%";
+    fill.className = "fill fill-" + sp.color.toLowerCase();
+
+    // Level
+    var sig = d.signal;
+    document.getElementById("level").textContent = sig.level;
+    document.getElementById("xpSub").textContent = sig.xp + " XP";
+    document.getElementById("xpFill").style.width = sig.xpPct + "%";
+
+    // Love
+    document.getElementById("love").textContent = d.love.total;
+    document.getElementById("blocked").textContent = d.love.blocked;
+
+    // Mesh
+    var mesh = d.mesh;
+    var grid = document.getElementById("meshGrid");
+    grid.innerHTML = "";
+    var names = Object.keys(mesh.vertices);
+    for (var i = 0; i < names.length; i++) {
+      var name = names[i];
+      var v = mesh.vertices[name];
+      var dot = v.status === "UP" ? "dot-up" : v.status === "SEPARATED" ? "dot-separated" : "dot-down";
+      var el = document.createElement("div");
+      el.className = "vertex";
+      el.innerHTML = '<div class="dot ' + dot + '"></div>' +
+        '<span style="color:var(--text)">' + name.charAt(0).toUpperCase() + name.slice(1) + '</span>' +
+        '<span style="color:var(--muted);margin-left:auto;font-size:10px">' + v.note + '</span>';
+      grid.appendChild(el);
+    }
+    var stab = document.getElementById("meshStability");
+    stab.innerHTML = '<div class="stability stability-' + mesh.stability + '">' +
+      mesh.stability + ' · ' + mesh.capacity + '</div>';
+
+    // Meds
+    var medList = document.getElementById("medList");
+    medList.innerHTML = "";
+    if (d.meds) {
+      for (var j = 0; j < d.meds.length; j++) {
+        var med = d.meds[j];
+        var row = document.createElement("div");
+        row.className = "med-row";
+        row.innerHTML = '<span>' + med.name + '</span>' +
+          '<span class="' + (med.overdue ? "med-due" : "med-ok") + '">' +
+          (med.overdue ? "DUE" : med.lastTaken) + '</span>';
+        medList.appendChild(row);
+      }
+    }
+
+    // Abdication
+    var abd = d.abdication;
+    var abdEl = document.getElementById("abdication");
+    if (abd.status === "PAST") {
+      abdEl.textContent = "PAST";
+      abdEl.className = "countdown past";
+    } else {
+      abdEl.textContent = abd.days + "d " + abd.hours + "h " + abd.mins + "m";
+      abdEl.className = "countdown" + (abd.status === "CRITICAL" ? " critical" : "");
+    }
+    document.getElementById("abdStatus").textContent = abd.status;
+
+    // Recent log
+    var logEl = document.getElementById("recentLog");
+    logEl.innerHTML = "";
+    if (d.recent) {
+      for (var k = 0; k < d.recent.length; k++) {
+        var entry = d.recent[k];
+        var row2 = document.createElement("div");
+        row2.className = "log-entry";
+        var time = new Date(entry.t);
+        var timeStr = (time.getHours() < 10 ? "0" : "") + time.getHours() + ":" +
+          (time.getMinutes() < 10 ? "0" : "") + time.getMinutes();
+        row2.innerHTML = '<span class="log-time">' + timeStr + '</span> ' + entry.m;
+        logEl.appendChild(row2);
+      }
+    }
+  }
+
+  // Terminal
+  function submitChaos() {
+    var input = document.getElementById("chaosInput");
+    var text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    var out = document.getElementById("terminalOutput");
+    out.textContent = "ingesting...";
+    google.script.run.withSuccessHandler(function(r) {
+      out.textContent = r && r.status === "ingested"
+        ? "+" + r.xp + " XP · " + r.spoons + " spoons left"
+        : "empty";
+      setTimeout(refresh, 500);
+    }).ingest(text);
+  }
+
+  // Initial load + auto-refresh every 60s
+  refresh();
+  setInterval(refresh, 60000);
+</script>

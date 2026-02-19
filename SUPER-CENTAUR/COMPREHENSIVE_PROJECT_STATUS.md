@@ -59,7 +59,7 @@ P31 Labs is a pre-revenue Georgia nonprofit (501(c)(3) in formation) building as
 - `README.md` — Complete setup guide
 - `ABDICATION_CHECKLIST.md` — Governance protocol
 - `P31_NAMING_COMPLIANCE.md` — Naming verification
-- `BATTLE_TEST.md` — Hardware stress testing
+- `STRESS_TEST.md` — Hardware stress testing
 - `BATTERY_TEST.md` — Power optimization
 
 **Next Milestone:** Production-ready firmware with full LoRa mesh support

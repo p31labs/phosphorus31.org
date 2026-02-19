@@ -1,5 +1,5 @@
 /**
- * LoRa Radio Driver Battle Test
+ * LoRa Radio Driver Stress Test
  * Comprehensive test suite for pre-abdication verification
  */
 
@@ -240,9 +240,9 @@ static void test_error_handling(void) {
 // Test Runner
 // ============================================================================
 
-static void battle_test_task(void *arg) {
+static void stress_test_task(void *arg) {
     ESP_LOGI(TAG, "╔════════════════════════════════════════╗");
-    ESP_LOGI(TAG, "║   LORA RADIO BATTLE TEST SUITE        ║");
+    ESP_LOGI(TAG, "║   LORA RADIO STRESS TEST SUITE        ║");
     ESP_LOGI(TAG, "║   Pre-Abdication Verification         ║");
     ESP_LOGI(TAG, "╚════════════════════════════════════════╝");
     ESP_LOGI(TAG, "");
@@ -296,8 +296,8 @@ static void battle_test_task(void *arg) {
 }
 
 void app_main(void) {
-    // Start battle test task
-    xTaskCreate(battle_test_task, "battle_test", 8192, NULL, 5, NULL);
+    // Start stress test task
+    xTaskCreate(stress_test_task, "stress_test", 8192, NULL, 5, NULL);
     
     // Main task can do other things or just wait
     while (1) {

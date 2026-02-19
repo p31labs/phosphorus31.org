@@ -48,16 +48,16 @@ const NETWORKS = [
 const FOUNDING_NODES = [
   {
     id: "bash", name: "Bash", initials: "S.J.",
-    born: "2016-03-10", age: 10, role: "Founding Node #1",
+    age: 10, role: "Founding Node #1",
     phase: "TRUST", phaseLabel: "Trust Phase",
-    nextMilestone: "Apprenticeship", nextAge: 13, nextDate: "2029-03-10",
+    nextMilestone: "Apprenticeship", nextAge: 13,
     emoji: "🎮", color: C.green,
   },
   {
     id: "willow", name: "Willow", initials: "W.J.",
-    born: "2019-08-08", age: 6, role: "Founding Node #2",
+    age: 6, role: "Founding Node #2",
     phase: "TRUST", phaseLabel: "Trust Phase",
-    nextMilestone: "Apprenticeship", nextAge: 13, nextDate: "2032-08-08",
+    nextMilestone: "Apprenticeship", nextAge: 13,
     emoji: "🌿", color: C.love,
   },
 ];

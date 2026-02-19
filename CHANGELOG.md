@@ -33,18 +33,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial P31 ecosystem release
-- Node One hardware (ESP32-S3)
-- The Buffer communication processing
-- The Centaur backend AI protocol
-- The Scope dashboard and visualization
+- P31 NodeZero hardware (ESP32-S3)
+- P31 Buffer communication processing
+- P31 Tandem backend AI protocol
+- P31 Spectrum dashboard and visualization
 - Complete documentation structure
 - P31 naming architecture
 
 ### Components
-- **Node One**: ESP32-S3 hardware with LoRa mesh
-- **The Buffer**: Message processing and batching
-- **The Centaur**: Backend AI protocol system
-- **The Scope**: Dashboard and visualization
+- **P31 NodeZero**: ESP32-S3 hardware with LoRa mesh
+- **P31 Buffer**: Message processing and batching
+- **P31 Tandem**: Backend AI protocol system
+- **P31 Spectrum**: Dashboard and visualization
 
 ### Documentation
 - Master README with P31 overview
@@ -70,10 +70,10 @@ P31 uses semantic versioning: `MAJOR.MINOR.PATCH`
 ### Component Versions
 
 Components may have independent versioning:
-- The Centaur: `1.0.0`
-- The Scope: `1.0.0`
-- The Buffer: `1.0.0`
-- Node One: `1.0.0`
+- P31 Tandem: `1.0.0`
+- P31 Spectrum: `1.0.0`
+- P31 Buffer: `1.0.0`
+- P31 NodeZero: `1.0.0`
 
 ## Release Process
 
@@ -81,6 +81,6 @@ Components may have independent versioning:
 2. Update CHANGELOG.md
 3. Create git tag
 4. Build and test
-5. Deploy
+5. Launch
 
 ## The Mesh Holds 🔺

@@ -25,11 +25,13 @@ export {
   VOLTAGE_TIER_MAX,
 } from './constants.js';
 
-// Voltage / threat level
+// Voltage / noise level
 export {
   type VoltageTier,
+  type NoiseLevel,
   type ThreatLevel,
   voltageTier,
+  noiseLevelFromScore,
   threatLevelFromScore,
 } from './voltage.js';
 

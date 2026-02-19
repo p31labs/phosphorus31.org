@@ -361,7 +361,7 @@ function CoherenceMeter({ value }: { value: number }) {
         }}
       >
         <span>Chaos</span>
-        <span>Mark 1 (0.35)</span>
+        <span>Home Frequency (0.35)</span>
         <span>Order</span>
       </div>
     </div>
@@ -439,7 +439,7 @@ export default function BreathEngine() {
       if (currentPhaseIndex >= phases.length) {
         // Cycle complete
         setCycleCount((c) => c + 1);
-        setCoherence((c) => Math.min(0.35, c + 0.02)); // Approach Mark 1
+        setCoherence((c) => Math.min(0.35, c + 0.02)); // Approach Home Frequency
         currentPhaseIndex = 0;
         phaseStartTime = Date.now();
       }
@@ -790,7 +790,7 @@ export default function BreathEngine() {
           </li>
         </ul>
         Extended exhales activate the <strong>Vagus Nerve</strong>, lowering heart rate and
-        approaching the <strong>Mark 1 Attractor</strong> (H ≈ 0.35)—the "sweet spot" between chaos
+        approaching the <strong>Home Frequency</strong> (H ≈ 0.35)—the "sweet spot" between chaos
         and order.
       </div>
     </div>

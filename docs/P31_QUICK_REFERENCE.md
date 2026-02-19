@@ -12,7 +12,7 @@
 | SUPER-CENTAUR | **The Centaur** | Backend |
 | Dashboard | **The Scope** | UI |
 | Heartbeat Protocol | **Ping** | Automation |
-| Mark 1 Attractor | **Attractor** | Calibration |
+| Home Frequency | **Attractor** | Calibration |
 | SIMPLEX | **The Fold** | Philosophy |
 
 **Preserved Names:** The Thick Click, Whale Channel, Abdicate
@@ -23,9 +23,9 @@
 
 | Component | Port | URL |
 |-----------|------|-----|
-| The Centaur | 3000 | http://localhost:3000 |
-| The Scope | 5173 | http://localhost:5173 |
-| The Buffer | 3001 | http://localhost:3001 |
+| P31 Tandem | 3000 | http://localhost:3000 |
+| P31 Spectrum | 5173 | http://localhost:5173 |
+| P31 Buffer | 3001 | http://localhost:3001 |
 
 ---
 
@@ -55,7 +55,7 @@ npm run test
 ## GOD_CONFIG Values
 
 ```typescript
-// Metabolism (The Buffer)
+// Metabolism (P31 Buffer)
 maxSpoons: 12
 spoonRecoveryRate: 0.1
 stressThreshold: 8
@@ -73,10 +73,10 @@ red: 30
 
 ```
 p31/
-├── SUPER-CENTAUR/     # The Centaur
-├── ui/                 # The Scope
-├── apps/shelter/      # The Buffer (P31 Shelter)
-├── firmware/          # Node One
+├── SUPER-CENTAUR/     # P31 Tandem
+├── ui/                 # P31 Spectrum
+├── apps/shelter/      # P31 Buffer (P31 Shelter)
+├── firmware/          # P31 NodeZero
 ├── docs/              # Documentation
 └── config/            # Configuration
 ```
@@ -86,7 +86,7 @@ p31/
 ## Data Flow
 
 ```
-Node One → The Buffer → The Centaur → The Scope
+P31 NodeZero → P31 Buffer → P31 Tandem → P31 Spectrum
 ```
 
 ---
@@ -94,7 +94,7 @@ Node One → The Buffer → The Centaur → The Scope
 ## Key Concepts
 
 - **Tetrahedron Topology**: 4 vertices, 6 edges, 4 faces
-- **The +**: Interface (Node One, The Buffer, The Thick Click)
+- **The +**: Interface (P31 NodeZero, P31 Buffer, The Thick Click)
 - **Whale Channel**: LoRa 915MHz mesh
 - **0.350 kbps**: Target bandwidth (Whale Song)
 - **Local-First**: SQLite/PGLite for local state

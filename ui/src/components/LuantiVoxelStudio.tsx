@@ -601,7 +601,7 @@ export default function LuantiVoxelStudio() {
                   ✨ <strong>Resonance:</strong> Amplifies quantum effects
                 </div>
                 <div>
-                  💥 <strong>Decoherence:</strong> Entropy increases with low coherence
+                  💥 <strong>Drift:</strong> Entropy increases with low coherence
                 </div>
               </div>
 
@@ -737,7 +737,7 @@ export default function LuantiVoxelStudio() {
         >
           <strong>🧱 Quantum Voxel World:</strong> Build with coherence mechanics |
           <span style={{ color: '#22c55e' }}>High coherence = quantum effects</span> |
-          <span style={{ color: '#ef4444' }}>Low coherence = decoherence</span> | 🔗 Entangled
+          <span style={{ color: '#ef4444' }}>Low coherence = drift</span> | 🔗 Entangled
           blocks link across space
         </div>
       </div>

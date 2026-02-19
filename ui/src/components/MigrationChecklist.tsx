@@ -78,7 +78,7 @@ const DATA = {
           title: 'A. CE RED, BIS Export, Abdication',
           items: [
             'Draft and maintain CE RED and BIS export compliance documentation.',
-            'Implement cryptographic erasure/abdication scripts (shred replacement).',
+            'Implement cryptographic erasure/abdication scripts (secure release replacement).',
             'Add export control logic and documentation.',
             'Review and update all legal disclaimers and user agreements.',
           ],

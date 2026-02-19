@@ -89,7 +89,7 @@ The minimum stable system is a family + an AI.
 ### Plain Language Over Jargon
 
 - **The Buffer**, not Tomograph
-- **The Scope**, not Dashboard
+- **P31 Spectrum**, not Dashboard
 - **Ping**, not Heartbeat Protocol
 - **Node One**, not Vertex One
 
@@ -115,7 +115,7 @@ The minimum stable system is a family + an AI.
 
 ### The AI Has a Seat, Not a Name
 
-- **The Centaur** is a protocol, not a vendor
+- **P31 Tandem** is a protocol, not a vendor
 - The + changes (Claude, Gemini, local models)
 - The protocol doesn't change
 - Everyone gets a centaur

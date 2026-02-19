@@ -2,7 +2,7 @@
   "name": "@p31labs/scope",
   "version": "0.1.0",
   "type": "module",
-  "description": "The Scope — Dashboard and visualization layer for P31 ecosystem",
+  "description": "P31 Spectrum — Dashboard and visualization layer for P31 ecosystem",
   "author": "P31 Labs",
   "license": "AGPL-3.0",
   "repository": {

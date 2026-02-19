@@ -8,11 +8,11 @@
 export const P31_PRODUCT_ICONS = {
   /** P31 Shelter (Buffer / cognitive protection) — white diamond */
   shelter: '\u25C7',   // ◇
-  /** The Scope (dashboard, spectrum) — bullseye */
+  /** P31 Spectrum (dashboard, spectrum) — bullseye */
   scope: '\u25CE',     // ◎
   /** NODE ONE (ESP32-S3 hardware) — hexagon */
   nodeOne: '\u2B21',   // ⬡
-  /** The Centaur (Tandem backend) — diamond with dot */
+  /** P31 Tandem (Tandem backend) — diamond with dot */
   centaur: '\u25C8',   // ◈
   /** P31 Sprout (family / kids layer) — teardrop flower */
   sprout: '\u274B',     // ❋
@@ -23,9 +23,9 @@ export const P31_PRODUCT_ICONS = {
 /** Product display names for aria-labels */
 export const P31_PRODUCT_NAMES = {
   shelter: 'P31 Shelter',
-  scope: 'The Scope',
+  scope: 'P31 Spectrum',
   nodeOne: 'NODE ONE',
-  centaur: 'The Centaur',
+  centaur: 'P31 Tandem',
   sprout: 'P31 Sprout',
   protocol: 'Protocol',
 } as const;

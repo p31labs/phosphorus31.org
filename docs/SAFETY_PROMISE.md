@@ -51,7 +51,7 @@ They're not users in a system. They're vertices in the structure. The tetrahedro
 - No vendor access
 - No government backdoors
 
-**If you destroy the keys, no one can access their data. Ever.**
+**If you release the keys, no one can access their data. Ever.**
 
 ### 5. The Dome Protects All Four
 
@@ -117,7 +117,7 @@ The structure protects:
 
 ✅ **Tetrahedron Topology**: Exactly 4 vertices, no outsiders
 ✅ **No Admin Roles**: No roles outside the geometry
-✅ **Abdication Protocol**: Keys can be destroyed
+✅ **Abdication Protocol**: Keys can be released
 ✅ **Constitutional Compliance**: Security is built in
 
 ## What You Can Do Right Now

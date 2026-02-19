@@ -17,6 +17,7 @@
     "build:centaur": "pnpm --filter @p31labs/centaur build",
     "build:web": "pnpm --filter @p31labs/web build",
     "test": "turbo test",
+    "test:all": "turbo run test",
     "test:shelter": "pnpm --filter @p31labs/shelter test",
     "test:scope": "pnpm --filter @p31labs/scope test",
     "test:centaur": "pnpm --filter @p31labs/centaur test",
@@ -24,7 +25,10 @@
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && rm -rf node_modules",
     "preflight": "node scripts/preflight-smoke.mjs",
-    "launch:check": "node scripts/launch-check.mjs"
+    "launch:check": "node scripts/launch-check.mjs",
+    "gas:push": "clasp push",
+    "gas:pull": "clasp pull",
+    "gas:open": "clasp open"
   },
   "keywords": [
     "p31",
@@ -43,7 +47,10 @@
   },
   "homepage": "https://phosphorus31.org",
   "devDependencies": {
-    "turbo": "^2.4.4"
+    "@google/clasp": "^3.1.0",
+    "@types/google-apps-script": "^1.0.100",
+    "turbo": "^2.4.4",
+    "wrangler": "^3.114.17"
   },
   "engines": {
     "node": ">=20.0.0"

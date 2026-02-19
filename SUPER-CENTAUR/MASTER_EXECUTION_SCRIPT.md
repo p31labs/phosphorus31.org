@@ -313,8 +313,8 @@ npm run security:threat-assessment
 # Incident response
 npm run security:incident-response
 
-# Lockdown system
-npm run security:lockdown
+# Quiet mode
+npm run security:quiet-mode
 ```
 
 ## 📊 PERFORMANCE OPTIMIZATION

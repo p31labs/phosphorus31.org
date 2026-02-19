@@ -1,4 +1,4 @@
-# Shield Server - Battle Test Report
+# Shield Server - Stress Test Report
 
 ## Security & Robustness Improvements
 
@@ -73,7 +73,7 @@
 - HTTPS: Not implemented (local network only)
 - Request timeout: Handled by ESP-IDF HTTP server
 
-## Battle Test Status: ✅ PASSED
+## Stress Test Status: ✅ PASSED
 
 All critical paths tested and hardened. Ready for production deployment.
 

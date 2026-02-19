@@ -1,6 +1,6 @@
-# William R. Johnson
+# Will
 
-**CEO & Lead Engineer, [P31 Labs](https://phosphorus31.org)** · Georgia 501(c)(3)
+**Founder & Lead Engineer, [P31 Labs](https://phosphorus31.org)** · Georgia 501(c)(3)
 
 Building open-source assistive technology for neurodivergent minds.
 
@@ -10,9 +10,9 @@ Building open-source assistive technology for neurodivergent minds.
 
 | Layer | What | Where |
 |-------|------|-------|
-| **Hardware** | Node One — ESP32-S3 assistive wearable, haptic feedback, LoRa mesh, SE050 secure element | [Firmware](https://github.com/trimtab-signal) |
-| **Software** | The Buffer — communication processing, voltage analysis, spoon economy | [p31ca.org](https://p31ca.org) |
-| **Protocol** | The Centaur — structured human-AI collaboration | [Tetrahedron Protocol](https://zenodo.org/records/18627420) |
+| **Hardware** | P31 NodeZero — ESP32-S3 assistive wearable, haptic feedback, LoRa mesh, SE050 secure element | [Firmware](https://github.com/trimtab-signal) |
+| **Software** | P31 Buffer — communication processing, voltage analysis, spoon economy | [p31ca.org](https://p31ca.org) |
+| **Protocol** | P31 Tandem — structured human-AI collaboration | [Tetrahedron Protocol](https://zenodo.org/records/18627420) |
 
 ### The Name
 
@@ -31,6 +31,6 @@ Building open-source assistive technology for neurodivergent minds.
 
 ---
 
-16 years DoD civilian engineer (submarine electrical systems). AuDHD diagnosed 2025. Left federal service to build the tools that would have changed everything if they'd existed 20 years ago.
+16-year DoD civilian engineer (submarine electrical systems). AuDHD diagnosed 2025. Left federal service to build the tools that would have changed everything if they'd existed 20 years ago.
 
-*Transitioning digital infrastructure from Wye to Delta.* ▲
+*Transitioning digital infrastructure from Star to Mesh.* ▲

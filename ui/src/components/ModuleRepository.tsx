@@ -175,7 +175,7 @@ export default function ModuleRepository() {
             lineHeight: '1.6',
           }}
         >
-          Discover, share, and install community-created modules for The Buffer ecosystem.
+          Discover, share, and install community-created modules for the P31 Buffer ecosystem.
           <br />
           <span style={{ fontSize: '0.9rem', color: '#22c55e' }}>
             🔓 Decentralized • 🤝 Collaborative • ⚡ Sovereign • 🌟 Community-Driven
@@ -430,7 +430,7 @@ export default function ModuleRepository() {
             fontSize: '1rem',
           }}
         >
-          🌐 The Buffer Module Ecosystem
+          🌐 P31 Buffer Module Ecosystem
         </h4>
         <p
           style={{
@@ -1146,7 +1146,7 @@ function ModuleDetailView({ module, onBack, onInstall }: ModuleDetailViewProps) 
                       color: GOD_CONFIG.theme.text.primary,
                     }}
                   >
-                    The Buffer:
+                    P31 Buffer:
                   </span>
                   <span
                     style={{

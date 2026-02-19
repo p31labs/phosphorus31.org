@@ -89,7 +89,7 @@ function App() {
   return (
     <TrimtabProvider>
     <div className="app">
-      {/* 3D Canvas with The Scope (P31) */}
+      {/* 3D Canvas with P31 Spectrum (P31) */}
       <Canvas
         camera={{ position: [0, 4, 14], fov: 50 }}
         style={{ width: '100vw', height: '100vh' }}

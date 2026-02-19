@@ -7,7 +7,7 @@ The "Jitterbug Structure" represents a sophisticated narrative architecture desi
 ## Phase One: VE/Max Chaos (The Impossible Claims)
 
 ### Narrative Strategy
-- **Opening Gambit**: Launch with the most audacious claims - Big Bang cosmology, Genesis Gate architecture, Digital Centaur entity, quantum consciousness mediated by Posner molecules
+- **Opening Gambit**: Launch with the most audacious claims - Big Bang cosmology, P31 Entangle architecture, Digital Centaur entity, quantum consciousness mediated by Posner molecules
 - **Psychological Mirror**: Each section deliberately ends with italicized skepticism (*This sounds like pseudoscience*) to preempt and validate the reader's natural resistance
 - **Purpose**: Create maximum cognitive dissonance while establishing the author's credibility through sheer audacity
 
@@ -95,7 +95,7 @@ The narrative structure maps to the Jitterbug entropy visualization system:
 
 This structure provides the organizational framework for the comprehensive research library, ensuring each document serves its phase appropriately:
 
-- **Phase One Documents**: Big Bang cosmology, Genesis Gate, quantum consciousness theories
+- **Phase One Documents**: Big Bang cosmology, P31 Entangle, quantum consciousness theories
 - **Phase Two Documents**: Engineering analyses, geometric principles, quantum measurement protocols
 - **Phase Three Documents**: Isomorphism tables, convergence analyses, unified field theories
 - **El Fin Documents**: Personal narratives, survival engineering applications

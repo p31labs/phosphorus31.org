@@ -1,22 +1,25 @@
 import { MARK1, LARMOR_HZ } from "@p31labs/buffer-core";
 import { useSpoonStore } from "@/stores/spoon-store";
 import { useBufferStore } from "@/stores/buffer-store";
+import { useGameAction } from "@/hooks/useGameAction";
 
 export default function Calibrate() {
   const { current, calibrate } = useSpoonStore();
   const setPhase = useBufferStore((s) => s.setPhase);
+  const gameAction = useGameAction();
 
   const begin = () => {
     calibrate(current);
+    gameAction("calibration");
     setPhase("input");
   };
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-8 gap-5">
       <div className="text-[11px] tracking-[4px] text-white/20">P31 LABS</div>
-      <div className="text-[28px] text-phosphor font-light tracking-[3px]">THE BUFFER</div>
+      <div className="text-[28px] text-phosphor font-light tracking-[3px]">SHELTER</div>
       <div className="text-[10px] text-white/20 tracking-[2px] -mt-2">
-        VOLTAGE-GATED BRIDGE · v2.0
+        COGNITIVE PROTECTION LAYER · v2.0
       </div>
 
       <div className="w-[340px] max-w-[92%] p-6 rounded-[10px] bg-white/[0.015] border border-white/[0.05] mt-3">

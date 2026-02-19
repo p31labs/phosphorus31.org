@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { PosnerViz } from './PosnerViz';
 import { SonicMolecule } from '../SonicMolecule';
 import { Waveform } from '../Waveform';
+import * as Tone from 'tone';
 import { ResonanceEngine, type NoteRecord, type FreqPoint } from '../../lib/resonance-engine';
+import { speak, stopSpeaking, startListening, stopListening, isSpeechRecognitionSupported } from '../../lib/voice';
 import { genesis, storedToP31Molecule, pullMetabolism, pullWallet, pullMeshDirectory } from '../../lib/game-client';
 import type { GameClient, GameBehavior } from '@p31/game-integration';
 import {
@@ -73,6 +75,12 @@ export function QuantumHelloWorld() {
   const [noteCount, setNoteCount] = useState(0);
   const [, setAudioReady] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const voiceEnabledRef = useRef(true);
+  voiceEnabledRef.current = voiceEnabled;
+  const [listening, setListening] = useState(false);
+  const [interimText, setInterimText] = useState('');
+  const canListen = isSpeechRecognitionSupported();
   const containerWidthRef = useRef(320);
   const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -193,6 +201,11 @@ export function QuantumHelloWorld() {
           ...prev,
           { role: 'assistant', content: response.message, coherence: nextCoherence },
         ]);
+
+        if (voiceEnabledRef.current) {
+          speak(response.message).catch(() => {});
+        }
+
         if (response.ready) setPhase('covenant');
       } catch (e) {
         setError('Connection lost. The signal will return.');
@@ -265,9 +278,8 @@ export function QuantumHelloWorld() {
     setPhase('born');
   }, [domeName, domeColor, domeIntent, coherence, storage, engine]);
 
-  useEffect(() => {
-    if (runtimeKey.trim()) setRuntimeProvider(detectProviderFromKey(runtimeKey));
-  }, [runtimeKey]);
+  // Provider is determined by effectiveProvider (line ~87):
+  // manual dropdown selection takes priority, auto-detect is fallback only.
 
   useEffect(() => {
     if (phase !== 'converse' || converseMessages.length !== 0 || !hasKey || firstMessageTriggered.current) return;
@@ -389,25 +401,43 @@ export function QuantumHelloWorld() {
         }}
       >
         <div style={{ position: 'relative', width: '100%', maxWidth: 480 }}>
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              fontSize: 8,
-              padding: 4,
-              background: 'transparent',
-              border: 'none',
-              color: BRAND.dim,
-              cursor: 'pointer',
-              zIndex: 2,
-            }}
-            aria-label={muted ? 'Unmute resonance' : 'Mute resonance'}
-          >
-            {muted ? '🔇' : '🔊'}
-          </button>
+          <div style={{ position: 'absolute', top: 0, right: 0, display: 'flex', gap: 4, zIndex: 2 }}>
+            <button
+              type="button"
+              onClick={() => {
+                setVoiceEnabled((v) => {
+                  if (v) stopSpeaking();
+                  return !v;
+                });
+              }}
+              style={{
+                fontSize: 8,
+                padding: 4,
+                background: 'transparent',
+                border: 'none',
+                color: voiceEnabled ? BRAND.cyan : BRAND.dim,
+                cursor: 'pointer',
+              }}
+              aria-label={voiceEnabled ? 'Disable voice' : 'Enable voice'}
+            >
+              {voiceEnabled ? '🗣️' : '🤫'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMuted((m) => !m)}
+              style={{
+                fontSize: 8,
+                padding: 4,
+                background: 'transparent',
+                border: 'none',
+                color: BRAND.dim,
+                cursor: 'pointer',
+              }}
+              aria-label={muted ? 'Unmute resonance' : 'Mute resonance'}
+            >
+              {muted ? '🔇' : '🔊'}
+            </button>
+          </div>
           <SonicMolecule
             notes={freqSig}
             coherence={coherence}
@@ -472,6 +502,27 @@ export function QuantumHelloWorld() {
                 }}
                 aria-label="AI API key (optional)"
               />
+              <select
+                value={runtimeProvider}
+                onChange={(e) => setRuntimeProvider(e.target.value as AIProvider)}
+                style={{
+                  background: '#0A0A1F',
+                  border: '1px solid #1A1A3E',
+                  color: BRAND.text,
+                  fontFamily: 'Space Mono, monospace',
+                  fontSize: 10,
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  marginTop: 6,
+                }}
+                aria-label="AI provider"
+              >
+                <option value="none">Auto-detect</option>
+                <option value="deepseek">DeepSeek</option>
+                <option value="anthropic">Claude (Anthropic)</option>
+                <option value="openai">GPT (OpenAI)</option>
+                <option value="gemini">Gemini (Google)</option>
+              </select>
               <div style={{ fontSize: 8, color: BRAND.dim, marginTop: 4 }}>
                 Your key stays in this browser. Never stored. Never transmitted except to the AI provider.
               </div>
@@ -499,41 +550,95 @@ export function QuantumHelloWorld() {
           )}
           {!hasKey && converseMessages.length === 0 && (
             <p style={{ color: BRAND.dim, fontSize: 11, marginBottom: 8 }}>
-              Set any AI key to begin: VITE_ANTHROPIC_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY. Or paste above.
+              Set any AI key to begin: VITE_DEEPSEEK_KEY, VITE_ANTHROPIC_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY. Or paste above.
             </p>
           )}
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              Tone.start();
+              stopSpeaking();
               const t = converseInput.trim();
               if (t && !inputDisabled) {
                 setConverseInput('');
                 converse(t);
               }
             }}
-            style={{ display: 'flex', gap: 8 }}
+            style={{ display: 'flex', gap: 8, alignItems: 'center' }}
           >
+            {canListen && (
+              <button
+                type="button"
+                disabled={inputDisabled}
+                onClick={() => {
+                  if (listening) {
+                    stopListening();
+                    setListening(false);
+                    const text = interimText.trim();
+                    setInterimText('');
+                    if (text) {
+                      converse(text);
+                    }
+                    return;
+                  }
+                  Tone.start();
+                  stopSpeaking();
+                  setInterimText('');
+                  const started = startListening({
+                    onInterim: (text) => setInterimText(text),
+                    onFinal: (result) => {
+                      setInterimText(result.transcript);
+                    },
+                    onEnd: () => {
+                      setListening(false);
+                    },
+                    onError: () => {
+                      setListening(false);
+                      setInterimText('');
+                    },
+                  });
+                  if (started) setListening(true);
+                }}
+                style={{
+                  padding: '10px 14px',
+                  background: listening ? BRAND.magenta : BRAND.surface3,
+                  color: listening ? '#fff' : BRAND.text,
+                  border: listening ? `2px solid ${BRAND.magenta}` : `1px solid ${BRAND.dim}`,
+                  borderRadius: 8,
+                  fontSize: 18,
+                  cursor: inputDisabled ? 'not-allowed' : 'pointer',
+                  animation: listening ? 'pulse 1.5s ease-in-out infinite' : 'none',
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0,
+                }}
+                aria-label={listening ? 'Stop listening' : 'Speak to the phosphorus'}
+                title={listening ? 'Listening... click to stop' : 'Voice input'}
+              >
+                {listening ? '⏹' : '🎤'}
+              </button>
+            )}
             <input
               type="text"
-              value={converseInput}
-              onChange={(e) => setConverseInput(e.target.value)}
-              placeholder="Type here..."
-              disabled={inputDisabled}
+              value={listening ? (interimText || 'Listening...') : converseInput}
+              onChange={(e) => { if (!listening) setConverseInput(e.target.value); }}
+              placeholder={listening ? 'Listening...' : 'Type or speak...'}
+              disabled={inputDisabled || listening}
               aria-label="Message to the phosphorus"
               style={{
                 flex: 1,
                 padding: 12,
                 background: BRAND.surface2,
-                border: `1px solid ${BRAND.dim}`,
+                border: `1px solid ${listening ? BRAND.magenta : BRAND.dim}`,
                 borderRadius: 8,
-                color: BRAND.text,
+                color: listening ? BRAND.magenta : BRAND.text,
                 fontFamily: 'Space Mono, monospace',
                 fontSize: 14,
+                transition: 'border-color 0.2s ease',
               }}
             />
             <button
               type="submit"
-              disabled={inputDisabled || !converseInput.trim() || !hasKey}
+              disabled={inputDisabled || !converseInput.trim() || !hasKey || listening}
               style={{
                 padding: '12px 20px',
                 background: BRAND.green,
@@ -543,6 +648,7 @@ export function QuantumHelloWorld() {
                 fontFamily: 'Oxanium, sans-serif',
                 fontWeight: 600,
                 cursor: inputDisabled ? 'not-allowed' : 'pointer',
+                flexShrink: 0,
               }}
             >
               {converseLoading || playing ? '…' : 'Send'}

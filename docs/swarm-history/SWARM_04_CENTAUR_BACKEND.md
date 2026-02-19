@@ -2,7 +2,7 @@
 ## 7 Agents · Phase 1 · Parallel Execution
 **Generated:** 2026-02-14 · **Classification:** INTERNAL · **OPSEC:** Clean
 
-> **PURPOSE:** Comprehensive audit of The Centaur backend (SUPER-CENTAUR/). Backend API must work correctly. Audit TypeScript code, Express server, API routes, database integration, authentication, and all modules (quantum-brain, legal, medical, blockchain, family-support, etc.).
+> **PURPOSE:** Comprehensive audit of P31 Tandem backend (SUPER-CENTAUR/). Backend API must work correctly. Audit TypeScript code, Express server, API routes, database integration, authentication, and all modules (quantum-brain, legal, medical, blockchain, family-support, etc.).
 
 ---
 
@@ -11,7 +11,7 @@
 ### §00 — P31 AGENT BIBLE (Embedded)
 - **Entity:** P31 Labs (Phosphorus-31), Georgia 501(c)(3) in formation
 - **Mission:** Assistive technology for neurodivergent individuals
-- **The Centaur:** Backend AI protocol system (human + synthetic intelligence)
+- **P31 Tandem:** Backend AI protocol system (human + synthetic intelligence)
 - **Tech Stack:** TypeScript, Express, PostgreSQL/SQLite, Redis, WebSocket, React frontend
 - **Contact:** will@p31ca.org
 - **GitHub:** github.com/p31labs
@@ -21,7 +21,7 @@
 - ✅ Use codenames: The Operator, node one (Bash), node two (Willow)
 
 ### §05 — TECHNICAL DOCS (Embedded)
-- **The Centaur:** Backend API, routes messages through Buffer, integrates with The Scope
+- **P31 Tandem:** Backend API, routes messages through Buffer, integrates with P31 Spectrum
 - **Modules:** quantum-brain, legal, medical, blockchain, family-support, optimization, security, backup, monitoring
 
 ---

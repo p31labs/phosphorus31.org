@@ -74,7 +74,7 @@
 - Quantum simulation (coherence decay over time)
 - Entanglement visualization
 - Phase visualization
-- Decoherence animation
+- Drift animation
 - Multiple molecule comparison
 - Real-time quantum state evolution
 
@@ -121,7 +121,7 @@
 - Integration with QMI8658 and Sample Entropy
 - API routes at `/api/quantum-lab/*`
 
-**Status:** Fully implemented and integrated with The Centaur server
+**Status:** Fully implemented and integrated with P31 Tandem server
 
 ### 5. Real-Time Quantum Simulation
 **Status:** 🚧 Planned (Foundation Ready)
@@ -145,14 +145,14 @@
 
 **Status:** Planned in Quantum Lab, not implemented
 
-### 6. Decoherence Animation
+### 6. Drift Animation
 **Status:** 🚧 Planned
 
 **Expected Features:**
 - Watch quantum states collapse
 - Understand measurement effects
 - T1/T2 lifetime visualization
-- Decoherence rate measurement
+- Drift rate measurement
 
 **Status:** Planned in Quantum Lab, not implemented
 
@@ -205,7 +205,7 @@
 | Quantum Lab | ✅ Implemented | 100% |
 | Real-Time Simulation | 🚧 Planned | 20% |
 | Entanglement Visualization | 🚧 Planned | 0% |
-| Decoherence Animation | 🚧 Planned | 0% |
+| Drift Animation | 🚧 Planned | 0% |
 | Phase Visualization | 🚧 Planned | 0% |
 | Quantum Error Correction | 🚧 Missing | 0% |
 | Biological Coherence Measurement | ✅ Partial | 60% |
@@ -220,7 +220,7 @@
 ### Medium Priority
 4. **Real-Time Quantum Simulation** - Interactive quantum mechanics
 5. **Entanglement Visualization** - Quantum correlation display
-6. **Decoherence Animation** - Measurement collapse visualization
+6. **Drift Animation** - Measurement collapse visualization
 
 ### Low Priority
 7. **Phase Visualization** - Wave interference patterns

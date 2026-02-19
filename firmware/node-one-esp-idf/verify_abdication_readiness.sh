@@ -97,11 +97,11 @@ done
 echo ""
 echo "4️⃣  Verifying abdication script..."
 
-if [ -f "../abdicate.sh" ]; then
-    echo "   ✅ abdicate.sh found"
+if [ -f "../release.sh" ]; then
+    echo "   ✅ release.sh found"
     
     # Check for key destruction
-    if grep -q "shred\|destroy\|delete.*key" ../abdicate.sh; then
+    if grep -q "shred\|destroy\|delete.*key" ../release.sh; then
         echo "      ✅ Key destruction protocol present"
     else
         echo "      ⚠️  Key destruction not found"
@@ -109,14 +109,14 @@ if [ -f "../abdicate.sh" ]; then
     fi
     
     # Check for access revocation
-    if grep -q "NOLOGIN\|revoke\|ALTER ROLE" ../abdicate.sh; then
+    if grep -q "NOLOGIN\|revoke\|ALTER ROLE" ../release.sh; then
         echo "      ✅ Access revocation present"
     else
         echo "      ⚠️  Access revocation not found"
         WARNINGS=$((WARNINGS + 1))
     fi
 else
-    echo "   ❌ abdicate.sh not found"
+    echo "   ❌ release.sh not found"
     ERRORS=$((ERRORS + 1))
 fi
 

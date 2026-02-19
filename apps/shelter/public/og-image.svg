@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <!-- Grid lines -->
+  <g stroke="#39FF14" stroke-width="0.5" opacity="0.06">
+    <line x1="0" y1="0" x2="1200" y2="630"/>
+    <line x1="1200" y1="0" x2="0" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+  </g>
+  <!-- Tetrahedron -->
+  <g transform="translate(600,280)">
+    <polygon points="0,-180 -156,90 156,90" fill="none" stroke="#39FF14" stroke-width="3" opacity="0.6"/>
+    <line x1="0" y1="-180" x2="0" y2="90" stroke="#39FF14" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="0" cy="0" r="12" fill="#39FF14" opacity="0.5"/>
+    <circle cx="0" cy="0" r="6" fill="#39FF14"/>
+  </g>
+  <!-- Text -->
+  <text x="600" y="480" text-anchor="middle" font-family="monospace" font-size="14" fill="#39FF14" opacity="0.4" letter-spacing="8">P31 LABS</text>
+  <text x="600" y="520" text-anchor="middle" font-family="monospace" font-size="42" fill="#39FF14" font-weight="bold" letter-spacing="6">SHELTER</text>
+  <text x="600" y="560" text-anchor="middle" font-family="monospace" font-size="14" fill="#ffffff" opacity="0.25" letter-spacing="4">COGNITIVE PROTECTION LAYER</text>
+  <text x="600" y="610" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1" letter-spacing="3">ON-DEVICE SCORING · ZERO RETENTION · OFFLINE-FIRST · AGPL-3.0</text>
+</svg>

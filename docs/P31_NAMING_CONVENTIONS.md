@@ -376,7 +376,7 @@ const HYDROXYAPATITE_FORMULA = "Ca10_PO4_6_OH_2";
 |---------|----------|-----------------|-------------|
 | Centralized system | Wye topology | `wye_topology` | (avoid - rejected pattern) |
 | Decentralized system | Delta topology | `delta_topology` | Phosphorus Teal |
-| System collapse | Floating Neutral | `floating_neutral` | Alert Red |
+| System collapse | Lost Ground | `floating_neutral` | Alert Red |
 | System stability | Green Board | `green_board` | Phosphorus Teal |
 | Children | Founding Nodes | `founding_nodes` | Love Purple |
 | Energy/capacity | Spoons | `spoons` | Gold |

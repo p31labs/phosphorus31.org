@@ -1,4 +1,4 @@
-# The Scope - P31 Dashboard
+# P31 Spectrum - P31 Dashboard
 
 Dashboard and visualization layer for the P31 ecosystem. Shows network health, signal strength, and system status. Built with Vite, React, TypeScript, and Three.js.
 
@@ -203,7 +203,7 @@ The project uses CSS-in-JS with styled-components for:
 - Theme support
 - Animation support
 
-## 🚀 Production Deployment
+## 🚀 Production Launch
 
 1. Build the project:
    ```bash
@@ -213,7 +213,7 @@ The project uses CSS-in-JS with styled-components for:
    `VITE_BASE_PATH=/p31/ npm run build`
 
 2. The build output is in the `dist/` directory.
-3. Deploy to any static hosting service (Netlify, Vercel, GitHub Pages, Cloudflare Pages).
+3. Launch to any static hosting service (Netlify, Vercel, GitHub Pages, Cloudflare Pages).
 
 **GitHub Pages & Cloudflare Pages:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for base path, SPA fallback (404.html / `_redirects`), and wallet graceful degradation.
 

@@ -35,7 +35,7 @@ He is building:
 
 | Term | Meaning |
 |---|---|
-| Floating Neutral | A system that has lost its grounding reference — applies to the nervous system, family, courts, markets |
+| Lost Ground | A system that has lost its grounding reference — applies to the nervous system, family, courts, markets |
 | Wye to Delta | Transformation from centralized (fragile) to distributed (resilient) topology |
 | Uncalibrated, not broken | Reframe for neurodivergence — a precision instrument running on wrong coordinates |
 | Trimtab | A small adjustment that changes the direction of a massive system (Buckminster Fuller) |
@@ -74,7 +74,7 @@ Posts follow this arc. Each builds on the last.
 | Version | Title | Core Content |
 |---|---|---|
 | v0.1.0 ✅ | The Uncalibrated Operator | Origin story teaser. Published Dec 10, 2025. |
-| v0.2.0 | The Static | The Floating Neutral explained through biology. Calcium paradox. Why "anxiety" is misdiagnosed voltage instability. |
+| v0.2.0 | The Static | Lost Ground explained through biology. Calcium paradox. Why "anxiety" is misdiagnosed voltage instability. |
 | v0.3.0 | The Calibration | Wye-to-Delta applied to personal reconstruction. Submarine engineering → self-understanding. |
 | v0.4.0 | The Geometry | The Tetrahedron Protocol for general audience. The 1/3 constant. Fuller + Maxwell + Fisher. |
 | v0.5.0 | The Shield | The Buffer concept. Why a 60-second buffer changes everything. Open-source announcement. |

@@ -1,7 +1,7 @@
 /**
- * @fileoverview Love Economy Engine - Core financialization of care
- * @author GENESIS_GATE Team
- * @version 1.0.0
+ * @fileoverview L.O.V.E. Economy Engine — Limitless Opportunity Via Energy
+ * Care activities earn Love Points (LP). Coherence multiplies yield.
+ * @version 2.0.0
  */
 
 /**
@@ -57,7 +57,7 @@ function recordActivity(activityType, metadata = {}) {
   
   const state = getSystemState();
   const timestamp = new Date().toISOString();
-  const nodeId = "W.JOHNSON-001";
+  const nodeId = "NODE_ZERO";
   
   // Determine system state (Green = Coherent, Red = Entropic)
   const systemState = determineSystemState();
@@ -187,12 +187,15 @@ function writeToLedger(record) {
  * @return {GoogleAppsScript.Spreadsheet.Spreadsheet} - The ledger spreadsheet
  */
 function getLedgerSpreadsheet() {
-  const root = DriveApp.getFoldersByName("PHENIX_NAVIGATOR_ROOT").next();
+  let rootIter = DriveApp.getFoldersByName("P31_ROOT");
+  if (!rootIter.hasNext()) rootIter = DriveApp.getFoldersByName("PHENIX_NAVIGATOR_ROOT");
+  const root = rootIter.next();
   const beta = getOrCreateFolder(root, "ZONE_BETA_CONTROL_CENTER");
-  const files = beta.getFilesByName("MISSION_CONTROL_DASHBOARD");
+  let files = beta.getFilesByName("P31_HEARTBEAT");
+  if (!files.hasNext()) files = beta.getFilesByName("MISSION_CONTROL_DASHBOARD");
   
   if (!files.hasNext()) {
-    throw new Error("Mission Control Dashboard not found");
+    throw new Error("P31 Heartbeat spreadsheet not found");
   }
   
   return SpreadsheetApp.openById(files.next().getId());

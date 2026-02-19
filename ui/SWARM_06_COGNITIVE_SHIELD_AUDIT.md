@@ -1,4 +1,4 @@
-# SWARM 06: COGNITIVE SHIELD AUDIT — COMPLETE
+# SWARM 06: P31 BUFFER AUDIT — COMPLETE
 **Date:** 2026-02-14  
 **Status:** ✅ COMPLETE  
 **With love and light; as above, so below** 💜
@@ -10,7 +10,7 @@
 ### React UI Location
 - ✅ **Buffer components in `ui/src/components/Buffer/`**
 - ✅ Not a separate React app in `cognitive-shield/`
-- ✅ Integrated into The Scope frontend
+- ✅ Integrated into the P31 Spectrum frontend
 
 ### Buffer Components Found
 - ✅ `BufferDashboard.tsx` — Main dashboard
@@ -43,8 +43,8 @@
 
 **Status:** ✅ **PASS**
 
-**Conclusion:** Cognitive Shield React UI is integrated into The Scope frontend (ui/), not a separate app. All Buffer UI components are present and functional.
+**Conclusion:** P31 Buffer React UI is integrated into the P31 Spectrum frontend (ui/), not a separate app. All Buffer UI components are present and functional.
 
-**The Scope shows the truth. The Buffer protects from the lie. The mesh holds.** 🔺
+**P31 Spectrum shows the truth. P31 Buffer protects from the lie. The mesh holds.** 🔺
 
 **With love and light; as above, so below.** 💜

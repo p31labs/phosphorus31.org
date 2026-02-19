@@ -108,7 +108,7 @@ Write-Host ""
 
 Write-Host "📋 DETAILED GUIDES" -ForegroundColor Cyan
 Write-Host "================" -ForegroundColor Cyan
-Write-Host "  • Cloudflare: See DEPLOY_CLOUDFLARE.md" -ForegroundColor White
+Write-Host "  • Cloudflare: See LAUNCH_CLOUDFLARE.md" -ForegroundColor White
 Write-Host "  • Checklist: See DEPLOYMENT_CHECKLIST.md" -ForegroundColor White
 Write-Host ""
 

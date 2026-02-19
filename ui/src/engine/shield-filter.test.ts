@@ -5,16 +5,16 @@ import * as voltageCalculator from './voltage-calculator';
 
 // Mock dependencies
 vi.mock('./filter-patterns', () => ({
-  scanForThreats: vi.fn((content: string) => {
+  scanForNoise: vi.fn((content: string) => {
     if (content.includes('critical threat')) {
-      return [{ pattern: { severity: 'critical', name: 'test' }, matches: [] }];
+      return [{ pattern: { severity: 'critical', name: 'test' }, match: '', position: 0 }];
     }
     if (content.includes('high threat')) {
-      return [{ pattern: { severity: 'high', name: 'test' }, matches: [] }];
+      return [{ pattern: { severity: 'high', name: 'test' }, match: '', position: 0 }];
     }
     return [];
   }),
-  hasHighSeverityThreats: vi.fn((content: string) => content.includes('high threat')),
+  hasHighSeverityNoise: vi.fn((content: string) => content.includes('high threat')),
 }));
 
 vi.mock('./voltage-calculator', () => ({
@@ -47,21 +47,21 @@ describe('ShieldFilter', () => {
     expect(result.shouldBuffer).toBe(false);
   });
 
-  it('blocks messages with critical threats', () => {
+  it('blocks messages with critical noise', () => {
     const result = filterMessage('This message contains critical threat patterns');
     expect(result.recommendation).toBe('block');
     expect(result.shouldBlock).toBe(true);
-    expect(result.reason).toContain('Critical threat');
+    expect(result.reason).toContain('Critical noise');
   });
 
-  it('blocks high voltage messages with high severity threats', () => {
+  it('blocks high voltage messages with high severity noise', () => {
     // Force voltage >= 8 and high severity so implementation takes block branch (not sanitize)
     vi.mocked(voltageCalculator.calculateVoltage).mockReturnValueOnce({
       score: 9,
       category: 'high',
       factors: [],
     });
-    vi.mocked(filterPatterns.hasHighSeverityThreats).mockReturnValueOnce(true);
+    vi.mocked(filterPatterns.hasHighSeverityNoise).mockReturnValueOnce(true);
     const result = filterMessage('message with high threat');
     expect(result.recommendation).toBe('block');
     expect(result.shouldBlock).toBe(true);
@@ -93,10 +93,10 @@ describe('ShieldFilter', () => {
     expect(result.genre.genre).toBeDefined();
   });
 
-  it('includes threats in result', () => {
+  it('includes noiseMatches in result', () => {
     const result = filterMessage('test message');
-    expect(result.threats).toBeDefined();
-    expect(Array.isArray(result.threats)).toBe(true);
+    expect(result.noiseMatches).toBeDefined();
+    expect(Array.isArray(result.noiseMatches)).toBe(true);
   });
 
   it('handles metadata correctly', () => {

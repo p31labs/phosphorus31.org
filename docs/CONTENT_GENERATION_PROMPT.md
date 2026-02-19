@@ -16,7 +16,7 @@ He is currently: disabled, unemployed, on SNAP/Medicaid, going through a high-co
 
 He is building:
 - **Phenix Navigator** — a handheld communication device using ESP32-S3 + LoRa for off-grid neurodivergent communication
-- **Cognitive Shield** — an AI-powered communication buffer that intercepts hostile messages and presents neutral summaries
+- **P31 Buffer** — an AI-powered communication buffer that intercepts hostile messages and presents neutral summaries
 - **Tetrahedron Protocol** — a theoretical framework connecting quantum measurement (SIC-POVMs), structural engineering (Maxwell rigidity), quantum biology (Fisher's Posner molecules), and network topology (Ollivier-Ricci curvature)
 
 ## VOICE & TONE
@@ -33,11 +33,11 @@ He is building:
 
 | Term | Meaning |
 |---|---|
-| Floating Neutral | A system that has lost its grounding reference — applies to the nervous system, family, courts, markets |
+| Lost Ground | A system that has lost its grounding reference — applies to the nervous system, family, courts, markets |
 | Wye to Delta | Transformation from centralized (fragile) to distributed (resilient) topology |
 | Uncalibrated, not broken | Reframe for neurodivergence — a precision instrument running on wrong coordinates |
 | Trimtab | A small adjustment that changes the direction of a massive system (Buckminster Fuller) |
-| Cognitive Shield | AI communication buffer — "prosthetic for the prefrontal cortex" |
+| P31 Buffer | AI communication buffer — "prosthetic for the prefrontal cortex" |
 | Voltage / High Voltage | Emotional intensity. High = meltdown. Low = shutdown. Goal = regulated. |
 | Phase Collapse | Simultaneous failure across multiple life domains |
 | The Thick Click | Proprioceptive feedback from mechanical switches — physical grounding |
@@ -67,10 +67,10 @@ Posts follow this arc. Each builds on the last.
 | Version | Title | Core Content |
 |---|---|---|
 | v0.1.0 ✅ | The Uncalibrated Operator | Origin story teaser. Published Dec 10, 2025. |
-| v0.2.0 | The Static | The Floating Neutral explained through biology. Calcium paradox. Why "anxiety" is misdiagnosed voltage instability. |
+| v0.2.0 | The Static | Lost Ground explained through biology. Calcium paradox. Why "anxiety" is misdiagnosed voltage instability. |
 | v0.3.0 | The Calibration | Wye-to-Delta applied to personal reconstruction. Submarine engineering → self-understanding. |
 | v0.4.0 | The Geometry | The Tetrahedron Protocol for general audience. The 1/3 constant. Fuller + Maxwell + Fisher. |
-| v0.5.0 | The Shield | Cognitive Shield concept. Why a 60-second buffer changes everything. Open-source announcement. |
+| v0.5.0 | The Shield | P31 Buffer concept. Why a 60-second buffer changes everything. Open-source announcement. |
 | v0.6.0 | The Question | Policy essay: should courts divide a disabled person's assistive technology? |
 | v0.7.0 | The Signal | What "trimtab" means. Why small adjustments matter. The vision for neurodivergent sovereignty. |
 
@@ -95,7 +95,7 @@ These topics are OFF LIMITS in ALL public content. Violation is non-negotiable.
 - ✅ Lived experience of late-diagnosed autism/ADHD
 - ✅ Hypoparathyroidism and calcium's role in the nervous system
 - ✅ Wye-to-Delta as a general systems metaphor
-- ✅ Cognitive Shield concept and open-source assistive technology
+- ✅ P31 Buffer concept and open-source assistive technology
 - ✅ Tetrahedron Protocol as academic/theoretical work
 - ✅ General experience of navigating legal systems while disabled (no specifics)
 - ✅ General policy question of assistive tech in divorce (no case details)
@@ -186,7 +186,7 @@ Never publish without Opus review on anything legal-adjacent or technically comp
 
 This content generation system connects to the P31 ecosystem:
 
-- **The Buffer** = Cognitive Shield (AI communication buffer)
+- **P31 Buffer** = AI communication buffer (was Cognitive Shield)
 - **Node One** = Phenix Navigator (ESP32-S3 + LoRa device)
 - **The Tetrahedron** = Tetrahedron Protocol (4 vertices, 6 edges, minimum stable structure)
 - **P31 Molecule** = Fisher's Posner molecules (quantum biology connection)

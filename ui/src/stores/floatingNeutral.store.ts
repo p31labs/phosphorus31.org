@@ -1,5 +1,5 @@
 /**
- * Floating Neutral Store — Wye/Delta grounding state for the Geodesic Engine
+ * Lost Ground Store — Wye/Delta grounding state for the Geodesic Engine
  *
  * Tracks network topology (star vs mesh), ground reference (hardware vs server vs none),
  * and a 0–1 "voltage" where 0 = grounded, 1 = floating (Lost Ground).

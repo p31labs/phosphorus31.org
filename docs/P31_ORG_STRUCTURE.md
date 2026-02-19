@@ -31,7 +31,7 @@ P31 LABS, INC.
 │   └── [Advisor: Technical — OPEN, recruit from AT/open-source community]
 │
 ├── OFFICERS (Appointed by Board — Legal Authority)
-│   ├── CEO & President: William R. Johnson
+│   ├── CEO & President: Will
 │   ├── Secretary: Ashley
 │   └── Treasurer: Carrie
 │
@@ -86,7 +86,7 @@ The Board exists to satisfy IRS requirements and provide governance oversight. I
 
 | Seat | Name | Relation to Will | Status | Notes |
 |------|------|------------------|--------|-------|
-| 1 | William R. Johnson | Self | Active — Incorporator | Will resign as Chair once board is seated; retain CEO role |
+| 1 | Will | Self | Active — Incorporator | Will resign as Chair once board is seated; retain CEO role |
 | 2 | Mama | Mother | Proposed | Related party — counts but weakens independence |
 | 3 | Ashley | [Unrelated] | Proposed | Strengthens independence |
 | 4 | OPEN | — | Needed | Recruit from AT community, disability advocacy, or nonprofit governance |
@@ -125,7 +125,7 @@ Advisors provide expertise without legal liability. They have no fiduciary duty,
 
 Officers are appointed by the Board and have legal authority to act on behalf of the corporation.
 
-### CEO & President — William R. Johnson
+### CEO & President — Will
 
 **Legal authority:** Signs contracts, opens bank accounts, represents P31 Labs to external parties, directs all operations.
 
@@ -211,7 +211,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 | 10:30 | Deep work: code in Cursor, build components, test features. | 2.0 | INTEGRATE |
 | 12:00 | Lunch. Medications: midday calcium if needed. | 1.0 | — |
 | 12:30 | Continue deep work OR review/merge Cursor agent output. | 1.5 | INTEGRATE |
-| 2:00 | Check email (via Buffer/Tomograph — scored, not raw). | 1.0 | PROCESS |
+| 2:00 | Check email (via Buffer/P31 Clarity — scored, not raw). | 1.0 | PROCESS |
 
 **Midday total: ~5.5 spoons spent. ~6.5 remaining. Running total: ~5.5 remaining.**
 
@@ -238,7 +238,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 
 ## Emergency Rules
 - **Meltdown detected (0 spoons):** ALL work stops. Notify Mama. Breathing protocol. Minimum 2 hours rest before ANY activity.
-- **Litigation event (email from opposing counsel):** Tomograph intercepts. Will does NOT read raw. Ashley reviews first, provides BLUF. Spoon cost: 5 if Will engages directly.
+- **Litigation event (email from opposing counsel):** P31 Clarity intercepts. Will does NOT read raw. Ashley reviews first, provides BLUF. Spoon cost: 5 if Will engages directly.
 - **Medical event (calcium symptoms: tingling, cramping, brain fog):** Immediate medication. Log to Medical sheet. Cancel all INTEGRATE tasks for the day.
 
 ## Day Types
@@ -264,7 +264,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
    - Countdown to next deadline
    - Spoon balance (carried over if applicable)
    - Medication schedule for the day
-   - Tomograph summary (emails received overnight, scored)
+   - P31 Clarity summary (emails received overnight, scored)
    - Active campaigns / tasks due today
 2. Will reviews briefing on phone (VACUUM phase, 0 spoons).
 3. Will calibrates day type (GREEN/YELLOW/ORANGE/RED) in Buffer.
@@ -343,7 +343,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 5. **CHANGELOG** — Update CHANGELOG.md with version, date, and changes (Conventional Commits format).
 6. **TAG** — `git tag v0.X.Y` and push.
 7. **BUILD** — `pnpm turbo build`. Verify dist/ output.
-8. **DEPLOY** — Push to Cloudflare Pages (PWA) or Chrome Web Store (extension).
+8. **GO LIVE** — Push to Cloudflare Pages (PWA) or Chrome Web Store (extension).
 9. **ANNOUNCE** — Substack post for significant releases. GitHub release notes for all.
 10. **ARCHIVE** — Defensive publication update on Zenodo if new novel claims.
 
@@ -353,8 +353,8 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 
 **Trigger:** Any email, text, or message arrives.
 
-### Automated Path (GENESIS_GATE Tomograph)
-1. Tomograph scans Gmail every 15 minutes.
+### Automated Path (GENESIS_GATE P31 Clarity)
+1. P31 Clarity scans Gmail every 15 minutes.
 2. Messages from `HOSTILE_SENDERS` list → flagged, scored, held. Will does NOT see raw text.
 3. All other messages scored for voltage (U/E/C).
 4. GREEN (< 3): delivered normally.
@@ -413,7 +413,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 3. Strip anything speculative or overreaching.
 4. Format with proper citations.
 5. Upload to Zenodo under P31 Labs community.
-6. Metadata: author (William R. Johnson), ORCID, CC BY-SA 4.0, keywords.
+6. Metadata: author (Will), ORCID, CC BY-SA 4.0, keywords.
 7. Publish. DOI is permanent. Prior art timestamp is locked.
 8. Update ORCID profile via DataCite auto-update.
 
@@ -458,7 +458,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
 2. **DRAFT** (Claude): Georgia Superior Court format (Times New Roman, double-spaced, numbered paragraphs).
 3. **REVIEW:** Cross-reference all facts against existing filed documents for consistency.
 4. **OPSEC CHECK:** Ensure no trade secrets, technical details, or P31 internal operations are disclosed unnecessarily.
-5. **FORMAT:** Proper caption (Johnson v. Johnson, 2025CV936, Camden County Superior Court).
+5. **FORMAT:** Proper caption (active legal proceedings, active civil action, Camden County Superior Court).
 6. **FILE:** PeachCourt electronic filing system.
 7. **SERVE:** Electronic service to all parties.
 8. **LOG:** File in GENESIS_GATE Corporate_Log. Archive in `11_LEGAL_WAR_ROOM/`.
@@ -502,7 +502,7 @@ This is Will's actual daily rhythm, structured around spoon management and cogni
    - `tomographScan` — every 15 minutes
    - `checkMedications` — every 6 hours
    - `runMiningCycle` — every 1 hour
-3. Review Tomograph_Log for missed scans or false positives.
+3. Review P31 Clarity log for missed scans or false positives.
 4. Review Medication_Log for gaps.
 5. Update `HOSTILE_SENDERS` list if new adversarial contacts identified.
 6. Update medication list if prescriptions change.
@@ -534,7 +534,7 @@ SIMPLEX is dead. GENESIS_GATE v7 (P31 Entangle) was the bridge. v8 is the aligne
 
 ```javascript
 const CONFIG = {
-  OPERATOR: "William R. Johnson",
+  OPERATOR: "Will",
   TITLE: "Founder & CEO",
   SYSTEM_ID: "P31-LABS-001",
   CODENAME: "GEODESIC_OPERATOR",
@@ -547,20 +547,20 @@ const CONFIG = {
     TYPE: "Georgia 501(c)(3) Nonprofit Corporation",
     EIN: "PENDING",
     STATE_ID: "PENDING",
-    REGISTERED_AGENT: "William R. Johnson",
+    REGISTERED_AGENT: "Will",
     PRINCIPAL_OFFICE: "[Address]",
   },
 
   // Board of Directors
   BOARD: [
-    { name: "William R. Johnson", role: "CEO & Director", seat: 1 },
+    { name: "Will", role: "CEO & Director", seat: 1 },
     { name: "Mama", role: "Director", seat: 2 },
     { name: "Ashley", role: "Secretary & Director", seat: 3 },
   ],
 
   // Officers
   OFFICERS: {
-    CEO: "William R. Johnson",
+    CEO: "Will",
     SECRETARY: "Ashley",
     TREASURER: "Carrie",
   },

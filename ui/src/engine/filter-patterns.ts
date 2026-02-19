@@ -1,11 +1,11 @@
 /**
  * Filter Patterns
- * Threat detection patterns (keyword/regex) for message filtering
+ * Noise detection patterns (keyword/regex) for message filtering
  *
  * Pure functions - no React, no DOM, just pattern matching
  */
 
-export interface ThreatPattern {
+export interface NoisePattern {
   id: string;
   name: string;
   pattern: RegExp;
@@ -13,16 +13,22 @@ export interface ThreatPattern {
   description: string;
 }
 
-export interface ThreatMatch {
-  pattern: ThreatPattern;
+/** @deprecated Use NoisePattern instead */
+export type ThreatPattern = NoisePattern;
+
+export interface NoiseMatch {
+  pattern: NoisePattern;
   match: string;
   position: number;
 }
 
+/** @deprecated Use NoiseMatch instead */
+export type ThreatMatch = NoiseMatch;
+
 /**
- * Threat category types for classification
+ * Noise category types for classification
  */
-export type ThreatCategory =
+export type NoiseCategory =
   | 'legal'
   | 'emotional'
   | 'financial'
@@ -30,26 +36,32 @@ export type ThreatCategory =
   | 'pressure'
   | 'general';
 
-/**
- * Extended threat pattern with category
- */
-export interface ExtendedThreatPattern extends ThreatPattern {
-  category?: ThreatCategory;
-}
+/** @deprecated Use NoiseCategory instead */
+export type ThreatCategory = NoiseCategory;
 
 /**
- * Default threat patterns
+ * Extended noise pattern with category
  */
-export const DEFAULT_THREAT_PATTERNS: ExtendedThreatPattern[] = [
-  // Legal threats
+export interface ExtendedNoisePattern extends NoisePattern {
+  category?: NoiseCategory;
+}
+
+/** @deprecated Use ExtendedNoisePattern instead */
+export type ExtendedThreatPattern = ExtendedNoisePattern;
+
+/**
+ * Default noise patterns
+ */
+export const DEFAULT_NOISE_PATTERNS: ExtendedNoisePattern[] = [
+  // Legal noise
   {
-    id: 'legal_threat',
-    name: 'Legal Threat',
+    id: 'legal_noise',
+    name: 'Legal Noise',
     category: 'legal',
     pattern:
       /(i'm going to take you to court|taking you to court|suing you|file (a|an) (lawsuit|suit)|my attorney|my lawyer|legal action|legal proceedings|we file|filing against)/i,
     severity: 'critical',
-    description: 'Legal action threats',
+    description: 'Legal action noise',
   },
   {
     id: 'legal_pressure',
@@ -103,16 +115,16 @@ export const DEFAULT_THREAT_PATTERNS: ExtendedThreatPattern[] = [
     pattern:
       /(you owe me|you owe us|owe \$\d+|wages garnished|garnish your wages|child support|alimony|payment due)/i,
     severity: 'high',
-    description: 'Financial demands and threats',
+    description: 'Financial demands and noise',
   },
   {
-    id: 'financial_threat',
-    name: 'Financial Threat',
+    id: 'financial_noise',
+    name: 'Financial Noise',
     category: 'financial',
     pattern:
       /(i'll (have|get) your (wages|paycheck) (garnished|seized)|collection agency|debt collector)/i,
     severity: 'critical',
-    description: 'Financial threats',
+    description: 'Financial noise',
   },
   // Gaslighting
   {
@@ -161,25 +173,28 @@ export const DEFAULT_THREAT_PATTERNS: ExtendedThreatPattern[] = [
     severity: 'high',
     description: 'Deadline pressure patterns',
   },
-  // General threats
+  // General noise
   {
-    id: 'threat',
-    name: 'Threat',
+    id: 'noise',
+    name: 'Noise',
     category: 'general',
     pattern: /(if you (don't|won't)|or else|consequences|you'll (regret|be sorry))/i,
     severity: 'critical',
-    description: 'Threatening language',
+    description: 'High-voltage language',
   },
 ];
 
+/** @deprecated Use DEFAULT_NOISE_PATTERNS instead */
+export const DEFAULT_THREAT_PATTERNS = DEFAULT_NOISE_PATTERNS;
+
 /**
- * Scan message for threat patterns
+ * Scan message for noise patterns
  */
-export function scanForThreats(
+export function scanForNoise(
   content: string,
-  patterns: ThreatPattern[] = DEFAULT_THREAT_PATTERNS
-): ThreatMatch[] {
-  const matches: ThreatMatch[] = [];
+  patterns: NoisePattern[] = DEFAULT_NOISE_PATTERNS
+): NoiseMatch[] {
+  const matches: NoiseMatch[] = [];
 
   for (const pattern of patterns) {
     const regex = new RegExp(pattern.pattern);
@@ -197,23 +212,29 @@ export function scanForThreats(
   return matches;
 }
 
+/** @deprecated Use scanForNoise instead */
+export const scanForThreats = scanForNoise;
+
 /**
- * Check if message contains high-severity threats
+ * Check if message contains high-severity noise
  */
-export function hasHighSeverityThreats(content: string): boolean {
-  const matches = scanForThreats(content);
+export function hasHighSeverityNoise(content: string): boolean {
+  const matches = scanForNoise(content);
   return matches.some((m) => m.pattern.severity === 'high' || m.pattern.severity === 'critical');
 }
 
+/** @deprecated Use hasHighSeverityNoise instead */
+export const hasHighSeverityThreats = hasHighSeverityNoise;
+
 /**
- * Get threat categories detected in a message
+ * Get noise categories detected in a message
  */
-export function getThreatCategories(content: string): ThreatCategory[] {
-  const matches = scanForThreats(content);
-  const categories = new Set<ThreatCategory>();
+export function getNoiseCategories(content: string): NoiseCategory[] {
+  const matches = scanForNoise(content);
+  const categories = new Set<NoiseCategory>();
 
   for (const match of matches) {
-    const pattern = match.pattern as ExtendedThreatPattern;
+    const pattern = match.pattern as ExtendedNoisePattern;
     if (pattern.category) {
       categories.add(pattern.category);
     }
@@ -222,13 +243,19 @@ export function getThreatCategories(content: string): ThreatCategory[] {
   return Array.from(categories);
 }
 
+/** @deprecated Use getNoiseCategories instead */
+export const getThreatCategories = getNoiseCategories;
+
 /**
- * Check if message has threats of a specific category
+ * Check if message has noise of a specific category
  */
-export function hasThreatCategory(content: string, category: ThreatCategory): boolean {
-  const matches = scanForThreats(content);
+export function hasNoiseCategory(content: string, category: NoiseCategory): boolean {
+  const matches = scanForNoise(content);
   return matches.some((m) => {
-    const pattern = m.pattern as ExtendedThreatPattern;
+    const pattern = m.pattern as ExtendedNoisePattern;
     return pattern.category === category;
   });
 }
+
+/** @deprecated Use hasNoiseCategory instead */
+export const hasThreatCategory = hasNoiseCategory;

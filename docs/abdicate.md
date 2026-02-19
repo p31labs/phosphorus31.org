@@ -25,7 +25,7 @@ Abdicate implements:
 ## Principles
 
 1. **No Backdoors**: Never write "super-admin" recovery functions
-2. **Code for Departure**: All admin capabilities must be tethered to abdicate.sh
+2. **Code for Departure**: All admin capabilities must be tethered to release.sh
 3. **Key Destruction**: Admin keys can be permanently destroyed
 4. **Constitutional Compliance**: Enforces G.O.D. Protocol rules
 

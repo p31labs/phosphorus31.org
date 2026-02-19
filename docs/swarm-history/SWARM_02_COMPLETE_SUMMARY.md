@@ -165,6 +165,6 @@ After website is live:
 
 ---
 
-**The Scope shows the truth. The Buffer protects from the lie. The mesh holds.** 🔺
+**P31 Spectrum shows the truth. P31 Buffer protects from the lie. The mesh holds.** 🔺
 
 **With love and light; as above, so below.** 💜

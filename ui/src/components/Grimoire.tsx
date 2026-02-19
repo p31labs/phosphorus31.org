@@ -4,7 +4,7 @@
  * "Any sufficiently advanced technology is indistinguishable from magic."
  * — Arthur C. Clarke
  *
- * This is the same Cognitive Shield, the same Tetrahedron Protocol,
+ * This is the same P31 Buffer, the same Tetrahedron Protocol,
  * the same physics—translated into the language of the Craft.
  *
  * For those who receive on a different frequency.

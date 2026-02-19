@@ -5,7 +5,7 @@
  * Built with love and light. As above, so below. 💜
  *
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  * Licensed under the AGPLv3 License
  */
 

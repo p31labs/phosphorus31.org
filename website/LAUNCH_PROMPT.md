@@ -1,4 +1,4 @@
-# WEBSITE DEPLOYMENT PROMPT — phosphorus31.org
+# WEBSITE LAUNCH PROMPT — phosphorus31.org
 **Quick Start Guide**  
 **With love and light; as above, so below** 💜
 
@@ -6,7 +6,7 @@
 
 ## 🎯 MISSION
 
-Deploy `phosphorus31.org` to production using Cloudflare Pages.  
+Launch `phosphorus31.org` to production using Cloudflare Pages.  
 **Deadline:** Feb 27 (for Accelerator application)  
 **Estimated Time:** 30-60 minutes
 
@@ -22,7 +22,7 @@ Before starting, verify:
 
 ---
 
-## 🚀 DEPLOYMENT STEPS
+## 🚀 LAUNCH STEPS
 
 ### Step 1: Create GitHub Repository (5 min)
 
@@ -59,7 +59,7 @@ git push -u origin main
 
 ---
 
-### Step 3: Deploy to Cloudflare Pages (15 min)
+### Step 3: Launch to Cloudflare Pages (15 min)
 
 1. **Go to Cloudflare Dashboard**
    - URL: https://dash.cloudflare.com
@@ -123,7 +123,7 @@ git push -u origin main
 
 ---
 
-### Step 6: Verify Deployment (5 min)
+### Step 6: Verify Launch (5 min)
 
 **Test URLs:**
 - Preview: `https://phosphorus31-org-[hash].pages.dev`
@@ -189,7 +189,7 @@ curl https://phosphorus31.org/sitemap.xml
 
 ---
 
-## 📋 POST-DEPLOYMENT TASKS
+## 📋 POST-LAUNCH TASKS
 
 1. **Google Search Console**
    - Add property: `https://phosphorus31.org`
@@ -226,13 +226,13 @@ curl https://phosphorus31.org/sitemap.xml
 2. **Wait for SSL** before testing production URL
 3. **Test preview URL first** to verify site works
 4. **Check mobile** using browser dev tools (F12 → Toggle device)
-5. **Monitor build logs** if deployment fails
+5. **Monitor build logs** if the launch fails
 
 ---
 
 **The Scope shows the truth. The Buffer protects from the lie. The mesh holds.** 🔺
 
-**Ready to deploy? Start with Step 1!** 🚀
+**Ready to launch? Start with Step 1!** 🚀
 
 ---
 

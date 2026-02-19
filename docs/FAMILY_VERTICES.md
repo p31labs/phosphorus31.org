@@ -21,7 +21,7 @@ The body that IS the proof.
 **Professional:**
 - 16 years DOD civil service (2009-2025)
 - GS-12 Engineering Technician
-- Trident Refit Facility, Naval Submarine Base Kings Bay
+- a DoD submarine facility
 - Now: CEO of P31 (LLC structure)
 
 ---

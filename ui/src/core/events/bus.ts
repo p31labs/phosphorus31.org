@@ -1,4 +1,4 @@
-// Minimal event bus implementation for Genesis Gate
+// Minimal event bus implementation for P31 Entangle
 // TODO: Replace with full implementation if needed
 
 export const EVENTS = {

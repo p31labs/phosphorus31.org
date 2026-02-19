@@ -34,13 +34,13 @@ Run in this order. Do not go live until the preflight step passes (or you explic
 | Order | Step | Command / action | Pass condition |
 |-------|------|------------------|----------------|
 | B1 | Build Shelter | `cd apps/shelter && npm run build` | Exit 0; `apps/shelter/dist/index.js` exists |
-| B2 | Build Scope (if deploying) | `cd ui && npm run build` | Exit 0; `ui/dist/index.html` exists |
-| B3 | Build Website (if deploying) | Ensure `apps/web/index.html` (and any build step) | Required assets present |
+| B2 | Build Scope (if going live) | `cd ui && npm run build` | Exit 0; `ui/dist/index.html` exists |
+| B3 | Build Website (if going live) | Ensure `apps/web/index.html` (and any build step) | Required assets present |
 | B4 | Asset check | From repo root: `npm run verify:assets` | Exit 0 |
 | B5 | Start Shelter | In a separate terminal: `npm run dev:shelter` (or production start) | `curl http://localhost:4000/health` → 200, JSON |
 | B6 | Preflight smoke | From repo root: `npm run preflight` | Exit 0 (or accept known failures and document) |
 | B7 | Optional benchmark | `npm run benchmark` | Latency and bundle sizes acceptable |
-| B8 | Go-live (human) | **Website:** Push to GitHub / Cloudflare Pages; add domain. **Shelter:** Start on production host. **Scope:** Deploy static build; set `VITE_BUFFER_URL` to live Shelter. | You choose what to launch; do one or all. |
+| B8 | Go-live (human) | **Website:** Push to GitHub / Cloudflare Pages; add domain. **Shelter:** Start on production host. **Scope:** Launch static build; set `VITE_BUFFER_URL` to live Shelter. | You choose what to launch; do one or all. |
 
 **Notes:**
 
@@ -54,7 +54,7 @@ Run in this order. Do not go live until the preflight step passes (or you explic
 
 | Order | Step | Action | Doc |
 |-------|------|--------|-----|
-| C1 | Go-live verification | Run through `docs/GO_LIVE_VERIFICATION_LAUNCH07.md` for each deployed component. | GO_LIVE_VERIFICATION_LAUNCH07 |
+| C1 | Go-live verification | Run through `docs/GO_LIVE_VERIFICATION_LAUNCH07.md` for each launched component. | GO_LIVE_VERIFICATION_LAUNCH07 |
 | C2 | Backup (Shelter) | If Shelter is live with SQLite: run `npm run backup` (or schedule it). | PREP §5b, `scripts/backup-accommodation-db.mjs` |
 | C3 | Release tag (optional) | If cutting a release: CHANGELOG, bump version, `git tag -a vX.Y.Z -m "Release vX.Y.Z"`, push. | `docs/RELEASE_TAGGING.md` |
 | C4 | Sign-off | Fill LAUNCH-07 sign-off; note any follow-ups. | GO_LIVE_VERIFICATION_LAUNCH07 §5 |
@@ -76,8 +76,8 @@ Phase A (before launch day)
 
 Phase B (launch day)
 [ ] B1 Build Shelter
-[ ] B2 Build Scope (if deploying)
-[ ] B3 Build Website (if deploying)
+[ ] B2 Build Scope (if going live)
+[ ] B3 Build Website (if going live)
 [ ] B4 npm run verify:assets
 [ ] B5 Shelter running (:4000 or production URL)
 [ ] B6 npm run preflight

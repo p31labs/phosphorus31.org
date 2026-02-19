@@ -1,5 +1,5 @@
 /**
- * @license AGPLv3 - Wonky Sprout DUNA
+ * @license AGPLv3 - P31 Labs
  *
  * FAMILY CHAT - The Communication Channel
  *

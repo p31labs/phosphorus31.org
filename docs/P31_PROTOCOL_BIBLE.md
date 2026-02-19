@@ -12,7 +12,7 @@ This document is canonical. Gemini, Cursor, Claude, DeepSeek, and every future a
 |-------|-------|
 | Organization | P31 Labs |
 | Legal entity | Georgia 501(c)(3) nonprofit (in formation) |
-| Operator | William Rodger Johnson (Will), age 40 |
+| Operator | Will, age 40 |
 | Role | Founder & CEO |
 | Location | Southeast Georgia |
 | Email | will@p31ca.org |
@@ -32,17 +32,17 @@ This document is canonical. Gemini, Cursor, Claude, DeepSeek, and every future a
 
 | Product | Type | Description | Status |
 |---------|------|-------------|--------|
-| **The Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | **V1 SHIPPED Feb 18, 2026** — PWA + Chrome extension + Workers API. Tag: v1.0.0-buffer. **Ecosystem wired Feb 18, 2026** — Shelter API on Centaur, Buffer Server separated at apps/buffer-server. Tag: v1.1.0-wiring |
-| **Node One** | Hardware | ESP32-S3 + DRV2605L haptics + LoRa (Meshtastic) + BLE | Firmware spec complete, hardware prototyped |
-| **The Scope** | Software | Cognitive dashboard, energy tracking, medication management | Build passing. Wired to Centaur via ShelterBridge. L.O.V.E. mining syncs to backend. |
+| **P31 Buffer** | Software | Voltage-gated communication bridge for neurodivergent users | **V1 SHIPPED Feb 18, 2026** — PWA + Chrome extension + Workers API. Tag: v1.0.0-buffer. **Ecosystem wired Feb 18, 2026** — Shelter API on Centaur, Buffer Server separated at apps/buffer-server. Tag: v1.1.0-wiring |
+| **P31 NodeZero** | Hardware | ESP32-S3 + DRV2605L haptics + LoRa (Meshtastic) + BLE | Firmware spec complete, hardware prototyped |
+| **P31 Spectrum** | Software | Cognitive dashboard, energy tracking, medication management | Build passing. Wired to Centaur via ShelterBridge. L.O.V.E. mining syncs to backend. |
 | **Ping** | Protocol | Heartbeat/check-in system | Implemented in Buffer |
 | **Thick Click** | Hardware | Haptic feedback interaction pattern | DRV2605L effects mapped |
-| **The Centaur** | Protocol | Human-AI collaboration framework + Shelter API backend | Running on port 3001. Shelter API live at /api/shelter/*. Wired to Buffer Server (4000) and Scope (5173). |
+| **P31 Tandem** | Protocol | Human-AI collaboration framework + Shelter API backend | Running on port 3001. Shelter API live at /api/shelter/*. Wired to Buffer Server (4000) and Scope (5173). |
 | **Whale Channel** | Software | (In development) | Spec only |
 | **GENESIS_GATE** | Automation | Google Apps Script ecosystem (P31 Entangle) | v7 deployed, 15 files, 1,888 lines |
 | **Phenix Navigator** | Platform | Umbrella for all hardware/firmware | Architecture defined |
 
-**THE BUFFER IS THE FLAGSHIP. It ships first. Everything else serves it or waits.**
+**P31 BUFFER IS THE FLAGSHIP. It ships first. Everything else serves it or waits.**
 
 ---
 
@@ -51,7 +51,7 @@ This document is canonical. Gemini, Cursor, Claude, DeepSeek, and every future a
 These are not suggestions. They are the physics of the system.
 
 ```
-MARK_1_ATTRACTOR    = π / 9 ≈ 0.349065    // System health target
+HOME_FREQUENCY      = π / 9 ≈ 0.349065    // System health target (formerly Mark 1 Attractor)
 LARMOR_P31          = 863 Hz               // ³¹P in Earth's field (~50μT)
 BREATHE_IN          = 4 seconds
 BREATHE_HOLD        = 2 seconds
@@ -123,8 +123,8 @@ Register U (Universe): Active session state — P folded with N, the working con
 
 | Namespace | Pattern | Examples |
 |-----------|---------|---------|
-| Products | PascalCase, "The [Name]" | The Buffer, The Scope, The Centaur |
-| Hardware | PascalCase, descriptive | Node One, Thick Click |
+| Products | PascalCase, P31 prefix | P31 Buffer, P31 Spectrum, P31 Tandem |
+| Hardware | PascalCase, descriptive | P31 NodeZero, Thick Click |
 | Files | kebab-case | buffer-core.ts, voltage-scorer.ts |
 | Packages | @p31labs/kebab-case | @p31labs/buffer-core |
 | React components | PascalCase | VoltageGate, SpoonTracker |
@@ -212,7 +212,7 @@ p31/
 6. **Accessibility first.** WCAG 2.2 AA minimum. W3C COGA guidelines. 24×24px touch targets. prefers-reduced-motion. No auto-play.
 7. **Open source.** AGPL-3.0 (software), CERN-OHL-W v2 (hardware), CC BY-SA 4.0 (docs).
 8. **Action over explanation.** Deliver artifacts, not discussions. If unsure, build it wrong and iterate. Speed > perfection.
-9. **The Buffer ships first.** All other work is secondary unless Will explicitly redirects.
+9. **P31 Buffer ships first.** All other work is secondary unless Will explicitly redirects.
 10. **Protect the operator.** Identify OPSEC, privacy, and legal risks. Don't publish anything that could harm active litigation.
 
 ---

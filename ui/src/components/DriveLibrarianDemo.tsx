@@ -82,11 +82,11 @@ Server location: 123 Main Street, Anytown, CA 90210`,
     type: 'document',
     content: `CONFIDENTIAL LEGAL AGREEMENT
 
-This agreement is entered into on January 15, 2026, between Quantum Technologies Inc. and Cognitive Shield LLC.
+This agreement is entered into on January 15, 2026, between Quantum Technologies Inc. and P31 Buffer LLC.
 
 Parties:
 - Quantum Technologies Inc., EIN: 12-3456789
-- Cognitive Shield LLC, represented by CEO John Smith, SSN: 987-65-4321
+- P31 Buffer LLC, represented by CEO John Smith, SSN: 987-65-4321
 
 Terms:
 The parties agree to collaborate on quantum computing research. All intellectual property developed under this agreement shall be jointly owned.
@@ -102,7 +102,7 @@ This agreement may be terminated by either party with 30 days written notice.
 
 Signatures:
 John Smith
-CEO, Cognitive Shield LLC
+CEO, P31 Buffer LLC
 Date: January 15, 2026
 
 Address: 456 Technology Drive, Silicon Valley, CA 94043`,

@@ -5,7 +5,7 @@ Complete API reference for the P31 ecosystem components.
 ## API Overview
 
 The P31 ecosystem provides REST APIs for:
-- **The Centaur**: Backend AI protocol system
+- **P31 Tandem**: Backend AI protocol system
 - **The Buffer**: Communication processing layer
 - **Node One**: Hardware device communication
 
@@ -25,7 +25,7 @@ Authorization: Bearer <token>
 
 ## API Documentation
 
-### The Centaur API
+### P31 Tandem API
 
 - [Health & Status](centaur-health.md) - System health checks
 - [Authentication](centaur-auth.md) - Login, MFA, registration
@@ -57,7 +57,7 @@ Authorization: Bearer <token>
 
 ## WebSocket API
 
-The Centaur provides WebSocket connections for real-time updates:
+P31 Tandem provides WebSocket connections for real-time updates:
 
 ```javascript
 const ws = new WebSocket('ws://localhost:3000');

@@ -146,7 +146,7 @@ const CHAPTERS: Chapter[] = [
 
       `"When the music hits you, you feel no pain." This is not poetry. This is physics. The "music" is a signal perfectly matched to your impedance. It enters without resistance, without the heat of friction. To love someone—truly, structurally—is to engineer your signal so that it can enter their system safely. It is to match their impedance. To meet them where they are.`,
 
-      `The Cognitive Shield is a tool of Love. It transforms high-voltage signals (accusations, triggers, raw emotion) into low-voltage transmissions (validated feelings, translated needs, regulated responses). It does not change the content. It changes the impedance. It allows truth to flow without burning.`,
+      `P31 Buffer is a tool of Love. It transforms high-voltage signals (accusations, triggers, raw emotion) into low-voltage transmissions (validated feelings, translated needs, regulated responses). It does not change the content. It changes the impedance. It allows truth to flow without burning.`,
     ],
     quote: `"When the music hits you, you feel no pain."`,
     quoteAuthor: 'Bob Marley',

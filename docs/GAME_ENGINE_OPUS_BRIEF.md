@@ -11,7 +11,7 @@
 The P31 game engine is **two related systems**:
 
 1. **Centaur Game Engine** (`SUPER-CENTAUR/src/engine/`) — Full 3D building game with physics, L.O.V.E. economy, challenges, P31 Language, and metabolism (spoon) integration. Runs in browser or Node; backend (Centaur) exposes game APIs.
-2. **Scope Engine** (`ui/src/engine/`) — Pure logic for the dashboard (The Scope): voltage scoring, spoon calculation, message filtering, geodesic analysis. No React, no 3D; used by the React UI.
+2. **Scope Engine** (`ui/src/engine/`) — Pure logic for the dashboard (P31 Spectrum): voltage scoring, spoon calculation, message filtering, geodesic analysis. No React, no 3D; used by the React UI.
 
 Both follow **tetrahedron topology**, **offline-first**, and **kids-first** design. The document below focuses on the **Centaur game engine** (the “game” in the usual sense), with a short section on the Scope engine.
 
@@ -29,7 +29,7 @@ SUPER-CENTAUR/src/engine/
 │   ├── SaveManager.ts         # Persist structures + progress
 │   ├── PerformanceMonitor.ts  # FPS, frame time
 │   ├── ErrorRecovery.ts       # Init/game-loop recovery
-│   ├── MetabolismIntegration.ts  # Spoons from The Buffer
+│   ├── MetabolismIntegration.ts  # Spoons from P31 Buffer
 │   ├── WalletIntegration.ts   # L.O.V.E. 50/50 pools
 │   ├── VestingManager.ts      # Age-based access (Trust/Apprenticeship/Sovereignty)
 │   ├── ProofOfCareManager.ts  # Care score formula
@@ -564,7 +564,7 @@ export class GameState extends Schema {
 
 ## 13. Scope Engine (ui/src/engine) — Brief
 
-Used by The Scope (dashboard), not the 3D game. Pure TS, no React.
+Used by P31 Spectrum (dashboard), not the 3D game. Pure TS, no React.
 
 - **voltage-calculator.ts** — Message voltage 0–10.
 - **spoon-calculator.ts** — Spoon cost for activities.

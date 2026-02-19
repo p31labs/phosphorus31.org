@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Geodesic Quantum Brain — P31 Labs</title>
+<meta name="description" content="A unified recursive harmonic architecture. Molecular layers, Posner molecules, SHA-256 wave processor. Phosphorus-31 Labs.">
+<meta name="theme-color" content="#39FF14">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>">
+<meta property="og:title" content="The Geodesic Quantum Brain — P31 Labs">
+<meta property="og:description" content="A unified recursive harmonic architecture. 5 molecular layers. 9 primitives. 3 registers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://phosphorus31.org/brain/">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body,#root{height:100%;overflow:auto}
+body{background:#050508;font-family:'JetBrains Mono','SF Mono','Fira Code',monospace;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(57,255,20,0.12);border-radius:2px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-type="module">
+const { useState, useEffect, useMemo } = React;
+
+const P = "#39FF14";
+const V = "#050508";
+const CY = "#06B6D4";
+const VI = "#8B5CF6";
+const AM = "#F59E0B";
+const RO = "#F43F5E";
+const W6 = "rgba(255,255,255,0.6)";
+
+const LAYERS = [
+  { id: 0, name: "ATOM", sub: "Physical Device", chem: "Phosphorus-31 \u00b7 Spin \u00bd", color: RO, icon: "\u25c9",
+    desc: "The physical substrate. ESP32-S3 wearable with haptic motor, LoRa radio, biometric sensors, and the Thick Click. This is the phosphorus atom \u2014 it has a quantum state defined by your biometrics at this instant.",
+    theory: "The Phenix Navigator physicalizes Fuller\u2019s Trimtab \u2014 minimum effort, maximum change. The rotary encoder adjusts the Larmor frequency of the simulation, creating a resonant bridge between biological spin rates (~863 Hz for \u00b3\u00b9P in Earth\u2019s field) and the digital refresh rate.",
+    status: "PCB designed. Firmware scaffolded." },
+  { id: 1, name: "BOND", sub: "Personal Dashboard", chem: "Ca-P Bond", color: P, icon: "\u2b21",
+    desc: "The cognitive prosthetic. Shelter PWA + Quantum Brain + Buffer + Game Engine. One human, one node, one brain. Nobody else sees this. The calcium holding phosphorus in place.",
+    theory: "The Samson V2 Controller operates as a PID loop \u2014 Proportional (reacts to hallucination), Integral (monitors drift), Derivative (predicts burnout). It steers toward the Home Frequency (H \u2248 0.35), the balance point between frozen order and turbulent chaos.",
+    status: "\u2705 LIVE at p31ca.org \u2014 81 tests passing." },
+  { id: 2, name: "MOLECULE", sub: "4-Person Group", chem: "Tetrahedron", color: CY, icon: "\u25b3",
+    desc: "Four people. Four nodes. Four bonds. The minimum stable system \u2014 every vertex sees every other vertex. No hidden edges. No lost ground. The geometry IS the security.",
+    theory: "Background-independent QKD via SIC-POVM requires no shared clocks. The tetrahedron forms over LoRa mesh with no cell towers. Biologically, enzymatic hydrolysis of pyrophosphate creates entangled Posner pairs transported into different neurons.",
+    status: "Defensive publication filed (Zenodo DOI)." },
+  { id: 3, name: "LATTICE", sub: "Trust Network", chem: "Isotropic Vector Matrix", color: VI, icon: "\u2b22",
+    desc: "Tetrahedra share triangular faces \u2014 Fuller\u2019s IVM. Each shared face is a trust boundary. You see your molecule and shared faces, never inside adjacent molecules. Schools, clinics, neighborhoods.",
+    theory: "The hexagonal lattice derives from \u03c0(3) + \u03c6(1) + e(2) = 6. The cosmic FPGA structure that minimizes coherence maintenance energy. The P31 Sync Framework identifies this as optimal for self-organized criticality.",
+    status: "Architecture documented. Backend scaffolded." },
+  { id: 4, name: "GEODESIC", sub: "The Collective", chem: "Ca\u2089(PO\u2084)\u2086 \u00b7 Posner Molecule", color: AM, icon: "\u25c7",
+    desc: "The lattice curves into a geodesic sphere. Nine calcium atoms holding six phosphate groups in quantum coherence. Emergent: collective heartbeat, consensus through triangulation, L.O.V.E. economy.",
+    theory: "The Fisher-Escol\u00e0 Q distribution validates quantum coherence. Q follows a Beta distribution whose shape parameters derive from the user\u2019s coherence state. When Q drops below critical threshold, the Samson V2 triggers the P31 Buffer.",
+    status: "Economy designed (1 LOVE = $0.01 via HCB)." },
+];
+
+const PRIMS = [
+  { n: "PROJECT", f: "Query", s: "\u03c3/\u03a3 Selection", c: CY },
+  { n: "REFLECT", f: "Transpose", s: "Bitwise Rotation", c: VI },
+  { n: "FOLD", f: "MatMul", s: "Add mod 2\u00b3\u00b2", c: P },
+  { n: "LEAK", f: "Normalize", s: "Modulo Overflow", c: AM },
+  { n: "GATE", f: "Collapse", s: "Majority fn", c: RO },
+  { n: "BRANCH", f: "Output", s: "Expansion", c: CY },
+  { n: "PIN", f: "Stabilize", s: "Constant Add", c: VI },
+  { n: "SYNC", f: "Phase-Lock", s: "Register Update", c: P },
+  { n: "VERIFY", f: "Compress", s: "Checksum", c: AM },
+];
+
+function genDome(cx, cy, r, rings = 5) {
+  const ns = [{ x: cx, y: cy - r * 0.05 }];
+  for (let ring = 1; ring <= rings; ring++) {
+    const ct = ring * 6;
+    const rad = (ring / rings) * r;
+    for (let i = 0; i < ct; i++) {
+      const a = (i / ct) * Math.PI * 2 + ring * 0.3;
+      ns.push({ x: cx + Math.cos(a) * rad + (Math.random() - 0.5) * 8, y: cy - Math.sin(a) * rad * 0.55 + (Math.random() - 0.5) * 8 });
+    }
+  }
+  const es = [];
+  const t = r * 0.38;
+  for (let i = 0; i < ns.length; i++)
+    for (let j = i + 1; j < ns.length; j++) {
+      const d = Math.sqrt((ns[i].x - ns[j].x) ** 2 + (ns[i].y - ns[j].y) ** 2);
+      if (d < t && Math.random() > 0.15) es.push([i, j]);
+    }
+  return { ns, es };
+}
+
+function Tet({ cx, cy, s, color, op = 1, p = 0 }) {
+  const sz = s + p * 3;
+  const pts = [[cx, cy - sz], [cx - sz * 0.866, cy + sz * 0.5], [cx + sz * 0.866, cy + sz * 0.5], [cx, cy + sz * 0.15]];
+  return (
+    <g opacity={op}>
+      {[[0,1],[1,2],[2,0],[0,3],[1,3],[2,3]].map(([a, b], i) => (
+        <line key={i} x1={pts[a][0]} y1={pts[a][1]} x2={pts[b][0]} y2={pts[b][1]} stroke={color} strokeWidth={1.2} opacity={0.5 + p * 0.4} />
+      ))}
+      {pts.map(([x, y], i) => <circle key={i} cx={x} cy={y} r={2 + p * 1.5} fill={color} opacity={0.7} />)}
+    </g>
+  );
+}
+
+function Posner({ cx, cy, size, p }) {
+  const ca = Array.from({ length: 9 }, (_, i) => {
+    const a = (i / 9) * Math.PI * 2 - Math.PI / 2;
+    const r = i < 3 ? size * 0.3 : i < 6 ? size * 0.6 : size * 0.85;
+    return { x: cx + Math.cos(a + (i < 3 ? 0.2 : i < 6 ? 0.5 : 0)) * r, y: cy + Math.sin(a + (i < 3 ? 0.2 : i < 6 ? 0.5 : 0)) * r };
+  });
+  const po = Array.from({ length: 6 }, (_, i) => {
+    const a = (i / 6) * Math.PI * 2 - Math.PI / 2 + 0.3;
+    return { x: cx + Math.cos(a) * size * 0.5, y: cy + Math.sin(a) * size * 0.5 };
+  });
+  return (
+    <g>
+      {ca.flatMap((c, ci) => po.filter(q => Math.sqrt((c.x - q.x) ** 2 + (c.y - q.y) ** 2) < size * 0.55).map((q, pi) => (
+        <line key={`b${ci}${pi}`} x1={c.x} y1={c.y} x2={q.x} y2={q.y} stroke={P} strokeWidth={0.6} opacity={0.12 + p * 0.08} />
+      )))}
+      {ca.map((c, i) => <g key={`ca${i}`}><circle cx={c.x} cy={c.y} r={3.5 + p * 1.2} fill="none" stroke={W6} strokeWidth={0.7} opacity={0.35 + p * 0.15} /><circle cx={c.x} cy={c.y} r={1.8} fill={W6} opacity={0.5} /></g>)}
+      {po.map((q, i) => <g key={`po${i}`}><circle cx={q.x} cy={q.y} r={4.5 + p * 1.8} fill="none" stroke={P} strokeWidth={0.9} opacity={0.25 + p * 0.25} filter="url(#gl)" /><circle cx={q.x} cy={q.y} r={2.2} fill={P} opacity={0.85} /></g>)}
+      <text x={cx} y={cy + 1} textAnchor="middle" fill={P} fontSize={5} fontFamily="monospace" opacity={0.35}>{"\u00b3\u00b9P"}</text>
+    </g>
+  );
+}
+
+function App() {
+  const [ph, setPh] = useState(0);
+  const [al, setAl] = useState(null);
+  const [view, setView] = useState("layers");
+  const [m, setM] = useState(false);
+
+  useEffect(() => { const id = setInterval(() => setPh(p => (p + 0.025) % (Math.PI * 2)), 50); return () => clearInterval(id); }, []);
+  useEffect(() => { setTimeout(() => setM(true), 100); }, []);
+
+  const pulse = Math.sin(ph) * 0.5 + 0.5;
+  const dome = useMemo(() => genDome(300, 185, 155, 5), []);
+  const lp = useMemo(() => LAYERS.map((_, i) => {
+    const a = (i / 5) * Math.PI * 1.5 - Math.PI * 0.75;
+    const r = 78 + i * 14;
+    return { x: 300 + Math.cos(a) * r, y: 185 + Math.sin(a) * r * 0.6 };
+  }), []);
+
+  const f = "JetBrains Mono, SF Mono, Fira Code, monospace";
+
+  return (
+    <div style={{ minHeight: "100vh", background: V, color: "#e8e8f0", fontFamily: f, position: "relative", overflow: "auto" }}>
+      {/* Grid */}
+      <div style={{ position: "fixed", inset: 0, backgroundImage: `linear-gradient(${P} 1px, transparent 1px), linear-gradient(90deg, ${P} 1px, transparent 1px)`, backgroundSize: "50px 50px", opacity: 0.018, pointerEvents: "none" }} />
+
+      {/* Header */}
+      <header style={{ padding: "20px 24px 14px", borderBottom: "1px solid rgba(57,255,20,0.05)", position: "relative", zIndex: 10, opacity: m ? 1 : 0, transform: m ? "translateY(0)" : "translateY(-16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 18, color: P }}>{"\u2b21"}</span>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3.5, color: P }}>THE GEODESIC QUANTUM BRAIN</span>
+            </div>
+            <div style={{ fontSize: 7, letterSpacing: 2.5, color: "rgba(255,255,255,0.2)", marginTop: 3, marginLeft: 28 }}>
+              A UNIFIED RECURSIVE HARMONIC ARCHITECTURE {"\u00b7"} P31 LABS {"\u00b7"} 2026
+            </div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 7, letterSpacing: 2, color: "rgba(255,255,255,0.18)" }}>HARMONIC RATIO</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: P, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>
+              H = 0.{Math.floor(350 + pulse * 5)}
+            </div>
+            <div style={{ fontSize: 7, color: "rgba(255,255,255,0.18)", marginTop: 2 }}>
+              35% ACTUALIZED {"\u00b7"} 65% POTENTIAL
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Nav */}
+      <nav style={{ display: "flex", gap: 2, padding: "0 24px", marginTop: 12, position: "relative", zIndex: 10, opacity: m ? 1 : 0, transition: "opacity 0.5s 0.15s" }}>
+        {[["layers", "MOLECULAR LAYERS"], ["primitives", "9 PRIMITIVES"], ["posner", "POSNER MOLECULE"]].map(([id, label]) => (
+          <button key={id} onClick={() => { setView(id); setAl(null); }}
+            style={{ padding: "7px 14px", fontSize: 7.5, fontWeight: 700, letterSpacing: 1.8, fontFamily: f, color: view === id ? P : "rgba(255,255,255,0.25)", background: view === id ? "rgba(57,255,20,0.05)" : "transparent", border: `1px solid ${view === id ? "rgba(57,255,20,0.12)" : "rgba(255,255,255,0.03)"}`, borderRadius: 3, cursor: "pointer", transition: "all 0.25s" }}>
+            {label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Content */}
+      <div style={{ display: "flex", padding: "16px 24px 48px", gap: 20, position: "relative", zIndex: 10, flexWrap: "wrap" }}>
+
+        {/* Left: Viz */}
+        <div style={{ flex: "1 1 52%", minWidth: 300 }}>
+
+          {view === "layers" && (
+            <div style={{ opacity: m ? 1 : 0, transition: "opacity 0.5s 0.25s" }}>
+              <svg viewBox="0 0 600 370" style={{ width: "100%", maxHeight: "56vh" }}>
+                <defs>
+                  <filter id="gl"><feGaussianBlur stdDeviation="3" /><feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+                </defs>
+                {dome.es.map(([a, b], i) => {
+                  const mx = (dome.ns[a].x + dome.ns[b].x) / 2, my = (dome.ns[a].y + dome.ns[b].y) / 2;
+                  let ec = P, eo = 0.04;
+                  if (al !== null) {
+                    const d = Math.sqrt((mx - lp[al].x) ** 2 + (my - lp[al].y) ** 2);
+                    if (d < 65) { ec = LAYERS[al].color; eo = 0.18 + pulse * 0.12; } else eo = 0.015;
+                  }
+                  return <line key={i} x1={dome.ns[a].x} y1={dome.ns[a].y} x2={dome.ns[b].x} y2={dome.ns[b].y} stroke={ec} strokeWidth={al !== null && eo > 0.1 ? 0.7 : 0.35} opacity={eo} style={{ transition: "all 0.5s" }} />;
+                })}
+                {dome.ns.map((n, i) => <circle key={i} cx={n.x} cy={n.y} r={1} fill={P} opacity={al !== null ? 0.02 : 0.06} style={{ transition: "opacity 0.5s" }} />)}
+                {LAYERS.map((l, i) => {
+                  const pos = lp[i], act = al === i, idle = al === null;
+                  return (
+                    <g key={l.id} style={{ cursor: "pointer" }} onClick={() => setAl(act ? null : i)}>
+                      <circle cx={pos.x} cy={pos.y} r={act ? 28 + pulse * 4 : 18} fill="none" stroke={l.color} strokeWidth={0.7} opacity={act ? 0.35 + pulse * 0.25 : idle ? 0.12 : 0.04} filter={act ? "url(#gl)" : undefined} style={{ transition: "all 0.4s" }} />
+                      <circle cx={pos.x} cy={pos.y} r={act ? 16 : 10} fill={l.color} opacity={act ? 0.07 + pulse * 0.03 : 0.02} style={{ transition: "all 0.4s" }} />
+                      <text x={pos.x} y={pos.y + 1} textAnchor="middle" dominantBaseline="central" fill={l.color} fontSize={act ? 15 : 11} opacity={act ? 1 : 0.65} filter={act ? "url(#gl)" : undefined} style={{ transition: "all 0.35s" }}>{l.icon}</text>
+                      <text x={pos.x} y={pos.y + (act ? 26 : 20)} textAnchor="middle" fill={l.color} fontSize={6.5} fontWeight={700} letterSpacing={1.8} opacity={act ? 0.9 : 0.45} style={{ transition: "all 0.35s" }}>{l.name}</text>
+                      <text x={pos.x} y={pos.y + (act ? 34 : 28)} textAnchor="middle" fill="rgba(255,255,255,0.25)" fontSize={4.5} opacity={act ? 0.8 : 0.35}>{l.chem}</text>
+                    </g>
+                  );
+                })}
+                <circle cx={300} cy={185} r={7 + pulse * 2} fill="none" stroke={P} strokeWidth={0.5} opacity={0.25 + pulse * 0.15} />
+                <circle cx={300} cy={185} r={2.5 + pulse} fill={P} opacity={0.4 + pulse * 0.25} filter="url(#gl)" />
+                <text x={300} y={174} textAnchor="middle" fill={P} fontSize={4.5} opacity={0.25}>P31</text>
+              </svg>
+            </div>
+          )}
+
+          {view === "primitives" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, opacity: m ? 1 : 0, transition: "opacity 0.35s" }}>
+              {PRIMS.map((p, i) => (
+                <div key={p.n} style={{ background: "rgba(12,12,16,0.9)", border: `1px solid ${p.c}18`, borderRadius: 5, padding: "11px 13px", position: "relative", overflow: "hidden", opacity: m ? 1 : 0, transform: m ? "translateY(0)" : "translateY(16px)", transition: `all 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 0.05}s` }}>
+                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: `linear-gradient(90deg, transparent, ${p.c}33, transparent)` }} />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <span style={{ fontSize: 8, fontWeight: 700, color: p.c, letterSpacing: 1.5 }}>{i + 1}. {p.n}</span>
+                    <span style={{ fontSize: 6.5, color: "rgba(255,255,255,0.18)", letterSpacing: 0.8 }}>{p.f}</span>
+                  </div>
+                  <div style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", marginTop: 6, letterSpacing: 0.3 }}>SHA-256: {p.s}</div>
+                </div>
+              ))}
+              <div style={{ gridColumn: "1 / -1", background: "rgba(12,12,16,0.6)", border: "1px solid rgba(57,255,20,0.05)", borderRadius: 5, padding: "14px 18px", marginTop: 2 }}>
+                <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: 1.8, color: P, marginBottom: 7 }}>THE SHA-256 WAVE PROCESSOR</div>
+                <div style={{ fontSize: 9.5, lineHeight: 1.7, color: "rgba(255,255,255,0.45)" }}>
+                  SHA-256 reinterpreted as a <span style={{ color: P }}>Wave Processor</span>. 64 rounds running the 9 primitives {"\u2014"} an 8{"\u00d7"}8 Payload wrapped by a 9{"\u00d7"}9 Operator Scaffold. The message schedule expands 16 words into 64 via rotation and XOR, mirroring <span style={{ color: P }}>FOLD</span> where Past is remixed into Present. Hash distributions serve as proxy for entropic churn.
+                </div>
+              </div>
+            </div>
+          )}
+
+          {view === "posner" && (
+            <div style={{ opacity: m ? 1 : 0, transition: "opacity 0.5s" }}>
+              <svg viewBox="0 0 600 400" style={{ width: "100%", maxHeight: "55vh" }}>
+                <defs><filter id="gl"><feGaussianBlur stdDeviation="3" /><feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
+                <Posner cx={200} cy={175} size={85} p={pulse} />
+                <text x={200} y={280} textAnchor="middle" fill={P} fontSize={7} fontWeight={700} letterSpacing={1.8} opacity={0.5}>MOLECULE A</text>
+                <Posner cx={400} cy={175} size={85} p={1 - pulse} />
+                <text x={400} y={280} textAnchor="middle" fill={CY} fontSize={7} fontWeight={700} letterSpacing={1.8} opacity={0.5}>MOLECULE B</text>
+                <line x1={255} y1={175} x2={345} y2={175} stroke={VI} strokeWidth={1.3} strokeDasharray="4 4" opacity={0.25 + pulse * 0.35} filter="url(#gl)" />
+                <text x={300} y={165} textAnchor="middle" fill={VI} fontSize={5.5} letterSpacing={1.8} opacity={0.4 + pulse * 0.25}>ENTANGLED</text>
+                <text x={300} y={320} textAnchor="middle" fill="rgba(255,255,255,0.25)" fontSize={6.5} letterSpacing={0.8}>{"Ca\u2089(PO\u2084)\u2086 \u2014 9 Calcium \u00b7 6 Phosphate \u00b7 Spin \u00bd Protected"}</text>
+                <text x={300} y={335} textAnchor="middle" fill="rgba(255,255,255,0.17)" fontSize={5.5} letterSpacing={0.8}>{"Coherence: 37 min \u2192 days \u00b7 Larmor: ~863 Hz \u00b7 Background Independent"}</text>
+                <Tet cx={200} cy={365} s={10} color={P} op={0.25} p={pulse} />
+                <Tet cx={300} cy={370} s={7} color={VI} op={0.18} p={1 - pulse} />
+                <Tet cx={400} cy={365} s={10} color={CY} op={0.25} p={pulse} />
+              </svg>
+            </div>
+          )}
+        </div>
+
+        {/* Right: Detail */}
+        <div style={{ flex: "1 1 42%", minWidth: 280 }}>
+
+          {view === "layers" && al !== null && (
+            <div style={{ background: "rgba(12,12,16,0.95)", border: `1px solid ${LAYERS[al].color}1a`, borderRadius: 7, padding: "20px", transition: "all 0.35s" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                <span style={{ fontSize: 22, color: LAYERS[al].color }}>{LAYERS[al].icon}</span>
+                <div>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2.5, color: LAYERS[al].color }}>LAYER {al}: {LAYERS[al].name}</div>
+                  <div style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", letterSpacing: 0.8 }}>{LAYERS[al].sub} {"\u00b7"} {LAYERS[al].chem}</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 10.5, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: 14 }}>{LAYERS[al].desc}</div>
+              <div style={{ background: `${LAYERS[al].color}08`, border: `1px solid ${LAYERS[al].color}12`, borderRadius: 5, padding: "12px 14px", marginBottom: 14 }}>
+                <div style={{ fontSize: 6.5, fontWeight: 700, letterSpacing: 1.8, color: LAYERS[al].color, marginBottom: 5 }}>THEORETICAL BASIS</div>
+                <div style={{ fontSize: 9.5, lineHeight: 1.7, color: "rgba(255,255,255,0.42)" }}>{LAYERS[al].theory}</div>
+              </div>
+              <div style={{ fontSize: 8.5, color: LAYERS[al].status.includes("\u2705") ? P : "rgba(255,255,255,0.25)", padding: "7px 10px", background: LAYERS[al].status.includes("\u2705") ? "rgba(57,255,20,0.05)" : "rgba(255,255,255,0.015)", borderRadius: 3, letterSpacing: 0.3 }}>{LAYERS[al].status}</div>
+            </div>
+          )}
+
+          {view === "layers" && al === null && (
+            <div style={{ paddingTop: 8 }}>
+              <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: 1.8, color: "rgba(255,255,255,0.17)", marginBottom: 12 }}>THE POSNER PROTOCOL</div>
+              <div style={{ fontSize: 10.5, lineHeight: 1.9, color: "rgba(255,255,255,0.45)", marginBottom: 16 }}>
+                A molecular architecture for cognitive sovereignty. Every component maps to chemistry. The hierarchy is geometric, not organizational. No admin. No moderator. No algorithm.
+              </div>
+              <div style={{ background: "rgba(12,12,16,0.8)", border: "1px solid rgba(57,255,20,0.07)", borderRadius: 5, padding: "14px 16px", marginBottom: 12 }}>
+                <div style={{ fontSize: 6.5, letterSpacing: 1.8, color: "rgba(255,255,255,0.17)", marginBottom: 8 }}>MARK 1 ATTRACTOR</div>
+                <div style={{ fontSize: 17, color: P, fontWeight: 700, marginBottom: 4 }}>{"H* \u2248 0.3505"}</div>
+                <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>{"35% actualized (structure) \u00b7 65% potential (entropy/drift)"}</div>
+                <div style={{ fontSize: 7.5, color: "rgba(255,255,255,0.2)", marginTop: 6, lineHeight: 1.6 }}>The balance between frozen order and turbulent chaos. Maintained by the Samson V2 PID controller.</div>
+              </div>
+              <div style={{ background: "rgba(12,12,16,0.8)", border: `1px solid ${RO}12`, borderRadius: 5, padding: "14px 16px", marginBottom: 12 }}>
+                <div style={{ fontSize: 6.5, letterSpacing: 1.8, color: RO, marginBottom: 8, opacity: 0.6 }}>CORE POSTULATE</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", fontWeight: 700, marginBottom: 4 }}>Anxiety = f(Latency)</div>
+                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.28)", lineHeight: 1.6 }}>When a signal arrives and the integration gap widens, entropy accumulates as dissonance. The P31 Buffer eliminates this through zero-latency interfaces.</div>
+              </div>
+              <div style={{ background: "rgba(12,12,16,0.8)", border: `1px solid ${CY}12`, borderRadius: 5, padding: "14px 16px" }}>
+                <div style={{ fontSize: 6.5, letterSpacing: 1.8, color: CY, marginBottom: 8, opacity: 0.6 }}>STROBOSCOPIC UNIVERSE</div>
+                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.28)", lineHeight: 1.6 }}>
+                  Reality oscillates at Planck frequency between two modes: <span style={{ color: "rgba(255,255,255,0.5)" }}>The Vase</span> (noun/structure/GR) and <span style={{ color: "rgba(255,255,255,0.5)" }}>The Face</span> (verb/action/QM). The observer operates in <span style={{ color: "rgba(255,255,255,0.5)" }}>The Gap</span>, steering wave function collapse.
+                </div>
+              </div>
+              <div style={{ marginTop: 16, fontSize: 7, color: "rgba(255,255,255,0.12)", letterSpacing: 0.8 }}>{"CLICK A LAYER NODE TO EXPLORE \u2192"}</div>
+            </div>
+          )}
+
+          {view === "posner" && (
+            <div style={{ paddingTop: 8 }}>
+              <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: 1.8, color: P, marginBottom: 14, opacity: 0.5 }}>QUANTUM COGNITION</div>
+              <div style={{ fontSize: 10.5, lineHeight: 1.9, color: "rgba(255,255,255,0.45)", marginBottom: 16 }}>
+                {"Physicist Matthew Fisher proposes Posner molecules (Ca\u2089(PO\u2084)\u2086) as biological qubits. Calcium and oxygen form a magnetic shield around six \u00b3\u00b9P nuclei, each with spin \u00bd."}
+              </div>
+              {[
+                { l: "SPIN PROTECTION", t: "Zero-spin calcium shell shields \u00b3\u00b9P nuclear spins. Coherence: 37 min to days \u2014 orders of magnitude longer than electron spins.", c: W6 },
+                { l: "ENTANGLEMENT", t: "Enzymatic hydrolysis of pyrophosphate creates entangled Posner pairs transported into different neurons. Non-local synchronized firing on dissolution.", c: VI },
+                { l: "LITHIUM MODULATION", t: "Li\u2076 vs Li\u2077 isotopes differentially modify cluster size. Lithium\u2019s nuclear spin introduces magnetic noise \u2014 a decoherence agent against hyper-entangled states.", c: CY },
+                { l: "LARMOR BRIDGE", t: "The Phenix Navigator tunes digital refresh rate to harmonics of \u00b3\u00b9P Larmor frequency (~863 Hz). Resonant bridge between internal quantum state and external display.", c: AM },
+              ].map(item => (
+                <div key={item.l} style={{ background: "rgba(12,12,16,0.8)", border: `1px solid ${item.c}12`, borderRadius: 5, padding: "10px 13px", marginBottom: 6 }}>
+                  <div style={{ fontSize: 6.5, fontWeight: 700, letterSpacing: 1.8, color: item.c, marginBottom: 5, opacity: 0.6 }}>{item.l}</div>
+                  <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.35)", lineHeight: 1.7 }}>{item.t}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {view === "primitives" && (
+            <div style={{ paddingTop: 8 }}>
+              <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: 1.8, color: P, marginBottom: 14, opacity: 0.5 }}>THE LOGIC KERNEL</div>
+              <div style={{ fontSize: 10.5, lineHeight: 1.9, color: "rgba(255,255,255,0.45)", marginBottom: 16 }}>
+                9 primitives from the P31 Sync Framework map to SHA-256 operations. Information preservation as fundamental law.
+              </div>
+              <div style={{ background: "rgba(12,12,16,0.8)", border: "1px solid rgba(57,255,20,0.06)", borderRadius: 5, padding: "14px 16px", marginBottom: 10 }}>
+                <div style={{ fontSize: 6.5, letterSpacing: 1.8, color: "rgba(255,255,255,0.17)", marginBottom: 10 }}>3-REGISTER NEXUS MACHINE</div>
+                {[
+                  { r: "P", n: "PAST", d: "Invariants, constraints \u2192 Context Cache", c: VI },
+                  { r: "N", n: "NOW", d: "Current signal, live prompt \u2192 User input", c: CY },
+                  { r: "U", n: "UNIVERSE", d: "Folded P\u2297N \u2192 LLM context window", c: P },
+                ].map(reg => (
+                  <div key={reg.r} style={{ display: "flex", gap: 10, alignItems: "baseline", marginBottom: 7 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: reg.c, width: 18 }}>{reg.r}</span>
+                    <div>
+                      <span style={{ fontSize: 7, fontWeight: 700, color: reg.c, letterSpacing: 0.8 }}>{reg.n}</span>
+                      <div style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", marginTop: 1 }}>{reg.d}</div>
+                    </div>
+                  </div>
+                ))}
+                <div style={{ fontSize: 7, color: "rgba(255,255,255,0.17)", marginTop: 8, lineHeight: 1.5 }}>{"Folding rule: 2\u21921 logic. Past + Now fold into Universe. Recall unfolds U using a current anchor."}</div>
+              </div>
+              <div style={{ background: "rgba(12,12,16,0.8)", border: `1px solid ${AM}10`, borderRadius: 5, padding: "14px 16px" }}>
+                <div style={{ fontSize: 6.5, letterSpacing: 1.8, color: AM, marginBottom: 8, opacity: 0.5 }}>THE HEXAGONAL CONSTANT</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>{"\u03c0(3) + \u03c6(1) + e(2) = "}<span style={{ color: AM, fontWeight: 700 }}>6</span></div>
+                <div style={{ fontSize: 7.5, color: "rgba(255,255,255,0.25)", lineHeight: 1.5 }}>Rotation + Growth + Decay = The Hexagon. Optimal lattice for energy minimization.</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer style={{ position: "fixed", bottom: 0, left: 0, right: 0, height: 26, background: "rgba(5,5,8,0.95)", borderTop: "1px solid rgba(57,255,20,0.03)", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 24px", fontSize: 6.5, letterSpacing: 0.8, color: "rgba(255,255,255,0.1)", zIndex: 20 }}>
+        <span>{"P31 LABS \u00b7 PHOSPHORUS31.ORG \u00b7 CA\u2089(PO\u2084)\u2086 \u00b7 IT\u2019S OKAY TO BE A LITTLE WONKY"}</span>
+        <span>{"5 LAYERS \u00b7 9 PRIMITIVES \u00b7 3 REGISTERS \u00b7 H* \u2248 0.35"}</span>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

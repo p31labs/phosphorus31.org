@@ -170,7 +170,7 @@ tailscale up --exit-node=home-server
 
 ### 📺 Share Services
 
-Run the Cognitive Shield app on one computer and access it from any device:
+Run the P31 Buffer app on one computer and access it from any device:
 
 ```bash
 # On the computer running the app
@@ -182,7 +182,7 @@ npm run dev -- --host
 
 ---
 
-## Step 6: Specific Setup for Cognitive Shield Sharing
+## Step 6: Specific Setup for P31 Buffer Sharing
 
 ### Host the App for Family
 
@@ -306,7 +306,7 @@ tailscale status
 ```
 
 Each edge is a direct, encrypted WireGuard tunnel.
-No central server. No floating neutral.
+No central server. No lost ground.
 The Delta Topology made physical.
 
 ---

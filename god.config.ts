@@ -57,7 +57,7 @@ export const GOD_CONFIG = {
     RED: 0.25, // <25% → DEEP PROCESSING LOCK
   } as const,
 
-  // ── Samson V2 PID Controller ─────────────────────────────────────────────
+  // ── P31 Governor PID Controller ───────────────────────────────────────────
   SAMSON: {
     TARGET_H: Math.PI / 9, // ≈ 0.349065
     EPSILON: 0.05,

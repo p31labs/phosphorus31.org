@@ -17,14 +17,14 @@ Complete documentation map for the P31 ecosystem.
 ## Core Components
 
 ### Hardware
-- [Node One](node-one.md) - ESP32-S3 hardware device
+- [P31 NodeZero](node-one.md) - ESP32-S3 hardware device
 - [The Thick Click](thick-click.md) - Haptic feedback system
 - [Whale Channel](whale-channel.md) - LoRa mesh network
 
 ### Software
-- [The Buffer](buffer.md) - Communication processing
-- [The Centaur](centaur.md) - Backend AI protocol
-- [The Scope](scope.md) - Dashboard and visualization
+- [P31 Buffer](buffer.md) - Communication processing
+- [P31 Tandem](centaur.md) - Backend AI protocol
+- [P31 Spectrum](scope.md) - Dashboard and visualization
 - **[P31 Molecule Builder](molecule-builder-hero.md)** - **⭐ CENTERPIECE** - Interactive 3D molecule builder
 - **[Willow's World](willows-world.md)** - **🌟 SPECIAL** - Magical space for Willow (age 6)
 - [Quantum SOP Generator](quantum-sop-generator.md) - Quantum brain SOP generation
@@ -45,7 +45,7 @@ Complete documentation map for the P31 ecosystem.
 - [Launch Checklist Complete](LAUNCH_CHECKLIST_COMPLETE.md) — Verified items + human sign-off (Phase A/B/C), one-page print
 - [Demo Run](DEMO_RUN.md) — One-page guide: run Scope only or full stack (Scope + Shelter + Sprout)
 - [Integration tests (LAUNCH-01)](../tests/README.md) — Live Shelter suite (`npm run test:integration`), UI mocked suite (`cd ui && npm run test:integration`), live wiring (`npm run verify`)
-- [Deployment Guide](deployment.md) — Production deployment, Docker, env
+- [Launch Guide](deployment.md) — Production launch, Docker, env
 - [Release Tagging](RELEASE_TAGGING.md) — Semver tags and CHANGELOG
 - [Phase A OPSEC scan (2026-02-17)](PHASE_A_OPSEC_SCAN_2026-02-17.md) — One-pass OPSEC fixes and operator review notes
 - [Security Audit — LAUNCH-02](SECURITY_AUDIT_LAUNCH02.md)
@@ -56,13 +56,13 @@ Complete documentation map for the P31 ecosystem.
 - [Environment Variables](../config/env-reference.md) — Full env reference
 - [Documentation checklist — LAUNCH-08](DOCUMENTATION_CHECKLIST_LAUNCH08.md) — Required docs and verification
 - [Legal & regulatory checklist — LAUNCH-09](LEGAL_REGULATORY_CHECKLIST_LAUNCH09.md) — Entity, FDA, ADA, IP, OPSEC, licenses
-- [Asset verification — LAUNCH-10](ASSET_VERIFICATION_LAUNCH10.md) — Build outputs and deployable assets
+- [Asset verification — LAUNCH-10](ASSET_VERIFICATION_LAUNCH10.md) — Build outputs and launch-ready assets
 - [Pre-flight smoke test — LAUNCH-11](PREFLIGHT_SMOKE_LAUNCH11.md) — One-command preflight: assets + health + integration
 - [Launch sequence — LAUNCH-12](LAUNCH_SEQUENCE_LAUNCH12.md) — Human-executed order: Phase A/B/C, launch-day checklist
 
-## Sites & deployment
+## Sites & launch
 
-- [p31ca.org site (landing + Scope)](p31ca-org-site.md) — Public site repo [github.com/p31labs/p31ca.org](https://github.com/p31labs/p31ca.org): landing (from `website/`) and P31 Scope (from `ui/`). Deploy steps and README for the repo are in that doc; [p31ca-org-README.md](p31ca-org-README.md) is the README to copy into the p31ca.org repo.
+- [p31ca.org site (landing + Scope)](p31ca-org-site.md) — Public site repo [github.com/p31labs/p31ca.org](https://github.com/p31labs/p31ca.org): landing (from `website/`) and P31 Scope (from `ui/`). Launch steps and README for the repo are in that doc; [p31ca-org-README.md](p31ca-org-README.md) is the README to copy into the p31ca.org repo.
 
 ## Additional Systems
 
@@ -125,7 +125,7 @@ Complete documentation map for the P31 ecosystem.
 - [Troubleshooting](troubleshooting.md) - Common issues and solutions
 - [Onboarding Guide](onboarding.md) - Developer onboarding
 - [Testing Guide](testing.md) - Testing strategies and examples
-- [Deployment Guide](deployment.md) - Production deployment
+- [Launch Guide](deployment.md) - Production launch
 - [Monitoring Guide](monitoring.md) - Monitoring and observability
 - [Performance Guide](performance.md) - Performance optimization
 - [Migration Guide](migration.md) - Upgrades and migrations
@@ -142,10 +142,10 @@ Complete documentation map for the P31 ecosystem.
 ## Setup Sequence
 
 1. **Prerequisites** - Install Node.js, Docker, ESP-IDF
-2. **The Centaur** - Backend setup (SUPER-CENTAUR folder)
-3. **The Scope** - Frontend setup (ui folder)
-4. **The Buffer (P31 Shelter)** - Communication processing (`apps/shelter`)
-5. **Node One** - Hardware setup (firmware folder)
+2. **P31 Tandem** - Backend setup (SUPER-CENTAUR folder)
+3. **P31 Spectrum** - Frontend setup (ui folder)
+4. **P31 Buffer (P31 Shelter)** - Communication processing (`apps/shelter`)
+5. **P31 NodeZero** - Hardware setup (firmware folder)
 6. **Sovereign Life OS** - Optional self-hosted services
 
 ## Documentation by Role
@@ -168,7 +168,7 @@ Complete documentation map for the P31 ecosystem.
 - [Troubleshooting](troubleshooting.md)
 
 ### For Hardware Engineers
-- [Node One](node-one.md)
+- [P31 NodeZero](node-one.md)
 - [The Thick Click](thick-click.md)
 - [Whale Channel](whale-channel.md)
 

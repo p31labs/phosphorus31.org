@@ -64,7 +64,7 @@ export const SystemHealthDashboard: React.FC = () => {
 
       <div className="health-grid">
         <div className="health-card">
-          <h4>The Buffer</h4>
+          <h4>P31 Buffer</h4>
           <div className="status-indicator">
             <span
               className="status-dot"
@@ -76,7 +76,7 @@ export const SystemHealthDashboard: React.FC = () => {
         </div>
 
         <div className="health-card">
-          <h4>The Centaur</h4>
+          <h4>P31 Tandem</h4>
           <div className="status-indicator">
             <span
               className="status-dot"

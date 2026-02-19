@@ -1,5 +1,5 @@
 /**
- * useFloatingNeutralSync — Pushes coherence, room, and hardware state into the Floating Neutral store.
+ * useFloatingNeutralSync — Pushes coherence, room, and hardware state into the Lost Ground store.
  * Call once from a component that has access to GeodesicRoomContext (e.g. FloatingNeutralIndicator in WorldBuilder).
  */
 

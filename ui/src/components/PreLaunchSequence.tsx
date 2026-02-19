@@ -1,7 +1,7 @@
 /**
  * PRE-LAUNCH SEQUENCE
  * Final comprehensive verification before Abdication Ceremony
- * Runs all checks: Structural Rigidity, Cognitive Shield, Somatic Grounding
+ * Runs all checks: Structural Rigidity, P31 Buffer, Somatic Grounding
  */
 
 import { useState, useEffect } from 'react';
@@ -192,14 +192,14 @@ const PRE_LAUNCH_CHECKS: readonly LaunchCheck[] = [
   {
     id: 'nexus-kernel',
     category: 'system',
-    label: 'Nexus Kernel (Stability Attractor)',
+    label: 'P31 Sync Kernel (Stability Attractor)',
     requirement: 'Stability attractor S verified',
     critical: true,
     verify: () => {
       return {
         passed: true,
         details:
-          'Nexus Kernel coordinate system locked. π-Metric resonance formula operational in checkin-scoring.ts.',
+          'P31 Sync Kernel coordinate system locked. π-Metric resonance formula operational in checkin-scoring.ts.',
       };
     },
   },
@@ -495,7 +495,7 @@ export function PreLaunchSequence() {
         </div>
       </div>
 
-      {/* 2. Cognitive Shield Calibration */}
+      {/* 2. P31 Buffer Calibration */}
       <div
         style={{
           padding: 20,
@@ -1004,7 +1004,7 @@ export function PreLaunchSequence() {
                 borderRadius: 4,
               }}
             >
-              abdicate.sh
+              release.sh
             </code>
             .
           </p>

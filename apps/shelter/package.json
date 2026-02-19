@@ -2,7 +2,7 @@
   "name": "@p31labs/shelter",
   "version": "0.1.0",
   "private": true,
-  "description": "The Buffer — Voltage-gated communication bridge for neurodivergent users",
+  "description": "P31 Shelter — Cognitive protection layer for neurodivergent communication",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,9 +16,14 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@p31labs/buffer-core": "workspace:*",
+    "@p31labs/bus": "workspace:*",
+    "@p31labs/game-engine": "workspace:*",
+    "@react-three/drei": "^9.117.0",
+    "@react-three/fiber": "^8.17.0",
     "dexie": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "three": "^0.170.0",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
@@ -31,6 +36,7 @@
     "typescript": "^5.4.0",
     "vite": "^6.0.0",
     "vite-plugin-pwa": "^0.21.0",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.0",
+    "@types/three": "^0.170.0"
   }
 }

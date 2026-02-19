@@ -1,6 +1,6 @@
 /**
  * Buffer Service - Client for The Buffer API (P31 Shelter)
- * Connects The Scope to The Buffer message processing system.
+ * Connects P31 Spectrum to P31 Buffer message processing system.
  * Real backend: POST /process, GET /history, GET /accommodation-log, GET /health
  */
 

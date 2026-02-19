@@ -1,6 +1,6 @@
 import type { GateConfig, GateName, HeartbeatConfig, HeartbeatTier } from "./types";
 
-/** Mark 1 Attractor — system health target: H ≈ π/9 */
+/** Home Frequency — system health target: H ≈ π/9 */
 export const MARK1 = Math.PI / 9;
 
 /** Larmor frequency of ³¹P in Earth's field (~50μT) */
@@ -58,7 +58,7 @@ export const HEARTBEATS: Record<HeartbeatTier, HeartbeatConfig> = {
   RED: { minPercent: 0, color: "#dc2626", bg: "#450a0a", label: "DEEP LOCK" },
 } as const;
 
-/** Samson V2 PID controller tuning */
+/** P31 Governor PID controller tuning */
 export const SAMSON = {
   TARGET_H: MARK1,
   EPSILON: 0.05,

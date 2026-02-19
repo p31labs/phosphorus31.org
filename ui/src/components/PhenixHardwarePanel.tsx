@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -386,11 +386,11 @@ export default function PhenixHardwarePanel() {
       {!isConnected && (
         <div className="text-center py-4">
           <p className="text-zinc-500 text-sm">
-            Connect your Node One via USB to enable hardware sync.
+            Connect your P31 NodeZero via USB to enable hardware sync.
           </p>
           <p className="text-zinc-600 text-xs mt-2">
             The "Psychic Link" synchronizes voltage, spoons, and mode between the hardware device
-            and The Buffer.
+            and P31 Buffer.
           </p>
         </div>
       )}

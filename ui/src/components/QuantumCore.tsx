@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -772,7 +772,7 @@ export default function QuantumCore() {
             className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg text-cyan-400 hover:bg-cyan-500/30 transition-all flex items-center gap-2"
           >
             <span className="animate-pulse">◉</span>
-            Connect Node One
+            Connect P31 NodeZero
           </button>
         </div>
       )}

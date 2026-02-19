@@ -205,18 +205,18 @@ export class VestingManager {
    * Initialize with founding nodes (node one and node two)
    */
   public initializeFoundingNodes(): void {
-    // node one (Bash, S.J.) - born March 10, 2016
+    // node one (Bash, S.J.) — age 10 as of 2026
     this.registerMember({
       memberId: 'node_one',
       memberName: 'Bash',
-      birthdate: new Date('2016-03-10'),
+      birthdate: new Date('2016-01-01'),
     });
 
-    // node two (Willow, W.J.) - born August 8, 2019
+    // node two (Willow, W.J.) — age 6 as of 2026
     this.registerMember({
       memberId: 'node_two',
       memberName: 'Willow',
-      birthdate: new Date('2019-08-08'),
+      birthdate: new Date('2019-01-01'),
     });
 
     this.logger.info('Initialized founding nodes (node one and node two)');

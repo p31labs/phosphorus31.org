@@ -6,7 +6,7 @@
 ### No Backdoors
 - ✅ **No super-admin recovery functions** - All functions use standard ESP-IDF APIs
 - ✅ **No hardcoded credentials** - No passwords, keys, or secrets in code
-- ✅ **No recovery mechanisms** - All admin capabilities are tethered to abdicate.sh
+- ✅ **No recovery mechanisms** - All admin capabilities are tethered to release.sh
 - ✅ **Thread-safe singleton pattern** - I2C bus is properly managed
 
 ### Code for Departure

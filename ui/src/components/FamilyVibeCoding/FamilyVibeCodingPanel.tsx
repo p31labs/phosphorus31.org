@@ -258,7 +258,7 @@ export const FamilyVibeCodingPanel: React.FC = () => {
             size="small"
           />
           <SimpleButton
-            label="▶️ Execute"
+            label="▶️ Run"
             onClick={handleExecuteCode}
             variant="primary"
             size="small"

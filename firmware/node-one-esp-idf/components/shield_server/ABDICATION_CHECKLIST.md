@@ -8,7 +8,7 @@
 - [x] No "super-admin" recovery functions
 - [x] No hardcoded credentials (moved to NVS)
 - [x] No unencrypted sensitive data transmission
-- [x] All admin capabilities tethered to abdicate.sh
+- [x] All admin capabilities tethered to release.sh
 
 ### ✅ Code for Departure
 - [x] WiFi credentials configurable via NVS
@@ -49,7 +49,7 @@
 ## Post-Abdication
 
 After 9:00am abdication:
-- All admin capabilities must go through abdicate.sh
+- All admin capabilities must go through release.sh
 - No direct access to configuration without proper authorization
 - The system operates autonomously
 - The mesh holds
@@ -64,7 +64,7 @@ After 9:00am abdication:
 **Layer 3 - Abdication Principle:**
 - No Backdoors: ✅
 - Code for Departure: ✅
-- All admin via abdicate.sh: ✅
+- All admin via release.sh: ✅
 
 **The Mesh Holds. 🔺**
 

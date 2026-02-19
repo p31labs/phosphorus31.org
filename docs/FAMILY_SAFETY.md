@@ -23,7 +23,7 @@
 3. **No Backdoors**
    - There are no secret ways to access their data
    - No "admin override" functions
-   - The system is designed so you can destroy the keys if needed
+   - The system is designed so you can release the keys if needed
 
 4. **Zero-Knowledge Architecture**
    - The system doesn't need to know their personal information
@@ -38,7 +38,7 @@
    - Encrypted mesh network
    - Works even when everything else is down
 
-2. **The Buffer**
+2. **P31 Buffer**
    - Message filtering and validation
    - No malicious content reaches them
    - Input sanitization prevents attacks
@@ -213,7 +213,7 @@ The four-vertex structure itself provides protection:
 ### No Backdoors
 
 - **No Recovery Functions**: No secret ways to bypass security
-- **Keys Can Be Destroyed**: You can destroy access if needed
+- **Keys Can Be Released**: You can release access if needed
 - **Abdication Protocol**: The system can survive without you
 - **Constitutional Compliance**: Security is built into the code
 

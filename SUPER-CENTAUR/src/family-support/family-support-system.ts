@@ -90,7 +90,7 @@ interface EmergencyProtocol {
 }
 
 interface EmergencyAction {
-  type: 'call' | 'message' | 'email' | 'alert' | 'lockdown';
+  type: 'call' | 'message' | 'email' | 'alert' | 'quiet-mode';
   target: string;
   message: string;
   delay: number; // minutes

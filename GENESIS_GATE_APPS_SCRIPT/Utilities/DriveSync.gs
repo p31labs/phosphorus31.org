@@ -1,21 +1,19 @@
 /**
- * @fileoverview Drive Synchronization Utility
- * @author GENESIS_GATE Team
- * @version 1.0.0
+ * @fileoverview P31 Drive Sync — mirrors mesh structure to Google Drive
+ * @version 2.0.0
  */
 
 /**
  * Drive Sync Configuration
  */
 const DRIVE_SYNC_CONFIG = {
-  // Local GENESIS_GATE structure
   LOCAL_STRUCTURE: [
     'core', 'mesh', 'world', 'cortex', 'agent', 'bridge', 'ui', 
     'firmware', 'hardware', 'docs'
   ],
   
-  // Drive folder structure
-  DRIVE_ROOT_NAME: "PHENIX_NAVIGATOR_ROOT",
+  DRIVE_ROOT_NAME: "P31_ROOT",
+  LEGACY_ROOT_NAME: "PHENIX_NAVIGATOR_ROOT",
   DRIVE_ZONES: {
     ALPHA: "ZONE_ALPHA_BACKBONE",
     BETA: "ZONE_BETA_CONTROL_CENTER", 
@@ -251,9 +249,9 @@ function syncFile(fileData, targetFolder) {
  */
 function sendSyncSummary(filesSynced, errors, duration) {
   const email = Session.getActiveUser().getEmail();
-  const subject = `GENESIS_GATE Sync Summary - ${new Date().toLocaleString()}`;
+  const subject = `P31 Drive Sync — ${new Date().toLocaleString()}`;
   const body = `
-GENESIS_GATE Drive Synchronization Summary
+P31 Entangle — Drive Sync Summary
 
 Files Synced: ${filesSynced}
 Errors: ${errors}
@@ -262,8 +260,7 @@ Timestamp: ${new Date().toISOString()}
 
 ${errors > 0 ? '⚠️ Some files failed to sync. Check the logs for details.' : '✅ All files synced successfully.'}
 
----
-This is an automated message from GENESIS_GATE Apps Script.
+The mesh holds. 🔺
   `;
   
   MailApp.sendEmail({
@@ -279,18 +276,17 @@ This is an automated message from GENESIS_GATE Apps Script.
  */
 function sendSyncErrorAlert(error) {
   const email = Session.getActiveUser().getEmail();
-  const subject = `🚨 GENESIS_GATE Sync Error - ${new Date().toLocaleString()}`;
+  const subject = `🚨 P31 Sync Error — ${new Date().toLocaleString()}`;
   const body = `
-GENESIS_GATE Drive Synchronization Error
+P31 Entangle — Drive Sync Error
 
 Error: ${error.message}
 Stack: ${error.stack}
 Timestamp: ${new Date().toISOString()}
 
-Please check the Apps Script logs for more details.
+Check Apps Script logs for details.
 
----
-This is an automated alert from GENESIS_GATE Apps Script.
+The mesh holds. 🔺
   `;
   
   MailApp.sendEmail({
@@ -313,7 +309,8 @@ function manualSync() {
  * @return {Object} - Sync status information
  */
 function getSyncStatus() {
-  const root = DriveApp.getFoldersByName(DRIVE_SYNC_CONFIG.DRIVE_ROOT_NAME);
+  let root = DriveApp.getFoldersByName(DRIVE_SYNC_CONFIG.DRIVE_ROOT_NAME);
+  if (!root.hasNext()) root = DriveApp.getFoldersByName(DRIVE_SYNC_CONFIG.LEGACY_ROOT_NAME);
   const hasRoot = root.hasNext();
   
   const triggers = ScriptApp.getProjectTriggers().filter(t => 

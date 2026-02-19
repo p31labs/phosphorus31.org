@@ -3,7 +3,7 @@
  * Test suite for network manager
  * 
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  * Licensed under the AGPLv3 License
  */
 

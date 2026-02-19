@@ -2,7 +2,7 @@
 ## 9 Agents · Phase 1 · Parallel Execution
 **Generated:** 2026-02-14 · **Classification:** INTERNAL · **OPSEC:** Clean
 
-> **PURPOSE:** Comprehensive audit of The Scope frontend (ui/). Dashboard must render correctly. Audit React/TypeScript code, components, stores, 3D visualization, accessibility, and integration with The Buffer and The Centaur.
+> **PURPOSE:** Comprehensive audit of P31 Spectrum frontend (ui/). Dashboard must render correctly. Audit React/TypeScript code, components, stores, 3D visualization, accessibility, and integration with The Buffer and The Centaur.
 
 ---
 
@@ -186,15 +186,15 @@ Create: `ui/AGENT6_ACCESSIBILITY_AUDIT.md`
 ## AGENT 7: API INTEGRATION
 
 ### Mission
-Audit API integration with The Buffer and The Centaur.
+Audit API integration with P31 Buffer and P31 Tandem.
 
 ### Tasks
-1. **The Buffer Integration**
+1. **P31 Buffer Integration**
    - [ ] WebSocket connection
    - [ ] Message updates
    - [ ] Error handling
 
-2. **The Centaur Integration**
+2. **P31 Tandem Integration**
    - [ ] API calls
    - [ ] Data fetching
    - [ ] Error handling

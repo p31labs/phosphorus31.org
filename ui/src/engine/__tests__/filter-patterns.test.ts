@@ -1,6 +1,6 @@
 /**
- * Shield Filter Tests
- * Comprehensive tests for threat detection patterns
+ * Filter Patterns Tests
+ * Comprehensive tests for noise detection patterns
  *
  * This is CRITICAL safety code - must be correct
  */
@@ -14,7 +14,7 @@ import {
   type ThreatMatch,
 } from '../filter-patterns';
 
-describe('ShieldFilter - Legal Threats', () => {
+describe('FilterPatterns - Legal Noise', () => {
   test('detects explicit legal threat: "I\'m going to take you to court"', () => {
     const content = "I'm going to take you to court";
     const matches = scanForThreats(content);
@@ -44,7 +44,7 @@ describe('ShieldFilter - Legal Threats', () => {
     const matches = scanForThreats(content);
     // Should not match legal threat patterns (informational, not threatening)
     const hasLegalThreat = matches.some(
-      (m) => m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
+      (m) => m.pattern.id === 'legal_noise' || m.pattern.id === 'legal_pressure'
     );
     expect(hasLegalThreat).toBe(false);
   });
@@ -54,7 +54,7 @@ describe('ShieldFilter - Legal Threats', () => {
     const matches = scanForThreats(content);
     // Should not match threatening legal patterns
     const hasLegalThreat = matches.some(
-      (m) => m.pattern.id === 'legal_threat' || m.pattern.id === 'legal_pressure'
+      (m) => m.pattern.id === 'legal_noise' || m.pattern.id === 'legal_pressure'
     );
     expect(hasLegalThreat).toBe(false);
   });
@@ -151,7 +151,7 @@ describe('ShieldFilter - Financial Coercion', () => {
     const matches = scanForThreats(content);
     // Should not match financial threat patterns (cooperative)
     const hasFinancialThreat = matches.some(
-      (m) => m.pattern.id === 'financial_demand' || m.pattern.id === 'financial_threat'
+      (m) => m.pattern.id === 'financial_demand' || m.pattern.id === 'financial_noise'
     );
     expect(hasFinancialThreat).toBe(false);
   });

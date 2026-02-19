@@ -153,7 +153,7 @@ export function TelemetryDashboard() {
       )}
 
       {!demoMode && (
-        <p style={{ color: P31_TOKENS.slate }}>Live data: connect Centaur and Node One to see real telemetry.</p>
+        <p style={{ color: P31_TOKENS.slate }}>Live data: connect P31 Tandem and P31 NodeZero to see real telemetry.</p>
       )}
 
       <hr style={{ borderColor: P31_TOKENS.phosphorus + '40', margin: '24px 0' }} />

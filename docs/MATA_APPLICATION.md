@@ -57,9 +57,9 @@ The device addresses these barriers by:
 
 1. Haptic feedback patterns that provide sensory grounding during high-voltage cognitive states
 2. LoRa mesh connectivity allowing asynchronous communication with support network without smartphone dependency
-3. Integration with my existing productivity systems (Google Workspace) through SIMPLEX v6
+3. Integration with my existing productivity systems (Google Workspace) through P31 Entangle
 
-This device is not theoretical—I have been using a production version (SIMPLEX v6, 1,888 lines of Google Apps Script) as my daily cognitive support system for [duration]. The MATA program would enable evolution from single-user prototype to manufacturable assistive device."
+This device is not theoretical—I have been using a production version (P31 Entangle, 1,888 lines of Google Apps Script) as my daily cognitive support system for [duration]. The MATA program would enable evolution from single-user prototype to manufacturable assistive device."
 
 ---
 
@@ -67,9 +67,9 @@ This device is not theoretical—I have been using a production version (SIMPLEX
 
 **Current State:**
 
-- [ ] SIMPLEX v6 (GAS) operational as daily driver - document uptime/usage
+- [ ] P31 Entangle (GAS) operational as daily driver - document uptime/usage
 - [ ] ESP32-S3 firmware at [completion %] - reference SWARM 08 status
-- [ ] React dashboard (The Scope) at [completion %] - include screenshots
+- [ ] React dashboard (P31 Spectrum) at [completion %] - include screenshots
 - [ ] Buffer (apps/shelter) voltage detection functional
 - [ ] Centaur backend connecting components
 
@@ -114,7 +114,7 @@ Attach:
 
 - [ ] D-11 ASD diagnosis documentation
 - [ ] Technical specification sheet (Node One)
-- [ ] Screenshots of SIMPLEX v6 in use
+- [ ] Screenshots of P31 Entangle in use
 - [ ] FDA classification research (890.3710 documentation)
 - [ ] EIN application or 501(c)(3) pending proof
 - [ ] Letters of support (if any - Georgia Tech, beta testers, etc.)

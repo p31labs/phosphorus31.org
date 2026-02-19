@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import { historyService } from '../../services/history.service';
 import { useHeartbeatStore } from '../../stores/heartbeat.store';
 import { NavigatorConfig } from '../../config/god.config';
 
-type AIProvider = 'ollama' | 'openai' | 'gemini';
+type AIProvider = 'ollama' | 'deepseek' | 'openai' | 'gemini';
 
 export const SettingsPanel: React.FC = () => {
   // ...existing code...
@@ -163,6 +163,7 @@ export const SettingsPanel: React.FC = () => {
             }}
           >
             <option value="ollama">Ollama (Local - Recommended)</option>
+            <option value="deepseek">DeepSeek (Cloud - Moderate Privacy Risk)</option>
             <option value="openai">OpenAI (Cloud - High Privacy Risk)</option>
             <option value="gemini">Gemini (Cloud - High Privacy Risk)</option>
           </select>

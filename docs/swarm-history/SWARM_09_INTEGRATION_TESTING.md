@@ -9,7 +9,7 @@
 ## CONTEXT INJECTION
 
 ### §00 — P31 AGENT BIBLE (Embedded)
-- **Components:** The Buffer, The Centaur, The Scope, Node One, Cognitive Shield
+- **Components:** P31 Buffer, P31 Tandem, P31 Spectrum, P31 NodeZero
 - **Integration Points:** API endpoints, WebSocket, LoRa mesh, database, blockchain
 
 ---

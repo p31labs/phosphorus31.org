@@ -1,6 +1,6 @@
 /**
  * Game Engine Hook
- * React hook for integrating GameEngine with The Scope
+ * React hook for integrating GameEngine with P31 Spectrum
  *
  * Manages game engine lifecycle and provides control functions
  */

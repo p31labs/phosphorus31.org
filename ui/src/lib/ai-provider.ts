@@ -3,7 +3,7 @@
  * Anthropic, OpenAI, or Gemini. Same system prompt. Same coherence. One input, three providers.
  */
 
-export type AIProvider = 'anthropic' | 'openai' | 'gemini' | 'none';
+export type AIProvider = 'anthropic' | 'openai' | 'deepseek' | 'gemini' | 'none';
 
 export interface ConversationMessage {
   role: 'user' | 'assistant';
@@ -16,15 +16,20 @@ export interface PhosphorusResponse {
   ready?: boolean;
 }
 
-/** Detect provider from env vars (priority: Claude → GPT → Gemini). */
+/** Detect provider from env vars (priority: Claude → DeepSeek → GPT → Gemini). */
 export function detectProvider(): AIProvider {
   if (import.meta.env.VITE_ANTHROPIC_KEY?.trim()) return 'anthropic';
+  if (import.meta.env.VITE_DEEPSEEK_KEY?.trim()) return 'deepseek';
   if (import.meta.env.VITE_OPENAI_KEY?.trim()) return 'openai';
   if (import.meta.env.VITE_GEMINI_KEY?.trim()) return 'gemini';
   return 'none';
 }
 
-/** Detect provider from a pasted key string. */
+/**
+ * Detect provider from a pasted key string.
+ * DeepSeek keys also start with sk- — use VITE_DEEPSEEK_KEY env var
+ * or explicitly select provider when pasting a DeepSeek key.
+ */
 export function detectProviderFromKey(key: string): AIProvider {
   const k = key.trim();
   if (k.startsWith('sk-ant-')) return 'anthropic';
@@ -36,6 +41,7 @@ export function detectProviderFromKey(key: string): AIProvider {
 export function getProviderName(provider: AIProvider): string {
   switch (provider) {
     case 'anthropic': return 'Claude (Anthropic)';
+    case 'deepseek': return 'DeepSeek';
     case 'openai': return 'GPT (OpenAI)';
     case 'gemini': return 'Gemini (Google)';
     default: return 'None';
@@ -106,11 +112,13 @@ async function callAnthropic(
   return parseResponse(text, currentCoherence);
 }
 
-async function callOpenAI(
+async function callOpenAICompat(
   key: string,
   history: ConversationMessage[],
   systemPrompt: string,
-  currentCoherence: number
+  currentCoherence: number,
+  baseUrl = 'https://api.openai.com',
+  model = 'gpt-4o'
 ): Promise<PhosphorusResponse> {
   const messages: Array<{ role: string; content: string }> = [{ role: 'system', content: systemPrompt }];
   if (history.length) {
@@ -119,14 +127,14 @@ async function callOpenAI(
     messages.push({ role: 'user', content: 'Begin.' });
   }
 
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  const res = await fetch(`${baseUrl}/v1/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${key}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4o',
+      model,
       max_tokens: 300,
       messages,
     }),
@@ -135,6 +143,24 @@ async function callOpenAI(
   const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
   const text = data.choices?.[0]?.message?.content?.trim() ?? '';
   return parseResponse(text, currentCoherence);
+}
+
+async function callOpenAI(
+  key: string,
+  history: ConversationMessage[],
+  systemPrompt: string,
+  currentCoherence: number
+): Promise<PhosphorusResponse> {
+  return callOpenAICompat(key, history, systemPrompt, currentCoherence, 'https://api.openai.com', 'gpt-4o');
+}
+
+async function callDeepSeek(
+  key: string,
+  history: ConversationMessage[],
+  systemPrompt: string,
+  currentCoherence: number
+): Promise<PhosphorusResponse> {
+  return callOpenAICompat(key, history, systemPrompt, currentCoherence, 'https://api.deepseek.com', 'deepseek-chat');
 }
 
 async function callGemini(
@@ -194,14 +220,16 @@ export async function callPhosphorus(
   const envKey =
     provider === 'anthropic'
       ? import.meta.env.VITE_ANTHROPIC_KEY
-      : provider === 'openai'
-        ? import.meta.env.VITE_OPENAI_KEY
-        : import.meta.env.VITE_GEMINI_KEY;
+      : provider === 'deepseek'
+        ? import.meta.env.VITE_DEEPSEEK_KEY
+        : provider === 'openai'
+          ? import.meta.env.VITE_OPENAI_KEY
+          : import.meta.env.VITE_GEMINI_KEY;
   const effectiveKey = key || (typeof envKey === 'string' ? envKey : '');
 
   if (!effectiveKey || provider === 'none') {
     return {
-      message: 'Set any AI key to begin: VITE_ANTHROPIC_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY. Or paste a key below.',
+      message: 'Set any AI key to begin: VITE_DEEPSEEK_KEY, VITE_ANTHROPIC_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY. Or paste a key below.',
       coherence: 0.15,
     };
   }
@@ -210,13 +238,15 @@ export async function callPhosphorus(
     switch (provider) {
       case 'anthropic':
         return await callAnthropic(effectiveKey, history, PHOSPHORUS_SYSTEM_PROMPT, currentCoherence);
+      case 'deepseek':
+        return await callDeepSeek(effectiveKey, history, PHOSPHORUS_SYSTEM_PROMPT, currentCoherence);
       case 'openai':
         return await callOpenAI(effectiveKey, history, PHOSPHORUS_SYSTEM_PROMPT, currentCoherence);
       case 'gemini':
         return await callGemini(effectiveKey, history, PHOSPHORUS_SYSTEM_PROMPT, currentCoherence);
       default:
         return {
-          message: 'Set any AI key to begin: VITE_ANTHROPIC_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY.',
+          message: 'Set any AI key to begin: VITE_ANTHROPIC_KEY, VITE_DEEPSEEK_KEY, VITE_OPENAI_KEY, or VITE_GEMINI_KEY.',
           coherence: 0.15,
         };
     }

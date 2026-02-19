@@ -52,7 +52,7 @@ const TETRAHEDRON_VERTICES = [
     name: 'CORE',
     description: 'Your Shield & Message Processing',
     longDescription:
-      'Real-time cognitive protection, message analysis, and voltage regulation. This is where Cognitive Shield actively protects your communication.',
+      'Real-time cognitive protection, message analysis, and voltage regulation. This is where P31 Buffer actively protects your communication.',
     icon: Shield,
     color: GOD_CONFIG.theme.text.accent,
     shadowColor: `${GOD_CONFIG.theme.text.accent}40`,
@@ -61,7 +61,7 @@ const TETRAHEDRON_VERTICES = [
     accessibilityLabel: 'Core protection systems',
     aiGuidance: {
       beginner:
-        "Start here! This is Cognitive Shield's main protection system. It analyzes messages for emotional intensity and helps you respond safely.",
+        "Start here! This is P31 Buffer's main protection system. It analyzes messages for emotional intensity and helps you respond safely.",
       intermediate:
         'Your core defense system. Check here for message processing status and real-time protection metrics.',
       expert:
@@ -146,7 +146,7 @@ const SECONDARY_NAVIGATION = [
   {
     category: 'Tools',
     items: [
-      { id: 'phenix-navigator', label: 'Phenix Navigator', icon: Zap, emoji: '🔺' },
+      { id: 'phenix-navigator', label: 'P31 Compass', icon: Zap, emoji: '🔺' },
       { id: 'repository', label: 'Module Repository', icon: Code2, emoji: '📦' },
       { id: 'library', label: 'Cognitive Library', icon: Book, emoji: '📚' },
       { id: 'nerd-lab', label: 'Nerd Lab', icon: Calculator, emoji: '🔬' },
@@ -461,7 +461,7 @@ export default function GeometricNavigation({
         boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
       }}
       role="navigation"
-      aria-label="AI-Guided Cognitive Shield Navigation"
+      aria-label="AI-Guided P31 Buffer Navigation"
     >
       {/* AI Guidance Header */}
       <div
@@ -1258,7 +1258,7 @@ export default function GeometricNavigation({
             animation: 'fadeIn 0.5s ease',
           }}
           role="dialog"
-          aria-label="Welcome to Cognitive Shield"
+          aria-label="Welcome to P31 Buffer"
         >
           <div
             style={{
@@ -1287,7 +1287,7 @@ export default function GeometricNavigation({
                   fontFamily: GOD_CONFIG.typography.fontFamily.display,
                 }}
               >
-                Welcome to Cognitive Shield
+                Welcome to P31 Buffer
               </h2>
               <p
                 style={{
@@ -1337,7 +1337,7 @@ export default function GeometricNavigation({
                       lineHeight: 1.5,
                     }}
                   >
-                    Cognitive Shield analyzes messages for emotional intensity and helps you respond
+                    P31 Buffer analyzes messages for emotional intensity and helps you respond
                     with clarity and care. Think of it as your communication bodyguard.
                   </p>
                 </div>

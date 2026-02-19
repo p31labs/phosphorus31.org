@@ -3,7 +3,7 @@
  * The Geodesic Workshop for Autopoietic Extension
  *
  * "The Module Maker is the reproductive organ of the system."
- * - Genesis Gate Protocol
+ * - P31 Entangle Protocol
  */
 
 import { useState, useCallback } from 'react';

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2026 Wonky Sprout DUNA
+ * Copyright 2026 P31 Labs
  *
  * Licensed under the AGPLv3 License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ function PosnerMolecule({ frequency, coherence }: { frequency: number; coherence
       groupRef.current.rotation.y += frequency * delta * 10;
       groupRef.current.rotation.x += frequency * delta * 5;
 
-      // Jitter based on low coherence (Decoherence)
+      // Jitter based on low coherence (Drift)
       if (coherence < 50) {
         const jitter = (100 - coherence) * 0.001;
         groupRef.current.position.x = (Math.random() - 0.5) * jitter;

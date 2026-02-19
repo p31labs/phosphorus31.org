@@ -1,5 +1,5 @@
 /**
- * L.O.V.E. mining store for the Scope
+ * L.O.V.E. mining store for P31 Spectrum
  * Build molecules, mine L.O.V.E. Persists to localStorage.
  * After each mine action, fire-and-forget syncs wallet to Centaur via ShelterBridge.
  */

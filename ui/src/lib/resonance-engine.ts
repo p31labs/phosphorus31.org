@@ -267,6 +267,7 @@ export class ResonanceEngine {
     const velocityScale = role === 'phosphorus' ? 0.6 : 0.8;
 
     const { notes, analysis } = textToNotes(text, coherence);
+    const now = Tone.now();
     let time = 0;
 
     for (let idx = 0; idx < notes.length; idx++) {
@@ -293,15 +294,16 @@ export class ResonanceEngine {
         if (this.onNoteCallback) this.onNoteCallback(record);
       }, t * 1000);
 
+      const absTime = now + t;
       if (this.synth!) {
-        this.synth.triggerAttackRelease(freq, dur, t, vel);
+        this.synth.triggerAttackRelease(freq, dur, absTime, vel);
       }
       if (coherence >= 0.3 && coherence < 0.6 && idx % 4 === 0 && this.sub!) {
-        this.sub.triggerAttackRelease(freq / 4, dur * 1.5, t, 0.3);
+        this.sub.triggerAttackRelease(freq / 4, dur * 1.5, absTime, 0.3);
       }
       if (n.chord && n.chordFreqs && coherence >= 0.6 && this.pad!) {
         for (const cf of n.chordFreqs) {
-          this.pad.triggerAttackRelease(cf * freqMultiplier, 0.4, t, 0.25);
+          this.pad.triggerAttackRelease(cf * freqMultiplier, 0.4, absTime, 0.25);
         }
       }
       if (coherence >= 0.85 && this.synth!) {
@@ -309,7 +311,7 @@ export class ResonanceEngine {
           oscillator: { type: 'square' as const },
           volume: -30,
         }).toDestination();
-        shimmer.triggerAttackRelease(freq * 2, 0.2, t, 0.2);
+        shimmer.triggerAttackRelease(freq * 2, 0.2, absTime, 0.2);
         setTimeout(() => shimmer.dispose(), 500);
       }
 

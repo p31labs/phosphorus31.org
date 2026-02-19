@@ -1,5 +1,5 @@
 /**
- * TIME INFRASTRUCTURE ANALYSIS - The Floating Neutral Problem
+ * TIME INFRASTRUCTURE ANALYSIS - The Lost Ground Problem
  * Research on centralized time vulnerabilities and decentralized solutions
  *
  * "The most underappreciated attack surface in modern civilization"
@@ -418,7 +418,7 @@ export default function TimeInfrastructureAnalysis() {
             marginBottom: '0.5rem',
           }}
         >
-          ⏰ The Floating Neutral: Centralized Time Infrastructure
+          ⏰ Lost Ground: Centralized Time Infrastructure
         </h2>
         <p
           style={{
@@ -759,7 +759,7 @@ export default function TimeInfrastructureAnalysis() {
               textAlign: 'center',
             }}
           >
-            "The Floating Neutral problem is ultimately solved not by better central clocks, but by
+            "The Lost Ground problem is ultimately solved not by better central clocks, but by
             eliminating the need for them entirely."
           </p>
         </div>

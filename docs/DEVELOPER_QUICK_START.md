@@ -23,12 +23,12 @@ pnpm install
 cd apps/buffer-server && pnpm start
 # Verify: curl http://localhost:4000/health
 
-# 3. Start The Centaur (backend + Shelter API) — port 3001 — new terminal
+# 3. Start P31 Tandem (backend + Shelter API) — port 3001 — new terminal
 cd SUPER-CENTAUR && pnpm dev
 # Verify: curl http://localhost:3001/health
 # Verify: curl http://localhost:3001/api/shelter/brain
 
-# 4. Start The Scope (frontend) — port 5173 — new terminal
+# 4. Start P31 Spectrum (frontend) — port 5173 — new terminal
 cd ui && pnpm dev
 # Open: http://localhost:5173
 ```
@@ -42,9 +42,9 @@ cd ui && pnpm dev
 | Component | Folder | Port | Purpose |
 |-----------|--------|------|---------|
 | **Buffer Server** | `apps/buffer-server/` | 4000 | Hardware message queue (ESP32/LoRa bridge) |
-| **The Centaur** | `SUPER-CENTAUR/` | 3001 | Backend AI protocol + Shelter API |
-| **The Scope** | `ui/` | 5173 | Dashboard/UI (React/Vite) |
-| **The Buffer PWA** | `apps/shelter/` | 5174 | Communication processing UI (React/Vite) |
+| **P31 Tandem** | `SUPER-CENTAUR/` | 3001 | Backend AI protocol + Shelter API |
+| **P31 Spectrum** | `ui/` | 5173 | Dashboard/UI (React/Vite) |
+| **P31 Buffer PWA** | `apps/shelter/` | 5174 | Communication processing UI (React/Vite) |
 | **Node One (P31 NodeZero)** | `firmware/` | N/A | Hardware (ESP32-S3). See [Firmware synthesis](FIRMWARE_XIAOZHI_SYNTHESIS.md) for Xiaozhi × P31 build order. |
 
 ---
@@ -102,13 +102,13 @@ See [GOD_CONFIG Reference](god-config.md) for details.
 
 ```
 p31/
-├── SUPER-CENTAUR/          # The Centaur (backend + Shelter API on 3001)
-├── ui/                      # The Scope (frontend on 5173)
-├── apps/shelter/            # The Buffer PWA (communication UI on 5174)
+├── SUPER-CENTAUR/          # P31 Tandem (backend + Shelter API on 3001)
+├── ui/                      # P31 Spectrum (frontend on 5173)
+├── apps/shelter/            # P31 Buffer PWA (communication UI on 5174)
 ├── apps/buffer-server/      # Buffer Server (hardware queue on 4000)
 ├── packages/game-engine/    # L.O.V.E. gamification library
 ├── packages/game-integration/ # ShelterBridge + genesis + metabolism
-├── firmware/                # Node One (ESP32-S3 hardware)
+├── firmware/                # P31 NodeZero (ESP32-S3 hardware)
 ├── docs/                    # Documentation
 └── scripts/                 # preflight, launch-check, verify-assets
 ```
@@ -128,10 +128,10 @@ p31/
 ## Key Concepts
 
 ### P31 Naming
-- **Node One** = Hardware device (was "Phenix Navigator")
-- **The Buffer** = Communication processing (was "Cognitive Shield")
-- **The Centaur** = Backend AI protocol
-- **The Scope** = Dashboard/UI
+- **P31 NodeZero** = Hardware device (was "Phenix Navigator")
+- **P31 Buffer** = Communication processing (was "Cognitive Shield")
+- **P31 Tandem** = Backend AI protocol
+- **P31 Spectrum** = Dashboard/UI
 - **Ping** = Object permanence/heartbeat
 - **Whale Channel** = LoRa mesh network
 - **The Thick Click** = Haptic feedback
@@ -155,8 +155,8 @@ p31/
 **Port already in use?**
 ```bash
 # Find and kill process
-lsof -ti:3000 | xargs kill  # The Centaur
-lsof -ti:5173 | xargs kill  # The Scope
+lsof -ti:3000 | xargs kill  # P31 Tandem
+lsof -ti:5173 | xargs kill  # P31 Spectrum
 ```
 
 **Dependencies not installing?**
@@ -172,10 +172,10 @@ npm install
 - Check CORS settings
 - Review component logs
 
-**The Buffer not connecting?**
+**P31 Buffer not connecting?**
 - Verify Redis is running (optional - fallback mode works without it)
 - Check `REDIS_URL` in `.env` (default: `redis://localhost:6379`)
-- The Buffer works in fallback mode without Redis
+- P31 Buffer works in fallback mode without Redis
 
 ---
 

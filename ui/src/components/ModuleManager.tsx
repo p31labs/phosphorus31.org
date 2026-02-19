@@ -678,7 +678,7 @@ function ModuleDetailsPanel({
               color: GOD_CONFIG.heartbeat.statuses.green.color,
             }}
           >
-            ✓ Module is abdicated. Update keys have been destroyed.
+            ✓ Module is abdicated. Update keys have been released.
           </div>
         )}
 

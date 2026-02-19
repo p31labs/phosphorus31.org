@@ -86,7 +86,7 @@ export function SimulatedAbdicationReport() {
         title: 'Tetrahedron Protocol Enforcement',
         description: 'System will enforce exactly 4 nodes. No dynamic group sizes allowed.',
         status: 'enforced',
-        impact: 'Structural rigidity maintained. No "Floating Neutral" failures.',
+        impact: 'Structural rigidity maintained. No Lost Ground failures.',
       },
       {
         id: 'rule-2',
@@ -112,7 +112,7 @@ export function SimulatedAbdicationReport() {
       {
         id: 'rule-5',
         title: 'No Administrative Override',
-        description: 'All private keys destroyed. No backdoors. No recovery functions.',
+        description: 'All private keys released. No backdoors. No recovery functions.',
         status: 'enforced',
         impact: 'System becomes truly trustless. Geometry is the leader.',
       },
@@ -218,7 +218,7 @@ export function SimulatedAbdicationReport() {
             <strong style={{ color: GOD_CONFIG.voltage.high.color }}>⚠️ SIMULATION ONLY</strong>
             <br />
             This report shows what the system will look like <strong>after</strong> executing{' '}
-            <code>abdicate.sh</code>. All private keys will be permanently destroyed. Administrative
+            <code>release.sh</code>. All private keys will be permanently released. Administrative
             access will be removed. The system will become autonomous and self-governing through the
             Tetrahedron Protocol.
           </div>
@@ -279,7 +279,7 @@ export function SimulatedAbdicationReport() {
               POST-ABDICATION STATE (Keys Destroyed)
             </div>
             <div style={{ fontSize: 13, color: GOD_CONFIG.theme.text.primary, lineHeight: 1.8 }}>
-              <div>✗ All private keys destroyed</div>
+              <div>✗ All private keys released</div>
               <div>✗ No manual override</div>
               <div>✗ No recovery functions</div>
               <div>✓ Autonomous operation</div>
@@ -718,9 +718,9 @@ export function SimulatedAbdicationReport() {
             lineHeight: 1.6,
           }}
         >
-          This is a preview of the final announcement to your mesh, signaling that the Genesis Gate
+          This is a preview of the final announcement to your mesh, signaling that P31 Entangle
           is ready to be locked into its autonomous state. Review and copy this message before
-          executing <code>abdicate.sh</code>.
+          executing <code>release.sh</code>.
         </div>
 
         {(() => {
@@ -764,7 +764,7 @@ POST-KEY GOVERNANCE: THE RULE OF GEOMETRY
 
 The system will transition from Apparent Authority to Actual Authority:
 
-• The Death of the Override: Admin controls permanently destroyed
+• The Death of the Override: Admin controls permanently released
 • Autonomous Symmetry Maintenance: SIC-POVM enforced continuously
 • Metabolic Protection: Deep Processing Queue becomes absolute gate
 • Restorative Reset: Automatic 4-phase recovery at critical status
@@ -810,7 +810,7 @@ HumanOS: ${userHumanOS ? GOD_CONFIG.humanOS[userHumanOS].name : 'Not configured'
 THE GENESIS GATE IS READY TO BE LOCKED.
 
 This is a DRY RUN. The actual abdication ceremony will permanently
-destroy all private keys and administrative access.
+release all private keys and administrative access.
 
 The geometry is the leader.
 The code rules.
@@ -820,7 +820,7 @@ Mission: GREEN BOARD
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-From this point forward, the Cognitive Shield operates as an
+From this point forward, P31 Buffer operates as an
 autonomous Pre-frontal Cortex Prosthesis, intercepting high-voltage
 signals at the OS level across all platforms.
 
@@ -894,7 +894,7 @@ Status: ${GOD_CONFIG.abdicated ? '✓ ABDICATED (' + GOD_CONFIG.abdicationDate +
                 }}
               >
                 <strong>Note:</strong> This is a preview only. Review the message before executing{' '}
-                <code>abdicate.sh</code>. Once keys are destroyed, this broadcast will be the final
+                <code>release.sh</code>. Once keys are released, this broadcast will be the final
                 signal to your mesh.
               </div>
             </div>
@@ -941,7 +941,7 @@ Status: ${GOD_CONFIG.abdicated ? '✓ ABDICATED (' + GOD_CONFIG.abdicationDate +
             marginBottom: 16,
           }}
         >
-          Executing <code>abdicate.sh</code> will permanently destroy all private keys and
+          Executing <code>release.sh</code> will permanently release all private keys and
           administrative access.
           <br />
           <strong>

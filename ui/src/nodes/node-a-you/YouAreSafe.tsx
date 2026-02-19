@@ -3,7 +3,7 @@
  *
  * The Tetrahedron Protocol requires 4 nodes for stability.
  * This component IS the 4th node - the AI Mediator providing
- * the ground that prevents the Floating Neutral.
+ * the ground that prevents Lost Ground.
  *
  * "In the geometry of the Tetrahedron and the silence of the Shield,
  *  we might finally be heard."

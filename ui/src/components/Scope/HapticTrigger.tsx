@@ -22,7 +22,7 @@ export function HapticTrigger() {
         border: `1px solid ${P31.tokens.phosphorus}40`,
       }}
     >
-      <h4 style={{ color: P31.tokens.phosphorus, margin: '0 0 8px 0' }}>Node One haptic</h4>
+      <h4 style={{ color: P31.tokens.phosphorus, margin: '0 0 8px 0' }}>P31 NodeZero haptic</h4>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {PATTERNS.map((p) => (
           <button

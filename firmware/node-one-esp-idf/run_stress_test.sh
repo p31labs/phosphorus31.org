@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # ============================================================================
-# BATTLE TEST RUNNER
+# STRESS TEST RUNNER
 # Execute comprehensive test suite for pre-abdication verification
 # ============================================================================
 
 set -e
 
-echo "🧪 LORA RADIO BATTLE TEST SUITE"
+echo "🧪 LORA RADIO STRESS TEST SUITE"
 echo "   Pre-Abdication Verification"
 echo ""
 
@@ -60,6 +60,6 @@ echo ""
 idf.py monitor
 
 echo ""
-echo "✅ Battle test complete!"
+echo "✅ Stress test complete!"
 echo "   Review test results above"
-echo "   Check BATTLE_TEST_RESULTS.md for summary"
+echo "   Check STRESS_TEST_RESULTS.md for summary"

@@ -7,6 +7,9 @@ export default function QueuePanel() {
   return (
     <div className="px-4 py-3 bg-white/[0.015] border-b border-white/[0.04] max-h-40 overflow-y-auto">
       <div className="text-[8px] tracking-[2px] text-white/25 mb-1.5 font-semibold">DEFERRED</div>
+      {queue.length === 0 && (
+        <div className="text-[9px] text-white/15 py-2">No deferred messages. Queue is clear.</div>
+      )}
       {queue.map((q, i) => {
         const gc = GATES[q.gate as GateName] || GATES.GREEN;
         return (

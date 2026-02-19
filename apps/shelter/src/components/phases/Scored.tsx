@@ -1,6 +1,7 @@
 import { GATES, SPOON_COSTS, type GateName } from "@p31labs/buffer-core";
 import { useBufferStore } from "@/stores/buffer-store";
 import { useSpoonStore } from "@/stores/spoon-store";
+import { scoreFawn, shouldShowFawnReview } from "@/lib/fawn";
 
 interface ScoredProps {
   samsonTemp: number;
@@ -11,8 +12,10 @@ interface ScoredProps {
 }
 
 export default function Scored({ samsonTemp, onRewrite, onViewOriginal, onDefer, onDone }: ScoredProps) {
-  const { score, bluf, aiLoading } = useBufferStore();
+  const { score, bluf, aiLoading, input } = useBufferStore();
   const { current, tier } = useSpoonStore();
+  const fawnResult = scoreFawn(input);
+  const showFawnReview = shouldShowFawnReview(fawnResult);
   if (!score) return null;
 
   const gc = GATES[score.gate as GateName];
@@ -97,6 +100,27 @@ export default function Scored({ samsonTemp, onRewrite, onViewOriginal, onDefer,
       {(tier === "ORANGE" || tier === "RED") && score.voltage > 5 && (
         <div className="px-2.5 py-1.5 rounded mb-2.5 text-[9px] bg-orange-600/[0.06] border border-orange-600/15 text-orange-400 leading-relaxed">
           ⚠ Protective mode. This costs {score.voltage > 7 ? 2 : 1} spoons. You have {current}. Consider deferring.
+        </div>
+      )}
+
+      {/* Fawn / sovereignty review gate */}
+      {showFawnReview && (
+        <div className="px-3 py-2.5 rounded-[5px] mb-2.5 bg-amber-500/5 border border-amber-500/20">
+          <div className="text-[8px] tracking-[1.5px] text-amber-400 mb-1 font-semibold">SOVEREIGNTY CHECK</div>
+          <div className="text-[10px] text-white/50 leading-relaxed mb-2">
+            This draft scores high on people-pleasing (fawn {fawnResult.score}/10). Sovereignty {fawnResult.sovereignty}/10. You can send as-is or run a rewrite.
+          </div>
+          <div className="flex gap-1.5">
+            <button
+              type="button"
+              onClick={onRewrite}
+              disabled={aiLoading}
+              className="px-2.5 py-1.5 rounded text-[9px] font-semibold bg-amber-500/15 border border-amber-500/25 text-amber-400 hover:bg-amber-500/20"
+            >
+              {aiLoading ? "REWRITING…" : "SOVEREIGNTY CHECK"}
+            </button>
+            <span className="text-[9px] text-white/30 self-center">or send anyway</span>
+          </div>
         </div>
       )}
 

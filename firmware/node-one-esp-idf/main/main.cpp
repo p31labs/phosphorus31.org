@@ -1,20 +1,20 @@
 /**
- * Node One - Main Application
+ * P31 NodeZero - Main Application
  * P31 Ecosystem - The First Node
  * Waveshare ESP32-S3-Touch-LCD-3.5B
  * 
  * Complete integration of:
- * - QSPI Display (AXS15231B) with LVGL - The Scope
+ * - QSPI Display (AXS15231B) with LVGL - P31 Spectrum
  * - I2S Audio (ES8311) - Voice-First I/O
  * - LoRa Mesh (E22-900M30S / SX1262) - Whale Channel
  * - MCP23017 I2C GPIO Expander - The Thick Click
  * - I2C Sensors (AXP2101, QMI8658, PCF85063)
  * 
  * P31 Naming:
- * - Node One: The first physical device, the first vertex made real
+ * - P31 NodeZero: The first physical device, the first vertex made real
  * - Whale Channel: LoRa mesh layer (915MHz)
- * - The Buffer: Communication processing (shield_server component)
- * - The Scope: Display/dashboard visualization
+ * - P31 Buffer: Communication processing (shield_server component)
+ * - P31 Spectrum: Display/dashboard visualization
  * - The Thick Click: Haptic feedback system
  */
 
@@ -656,7 +656,7 @@ static void mesh_task(void* arg) {
  * Main application entry point
  */
 extern "C" void app_main(void) {
-    ESP_LOGI(TAG, "Node One firmware starting...");
+    ESP_LOGI(TAG, "P31 NodeZero firmware starting...");
     ESP_LOGI(TAG, "Waveshare ESP32-S3-Touch-LCD-3.5B");
     ESP_LOGI(TAG, "ESP-IDF version: %s", esp_get_idf_version());
 
@@ -782,7 +782,7 @@ extern "C" void app_main(void) {
     // Create mesh processing task
     xTaskCreate(mesh_task, "mesh_task", 4096, nullptr, 5, nullptr);
 
-    ESP_LOGI(TAG, "Node One initialization complete");
+    ESP_LOGI(TAG, "P31 NodeZero initialization complete");
     ESP_LOGI(TAG, "The Mesh Holds. 🔺");
 
     // Initialize message queue

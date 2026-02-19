@@ -15,13 +15,13 @@ P31 Labs develops open-source assistive technology across three layers:
 
 **The Buffer** is communication processing software that sits between an incoming message and the user's response. It scores message "voltage" — urgency, emotional intensity, cognitive load — and presents it in a processed format the user can engage with at their own pace. For someone whose brain needs 5 seconds to process what their ears heard 5 seconds ago, The Buffer turns the firehose into a garden hose.
 
-**The Centaur Protocol** is our human-AI collaboration framework. It treats the AI as a synthetic body and the human as the biological operator — two halves of one organism. Every tool P31 builds assumes this pairing. The technology extends the human. It does not replace them.
+**P31 Tandem Protocol** is our human-AI collaboration framework. It treats the AI as a synthetic body and the human as the biological operator — two halves of one organism. Every tool P31 builds assumes this pairing. The technology extends the human. It does not replace them.
 
 All designs, firmware, and software are open-source. All of it.
 
 ### The Founder
 
-I am William R. Johnson, age 40, diagnosed with autism and ADHD at age 39 after sixteen years as a DoD civilian submarine electrician (GS-05 to GS-12). For two decades I worked in one of the highest-sensory, most communication-intensive environments in federal service — and I did it without knowing why everything was so hard. After diagnosis, I could not unknow the cost. I left federal service in May 2025 and began building what should have existed when I needed it.
+I am Will, age 40, diagnosed with autism and ADHD at age 39 after sixteen years as a DoD civilian submarine electrician (GS-05 to GS-12). For two decades I worked in one of the highest-sensory, most communication-intensive environments in federal service — and I did it without knowing why everything was so hard. After diagnosis, I could not unknow the cost. I left federal service in May 2025 and began building what should have existed when I needed it.
 
 I have hypoparathyroidism, a permanent endocrine condition since 2003 that disrupts calcium-phosphate metabolism — the same biochemistry that P31 Labs is named after (Phosphorus-31, the NMR-active nucleus in brain energy metabolism). My disability is not separate from the technology. It is the technology's origin.
 
@@ -39,4 +39,4 @@ Funding accelerates three things: hardware prototyping (first 50 Node One units 
 
 *P31 Labs, Inc. | Georgia Nonprofit Corporation (501(c)(3) in formation)*
 *phosphorus31.org | p31ca.org | DOI: 10.5281/zenodo.18627420*
-*Contact: William R. Johnson, CEO | ORCID: 0009-0002-2492-9079*
+*Contact: Will, CEO | ORCID: 0009-0002-2492-9079*

@@ -1,6 +1,6 @@
-# Run unified demo + Scope in one day
+# Run unified demo + P31 Spectrum in one day
 
-**One entry point:** The Scope (P31 UI) app. From here you can open the **full Scope dashboard** or use the **Demo** and other views.
+**One entry point:** P31 Spectrum (P31 UI) app. From here you can open the **full Spectrum dashboard** or use the **Demo** and other views.
 
 ## Quick start
 
@@ -15,7 +15,7 @@
 ## Switching between “demo” and “full Scope”
 
 - **Toolbar → “🔺 Full Scope”**  
-  Opens the Phase 2 Scope dashboard: octahedral nav, Neural Core (FractalZUI), spectrum bar, Tasks/Health/Projects placeholders. Use **“✕ Back to Scope”** (top-left) to return to the main 3D/toolbar view.
+  Opens the Phase 2 Spectrum dashboard: octahedral nav, Neural Core (FractalZUI), spectrum bar, Tasks/Health/Projects placeholders. Use **“✕ Back to Scope”** (top-left) to return to the main 3D/toolbar view.
 
 - **Toolbar → “📊 Demo”**  
   Opens the MATA Demo Dashboard (voltage, spoons, LoRa, haptics).
@@ -23,9 +23,9 @@
 - **Toolbar → “🎬 MATA Demo”**  
   Opens the MATA cockpit (timeline, Buffer icosahedron, mesh log).
 
-So: one app, one day — demo and full Scope are both reachable from the same session.
+So: one app, one day — demo and full Spectrum are both reachable from the same session.
 
-## What’s in the Scope dashboard
+## What’s in the Spectrum dashboard
 
 - **Top bar:** P31 logo, section name, PulseIndicator.
 - **Left (desktop):** OctahedralNav (or 2D list in quiet mode / mobile).
@@ -46,7 +46,7 @@ npm run start:server
 
 Or from repo root: **`npm run dev:shelter`** (Shelter only), or **`npm run dev`** (Shelter + Sprout + Scope together).
 
-To point the Scope at the Buffer, set **`VITE_SHELTER_URL`** or **`VITE_BUFFER_URL`** in `ui/.env` (default: `http://localhost:4000`). If Shelter binds to a fallback port (4001–4010), set that URL and restart Scope. See `ui/.env.example` and `docs/DEMO_RUN.md`.
+To point P31 Spectrum at the Buffer, set **`VITE_SHELTER_URL`** or **`VITE_BUFFER_URL`** in `ui/.env` (default: `http://localhost:4000`). If Shelter binds to a fallback port (4001–4010), set that URL and restart P31 Spectrum. See `ui/.env.example` and `docs/DEMO_RUN.md`.
 
 **NODE ONE / Whale Channel:** In dev, Sprout signals use a simulator; mesh log shows them in the MATA cockpit. When real hardware or transport is ready, see `docs/MESH_ADAPTER_INTEGRATION.md` for swapping in a real mesh adapter.
 

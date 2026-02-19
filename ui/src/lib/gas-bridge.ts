@@ -1,5 +1,5 @@
 /**
- * GAS Bridge — Connects the P31 frontend to the SIMPLEX v6 Google Apps Script backend.
+ * GAS Bridge — Connects the P31 frontend to the P31 Entangle Google Apps Script backend.
  *
  * Pattern: Try GAS first (if VITE_SHELTER_URL set) → cache to localStorage on success →
  * fall back to localStorage on failure → return source indicator.

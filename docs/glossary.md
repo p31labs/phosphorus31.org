@@ -45,7 +45,7 @@ Object permanence automation and heartbeat monitoring. "Dad is still here." SNR-
 ### Attractor
 Calibration system for harmonic resonance. The strange attractor you're converging toward. Target: ≈0.35 resonance frequency.
 
-**Previous names**: Mark 1 Attractor
+**Previous names**: Mark 1 Attractor (now Home Frequency)
 
 ### Whale Channel
 LoRa 915MHz mesh network. Heritage name. Submarines + whales + infrastructure independence.

@@ -1,6 +1,6 @@
 /**
  * Buffer Status Component
- * Shows The Buffer queue status and health
+ * Shows P31 Buffer queue status and health
  */
 
 import React, { useEffect, useState } from 'react';
@@ -36,7 +36,7 @@ export const BufferStatus: React.FC = () => {
     return (
       <div className="buffer-status disconnected">
         <div className="status-indicator red" />
-        <span>The Buffer: Disconnected</span>
+        <span>P31 Buffer: Disconnected</span>
       </div>
     );
   }
@@ -48,7 +48,7 @@ export const BufferStatus: React.FC = () => {
     <div className="buffer-status">
       <div className="status-header">
         <div className={`status-indicator ${healthColor}`} />
-        <span>The Buffer: {isConnected ? 'Connected' : 'Disconnected'}</span>
+        <span>P31 Buffer: {isConnected ? 'Connected' : 'Disconnected'}</span>
       </div>
 
       {queueStatus && (

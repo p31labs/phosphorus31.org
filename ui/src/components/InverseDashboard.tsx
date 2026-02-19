@@ -241,7 +241,7 @@ export function InverseDashboard(): React.ReactElement {
         title="VOLTAGE CAUGHT"
         severity={voltageSeverity}
         lines={[
-          `${data.bufferedMessages} message${data.bufferedMessages !== 1 ? 's were' : ' was'} held by the Buffer this week.`,
+          `${data.bufferedMessages} message${data.bufferedMessages !== 1 ? 's were' : ' was'} held by P31 Buffer this week.`,
           `Without filtering, ${data.bufferedMessages} high-voltage communication${data.bufferedMessages !== 1 ? 's' : ''} would have triggered immediate responses during low-spoon states.`,
           `Estimated cost: ${voltageCost} additional spoons spent on damage control.`,
         ]}

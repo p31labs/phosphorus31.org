@@ -1,5 +1,5 @@
 // God Configuration - Core system parameters
-// This file contains the fundamental configuration for The Buffer (P31 communication processing system)
+// This file contains the fundamental configuration for P31 Buffer (communication processing system)
 
 export interface MetabolismConfig {
   maxSpoons: number;
@@ -113,7 +113,7 @@ export const HumanOSProfiles: Record<HumanOSType, HumanOSProfile> = {
     icon: '🐎',
   },
   'node-one': {
-    name: 'Node One',
+    name: 'P31 NodeZero',
     coreImperative: 'Connect and communicate',
     color: '#9b59b6',
     icon: '🔗',

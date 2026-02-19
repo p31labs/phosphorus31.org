@@ -1,0 +1,33 @@
+{
+  "name": "@p31labs/network-core",
+  "version": "0.1.0",
+  "description": "LoRa codec — DataView bit-packing, Posner payload (119 bytes). Adopt full implementation from Claude's p31-universe.",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["p31", "lora", "codec", "posner", "mesh"],
+  "author": "P31 Labs",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.2.0"
+  }
+}

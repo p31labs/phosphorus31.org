@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Genesis Gate color palette
+        // P31 Entangle color palette
         genesis: {
           primary: '#ffd700',    // Golden ratio gold
           secondary: '#06b6d4',  // Cyan for tech

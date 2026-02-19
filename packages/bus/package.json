@@ -1,0 +1,51 @@
+{
+  "name": "@p31labs/bus",
+  "version": "0.1.0",
+  "description": "Universal state bus for P31 ecosystem — localStorage + BroadcastChannel + React hook",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/useBus.d.ts",
+      "import": "./dist/react/useBus.js",
+      "require": "./dist/react/useBus.cjs"
+    },
+    "./keys": {
+      "types": "./dist/keys.d.ts",
+      "import": "./dist/keys.js",
+      "require": "./dist/keys.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "dev": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "vitest": "^2.0.0",
+    "typescript": "^5.5.0",
+    "@types/react": "^18.0.0",
+    "happy-dom": "^15.0.0"
+  },
+  "keywords": ["p31", "bus", "state", "localStorage", "broadcast"],
+  "author": "P31 Labs",
+  "license": "AGPL-3.0"
+}
