@@ -2,3 +2,5 @@ https://www.phosphorus31.org/* https://phosphorus31.org/:splat 301
 /favicon.ico /assets/logos/favicon.svg 302
 /guides /docs/ 302
 /guides/ /docs/ 302
+/mesh  /mesh.html  200
+/mesh/ /mesh.html  200

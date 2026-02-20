@@ -13,3 +13,10 @@
 
 /index.html
   Cache-Control: public, max-age=3600
+
+# Living Mesh — single-file build requires inline scripts
+/mesh.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'
+  Cache-Control: public, max-age=3600
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
