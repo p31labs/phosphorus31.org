@@ -1,7 +1,9 @@
 # P31 Labs — Dual-Domain Launch Pipeline
 # phosphorus31.org (static) + p31ca.org (Vite app)
 #
-# Triggers on push to main (after CI gate) or manual dispatch.
+# Triggers on push to main or manual dispatch.
+# Website deploys immediately (static HTML, no build needed).
+# App deploys after CI gate (requires build step).
 # Requires CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets.
 name: P31 Launch
 
@@ -19,16 +21,19 @@ jobs:
     uses: ./.github/workflows/ci.yml
 
   # ═══ LAUNCH: phosphorus31.org (static site) ═══
+  # No CI dependency — static HTML doesn't need monorepo build to pass.
   launch-website:
     name: Launch phosphorus31.org
     runs-on: ubuntu-latest
-    needs: ci-gate
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify website/index.html exists
-        run: test -f website/index.html
+      - name: Verify website files exist
+        run: |
+          test -f website/index.html || (echo "FAIL: no index.html" && exit 1)
+          test -f website/mesh.html || echo "WARN: no mesh.html (Living Mesh not yet built)"
+          echo "Website verification passed"
 
       - name: Launch phosphorus31.org
         uses: cloudflare/wrangler-action@v3
