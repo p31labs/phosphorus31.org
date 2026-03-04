@@ -1,337 +1,561 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate · P31 Labs</title>
-  <meta name="description" content="Support P31 Labs' open-source assistive technology development. Tax-deductible donations via HCB or direct crypto donations to Base L2 wallet.">
-  <meta property="og:title" content="Donate · P31 Labs">
-  <meta property="og:description" content="Support open-source assistive technology for neurodivergent minds. Tax-deductible donations via HCB or direct crypto.">
-  <meta name="theme-color" content="#050510">
-  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    /* ── QUANTUM CANVAS ── */
-    #quantum-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-    
-    /* ── QUANTUM DECORATIVE EQUATIONS ── */
-    .quantum-equation {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: rgba(46, 204, 113, 0.12);
-      pointer-events: none;
-      user-select: none;
-      white-space: nowrap;
-      z-index: 1;
-    }
-    
-    /* ── QUANTUM DONATE OPTIONS ── */
-    .donate-option {
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .donate-option::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: inherit;
-      padding: 2px;
-      background: linear-gradient(45deg, rgba(46, 204, 113, 0.3), rgba(96, 165, 250, 0.3), rgba(46, 204, 113, 0.3));
-      background-size: 200% 200%;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      animation: quantum-gradient-flow 3s ease infinite;
-    }
-    
-    .donate-option:hover::before {
-      opacity: 1;
-    }
-    
-    @keyframes quantum-gradient-flow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    
-    /* ── QUANTUM STATE TRANSITION ── */
-    .donate-option.quantum-enter {
-      animation: quantum-collapse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    @keyframes quantum-collapse {
-      0% {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-    
-    /* ── QUANTUM WALLET ADDRESS GLOW ── */
-    .wallet-address {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    
-    .wallet-address::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: inherit;
-      background: radial-gradient(circle, rgba(46, 204, 113, 0.2), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-    
-    .wallet-address:hover::after {
-      opacity: 1;
-      animation: quantum-pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes quantum-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.2; }
-      50% { transform: scale(1.05); opacity: 0.4; }
-    }
-    
-    /* ── QUANTUM BADGE ANIMATION ── */
-    .donate-badge {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .donate-badge::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-    
-    .donate-option:hover .donate-badge::before {
-      transform: translateX(100%);
-    }
-    
-    /* ── MAIN CONTENT LAYER ── */
-    main {
-      position: relative;
-      z-index: 1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate — P31 Labs</title>
+<meta name="description" content="Support open-source cognitive prosthetics for neurodivergent families.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-void: #050810;
+  --bg-deep: #080c16;
+  --bg-panel: #0a1018;
+  --phosphor: #ff9944;
+  --phosphor-dim: #cc6622;
+  --mesh-blue: #44aaff;
+  --forge-green: #44ffaa;
+  --shield-red: #ff4466;
+  --text-primary: #c8ccd4;
+  --text-dim: #5a6678;
+  --text-bright: #e8ecf2;
+  --border-subtle: #141e2a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--serif);
+  background: var(--bg-void);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.nav {
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-brand:hover { color: var(--phosphor); }
+.nav-back {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.nav-back:hover { opacity: 1; }
+
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  color: var(--text-bright);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--phosphor);
+}
+.hero-sub {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.tiers { padding: 40px 0 60px; }
+.tier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 560px) {
+  .tier-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.tier-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.tier-card:hover {
+  border-color: var(--phosphor-dim);
+  transform: translateY(-2px);
+}
+.tier-card.featured {
+  border-color: rgba(255, 153, 68, 0.25);
+  background: rgba(255, 153, 68, 0.03);
+}
+.tier-card.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.tier-amount {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+.tier-amount .dollar {
+  font-size: 1.4rem;
+  color: var(--text-dim);
+  vertical-align: top;
+  position: relative;
+  top: 6px;
+}
+.tier-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--phosphor-dim);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.tier-desc {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.tier-love {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--phosphor);
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+.custom-tier { grid-column: 1 / -1; }
+.custom-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 12px;
+}
+.custom-input .dollar-sign {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--text-dim);
+}
+.custom-input input {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-bright);
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 300;
+  width: 100px;
+  padding: 4px 8px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.custom-input input:focus { border-color: var(--phosphor-dim); }
+.custom-input input::placeholder { color: var(--text-dim); opacity: 0.4; }
+
+.funds {
+  padding: 40px 0 60px;
+  border-top: 1px solid var(--border-subtle);
+}
+.funds h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--text-bright);
+  margin-bottom: 28px;
+  text-align: center;
+}
+.fund-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 560px) {
+  .fund-grid { grid-template-columns: 1fr 1fr; }
+}
+.fund-item { display: flex; gap: 14px; align-items: flex-start; }
+.fund-icon {
+  width: 8px; height: 8px; border-radius: 1px;
+  flex-shrink: 0; margin-top: 8px; transform: rotate(45deg);
+}
+.fund-text h3 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.fund-text p {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.trust {
+  padding: 40px 0 60px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.trust-text {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.trust-text strong { color: var(--text-primary); font-weight: 400; }
+.trust-links {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.trust-links a {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.3s, color 0.3s;
+}
+.trust-links a:hover { opacity: 1; color: var(--phosphor); }
+
+.posner { padding: 60px 0; text-align: center; }
+.posner-quote {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.posner-quote em { color: var(--phosphor); font-style: italic; }
+
+.site-footer {
+  margin-top: auto;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.footer-id {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.footer-sub {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-dim);
+  opacity: 0.3;
+}
+
+/* Thank you banner */
+.thanks-banner {
+  background: rgba(255, 153, 68, 0.08);
+  border: 1px solid rgba(255, 153, 68, 0.2);
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.thanks-banner h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--phosphor);
+  margin-bottom: 6px;
+}
+.thanks-banner p {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 50px 0 40px; }
+  .tier-card { padding: 20px 18px; }
+  .tier-amount { font-size: 2rem; }
+}
+</style>
 </head>
 <body>
-  <!-- QUANTUM BACKGROUND CANVAS -->
-  <canvas id="quantum-bg" aria-hidden="true"></canvas>
-  
-  <!-- SKIP TO CONTENT -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- NAV (same as homepage) -->
-  <nav aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">P<sup>31</sup></a>
-      <div class="nav-links">
-        <a href="/#stack">Stack</a>
-        <a href="/docs/">Docs</a>
-        <a href="/roadmap/">Roadmap</a>
-        <a href="/about/">About</a>
-        <a href="/donate/" aria-current="page">Donate</a>
-      </div>
+<nav class="nav">
+  <a href="https://phosphorus31.org" class="nav-brand">P31 LABS</a>
+  <a href="https://phosphorus31.org" class="nav-back">&larr; ECOSYSTEM</a>
+</nav>
+
+<section class="hero">
+  <div class="container reveal">
+    <div id="thanks-banner" style="display:none;" class="thanks-banner">
+      <h2>Thank you.</h2>
+      <p>Your donation strengthens the cage. The phosphorus is a little safer today.</p>
     </div>
-  </nav>
+    <h1>Help build<br>the <em>calcium cage</em></h1>
+    <p class="hero-sub">
+      Every dollar funds open-source assistive technology
+      for neurodivergent families. The tools are free.
+      The engineering is not.
+    </p>
+  </div>
+</section>
 
-  <!-- MAIN CONTENT -->
-  <main id="main-content">
-    <section class="section section-dark">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Support the Mesh</span>
-          <h1>Donate</h1>
-          <p>Every contribution strengthens the mesh. All donations support open-source development and hardware prototyping.</p>
+<section class="tiers">
+  <div class="container">
+    <div class="tier-grid">
+
+      <div class="tier-card reveal reveal-delay-1" onclick="donate(10, this)">
+        <div class="tier-amount"><span class="dollar">$</span>10</div>
+        <div class="tier-name">SEED</div>
+        <div class="tier-desc">
+          Fund one hour of test device runtime.
+          Every feature is verified on the devices our users actually have.
         </div>
-
-        <div class="donate-content">
-          <!-- Quantum equation decoration -->
-          <div class="quantum-equation" style="top: 10%; right: 5%;">|ψ⟩ = α|DONATE⟩ + β|SUPPORT⟩</div>
-          <div class="quantum-equation" style="top: 60%; left: 5%;">Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ|</div>
-          
-          <div class="donate-grid">
-            <!-- HCB Fiat Donations -->
-            <div class="donate-option quantum-enter" style="animation-delay: 0.1s;">
-              <div class="donate-option-header">
-                <h3>Donate with Card</h3>
-                <span class="donate-badge donate-badge-tax">Tax-Deductible</span>
-              </div>
-              <p class="donate-option-desc">One-time or monthly recurring donations via credit card. Automatic tax receipts included.</p>
-              <a href="https://hcb.hackclub.com/donations/start/p31-labs" 
-                 class="btn btn-primary donate-btn" 
-                 target="_blank" 
-                 rel="noopener">
-                Donate via HCB →
-              </a>
-              <p class="donate-option-note">7% fiscal sponsor fee (donors can cover fees). Includes Stripe processing, tax compliance, and bookkeeping.</p>
-            </div>
-
-            <!-- Crypto Donations -->
-            <div class="donate-option quantum-enter" style="animation-delay: 0.2s;">
-              <div class="donate-option-header">
-                <h3>Donate with Crypto</h3>
-                <span class="donate-badge donate-badge-crypto">Base L2</span>
-              </div>
-              <p class="donate-option-desc">Direct cryptocurrency donations to our Base L2 wallet. Supports Base, Ethereum, and Optimism networks.</p>
-              <div class="donate-wallet">
-                <div class="wallet-label">Base L2 Wallet</div>
-                <div class="wallet-address" id="wallet-addr">0x90048cbb3CDCef200a54D6D336EbB4e0ce18d82c</div>
-                <button class="btn btn-ghost" id="copy-wallet-btn" type="button" aria-label="Copy wallet address to clipboard">Copy Address</button>
-              </div>
-              <div class="donate-networks">
-                <span class="network-badge">Base</span>
-                <span class="network-badge">Ethereum</span>
-                <span class="network-badge">Optimism</span>
-              </div>
-              <p class="donate-option-note">Crypto donations may not be tax-deductible unless processed through The Hack Foundation. Funds support open-source development.</p>
-            </div>
-          </div>
-
-          <div class="donate-disclosure">
-            <p><strong>Fiscal Sponsorship:</strong> P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations made through HCB are tax-deductible to the extent permitted by law. Automatic email receipts are provided for all HCB donations.</p>
-          </div>
-        </div>
+        <div class="tier-love">+100 L.O.V.E.</div>
       </div>
-    </section>
-  </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo">P<sup>31</sup></a>
-          <p class="footer-tagline">The Mesh Holds. 🔺</p>
+      <div class="tier-card featured reveal reveal-delay-2" onclick="donate(25, this)">
+        <div class="tier-amount"><span class="dollar">$</span>25</div>
+        <div class="tier-name">SPROUT</div>
+        <div class="tier-desc">
+          Cover a month of Cloudflare Workers infrastructure.
+          The relay that keeps multiplayer connections alive across devices.
         </div>
-        <div class="footer-links">
-          <a href="/about/">About</a>
-          <a href="/docs/">Docs</a>
-          <a href="/roadmap/">Roadmap</a>
-          <a href="/donate/">Donate</a>
+        <div class="tier-love">+250 L.O.V.E.</div>
+      </div>
+
+      <div class="tier-card reveal reveal-delay-1" onclick="donate(50, this)">
+        <div class="tier-amount"><span class="dollar">$</span>50</div>
+        <div class="tier-name">SAPLING</div>
+        <div class="tier-desc">
+          Fund a hardware prototype component.
+          ESP32 boards, haptic motors, LoRa radios — the physical layer.
         </div>
+        <div class="tier-love">+500 L.O.V.E.</div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 P31 Labs. Open source. Built with tetrahedron topology.</p>
+
+      <div class="tier-card custom-tier reveal reveal-delay-2" onclick="donateCustom(this)">
+        <div class="tier-name">POSNER</div>
+        <div class="tier-desc">
+          Choose your own amount. Every contribution
+          strengthens the cage that protects the phosphorus.
+        </div>
+        <div class="custom-input" onclick="event.stopPropagation()">
+          <span class="dollar-sign">$</span>
+          <input type="number" id="custom-amount" min="1" placeholder="__" />
+        </div>
+        <div class="tier-love">+10 L.O.V.E. per dollar</div>
       </div>
+
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="../main.js"></script>
-  <script>
-    // ═══════════════════════════════════════════════
-    //  QUANTUM BACKGROUND — Wave function visualization
-    // ═══════════════════════════════════════════════
-    (function() {
-      'use strict';
-      
-      const quantumCanvas = document.getElementById('quantum-bg');
-      if (quantumCanvas) {
-        const ctx = quantumCanvas.getContext('2d');
-        let time = 0;
-        
-        function resizeCanvas() {
-          quantumCanvas.width = window.innerWidth;
-          quantumCanvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        function drawQuantumField() {
-          ctx.clearRect(0, 0, quantumCanvas.width, quantumCanvas.height);
-          
-          const w = quantumCanvas.width;
-          const h = quantumCanvas.height;
-          const centerX = w / 2;
-          const centerY = h / 2;
-          
-          // Wave function: ψ(x,t) = A·sin(kx - ωt + φ)
-          ctx.strokeStyle = 'rgba(46, 204, 113, 0.06)';
-          ctx.lineWidth = 1;
-          
-          // Multiple wave frequencies (quantum superposition)
-          for (let wave = 0; wave < 3; wave++) {
-            const amplitude = 40 + wave * 25;
-            const frequency = 0.008 + wave * 0.004;
-            const phase = time * 0.002 + wave * Math.PI / 3;
-            
-            ctx.beginPath();
-            for (let x = 0; x < w; x += 2) {
-              const y = centerY + amplitude * Math.sin(frequency * x - phase);
-              if (x === 0) ctx.moveTo(x, y);
-              else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-          }
-          
-          // Quantum particles (SIC-POVM inspired) — donation flow visualization
-          ctx.fillStyle = 'rgba(96, 165, 250, 0.08)';
-          for (let i = 0; i < 25; i++) {
-            const angle = (time * 0.001 + i * Math.PI / 12.5) % (Math.PI * 2);
-            const radius = 120 + 60 * Math.sin(time * 0.001 + i);
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-            const size = 2.5 + Math.sin(time * 0.002 + i) * 1.5;
-            
-            ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          
-          // Tetrahedron connection lines (mesh topology)
-          ctx.strokeStyle = 'rgba(46, 204, 113, 0.04)';
-          ctx.lineWidth = 0.5;
-          const nodes = 4;
-          for (let i = 0; i < nodes; i++) {
-            const angle1 = (i / nodes) * Math.PI * 2 + time * 0.0005;
-            const x1 = centerX + 150 * Math.cos(angle1);
-            const y1 = centerY + 150 * Math.sin(angle1);
-            
-            for (let j = i + 1; j < nodes; j++) {
-              const angle2 = (j / nodes) * Math.PI * 2 + time * 0.0005;
-              const x2 = centerX + 150 * Math.cos(angle2);
-              const y2 = centerY + 150 * Math.sin(angle2);
-              
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.lineTo(x2, y2);
-              ctx.stroke();
-            }
-          }
-          
-          time += 1;
-          requestAnimationFrame(drawQuantumField);
-        }
-        
-        drawQuantumField();
+<section class="funds">
+  <div class="container">
+    <h2 class="reveal">Where it goes</h2>
+    <div class="fund-grid">
+
+      <div class="fund-item reveal reveal-delay-1">
+        <div class="fund-icon" style="background: var(--phosphor);"></div>
+        <div class="fund-text">
+          <h3>INFRASTRUCTURE</h3>
+          <p>Cloudflare Workers, KV storage, domain renewals. The relay layer that keeps multiplayer alive.</p>
+        </div>
+      </div>
+
+      <div class="fund-item reveal reveal-delay-2">
+        <div class="fund-icon" style="background: var(--mesh-blue);"></div>
+        <div class="fund-text">
+          <h3>TEST HARDWARE</h3>
+          <p>Android tablets for device testing. Our target users have budget hardware — every feature must work there first.</p>
+        </div>
+      </div>
+
+      <div class="fund-item reveal reveal-delay-1">
+        <div class="fund-icon" style="background: var(--forge-green);"></div>
+        <div class="fund-text">
+          <h3>NODE ONE PROTOTYPE</h3>
+          <p>ESP32-S3 development boards, DRV2605L haptic drivers, LoRa radios. The hardware that makes the Totem real.</p>
+        </div>
+      </div>
+
+      <div class="fund-item reveal reveal-delay-2">
+        <div class="fund-icon" style="background: var(--shield-red);"></div>
+        <div class="fund-text">
+          <h3>LEGAL & COMPLIANCE</h3>
+          <p>501(c)(3) filing fees, WCAG accessibility audits, COPPA compliance review. The cage needs legal walls too.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container reveal">
+    <p class="trust-text">
+      P31 Labs is built in the open. <strong>Every line of code is on GitHub.</strong>
+      Every architectural decision is documented. Every test assertion is public.
+      We don't hide behind NDAs — we publish defensive disclosures on Zenodo
+      so the research stays free forever.
+    </p>
+    <div class="trust-links">
+      <a href="https://github.com/p31labs" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">ZENODO DOI</a>
+      <a href="https://orcid.org/0009-0002-2492-9079" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://p31ca.org" target="_blank" rel="noopener">LIVE DEPLOY</a>
+    </div>
+  </div>
+</section>
+
+<section class="posner">
+  <div class="container reveal">
+    <p class="posner-quote">
+      Phosphorus alone <em>burns</em>.<br>
+      Caged in calcium, it becomes<br>
+      the architecture of thought.
+    </p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-id">P31 LABS &middot; OPEN SOURCE</div>
+    <div class="footer-sub">Structure protects fragile things.</div>
+  </div>
+</footer>
+
+<script>
+const WORKER = 'https://stripe-donate.trimtab-signal.workers.dev';
+
+// Show thank-you if returning from Stripe
+if (new URLSearchParams(location.search).has('thanks')) {
+  document.getElementById('thanks-banner').style.display = 'block';
+}
+
+async function donate(amount, el) {
+  el.classList.add('loading');
+  try {
+    const res = await fetch(WORKER, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Could not create checkout session. Please try again.');
+      el.classList.remove('loading');
+    }
+  } catch (e) {
+    alert('Connection error. Please try again.');
+    el.classList.remove('loading');
+  }
+}
+
+function donateCustom(el) {
+  const input = document.getElementById('custom-amount');
+  const amount = parseFloat(input.value);
+  if (!amount || amount < 1) {
+    input.focus();
+    input.style.borderColor = 'var(--shield-red)';
+    setTimeout(() => input.style.borderColor = '', 1000);
+    return;
+  }
+  donate(amount, el);
+}
+
+// Reveal animations
+document.addEventListener('DOMContentLoaded', () => {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
       }
-    })();
-  </script>
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(el => obs.observe(el));
+});
+</script>
+
 </body>
 </html>
