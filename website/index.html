@@ -3,285 +3,800 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P31 Labs — Assistive Technology for Neurodivergent Minds</title>
-<meta name="description" content="P31 Labs builds open-source assistive technology for neurodivergent individuals. P31 NodeZero hardware, P31 Buffer communication processor, and P31 Tandem human-AI collaboration protocol.">
-<meta name="author" content="P31 Labs">
-<meta name="robots" content="index, follow">
+<title>Spaceship Earth — P31 Labs</title>
+<meta name="description" content="Open-source cognitive prosthetics for neurodivergent families. Engineered with safety-critical rigor. Built with love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- Open Graph -->
-<meta property="og:title" content="P31 Labs — Assistive Technology for Neurodivergent Minds">
-<meta property="og:description" content="Open-source assistive technology rooted in quantum biology. P31 NodeZero, P31 Buffer, P31 Tandem.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://phosphorus31.org">
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "P31 Labs, Inc.",
-  "alternateName": "P31 Labs",
-  "url": "https://phosphorus31.org",
-  "description": "Open-source assistive technology for neurodivergent individuals",
-  "foundingDate": "2026",
-  "founder": {
-    "@type": "Person",
-    "name": "Will",
-    "jobTitle": "Founder & Lead Engineer",
-    "sameAs": [
-      "https://orcid.org/0009-0002-2492-9079",
-      "https://github.com/trimtab-signal",
-      "https://thegeodesicself.substack.com"
-    ]
-  },
-  "sameAs": [
-    "https://github.com/trimtab-signal",
-    "https://zenodo.org/records/18627420"
-  ],
-  "nonprofitStatus": "501(c)(3)",
-  "areaServed": "US",
-  "knowsAbout": ["assistive technology", "neurodivergence", "ADHD", "autism", "quantum biology", "embedded systems"]
+:root {
+  --bg-void: #050810;
+  --bg-deep: #080c16;
+  --bg-panel: #0a1018;
+  --phosphor: #ff9944;
+  --phosphor-dim: #cc6622;
+  --mesh-blue: #44aaff;
+  --forge-green: #44ffaa;
+  --shield-red: #ff4466;
+  --text-primary: #c8ccd4;
+  --text-dim: #5a6678;
+  --text-bright: #e8ecf2;
+  --border-subtle: #141e2a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--serif);
+  background: var(--bg-void);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ GRAIN OVERLAY ═══ */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* ═══ LAYOUT ═══ */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 60px 28px;
+}
+
+.dome-container {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+.dome-svg {
+  width: 100%;
+  height: 100%;
+  animation: dome-breathe 8s ease-in-out infinite;
+}
+
+@keyframes dome-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+
+.dome-svg line {
+  stroke: var(--border-subtle);
+  stroke-width: 0.5;
+  opacity: 0.4;
+}
+.dome-svg .panel-body { fill: var(--phosphor); opacity: 0.15; }
+.dome-svg .panel-mesh { fill: var(--mesh-blue); opacity: 0.12; }
+.dome-svg .panel-forge { fill: var(--forge-green); opacity: 0.12; }
+.dome-svg .panel-shield { fill: var(--shield-red); opacity: 0.12; }
+.dome-svg .panel-active {
+  animation: panel-pulse 4s ease-in-out infinite;
+}
+@keyframes panel-pulse {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.35; }
+}
+
+.hero-org {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 300;
+  color: var(--text-bright);
+  line-height: 1.15;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--phosphor);
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  opacity: 0.4;
+  animation: fade-bob 3s ease-in-out infinite;
+}
+@keyframes fade-bob {
+  0%, 100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.5; transform: translateX(-50%) translateY(6px); }
+}
+
+/* ═══ THE STORY ═══ */
+.story {
+  padding: 120px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.story-text {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 300;
+  line-height: 2;
+  color: var(--text-primary);
+  max-width: 640px;
+}
+.story-text p { margin-bottom: 1.8em; }
+.story-text strong {
+  color: var(--text-bright);
+  font-weight: 400;
+}
+.story-text .phosphor-highlight {
+  color: var(--phosphor);
+  font-weight: 400;
+}
+
+/* ═══ DIVIDER ═══ */
+.divider {
+  text-align: center;
+  padding: 80px 0;
+  position: relative;
+}
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--phosphor-dim), transparent);
+  opacity: 0.3;
+}
+.divider-icon {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--phosphor);
+  transform: rotate(45deg);
+  opacity: 0.5;
+}
+
+/* ═══ MODULES ═══ */
+.modules { padding: 0 0 80px; }
+
+.module {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.module:last-child { border-bottom: none; }
+
+.module-number {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.module h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 300;
+  color: var(--text-bright);
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.module-subtitle {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--phosphor-dim);
+  margin-bottom: 28px;
+}
+
+.module-body {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-primary);
+  max-width: 640px;
+}
+.module-body p { margin-bottom: 1.5em; }
+
+.module-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  color: var(--text-dim);
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+.module-tag.live {
+  border-color: var(--forge-green);
+  color: var(--forge-green);
+}
+
+.module-link {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--phosphor);
+  text-decoration: none;
+  margin-top: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.module-link:hover { border-color: var(--phosphor); }
+
+/* ═══ THE ENGINEERING ═══ */
+.engineering {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.engineering h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 300;
+  color: var(--text-bright);
+  margin-bottom: 40px;
+  letter-spacing: -0.3px;
+}
+.eng-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 640px) {
+  .eng-grid { grid-template-columns: 1fr 1fr; }
+}
+.eng-card {
+  padding: 28px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+}
+.eng-card-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.eng-card h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-bright);
+  margin-bottom: 12px;
+}
+.eng-card p {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+.eng-card .mono-cite {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--phosphor-dim);
+  margin-top: 12px;
+  display: block;
+}
+
+/* ═══ CALL TO ACTION ═══ */
+.cta {
+  padding: 120px 0;
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+}
+.cta h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 300;
+  color: var(--text-bright);
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+}
+.cta p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+.cta-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+.cta-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 12px 28px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  color: var(--text-dim);
+  transition: all 0.3s;
+}
+.cta-btn:hover {
+  border-color: var(--phosphor);
+  color: var(--phosphor);
+  background: rgba(255, 153, 68, 0.04);
+}
+.cta-btn.primary {
+  border-color: var(--phosphor-dim);
+  color: var(--phosphor);
+  background: rgba(255, 153, 68, 0.06);
+}
+
+/* ═══ FOOTER ═══ */
+.site-footer {
+  padding: 60px 0;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.footer-identity {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.footer-links a:hover { opacity: 1; color: var(--phosphor); }
+.footer-sub {
+  margin-top: 24px;
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-dim);
+  opacity: 0.35;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 480px) {
+  .dome-container { width: 200px; height: 200px; }
+  .module { padding: 50px 0; }
+  .engineering { padding: 60px 0; }
+  .cta { padding: 80px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="dome-container">
+    <svg class="dome-svg" viewBox="0 0 300 300">
+      <!-- Simplified geodesic wireframe -->
+      <g transform="translate(150,150)">
+        <!-- Outer shell lines -->
+        <line x1="0" y1="-120" x2="-104" y2="60"/>
+        <line x1="0" y1="-120" x2="104" y2="60"/>
+        <line x1="-104" y1="60" x2="104" y2="60"/>
+        <line x1="0" y1="-120" x2="-55" y2="-30"/>
+        <line x1="0" y1="-120" x2="55" y2="-30"/>
+        <line x1="-104" y1="60" x2="-55" y2="-30"/>
+        <line x1="104" y1="60" x2="55" y2="-30"/>
+        <line x1="-55" y1="-30" x2="55" y2="-30"/>
+        <line x1="-55" y1="-30" x2="0" y2="60"/>
+        <line x1="55" y1="-30" x2="0" y2="60"/>
+        <line x1="-104" y1="60" x2="0" y2="60"/>
+        <line x1="104" y1="60" x2="0" y2="60"/>
+        <!-- Mid lines -->
+        <line x1="-28" y1="-75" x2="-80" y2="15"/>
+        <line x1="28" y1="-75" x2="80" y2="15"/>
+        <line x1="-80" y1="15" x2="80" y2="15"/>
+        <line x1="28" y1="-75" x2="-28" y2="-75"/>
+        <line x1="-52" y1="60" x2="-80" y2="15"/>
+        <line x1="52" y1="60" x2="80" y2="15"/>
+        <!-- Colored panels (data faces) -->
+        <polygon class="panel-body panel-active" points="0,-120 -28,-75 28,-75"/>
+        <polygon class="panel-body" points="-28,-75 -55,-30 0,-30"/>
+        <polygon class="panel-mesh" points="-104,60 -80,15 -52,60"/>
+        <polygon class="panel-mesh panel-active" points="-52,60 0,60 -28,15"/>
+        <polygon class="panel-forge" points="52,60 104,60 80,15"/>
+        <polygon class="panel-forge" points="0,60 52,60 28,15"/>
+        <polygon class="panel-shield panel-active" points="28,-75 55,-30 28,-5"/>
+        <polygon class="panel-shield" points="55,-30 80,15 55,15"/>
+        <!-- Additional structure lines -->
+        <line x1="-28" y1="-75" x2="0" y2="-30"/>
+        <line x1="28" y1="-75" x2="0" y2="-30"/>
+        <line x1="-28" y1="-75" x2="-55" y2="-30"/>
+        <line x1="28" y1="-75" x2="55" y2="-30"/>
+        <line x1="-80" y1="15" x2="-28" y2="15"/>
+        <line x1="80" y1="15" x2="28" y2="15"/>
+        <line x1="-28" y1="15" x2="28" y2="15"/>
+        <line x1="-52" y1="60" x2="-28" y2="15"/>
+        <line x1="52" y1="60" x2="28" y2="15"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-org">P31 LABS &middot; 501(c)(3)</div>
+
+  <h1>A sanctuary<br>for <em>connection</em></h1>
+
+  <p class="hero-sub">
+    Open-source cognitive prosthetics engineered with safety-critical rigor.
+    Built to protect neurodivergent families. Built with love.
+  </p>
+
+  <span class="scroll-cue">SCROLL</span>
+</section>
+
+<!-- ═══ THE STORY ═══ -->
+<section class="story">
+  <div class="container">
+    <div class="story-text reveal">
+      <p>
+        Neurodivergent families deserve tools engineered with the same rigor
+        as the systems that protect critical infrastructure. Not apps that
+        steal attention &mdash; tools that <strong>protect</strong> it.
+      </p>
+      <p>
+        P31 Labs was founded by an engineer with sixteen years of experience
+        in safety-critical systems &mdash; the kind where
+        <span class="phosphor-highlight">structure protects fragile things</span>.
+        Where redundancy is not waste; it's love expressed in topology.
+        Where the best systems don't eliminate human limits &mdash; they honor them.
+      </p>
+      <p>
+        We build open-source cognitive prosthetics: tools that help
+        neurodivergent individuals manage sensory load, maintain connection
+        with the people who matter, and produce verifiable records
+        of engagement and care. Every interaction is timestamped.
+        Every record is cryptographically sealed. The truth cannot be edited.
+      </p>
+      <p>
+        The engineering is fault-tolerant because
+        the human hearts it protects are fragile.
+        The cryptography isn't a weapon &mdash; it's a shield.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ═══ -->
+<div class="divider"><span class="divider-icon"></span></div>
+
+<!-- ═══ MODULES ═══ -->
+<section class="modules">
+  <div class="container">
+
+    <!-- BONDING -->
+    <div class="module reveal">
+      <div class="module-number">MODULE 01</div>
+      <h2>BONDING</h2>
+      <div class="module-subtitle">Connection, mathematically verified.</div>
+      <div class="module-body">
+        <p>
+          A WebGL molecular chemistry environment where children build real compounds &mdash;
+          water, table salt, glucose &mdash; by dragging atoms together. Three gentle
+          difficulty tiers (Seed, Sprout, Sapling) ensure the experience matches the child's
+          developmental stage without draining executive function.
+        </p>
+        <p>
+          Every molecule constructed is a discrete, timestamped act of human attention.
+          These interactions generate L.O.V.E. &mdash; Ledger of Ontological Volume and Entropy &mdash;
+          producing verifiable engagement records sealed by an unbroken cryptographic chain.
+          When a six-year-old builds water, she's learning real chemistry.
+          The system is quietly recording proof that someone showed up.
+        </p>
+      </div>
+      <div>
+        <span class="module-tag live">DEPLOYED</span>
+        <span class="module-tag">488 TESTS</span>
+        <span class="module-tag">MULTIPLAYER</span>
+      </div>
+      <a href="https://bonding.p31ca.org" class="module-link">LAUNCH BONDING &rarr;</a>
+    </div>
+
+    <!-- OBSERVATORY -->
+    <div class="module reveal">
+      <div class="module-number">MODULE 02</div>
+      <h2>The Observatory</h2>
+      <div class="module-subtitle">Structure as support.</div>
+      <div class="module-body">
+        <p>
+          Linear dashboards overwhelm the high-bandwidth geometric processing
+          of the AuDHD mind. The Observatory replaces lists with a Buckminster Fuller&ndash;inspired
+          geodesic dome &mdash; 80 triangular faces, each representing a data node.
+          Health metrics, schedules, projects, relationships: they don't live
+          in a spreadsheet. They live on the dome.
+        </p>
+        <p>
+          The structure <em>is</em> the data. When a node is active, its panel illuminates.
+          The dome breathes. The operator grasps systemic coherence at a single glance,
+          without sensory overload. Four cognitive axes &mdash; Body, Mesh, Forge, Shield &mdash;
+          organize everything the way the mind already works: geometrically.
+        </p>
+      </div>
+      <div>
+        <span class="module-tag live">DEPLOYED</span>
+        <span class="module-tag">55 NODES</span>
+        <span class="module-tag">52 EDGES</span>
+      </div>
+      <a href="https://p31ca.org" class="module-link">ENTER THE OBSERVATORY &rarr;</a>
+    </div>
+
+    <!-- BRIDGE -->
+    <div class="module reveal">
+      <div class="module-number">MODULE 03</div>
+      <h2>The Bridge</h2>
+      <div class="module-subtitle">Honoring human limits.</div>
+      <div class="module-body">
+        <p>
+          The attention economy assumes infinite human energy.
+          The Bridge rejects this. Built on Cognitive Load Theory and the
+          community-derived Spoon Theory, it tracks a dual-currency ecosystem:
+          spoons spent and love earned.
+        </p>
+        <p>
+          When energy is low, the system gracefully reduces demands.
+          When connection happens, the ledger records it. L.O.V.E. tokens are soulbound &mdash;
+          they cannot be bought, sold, or transferred. They can only be earned through
+          care, creation, and consistency. The Bridge allows the operator to vest earned tokens
+          directly to dependents, creating a permanent inheritance of verified parental effort
+          that no algorithm can erase.
+        </p>
+      </div>
+      <div>
+        <span class="module-tag live">DEPLOYED</span>
+        <span class="module-tag">DUAL CURRENCY</span>
+        <span class="module-tag">SOULBOUND</span>
+      </div>
+    </div>
+
+    <!-- VAULT -->
+    <div class="module reveal">
+      <div class="module-number">MODULE 04</div>
+      <h2>The Vault</h2>
+      <div class="module-subtitle">Verifiable proof of presence.</div>
+      <div class="module-body">
+        <p>
+          When records matter, integrity is everything. The Vault is the physical
+          manifestation of the Genesis Block &mdash; a system designed to protect
+          verifiable truth.
+        </p>
+        <p>
+          Operating offline-first with AES-256-GCM encryption, the Vault secures every
+          telemetry chain, every engagement record, every moment of connection on local hardware.
+          When verification is required, one command generates a complete export.
+          Every event is sealed via an unbroken SHA-256 hash chain, satisfying the strict reliability
+          standards required by federal evidentiary frameworks. If a single timestamp is altered,
+          the entire chain breaks. The truth cannot be edited.
+        </p>
+      </div>
+      <div>
+        <span class="module-tag live">DEPLOYED</span>
+        <span class="module-tag">SHA-256</span>
+        <span class="module-tag">AES-256-GCM</span>
+        <span class="module-tag">NIST FIPS 180-4</span>
+      </div>
+    </div>
+
+    <!-- GEODESIC -->
+    <div class="module reveal">
+      <div class="module-number">MODULE 05</div>
+      <h2>The Geodesic Room</h2>
+      <div class="module-subtitle">Rigidity through triangulation.</div>
+      <div class="module-body">
+        <p>
+          Maxwell's rigidity criterion teaches that a structure becomes stable
+          when its constraints match its degrees of freedom. The Geodesic Room
+          applies this principle to cognitive architecture &mdash; each bond the operator
+          forms (human, systemic, structural) is evaluated for its contribution
+          to overall stability.
+        </p>
+        <p>
+          The room visualizes structural progression in real-time: which bonds carry load,
+          which create redundancy, where the system is over-constrained or dangerously loose.
+          It makes the invisible architecture of a life visible, navigable, and repairable.
+        </p>
+      </div>
+      <div>
+        <span class="module-tag live">DEPLOYED</span>
+        <span class="module-tag">MAXWELL RIGIDITY</span>
+        <span class="module-tag">THREE.JS</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ═══ -->
+<div class="divider"><span class="divider-icon"></span></div>
+
+<!-- ═══ ENGINEERING ═══ -->
+<section class="engineering">
+  <div class="container">
+    <h2 class="reveal">The Engineering</h2>
+    <div class="eng-grid">
+      <div class="eng-card reveal reveal-delay-1">
+        <div class="eng-card-label">EVIDENTIARY</div>
+        <h3>Genesis Block</h3>
+        <p>
+          Every interaction generates a discrete event, hashed via SHA-256
+          with an independent edge countersignature from a Cloudflare Worker.
+          The resulting telemetry chain provides cryptographic non-repudiation
+          with a collision probability of 1 in 2<sup>256</sup>.
+        </p>
+        <span class="mono-cite">CWP-03 Rev B &middot; NIST FIPS 180-4</span>
+      </div>
+      <div class="eng-card reveal reveal-delay-2">
+        <div class="eng-card-label">METHODOLOGY</div>
+        <h3>The Centaur</h3>
+        <p>
+          Human-in-the-loop architecture. AI nodes act as high-throughput
+          synthesizers; they never hold autonomous decision-making authority.
+          The human operator maintains contextual anchoring and override,
+          ensuring all outputs are rooted in verifiable human reality.
+        </p>
+        <span class="mono-cite">Homo syntheticus &middot; Tag-out protocol</span>
+      </div>
+      <div class="eng-card reveal reveal-delay-1">
+        <div class="eng-card-label">QUALITY ASSURANCE</div>
+        <h3>SOULSAFE</h3>
+        <p>
+          Derived from safety-critical industrial standards.
+          No code deploys without procedural authorization gates
+          (Work Control Documents) and automated verification.
+          927 assertions across the monorepo. Zero tolerance for untested paths.
+        </p>
+        <span class="mono-cite">OQE &middot; WCD Protocol Suite</span>
+      </div>
+      <div class="eng-card reveal reveal-delay-2">
+        <div class="eng-card-label">LEGAL BASIS</div>
+        <h3>Evidentiary Integrity</h3>
+        <p>
+          Testable (reproducible builds, read-only verification URLs).
+          Peer-reviewed (Zenodo DOI, open-source repositories).
+          Known error rate (SHA-256 collision: 8.64 &times; 10<sup>-78</sup>).
+          Generally accepted (NIST FIPS 180-4).
+          Meets all four prongs of the federal reliability standard for scientific evidence.
+        </p>
+        <span class="mono-cite">NIST FIPS 180-4 &middot; SHA-256</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta">
+  <div class="container reveal">
+    <h2>The calcium cage protects<br>the phosphorus.</h2>
+    <p>
+      P31 Labs is named for the phosphorus-31 isotope &mdash; unstable,
+      reactive, essential for life. Phosphorus alone burns.
+      Caged in calcium, it becomes the Posner molecule:
+      the architecture of thought itself.
+      <br><br>
+      Help us build the cage.
+    </p>
+    <div class="cta-links">
+      <a href="https://phosphorus31.org/donate" class="cta-btn primary">DONATE</a>
+      <a href="https://github.com/p31labs" class="cta-btn">GITHUB</a>
+      <a href="https://hcb.hackclub.com/donations/start/p31-labs" class="cta-btn">HCB (TAX-DEDUCTIBLE)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-identity">P31 LABS &middot; GEORGIA 501(c)(3)</div>
+    <div class="footer-links">
+      <a href="https://phosphorus31.org">PHOSPHORUS31.ORG</a>
+      <a href="https://p31ca.org">P31CA.ORG</a>
+      <a href="https://bonding.p31ca.org">BONDING</a>
+      <a href="https://github.com/p31labs">GITHUB</a>
+      <a href="https://doi.org/10.5281/zenodo.18627420">ZENODO DOI</a>
+      <a href="https://orcid.org/0009-0002-2492-9079">ORCID</a>
+    </div>
+    <div class="footer-sub">
+      Structure protects fragile things.
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCROLL REVEAL ═══ -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+});
 </script>
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔺</text></svg>">
-
-<link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-<div class="container">
-
-  <!-- HEADER -->
-  <header>
-    <div class="org-name"><span class="p31">P31</span> Labs</div>
-    <div class="org-type">Georgia 501(c)(3) Nonprofit (in formation) &nbsp;&middot;&nbsp; Est. 2026</div>
-    <p class="tagline">
-      Building <strong>open-source assistive technology</strong> for neurodivergent individuals.
-      Rooted in quantum biology. Engineered for the minds that think different.
-    </p>
-  </header>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#mission">Mission</a>
-    <a href="#products">Products</a>
-    <a href="#publications">Publications</a>
-    <a href="#codebase">Codebase</a>
-    <a href="#identity">Identity</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- MISSION -->
-  <section id="mission">
-    <div class="section-label">Mission</div>
-    <h2>Cognitive prosthetics, not cognitive patches.</h2>
-    <p>
-      P31 Labs develops assistive technology that works <em>with</em> neurodivergent cognition instead of forcing neurotypical patterns. Our tools don't train you to mask. They amplify how you already think.
-    </p>
-    <p>
-      The name comes from Phosphorus-31, the only stable isotope of phosphorus and the foundation of ATP &mdash; the molecule that powers every thought. Combined with calcium, it forms the Posner molecule (Ca<sub>9</sub>(PO<sub>4</sub>)<sub>6</sub>), the hypothesized substrate for quantum cognition in biological systems.
-    </p>
-    <p>
-      We took that literally. Our product suite &mdash; hardware, software, and protocol &mdash; is designed from the molecular level up. Every interface decision is grounded in the neuroscience of how attention, executive function, and sensory processing actually work in divergent brains.
-    </p>
-
-    <div class="molecule">
-      <span class="formula">Ca&#8329;(PO&#8324;)&#8326;</span> &mdash; The Posner Molecule<br>
-      <span class="element">P31</span> = Phosphorus-31 (NMR-active, quantum spin &frac12;)<br>
-      <span class="element">Ca</span> = Calcium (9 atoms, binding the structure)<br>
-      <span class="note">phosphorus31.org = the science &nbsp;&middot;&nbsp; p31ca.org = the organism</span>
-    </div>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section id="products">
-    <div class="section-label">Products</div>
-    <h2>Three layers. One organism.</h2>
-
-    <div class="products">
-      <div class="product">
-        <div class="product-name">P31 NodeZero</div>
-        <div class="product-tag">Hardware &middot; ESP32-S3 &middot; Open Source</div>
-        <p>An assistive wearable built on the ESP32-S3 microcontroller. Haptic feedback for sensory regulation, LoRa mesh communication for off-grid sovereignty, and a secure element (SE050) for hardware-backed identity. The "Thick Click" &mdash; every digital action has a physical recoil.</p>
-      </div>
-
-      <div class="product">
-        <div class="product-name">P31 Buffer</div>
-        <div class="product-tag">Software &middot; Communication Processor</div>
-        <p>A communication processing layer for people whose brains overshoot in conversation. Voltage analysis, pattern detection, pause timing, friction logging. Not a filter &mdash; a lens. Helps you see your own signal before it transmits.</p>
-      </div>
-
-      <div class="product">
-        <div class="product-name">P31 Tandem</div>
-        <div class="product-tag">Protocol &middot; Human-AI Collaboration</div>
-        <p>A structured protocol for human-AI collaboration where the human provides direction, context, and judgment while the AI provides memory and synthesis. Named for riding together. Built for people who think in systems but struggle with sequential output.</p>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">100+</div>
-        <div class="stat-label">React Components</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Standalone Apps</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">18+</div>
-        <div class="stat-label">Engine Modules</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Firmware Files</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PUBLICATIONS -->
-  <section id="publications">
-    <div class="section-label">Publications &amp; Prior Art</div>
-    <h2>Timestamped. Citable. Permanent.</h2>
-
-    <div class="pub">
-      <div class="pub-title">The Tetrahedron Protocol: A Geometric Framework for Sovereign Communication</div>
-      <div class="pub-meta">W. (2025) &middot; Zenodo</div>
-      <div class="pub-doi">DOI: <a href="https://zenodo.org/records/18627420" target="_blank" rel="noopener">10.5281/zenodo.18627420</a></div>
-    </div>
-
-    <p style="margin-top: 1rem; font-size: 0.9rem;">
-      Defensive publications and prior art filings are deposited on Zenodo with DOIs for permanent citability. The Tetrahedron Protocol establishes the geometric security framework that underlies P31 Labs' communication architecture &mdash; background-independent, clock-free, based on SIC-POVM quantum measurements rather than computational complexity.
-    </p>
-  </section>
-
-  <!-- CODEBASE -->
-  <section id="codebase">
-    <div class="section-label">Open Source</div>
-    <h2>The work is public.</h2>
-    <p>
-      The P31 ecosystem is open source. The monorepo contains the full product suite: React frontend, Three.js visualization, SUPER-CENTAUR engine (TypeScript), GENESIS_GATE backend (Google Apps Script), ESP32-S3 firmware, the Greenhouse app marketplace (20+ standalone HTML apps), a custom domain-specific language (P31 DSL), a complete 3D print slicer pipeline, and production cryptography (Ed25519 + AES-256-GCM).
-    </p>
-
-    <div class="cta-group">
-      <a href="/mesh" class="cta cta-primary">
-        Living Mesh &rarr;
-      </a>
-      <a href="https://github.com/trimtab-signal" target="_blank" rel="noopener" class="cta cta-secondary">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        GitHub
-      </a>
-      <a href="https://p31ca.org" target="_blank" rel="noopener" class="cta cta-secondary">
-        Live App &rarr;
-      </a>
-    </div>
-  </section>
-
-  <!-- PARTNERSHIPS -->
-  <section id="partnerships">
-    <div class="section-label">Partnerships &amp; Programs</div>
-    <h2>Building with, not building for.</h2>
-    <p>
-      P31 Labs works with organizations that share our commitment to assistive technology, open source, and neurodivergent-centered design.
-    </p>
-
-    <h3>Georgia Tech Tools for Life</h3>
-    <p>Georgia's Assistive Technology Act Program. P31 Labs is developing hardware and software in coordination with Tools for Life's statewide assistive technology network.</p>
-
-    <h3>Makers Making Change</h3>
-    <p>Open-source assistive technology community. P31 NodeZero designs are intended for distribution through the MMC network, enabling local fabrication of assistive devices.</p>
-
-    <h3>Digital-First Programs</h3>
-    <p>We prioritize programs, grants, and accelerators where digital presence is the application. Our codebase, publications, and live product speak louder than a handshake.</p>
-  </section>
-
-  <!-- IDENTITY -->
-  <section id="identity">
-    <div class="section-label">Verified Identity</div>
-    <h2>Triangulated. Timestamped. Permanent.</h2>
-
-    <div class="id-grid">
-      <a href="https://orcid.org/0009-0002-2492-9079" target="_blank" rel="noopener" class="id-card">
-        <div class="id-label">ORCID</div>
-        <div class="id-value">0009-0002-2492-9079</div>
-      </a>
-      <a href="https://zenodo.org/records/18627420" target="_blank" rel="noopener" class="id-card">
-        <div class="id-label">Zenodo DOI</div>
-        <div class="id-value">10.5281/zenodo.18627420</div>
-      </a>
-      <a href="https://github.com/trimtab-signal" target="_blank" rel="noopener" class="id-card">
-        <div class="id-label">GitHub</div>
-        <div class="id-value">trimtab-signal</div>
-      </a>
-      <a href="https://thegeodesicself.substack.com" target="_blank" rel="noopener" class="id-card">
-        <div class="id-label">Substack</div>
-        <div class="id-value">The Geodesic Self</div>
-      </a>
-      <a href="https://p31ca.org" target="_blank" rel="noopener" class="id-card">
-        <div class="id-label">Live Product</div>
-        <div class="id-value">p31ca.org</div>
-      </a>
-      <a href="https://phosphorus31.org" class="id-card">
-        <div class="id-label">Corporate</div>
-        <div class="id-value">phosphorus31.org</div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FOUNDER -->
-  <section id="founder">
-    <div class="section-label">Founder</div>
-    <h2>Will</h2>
-    <p>
-      16-year DoD civilian engineer (submarine electrical systems). Diagnosed ADHD + Autism in 2025 after decades of undiagnosed neurodivergence. Left federal service to build the tools that would have changed everything if they'd existed 20 years ago.
-    </p>
-    <p>
-      Deep expertise in electrical systems, safety-critical infrastructure, embedded systems development, and systematic troubleshooting. Applying engineering discipline to the problem of cognitive accessibility.
-    </p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-label">Contact</div>
-    <h2>will@p31ca.org</h2>
-    <p>
-      For partnership inquiries, grant coordination, assistive technology collaboration, or just to talk about Posner molecules.
-    </p>
-
-    <div class="cta-group">
-      <a href="mailto:will@p31ca.org" class="cta cta-primary">
-        Email &rarr;
-      </a>
-      <a href="https://github.com/trimtab-signal" target="_blank" rel="noopener" class="cta cta-secondary">
-        GitHub
-      </a>
-      <a href="https://thegeodesicself.substack.com" target="_blank" rel="noopener" class="cta cta-secondary">
-        Substack
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER. After Articles filed, confirm exact legal name matches ©. -->
-  <footer>
-    <div class="footer-row">
-      <div class="footer-legal">
-        &copy; 2026 P31 Labs, Inc. &nbsp;&middot;&nbsp; Georgia 501(c)(3) Nonprofit (in formation)
-      </div>
-      <div class="footer-links">
-        <a href="https://github.com/trimtab-signal">GitHub</a>
-        <a href="https://orcid.org/0009-0002-2492-9079">ORCID</a>
-        <a href="https://zenodo.org/records/18627420">Zenodo</a>
-      </div>
-    </div>
-    <div class="footer-tag">It's okay to be a little wonky. &#9650;</div>
-  </footer>
-
-</div>
 </body>
 </html>
