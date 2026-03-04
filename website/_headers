@@ -14,6 +14,15 @@
 /index.html
   Cache-Control: public, max-age=3600
 
+# Donate page — inline styles/scripts + Stripe worker
+/donate/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://stripe-donate.trimtab-signal.workers.dev
+  Cache-Control: public, max-age=3600
+
+# Ecosystem index — inline styles/scripts
+/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'
+
 # Living Mesh — single-file build requires inline scripts
 /mesh.html
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'
