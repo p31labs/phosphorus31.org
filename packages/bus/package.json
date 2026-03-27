@@ -23,7 +23,9 @@
       "require": "./dist/keys.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -39,13 +41,19 @@
     }
   },
   "devDependencies": {
-    "tsup": "^8.0.0",
-    "vitest": "^2.0.0",
-    "typescript": "^5.5.0",
-    "@types/react": "^18.0.0",
-    "happy-dom": "^15.0.0"
+    "@types/react": "^18.3.28",
+    "happy-dom": "^20.8.8",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
   },
-  "keywords": ["p31", "bus", "state", "localStorage", "broadcast"],
+  "keywords": [
+    "p31",
+    "bus",
+    "state",
+    "localStorage",
+    "broadcast"
+  ],
   "author": "P31 Labs",
   "license": "AGPL-3.0"
 }
