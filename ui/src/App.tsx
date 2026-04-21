@@ -98,6 +98,7 @@ function App() {
   const [showSproutPanel, setShowSproutPanel] = useState(false);
   const [showMATADemo, setShowMATADemo] = useState(false);
   const [showWorldBuilder, setShowWorldBuilder] = useState(false);
+  const [showFamilyMesh, setShowFamilyMesh] = useState(false);
   const [showQuantumMVP, setShowQuantumMVP] = useState(false);
   const [showMarketplace, setShowMarketplace] = useState(false);
   const [currentWorldId, setCurrentWorldId] = useState<string | null>(null);
@@ -131,6 +132,7 @@ function App() {
         else if (showDemoDashboard) setShowDemoDashboard(false);
         else if (showScopeDashboard) setShowScopeDashboard(false);
         else if (showSproutPanel) setShowSproutPanel(false);
+        else if (showFamilyMesh) setShowFamilyMesh(false);
         else if (showMATADemo) setShowMATADemo(false);
         else if (showWorldBuilder) setShowWorldBuilder(false);
         else if (showQuantumMVP) setShowQuantumMVP(false);
@@ -562,6 +564,16 @@ function App() {
                             group: 'tools',
                             ariaLabel: 'Tools for Life',
                           },
+                          {
+                            id: 'familyMesh',
+                            label: '◆ Family Mesh',
+                            icon: '◆',
+                            onClick: () => setShowFamilyMesh(!showFamilyMesh),
+                            isActive: showFamilyMesh,
+                            variant: 'primary',
+                            group: 'core',
+                            ariaLabel: 'P31 Family Mesh - Tetrahedron communication for April 25 visitation',
+                          },
                         ]}
                         onButtonClick={(id) => {
                           const buttonMap: Record<string, () => void> = {
@@ -592,6 +604,7 @@ function App() {
                             quantum: () => setShowQuantum(!showQuantum),
                             quantumNav: () => setShowQuantumNav(!showQuantumNav),
                             toolsForLife: () => setShowToolsForLife(!showToolsForLife),
+                            familyMesh: () => setShowFamilyMesh(!showFamilyMesh),
                           };
                           buttonMap[id]?.();
                         }}
@@ -929,6 +942,25 @@ function App() {
                     <SproutErrorBoundary>
                       <P31SproutPanel />
                     </SproutErrorBoundary>
+                  </div>
+                )}
+
+                {showFamilyMesh && (
+                  <div className="absolute inset-0 z-40 bg-[#050510] overflow-auto">
+                    <button
+                      type="button"
+                      onClick={() => setShowFamilyMesh(false)}
+                      onKeyDown={(e) => handleButtonKeyDown(e, () => setShowFamilyMesh(false))}
+                      className="absolute top-4 left-4 z-50 bg-[#2ecc71] hover:opacity-90 text-[#050510] px-4 py-2 rounded-lg font-bold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-[#2ecc71] min-h-[44px]"
+                      aria-label="Close Family Mesh"
+                    >
+                      ✕ Back to Hub
+                    </button>
+                    <iframe
+                      src="/apps/family-mesh/index.html"
+                      className="w-full h-full border-0"
+                      title="P31 Family Mesh"
+                    />
                   </div>
                 )}
               </div>

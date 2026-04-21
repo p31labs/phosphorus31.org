@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P31 Tetrahedron Family Mesh</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .tetrahedron-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .tetrahedron {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: #e2e8f0;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #4a5568;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .status {
+            padding: 10px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .chat-container {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .message.sent {
+            background: #4299e1;
+            color: white;
+            margin-left: auto;
+        }
+        .message.received {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: white;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-family: inherit;
+        }
+        .chat-input button {
+            padding: 10px 20px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+        }
+        .chat-input button:hover {
+            background: #3182ce;
+        }
+        .chat-input button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        .safety-notice {
+            padding: 15px;
+            background: #fed7d7;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #c53030;
+        }
+        .connection-info {
+            padding: 10px;
+            background: #e6fffa;
+            border-bottom: 1px solid #b2f5ea;
+            text-align: center;
+            font-size: 12px;
+            color: #234e52;
+        }
+        .error-message {
+            padding: 10px;
+            background: #fed7d7;
+            border-bottom: 1px solid #feb2b2;
+            text-align: center;
+            font-size: 12px;
+            color: #c53030;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>P31 Tetrahedron Family Mesh</h1>
+            <p>Safe Communication for Family Time</p>
+        </div>
+
+        <div id="connection-info" class="connection-info">
+            Connecting to family mesh...
+        </div>
+
+        <div class="tetrahedron-container">
+            <div class="tetrahedron" id="tetrahedron">
+                Family<br>Connected
+            </div>
+        </div>
+
+        <div id="status" class="status">Initializing...</div>
+
+        <div class="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                <!-- Messages will appear here -->
+            </div>
+
+            <div class="chat-input">
+                <input id="message-input" type="text" placeholder="Type your family message..." maxlength="500">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+
+        <div class="safety-notice">
+            <strong>Safety First:</strong> This is a supervised communication tool for the April 25 visitation. All messages are appropriate for family sharing. Emergency situations should be handled directly with supervising adults.
+        </div>
+    </div>
+
+    <script>
+        class TetrahedronMesh {
+            constructor() {
+                this.ws = null;
+                this.roomCode = 'FAMILY2026'; // Saturday visitation room
+                this.userId = this.getUserId();
+                this.statusElement = document.getElementById('status');
+                this.connectionElement = document.getElementById('connection-info');
+                this.messagesElement = document.getElementById('chat-messages');
+                this.inputElement = document.getElementById('message-input');
+                this.sendButton = document.getElementById('send-button');
+                this.tetrahedronElement = document.getElementById('tetrahedron');
+
+                this.init();
+            }
+
+            getUserId() {
+                // Try to get from URL params or localStorage
+                const urlParams = new URLSearchParams(window.location.search);
+                const fromUrl = urlParams.get('user');
+                if (fromUrl) return fromUrl;
+
+                // Default based on context
+                return 'family-member';
+            }
+
+            init() {
+                this.updateStatus('Initializing family mesh...');
+                this.updateConnection('Connecting to secure family channel...');
+                this.connect();
+                this.setupEventListeners();
+                this.animateTetrahedron();
+            }
+
+            connect() {
+                this.updateStatus('Connecting...');
+                try {
+                    this.ws = new WebSocket('wss://k4-cage.trimtab-signal.workers.dev/ws/FAMILY2026?node=' + this.userId);
+
+                    this.ws.onopen = () => {
+                        this.updateStatus('Connected to Family Mesh');
+                        this.updateConnection('Secure connection established. Ready for family communication.');
+                        this.addSystemMessage('Welcome to the P31 Family Mesh! Messages are monitored for safety.');
+                    };
+
+                    this.ws.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            this.handleMessage(data);
+                        } catch (error) {
+                            console.error('Message parsing error:', error);
+                        }
+                    };
+
+                    this.ws.onclose = (event) => {
+                        this.updateStatus('Disconnected');
+                        this.updateConnection('Connection lost. Attempting to reconnect...');
+                        this.showError('Connection lost. Please refresh the page.');
+                        // Auto-reconnect after delay
+                        setTimeout(() => this.connect(), 5000);
+                    };
+
+                    this.ws.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                        this.updateStatus('Connection Error');
+                        this.updateConnection('Unable to connect to family mesh. Check your internet connection.');
+                        this.showError('Connection failed. Please check your internet and try again.');
+                    };
+                } catch (error) {
+                    console.error('Connection setup error:', error);
+                    this.showError('Unable to initialize family mesh connection.');
+                }
+            }
+
+            setupEventListeners() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                this.inputElement.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            sendMessage() {
+                const content = this.inputElement.value.trim();
+                if (content && this.ws && this.ws.readyState === WebSocket.OPEN) {
+                    const message = {
+                        type: 'message',
+                        content: content,
+                        timestamp: new Date().toISOString(),
+                        sender: this.userId
+                    };
+
+                    this.ws.send(JSON.stringify(message));
+                    this.displayMessage({
+                        sender: this.userId,
+                        content: content,
+                        timestamp: new Date().toISOString()
+                    });
+                    this.inputElement.value = '';
+
+                    this.sendButton.disabled = true;
+                    setTimeout(() => {
+                        this.sendButton.disabled = false;
+                    }, 1000); // Prevent spam
+                } else if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+                    this.showError('Not connected to family mesh. Please wait for reconnection.');
+                }
+            }
+
+            handleMessage(data) {
+                switch (data.type) {
+                    case 'joined':
+                        this.addSystemMessage(`${data.userId} joined the family mesh`);
+                        break;
+                    case 'message':
+                        this.displayMessage(data);
+                        break;
+                    case 'user_joined':
+                        this.addSystemMessage(`${data.userId} joined the family mesh`);
+                        break;
+                    case 'user_left':
+                        this.addSystemMessage(`${data.userId} left the family mesh`);
+                        break;
+                    default:
+                        console.log('Unknown message type:', data.type);
+                }
+            }
+
+            displayMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${message.sender === this.userId ? 'sent' : 'received'}`;
+
+                const sender = document.createElement('div');
+                sender.style.fontWeight = 'bold';
+                sender.style.fontSize = '12px';
+                sender.style.marginBottom = '4px';
+                sender.textContent = message.sender === this.userId ? 'You' : message.sender || 'Family Member';
+
+                const content = document.createElement('div');
+                content.textContent = message.content;
+
+                const timestamp = document.createElement('div');
+                timestamp.style.fontSize = '10px';
+                timestamp.style.opacity = '0.7';
+                timestamp.style.marginTop = '4px';
+                const time = new Date(message.timestamp || Date.now()).toLocaleTimeString();
+                timestamp.textContent = time;
+
+                messageDiv.appendChild(sender);
+                messageDiv.appendChild(content);
+                messageDiv.appendChild(timestamp);
+
+                this.messagesElement.appendChild(messageDiv);
+                this.messagesElement.scrollTop = this.messagesElement.scrollHeight;
+            }
+
+            addSystemMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.style.textAlign = 'center';
+                messageDiv.style.fontStyle = 'italic';
+                messageDiv.style.color = '#666';
+                messageDiv.style.fontSize = '12px';
+                messageDiv.style.margin = '8px 0';
+                messageDiv.textContent = text;
+
+                this.messagesElement.appendChild(messageDiv);
+                this.messagesElement.scrollTop = this.messagesElement.scrollHeight;
+            }
+
+            animateTetrahedron() {
+                // Simple animation to show it's working
+                let rotation = 0;
+                setInterval(() => {
+                    rotation += 1;
+                    this.tetrahedronElement.style.transform = `rotate(${rotation}deg)`;
+                }, 50);
+            }
+
+            updateStatus(text) {
+                this.statusElement.textContent = text;
+            }
+
+            updateConnection(text) {
+                this.connectionElement.textContent = text;
+            }
+
+            showError(message) {
+                // Remove existing error
+                const existingError = document.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = message;
+
+                const container = document.querySelector('.container');
+                container.insertBefore(errorDiv, container.children[1]);
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new TetrahedronMesh();
+        });
+
+        // Handle page visibility for connection management
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                console.log('Page hidden - mesh connection maintained');
+            } else {
+                console.log('Page visible - checking mesh connection');
+            }
+        });
+    </script>
+</body>
+</html>

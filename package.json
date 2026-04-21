@@ -26,6 +26,7 @@
     "clean": "turbo clean && rm -rf node_modules",
     "preflight": "node scripts/preflight-smoke.mjs",
     "launch:check": "node scripts/launch-check.mjs",
+    "prepare": "husky",
     "gas:push": "clasp push",
     "gas:pull": "clasp pull",
     "gas:open": "clasp open"
@@ -49,10 +50,25 @@
   "devDependencies": {
     "@google/clasp": "^3.1.0",
     "@types/google-apps-script": "^1.0.100",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "turbo": "^2.4.4",
     "wrangler": "^3.114.17"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.py": [
+      "black",
+      "isort"
+    ]
   }
 }
