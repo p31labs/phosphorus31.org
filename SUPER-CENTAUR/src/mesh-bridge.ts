@@ -278,8 +278,8 @@ export function meshProxy(app: Application): void {
     }
   });
 
-  // Buffer analyze (edge)
-  app.post('/api/buffer/analyze', postJson('bufferApi', '/rewrite'));
+  // Buffer analyze (edge) — path configurable; monorepo `p31-buffer-api` uses POST /rewrite
+  app.post('/api/buffer/analyze', postJson('bufferApi', process.env.MESH_BUFFER_ANALYZE_PATH || '/rewrite'));
 
   // Synthesis
   app.post('/api/synthesis/weekly', postJson('chamber', '/synthesize'));
