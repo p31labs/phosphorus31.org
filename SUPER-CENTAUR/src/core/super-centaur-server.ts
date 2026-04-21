@@ -38,6 +38,7 @@ import { shelterRoutes } from '../shelter/shelter-routes';
 import { authenticate } from './middleware';
 import { ValidationMiddleware } from '../middleware/validation';
 import { applySecurityMiddleware, validateSecurityConfiguration } from '../security/secure-middleware';
+import { meshProxy } from '../mesh-bridge';
 
 // Type imports from express
 type Express = express.Express;
@@ -252,6 +253,9 @@ export class SuperCentaurServer {
   }
 
   private setupRoutes(): void {
+    // CWP-30: in production, mesh Workers own auth/chat/spoons/mesh/etc.; register first.
+    meshProxy(this.app);
+
     // Health check
     this.app.get('/health', (req: Request, res: Response) => {
       res.json({

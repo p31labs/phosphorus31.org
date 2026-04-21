@@ -1,0 +1,31 @@
+name = "k4-cage"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[durable_objects]
+bindings = [
+  { name = "K4_TOPOLOGY", class_name = "K4Topology" },
+  { name = "FAMILY_MESH_ROOM", class_name = "FamilyMeshRoom" },
+]
+
+[[migrations]]
+tag = "v1-unified-k4"
+new_classes = ["K4Topology", "FamilyMeshRoom"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "p31-telemetry"
+# Replace with your D1 database_id from: npx wrangler d1 list
+database_id = "fc3b2ffb-4de4-4843-88b1-50e5c788dc50"
+
+# Legacy KV cache — paste id from original k4-cage wrangler.toml
+[[kv_namespaces]]
+binding = "K4_MESH"
+id = "replace-with-kv-namespace-id"
+
+# Uncomment when Workers AI is enabled on the account:
+# [ai]
+# binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
