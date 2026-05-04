@@ -3,7 +3,7 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://stripe-donate.trimtab-signal.workers.dev
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://donate-api.phosphorus31.org https://ecosystem-bridge.trimtab-signal.workers.dev https://p31ca.org https://stripe-donate.trimtab-signal.workers.dev https://p31-buffer-api.trimtab-signal.workers.dev https://k4-personal.trimtab-signal.workers.dev https://k4-cage.trimtab-signal.workers.dev https://k4-hubs.trimtab-signal.workers.dev https://tetra-hub.trimtab-signal.workers.dev https://p31-orchestrator.trimtab-signal.workers.dev https://command-center.trimtab-signal.workers.dev https://bonding-relay.trimtab-signal.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://donate-api.phosphorus31.org https://stripe-donate.trimtab-signal.workers.dev
 
 /styles.css
   Cache-Control: public, max-age=31536000, immutable
@@ -19,3 +19,8 @@
 
 /mesh.html
   Cache-Control: public, max-age=3600
+
+/p31-status.json
+  Cache-Control: public, max-age=3600
+  Access-Control-Allow-Origin: *
+  Content-Type: application/json

@@ -1,0 +1,31 @@
+{
+  "schema": "p31.orgStatus/1.0.0",
+  "generated": "2026-05-04",
+  "org": {
+    "legalName": "P31 Labs, Inc.",
+    "ein": "42-1888158",
+    "stateOfIncorporation": "GA",
+    "sosControlNumber": "26082141",
+    "status501c3": "determined_active",
+    "determinationDate": "2026-05-04",
+    "publicCharityStatus": "170(b)(1)(A)(vi)",
+    "deductibilityStatus": "tax_deductible_donations_enabled",
+    "samUei": "NQKVWH6AKB58"
+  },
+  "research": {
+    "zenodoPublicationCount": 22,
+    "researchSeriesCount": 22
+  },
+  "payment": {
+    "donateApiUrl": "https://donate-api.phosphorus31.org/health",
+    "stripeWorkerHost": "donate-api.phosphorus31.org"
+  },
+  "site": {
+    "url": "https://phosphorus31.org",
+    "publicSurfaces": 18
+  },
+  "mesh": {
+    "ecosystemBridgeUrl": "https://ecosystem-bridge.trimtab-signal.workers.dev",
+    "techHubUrl": "https://p31ca.org"
+  }
+}
