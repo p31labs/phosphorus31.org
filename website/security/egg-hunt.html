@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Egg Hunt · P31 Labs</title>
+  <meta name="description" content="P31 Labs quantum egg hunt — 16 documented eggs across the K₄ mesh. Find them, claim your rewards.">
+  <meta property="og:title" content="Quantum Egg Hunt · P31 Labs">
+  <meta name="theme-color" content="#25897d">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .egg-hero {
+      background: linear-gradient(135deg, rgba(139,124,201,0.08) 0%, rgba(37,137,125,0.04) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .egg-hero .badge {
+      display: inline-block;
+      background: var(--p31-lavender);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .egg-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 0.8rem; }
+    .egg-hero p { max-width: 560px; margin: 0 auto; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+
+    /* reward tiers */
+    .reward-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .reward-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 1.2rem;
+      padding: 1.4rem;
+      text-align: center;
+    }
+    .reward-card .tier-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .reward-card .amount { font-size: 1.6rem; font-weight: 700; margin: 0.4rem 0; }
+    .reward-card .desc { font-size: 0.82rem; color: var(--muted); }
+    .proton    .tier-name, .proton    .amount { color: var(--p31-cyan); }
+    .neutron   .tier-name, .neutron   .amount { color: var(--p31-teal); }
+    .phosphorus .tier-name, .phosphorus .amount { color: var(--p31-lavender); }
+
+    /* egg registry */
+    .egg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .egg-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 1.2rem;
+      padding: 1.4rem;
+      position: relative;
+    }
+    .egg-card .egg-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--p31-cyan);
+      margin-bottom: 0.3rem;
+    }
+    .egg-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--ink); }
+    .egg-card .trigger { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+    .egg-card .vertex-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.4rem;
+    }
+    .v1 { background: rgba(204,98,71,0.12); color: var(--p31-coral); }
+    .v2 { background: rgba(77,184,168,0.12); color: var(--p31-cyan); }
+    .v3 { background: rgba(205,168,82,0.12); color: var(--p31-butter); }
+    .v4 { background: rgba(139,124,201,0.12); color: var(--p31-lavender); }
+
+    /* hints section */
+    .hints-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .hint-card {
+      background: rgba(139,124,201,0.04);
+      border: 1px dashed rgba(139,124,201,0.3);
+      border-radius: 1.2rem;
+      padding: 1.4rem;
+    }
+    .hint-card .hint-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--p31-lavender);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .hint-card p { font-size: 0.87rem; color: var(--ink); line-height: 1.6; font-style: italic; }
+    .hint-card .vertex-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+
+    /* submit section */
+    .submit-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .submit-card h2 { color: var(--p31-teal); margin-bottom: 0.8rem; }
+    .submit-card p { color: var(--muted); font-size: 0.92rem; max-width: 500px; margin: 0 auto 1.5rem; }
+
+    .sec-card { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 1.5rem; padding: 2rem; margin: 2rem 0; }
+    .sec-card h2 { color: var(--p31-teal); margin-bottom: 1.2rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    @media (max-width: 640px) {
+      .egg-grid, .hints-grid, .reward-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Hero -->
+        <div class="egg-hero">
+          <div class="badge">Schema p31.quantumEggHunt/1.0.0</div>
+          <h1>Quantum Egg Hunt</h1>
+          <p>16 documented eggs hidden across the K₄ mesh. Each is a rank-1 effect in a SIC-POVM product story — precision observation required. Some are found. More remain.</p>
+        </div>
+
+        <!-- Reward tiers -->
+        <section class="sec-card" aria-labelledby="rewards-heading">
+          <h2 id="rewards-heading">Egg Reward Tiers</h2>
+          <div class="reward-grid">
+            <div class="reward-card proton">
+              <div class="tier-name">Proton</div>
+              <div class="amount">$50</div>
+              <div class="desc">Surface-layer discovery — URL params, visible toggles, observable state</div>
+            </div>
+            <div class="reward-card neutron">
+              <div class="tier-name">Neutron</div>
+              <div class="amount">$200</div>
+              <div class="desc">Mid-layer discovery — API endpoints, hidden routes, service bindings</div>
+            </div>
+            <div class="reward-card phosphorus">
+              <div class="tier-name">Phosphorus</div>
+              <div class="amount">$500</div>
+              <div class="desc">Deep-layer discovery — protocol-level, Larmor resonance, quantum state observations</div>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Egg rewards are separate from the security bounty program. Eggs are intentional features — finding one is a discovery, not a vulnerability.</p>
+        </section>
+
+        <!-- Registry — documented eggs -->
+        <section class="sec-card" aria-labelledby="registry-heading">
+          <h2 id="registry-heading">The Registry</h2>
+          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">These 16 eggs are documented in <code style="font-family:'JetBrains Mono',monospace; font-size:0.82rem;">docs/egg-hunt-manifest.json</code> and verified on every CI run. Triggers are public. Claim your discovery at the bottom of this page.</p>
+
+          <div class="egg-grid" aria-label="Documented egg hunt entries">
+
+            <article class="egg-card">
+              <div class="egg-id">SOUP-DBG-WS</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>C.A.R.S. Lab State</h3>
+              <p class="trigger">URL phases <code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?debug</code> and <code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?ws=</code> prepare the C.A.R.S. lab as a superposed state.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">SOUP-ARCHIVE</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>WCD-33 Archive Coupling</h3>
+              <p class="trigger"><code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">window.BONDING_ARCHIVE_URL</code> couples the lab to the WCD-33 archive sector.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">DOME</div>
+              <span class="vertex-tag v2" aria-label="Vertex 2: Network">ψ₂</span>
+              <h3>Dev Superposition</h3>
+              <p class="trigger">The /dome surface enters a superposed measurement state with <code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">dev=true</code>. Projective measurement via Tab / Esc.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">HUB-LAYER0</div>
+              <span class="vertex-tag v2" aria-label="Vertex 2: Network">ψ₂</span>
+              <h3>Hub Layer 0 Readout</h3>
+              <p class="trigger">Hub trim control prepares Layer 0 readout. Esc is the inverse measurement operator.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">ORCH-PAGE</div>
+              <span class="vertex-tag v3" aria-label="Vertex 3: Compliance">ψ₃</span>
+              <h3>Orchestrator Subspace</h3>
+              <p class="trigger">The /orchestrator surface is not coupled to the hub-landing subspace. A distinct Hilbert sector with Pauli assignments.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">ORCH-WORKER</div>
+              <span class="vertex-tag v3" aria-label="Vertex 3: Compliance">ψ₃</span>
+              <h3>Nonlocal Bell Fetch</h3>
+              <p class="trigger">A nonlocal Bell-type fetch reaches the orchestrator Worker sector. CORS is the entanglement witness.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">LEGACY-LATTICE-LINK</div>
+              <span class="vertex-tag v4" aria-label="Vertex 4: UX/Trust">ψ₄</span>
+              <h3>OQE → Lattice Link</h3>
+              <p class="trigger">Nav link from the OQE Icosa sector to the lattice — active post legacy-mvp-hub sunset.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">LATTICE-WONKY</div>
+              <span class="vertex-tag v4" aria-label="Vertex 4: UX/Trust">ψ₄</span>
+              <h3>Mission-Control Wonky</h3>
+              <p class="trigger">Lattice node graph: mission-control id navigates to the wonky static sector.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">ONBOARD-ARCHETYPE</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>Hidden Archetype Anchors</h3>
+              <p class="trigger">Onboard threshold: hidden archetype anchors for tooling. <code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?a=child</code> or <code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?a=adult</code> prepares the state.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">CONNECT-DIAL</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>Post-Onboarding Dial</h3>
+              <p class="trigger"><code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?dial=N</code> on /connect.html is the post-onboarding handoff signal from the planetary onboard.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">PHYSICS-FULLER-EGG</div>
+              <span class="vertex-tag v4" aria-label="Vertex 4: UX/Trust">ψ₄</span>
+              <h3>Fuller Quote</h3>
+              <p class="trigger">Physics Learn: a Fuller quote exists in a screen-reader-only paragraph — accessible to all, visible only to those who look.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">PHYSICS-COORD-EGG</div>
+              <span class="vertex-tag v4" aria-label="Vertex 4: UX/Trust">ψ₄</span>
+              <h3>Coordinate Signature</h3>
+              <p class="trigger">Physics Learn: the operator's home latitude/longitude is embedded in an HTML comment — a ground-truth anchor, invisible in the rendered page.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">PHYSICS-LARMOR-MS-EGG</div>
+              <span class="vertex-tag v2" aria-label="Vertex 2: Network">ψ₂</span>
+              <h3>Larmor Pulse Period</h3>
+              <p class="trigger">Physics Learn: an invisible pulse uses a 863 ms animation period — the canonical ³¹P Larmor frequency in Earth's field. The geometry resonates.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">SOUP-LOV-REACTION</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>LOV Synthesis</h3>
+              <p class="trigger">C.A.R.S.: a hidden Li+V synthesis label — LOV — exists in the reaction space. Not a standard chemistry entry.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">SOUP-LOV-SPAWN</div>
+              <span class="vertex-tag v1" aria-label="Vertex 1: Physical">ψ₁</span>
+              <h3>LOV Seed Parameter</h3>
+              <p class="trigger"><code style="font-family:'JetBrains Mono',monospace; font-size:0.8rem;">?egglov=1</code> seeds Li+V near the lab for LOV discovery. The field is prepared.</p>
+            </article>
+
+            <article class="egg-card">
+              <div class="egg-id">SIMPLEX-ORACLE-SPOON-EGG</div>
+              <span class="vertex-tag v2" aria-label="Vertex 2: Network">ψ₂</span>
+              <h3>Spoon Theory Oracle</h3>
+              <p class="trigger">ORACLE run at exactly 0/12 or 12/12 spoons appends a spoon-theory benediction. The measurement outcome depends on the observer's energy state.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Cryptic hints for undiscovered eggs -->
+        <section class="sec-card" aria-labelledby="hints-heading">
+          <h2 id="hints-heading">Hints — Undocumented Eggs</h2>
+          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">Beyond the manifest, additional eggs are embedded in the mesh. These cryptic hints are the only public record of their existence.</p>
+
+          <div class="hints-grid" aria-label="Cryptic hints for undiscovered eggs">
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-001</div>
+              <p>"The phosphorus atom resonates at a precise frequency in Earth's magnetic field. That frequency is also a duration."</p>
+              <div class="vertex-hint">Vertex: ψ₂ · Network</div>
+            </div>
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-002</div>
+              <p>"The orchestrator sees all endpoints but is seen by few. A direct probe of its Worker URL reveals something the hub never shows."</p>
+              <div class="vertex-hint">Vertex: ψ₃ · Compliance</div>
+            </div>
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-003</div>
+              <p>"Debug mode on the soup surface reveals the inner workings of the bonding simulation. Some reactions only appear when the lab knows it is being watched."</p>
+              <div class="vertex-hint">Vertex: ψ₁ · Physical</div>
+            </div>
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-004</div>
+              <p>"K₄ has four vertices, six edges, and exactly one perfect matching. The missing edge is the connection between trust and transparency."</p>
+              <div class="vertex-hint">Vertex: ψ₄ · UX/Trust</div>
+            </div>
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-005</div>
+              <p>"There is a glass box, and there is a glass box within the glass box. Promoted reports carry more weight than synthetic playbacks."</p>
+              <div class="vertex-hint">Vertex: ψ₃ · Compliance</div>
+            </div>
+
+            <div class="hint-card">
+              <div class="hint-num">HINT-006</div>
+              <p>"The cognitive passport generator has a hidden mode that reveals the delta between human and machine representations of the same mind."</p>
+              <div class="vertex-hint">Vertex: ψ₁ · Physical</div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Submit discovery -->
+        <div class="submit-card" role="complementary" aria-labelledby="submit-heading">
+          <h2 id="submit-heading">Claim Your Discovery</h2>
+          <p>Found an egg? Email us with the egg ID or a description of what you found. Include the URL, the trigger, and how you found it.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;">
+            <a href="mailto:security@p31ca.org?subject=[P31%20Egg%20Hunt]%20Discovery%20Claim&body=Egg%20ID%20or%20description%3A%0A%0AURL%2FTrigger%3A%0A%0AHow%20I%20found%20it%3A" class="btn btn-primary" style="font-size:0.88rem;">
+              Submit Discovery →
+            </a>
+            <a href="/security/" class="btn btn-ghost" style="font-size:0.88rem;">Security Program</a>
+          </div>
+          <p style="margin-top:1.5rem; font-size:0.82rem; color:var(--muted);">Eggs are intentional features — discovery is a celebration, not a vulnerability report. Rewards paid as Ko-fi credit or ACH.</p>
+        </div>
+
+        <!-- Larmor Easter egg in plain sight -->
+        <!-- 31P Larmor frequency in Earth's magnetic field: 863 Hz — this is the canonical constant -->
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo" style="font-size:1.5rem;">P<sup>31</sup> Labs</a>
+          <p>Open-source cognitive prosthetics for neurodivergent families. A Georgia 501(c)(3) nonprofit.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Security</h4>
+          <ul>
+            <li><a href="/security/">Security Program</a></li>
+            <li><a href="/security/hall-of-fame.html">Hall of Fame</a></li>
+            <li><a href="/security/egg-hunt.html" aria-current="page">Egg Hunt</a></li>
+            <li><a href="/security/policy.txt">policy.txt</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Transparency</h4>
+          <ul>
+            <li><a href="https://p31ca.org/glass-box" target="_blank" rel="noopener">Glass Box</a></li>
+            <li><a href="/legal/">Legal</a></li>
+            <li><a href="mailto:security@p31ca.org">security@p31ca.org</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          P31 Labs, Inc. · Georgia 501(c)(3) · EIN 42-1888158 · Determination May 2026
+        </div>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal. · 31P Larmor: 863 Hz
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: P31 Labs Security <security@p31ca.org>
+Comment: Ed25519 + Curve25519 — expires 2028-05-04
+Comment: OPERATOR ACTION REQUIRED: Replace this placeholder with a real key.
+Comment: Generate with: gpg --full-gen-key (Ed25519, 2-year expiry)
+Comment: Then upload to: keys.openpgp.org
+Comment:
+Comment: PLACEHOLDER — NOT A REAL KEY
+
+xsBNBGYyBwYBCACt3P31LabsSecurityKeyPlaceholderForReplacementOnly
+P31LaunchPhaseKeyStubAuDHDOperatorMustReplaceWithRealEd25519Key
+ThisIsNotAValidPGPKeyItIsAPlaceholderForTheSecurityPortalPage
+ReplaceWithOutputOfGpgFullGenKeyBeforeGoingLiveOnPhosphorus31Org
+KeyIDWillBeAssignedByGPGAfterGenerationUploadToKeysOpenpgpOrg
+-----END PGP PUBLIC KEY BLOCK-----
+
+===
+
+P31 Labs Security — Key Information
+====================================
+
+Email:       security@p31ca.org
+Key type:    Ed25519 (signing) + Curve25519 (encryption)
+Created:     2026-05-04
+Expires:     2028-05-04
+Program:     https://phosphorus31.org/security/
+Policy:      https://phosphorus31.org/security/policy.txt
+
+OPERATOR ACTION REQUIRED
+--------------------------
+This file is a placeholder. To publish a real PGP key:
+
+  1. gpg --full-gen-key
+     → Key type: ECC (Ed25519)
+     → UID: P31 Labs Security <security@p31ca.org>
+     → Expire: 2y
+
+  2. gpg --armor --export security@p31ca.org > pgp-key.txt
+
+  3. gpg --keyserver keys.openpgp.org --send-keys <KEY-ID>
+
+  4. Update p31-constants.json → security.pgpFingerprint
+     Run: npm run apply:constants && npm run verify:constants
+
+  5. Replace this file and commit to phosphorus31.org repo.
+
+Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| — 31P Larmor in Earth field: 863 Hz

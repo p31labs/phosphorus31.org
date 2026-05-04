@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Hall of Fame · P31 Labs</title>
+  <meta name="description" content="P31 Labs recognizes security researchers who have responsibly disclosed vulnerabilities. Hall of Fame with K₄ vertex badges.">
+  <meta property="og:title" content="Security Hall of Fame · P31 Labs">
+  <meta name="theme-color" content="#25897d">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .hof-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 1.5rem;
+      margin: 2rem 0;
+    }
+    .hof-empty .atom {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    .hof-empty h2 { color: var(--muted); font-size: 1.2rem; margin-bottom: 0.8rem; }
+    .hof-empty p { color: var(--muted); max-width: 420px; margin: 0 auto; font-size: 0.9rem; line-height: 1.65; }
+
+    .badge-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+    .k4-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .badge-physical   { background: rgba(204,98,71,0.12);  color: var(--p31-coral); border: 1px solid rgba(204,98,71,0.3); }
+    .badge-network    { background: rgba(77,184,168,0.12); color: var(--p31-cyan);  border: 1px solid rgba(77,184,168,0.3); }
+    .badge-compliance { background: rgba(205,168,82,0.12); color: var(--p31-butter); border: 1px solid rgba(205,168,82,0.3); }
+    .badge-ux         { background: rgba(139,124,201,0.12); color: var(--p31-lavender); border: 1px solid rgba(139,124,201,0.3); }
+    .badge-povm       { background: rgba(37,137,125,0.12); color: var(--p31-teal); border: 1px solid rgba(37,137,125,0.5); }
+
+    .hof-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.87rem; }
+    .hof-table th { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--p31-teal); padding: 0.7rem 1rem; border-bottom: 2px solid var(--border-subtle); text-align: left; background: var(--surface-2); }
+    .hof-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-subtle); color: var(--ink); vertical-align: middle; }
+    .hof-table tbody tr:last-child td { border-bottom: none; }
+    .hof-table .handle { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--p31-teal); }
+    .hof-table .bug-id { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--p31-cyan); }
+
+    .tier-badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 0.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; }
+    .tier-critical { background: rgba(204,98,71,0.15); color: #cc6247; }
+    .tier-high     { background: rgba(204,98,71,0.08); color: #e07b5a; }
+    .tier-medium   { background: rgba(205,168,82,0.15); color: var(--p31-butter); }
+    .tier-low      { background: rgba(77,184,168,0.12); color: var(--p31-cyan); }
+
+    .sec-card { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 1.5rem; padding: 2rem; margin: 2rem 0; }
+    .sec-card h2 { color: var(--p31-teal); margin-bottom: 1.2rem; }
+
+    .note-box { background: rgba(37,137,125,0.05); border: 1px solid var(--p31-teal); border-radius: 1rem; padding: 1.2rem 1.5rem; font-size: 0.88rem; color: var(--ink); line-height: 1.6; margin: 1.5rem 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    @media (max-width: 640px) {
+      .hof-table { font-size: 0.8rem; }
+      .hof-table th, .hof-table td { padding: 0.55rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">P<sup>31</sup></a>
+      <div class="nav-links">
+        <a href="/#stack">Stack</a>
+        <a href="/docs/">Docs</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/about/">About</a>
+        <a href="/donate/">Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Security</span>
+          <h1>Hall of Fame</h1>
+          <p>Researchers who have made P31 Labs more secure through responsible disclosure.</p>
+        </div>
+
+        <!-- Badge legend -->
+        <section class="sec-card" aria-labelledby="badges-heading">
+          <h2 id="badges-heading">K₄ Vertex Badges</h2>
+          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.2rem;">Each badge is earned by finding a verified vulnerability in that vertex of the K₄ mesh. Find all four to unlock the POVM Observer badge.</p>
+          <div class="badge-legend" aria-label="Badge types">
+            <span class="k4-badge badge-physical">ψ₁ PHYSICAL</span>
+            <span class="k4-badge badge-network">ψ₂ NETWORK</span>
+            <span class="k4-badge badge-compliance">ψ₃ COMPLIANCE</span>
+            <span class="k4-badge badge-ux">ψ₄ UX/TRUST</span>
+            <span class="k4-badge badge-povm">◈ POVM OBSERVER</span>
+          </div>
+        </section>
+
+        <!-- Sample entries for design (clearly labeled) -->
+        <section class="sec-card" aria-labelledby="reports-heading">
+          <h2 id="reports-heading">Confirmed Reports</h2>
+
+          <!-- Empty state — program just launched -->
+          <div class="hof-empty" role="status" aria-live="polite">
+            <div class="atom" aria-hidden="true">⚛</div>
+            <h2>The field is clear — for now.</h2>
+            <p>Our security program launched May 4, 2026. Be the first researcher to find a vulnerability and earn your K₄ vertex badge. The geometry is honest. The glass box is open.</p>
+            <div style="margin-top:1.5rem;">
+              <a href="/security/" class="btn btn-primary" style="font-size:0.88rem;">View Bounty Program →</a>
+            </div>
+          </div>
+
+          <!-- This table will be populated as reports come in -->
+          <div style="display:none;" aria-hidden="true">
+            <div style="overflow-x:auto;">
+              <table class="hof-table" aria-label="Security researcher hall of fame">
+                <thead>
+                  <tr>
+                    <th scope="col">Researcher</th>
+                    <th scope="col">Bug ID</th>
+                    <th scope="col">Finding</th>
+                    <th scope="col">Tier</th>
+                    <th scope="col">Badges</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Example row (hidden, for reference):
+                  <tr>
+                    <td class="handle">researcher-42</td>
+                    <td class="bug-id">BUG-2026-001</td>
+                    <td>Missing X-Content-Type-Options on worker endpoints</td>
+                    <td><span class="tier-badge tier-low">LOW</span></td>
+                    <td><span class="k4-badge badge-network" style="font-size:0.68rem;">ψ₂</span></td>
+                    <td>2026-05-04</td>
+                  </tr>
+                  -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- How to get listed -->
+        <div class="note-box">
+          <strong>Get listed:</strong> Find a valid vulnerability in scope, report via <a href="mailto:security@p31ca.org" style="color:var(--p31-teal);">security@p31ca.org</a>, and receive a confirmed fix. Anonymous entries are welcome — just say so in your report. All entries verified before publication.
+        </div>
+
+        <!-- Back link -->
+        <div style="margin-top:2rem;">
+          <a href="/security/" class="btn btn-ghost" style="font-size:0.88rem;">← Security Program</a>
+          <a href="/security/egg-hunt.html" class="btn btn-ghost" style="font-size:0.88rem; margin-left:0.8rem;">Egg Hunt Registry →</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo" style="font-size:1.5rem;">P<sup>31</sup> Labs</a>
+          <p>Open-source cognitive prosthetics for neurodivergent families. A Georgia 501(c)(3) nonprofit.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Security</h4>
+          <ul>
+            <li><a href="/security/">Security Program</a></li>
+            <li><a href="/security/hall-of-fame.html" aria-current="page">Hall of Fame</a></li>
+            <li><a href="/security/egg-hunt.html">Egg Hunt</a></li>
+            <li><a href="/security/policy.txt">policy.txt</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Transparency</h4>
+          <ul>
+            <li><a href="https://p31ca.org/glass-box" target="_blank" rel="noopener">Glass Box</a></li>
+            <li><a href="/legal/">Legal</a></li>
+            <li><a href="/accessibility/">Accessibility</a></li>
+            <li><a href="mailto:security@p31ca.org">security@p31ca.org</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          P31 Labs, Inc. · Georgia 501(c)(3) · EIN 42-1888158 · Determination May 2026
+        </div>
+      </div>
+      <p class="footer-formula">
+        Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+        — The geometry protects the signal.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>

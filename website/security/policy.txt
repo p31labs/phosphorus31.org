@@ -1,0 +1,80 @@
+P31 LABS SECURITY POLICY
+=========================
+Version: 1.0.0 | Effective: 2026-05-04
+Full HTML policy: https://phosphorus31.org/security/
+
+PROGRAM OVERVIEW
+----------------
+P31 Labs, Inc. (EIN 42-1888158) runs a responsible disclosure program
+for security researchers. We classify vulnerabilities using a K4
+topology severity matrix (physical/network/compliance/UX) and pay
+bounties from $100 (LOW) to $2,500+ (CRITICAL).
+
+IN SCOPE
+--------
+- https://phosphorus31.org/*
+- https://p31ca.org/*
+- https://bonding.p31ca.org/*
+- https://donate-api.phosphorus31.org/*
+- *.trimtab-signal.workers.dev (all Cloudflare Workers)
+- https://github.com/p31labs/* (public repos)
+
+OUT OF SCOPE — DO NOT TEST
+---------------------------
+- Stripe, Cloudflare, Google infrastructure
+- Third-party dependencies (report to upstream vendor)
+- Node Zero hardware (pre-production, not yet in scope)
+- Rate-limiting / denial-of-service testing
+- Social engineering of individuals
+
+ABSOLUTELY OUT OF SCOPE (no exceptions)
+-----------------------------------------
+- Operator medical data (hypoparathyroidism, calcium monitoring)
+- Children's mesh identities (S.J., W.J.)
+- Physical safety of any individuals
+
+BOUNTY TIERS
+------------
+CRITICAL  9.0-10.0   $2,500+   24h response
+HIGH      7.0-8.9    $1,000    48h response
+MEDIUM    4.0-6.9    $500      7 day response
+LOW       1.0-3.9    $100      14 day response
+EGG       n/a        $50-500   Rolling
+
+SUBMISSION
+----------
+Email:   security@p31ca.org
+PGP key: https://phosphorus31.org/security/pgp-key.txt
+         https://keys.openpgp.org/search?q=security%40p31ca.org
+Subject: [P31 Security] <brief description>
+Format:  affected URL/endpoint, reproduction steps, impact
+
+PGP FINGERPRINT
+---------------
+See https://phosphorus31.org/security/pgp-key.txt
+(Operator action required — real key pending)
+
+SAFE HARBOR
+-----------
+P31 Labs will not pursue legal action or contact law enforcement
+against researchers acting in good faith on in-scope systems.
+Good faith requires: no data modification, no social engineering,
+no physical threats, testing only in-scope targets.
+
+TRANSPARENCY
+------------
+All confirmed fixes are tracked publicly:
+https://p31ca.org/glass-box
+
+Hall of Fame: https://phosphorus31.org/security/hall-of-fame.html
+Egg Hunt:     https://phosphorus31.org/security/egg-hunt.html
+
+CONTACT
+-------
+security@p31ca.org
+P31 Labs, Inc. — Georgia 501(c)(3) nonprofit
+EIN: 42-1888158 | Determination: May 4, 2026
+Registered Agent: 401 Powder Horn Rd, Saint Marys, GA 31558
+
+---
+# Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| — 31P Larmor in Earth field: 863 Hz
