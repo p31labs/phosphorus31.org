@@ -7,33 +7,32 @@
   <meta name="description" content="Legal documents, privacy policy, terms of service, and regulatory compliance for P31 Labs.">
   <meta property="og:title" content="Legal · P31 Labs">
   <meta property="og:description" content="Legal documents, privacy policy, terms of service, and regulatory compliance for P31 Labs.">
-  <meta name="theme-color" content="#050510">
+  <meta name="theme-color" content="#25897d">
   <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/assets/logos/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    /* Page‑specific legal styles */
     .legal-section {
-      background: rgba(10, 10, 20, 0.6);
-      border: 1px solid #1e293b;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 1.5rem;
       padding: 2rem;
       margin: 2rem 0;
     }
     .legal-section h2 {
       margin-top: 0;
-      color: #2ecc71;
+      color: var(--p31-teal);
     }
     .legal-section h3 {
       margin: 1.5rem 0 0.5rem;
-      color: #60a5fa;
+      color: var(--p31-cyan);
     }
     .legal-section p, .legal-section li {
-      color: #e2e8f0;
+      color: var(--ink);
       line-height: 1.6;
     }
     .legal-section ul, .legal-section ol {
@@ -45,18 +44,18 @@
     }
     .legal-section hr {
       border: none;
-      border-top: 1px solid #1e293b;
+      border-top: 1px solid var(--border-subtle);
       margin: 2rem 0;
     }
     .legal-contact {
-      background: rgba(46, 204, 113, 0.05);
-      border: 1px solid #2ecc71;
+      background: rgba(37, 137, 125, 0.05);
+      border: 1px solid var(--p31-teal);
       border-radius: 1rem;
       padding: 1.5rem;
       margin-top: 2rem;
     }
     .legal-contact a {
-      color: #2ecc71;
+      color: var(--p31-teal);
     }
     .legal-contact h2 {
       margin-top: 0;
@@ -64,22 +63,20 @@
     .last-updated {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: #94a3b8;
+      color: var(--muted);
       margin-bottom: 1rem;
     }
     .cookie-note {
-      background: #0a0a1a;
-      border-left: 4px solid #ffaa33;
+      background: var(--surface-2);
+      border-left: 4px solid var(--p31-coral);
       padding: 1rem;
       border-radius: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <!-- SKIP TO CONTENT -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- NAV (same as homepage) -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo">P<sup>31</sup></a>
@@ -93,7 +90,6 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main id="main-content">
     <section class="section">
       <div class="container">
@@ -103,12 +99,10 @@
           <p>Our commitment to transparency, privacy, and regulatory compliance.</p>
         </div>
 
-        <!-- Last updated -->
         <div class="last-updated">
           Last updated: <time datetime="2026-02-15">February 15, 2026</time>
         </div>
 
-        <!-- Privacy Policy -->
         <section aria-labelledby="privacy-heading" class="legal-section">
           <h2 id="privacy-heading">Privacy Policy</h2>
           <p>P31 Labs ("we", "our", "us") is committed to protecting your privacy. This policy explains how we handle your data when you use our website, wallet, and hardware.</p>
@@ -124,7 +118,6 @@
           <p>Under GDPR and CCPA, you have the right to access, correct, or delete your personal data. Since we collect almost no personal data, these rights are inherently respected. For any questions, contact <a href="mailto:privacy@p31labs.org">privacy@p31labs.org</a>.</p>
         </section>
 
-        <!-- Terms of Service -->
         <section aria-labelledby="terms-heading" class="legal-section">
           <h2 id="terms-heading">Terms of Service</h2>
           <p>By using the P31 Labs website, wallet, or hardware, you agree to the following terms.</p>
@@ -142,7 +135,6 @@
           <p>These terms are governed by the laws of the State of Georgia, USA.</p>
         </section>
 
-        <!-- License Information -->
         <section aria-labelledby="license-heading" class="legal-section">
           <h2 id="license-heading">License Information</h2>
           <p>All original P31 Labs code is licensed under the <strong>Apache License 2.0</strong>. You may freely use, modify, and distribute it, provided you include the original copyright notice.</p>
@@ -164,7 +156,6 @@ limitations under the License.</code></pre>
           <p>Some third‑party libraries may use other open source licenses; see individual repositories for details.</p>
         </section>
 
-        <!-- Regulatory Compliance -->
         <section aria-labelledby="regulatory-heading" class="legal-section">
           <h2 id="regulatory-heading">Regulatory Compliance</h2>
           <h3>Medical Device Status</h3>
@@ -175,15 +166,15 @@ limitations under the License.</code></pre>
           <p>The software and hardware are subject to U.S. export controls. You may not export or re‑export them to countries under U.S. embargo.</p>
         </section>
 
-        <!-- Fiscal Sponsorship -->
-        <section aria-labelledby="sponsorship-heading" class="legal-section">
-          <h2 id="sponsorship-heading">Fiscal Sponsorship</h2>
-          <p>P31 Labs is a project fiscally sponsored by <strong>The Hack Foundation</strong> (d.b.a. Hack Club), a 501(c)(3) nonprofit organization (EIN: 81-2908499).</p>
-          <p>Donations to P31 Labs are made to The Hack Foundation and are tax‑deductible to the extent permitted by law. The Hack Foundation oversees all funds and ensures they are used for charitable purposes.</p>
-          <p>For more information, visit <a href="https://hackfoundation.org" target="_blank" rel="noopener">hackfoundation.org</a>.</p>
+        <section aria-labelledby="taxstatus-heading" class="legal-section">
+          <h2 id="taxstatus-heading">Tax-Exempt Status</h2>
+          <p>P31 Labs, Inc. is a <strong>Georgia nonprofit corporation</strong> with federal 501(c)(3) public charity status (EIN: <strong>42-1888158</strong>).</p>
+          <p>IRS determination letter received: <strong>May 4, 2026</strong>. Public charity status: 170(b)(1)(A)(vi).</p>
+          <p>Donations to P31 Labs are tax-deductible to the full extent permitted by law. No fiscal sponsorship — we are an independent 501(c)(3) organization.</p>
+          <p>Georgia Secretary of State Control #: <strong>26082141</strong> · Active/Compliance</p>
+          <p>SAM.gov UEI: <strong>NQKVWH6AKB58</strong></p>
         </section>
 
-        <!-- Data Handling / Cookies -->
         <section aria-labelledby="cookies-heading" class="legal-section">
           <h2 id="cookies-heading">Cookie & Data Handling</h2>
           <div class="cookie-note">
@@ -192,24 +183,23 @@ limitations under the License.</code></pre>
           <p>Any data stored locally (e.g., wallet connection state) remains on your device.</p>
         </section>
 
-        <!-- Contact -->
         <section aria-labelledby="legal-contact-heading" class="legal-contact">
           <h2 id="legal-contact-heading">Legal Inquiries</h2>
           <p>For legal questions, DMCA notices, or privacy concerns, please contact:</p>
           <p><strong>Email:</strong> <a href="mailto:legal@p31labs.org">legal@p31labs.org</a><br>
-          <strong>Mail:</strong> P31 Labs c/o The Hack Foundation, 123 Main St, Shelburne, VT 05482, USA</p>
+          <strong>Registered Agent:</strong> William Johnson<br>
+          <strong>Address:</strong> 401 Powder Horn Rd, Saint Marys, GA 31558, USA</p>
         </section>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER (same as homepage) -->
   <footer>
     <div class="container">
       <div class="footer-inner">
         <div>
           <span class="footer-logo">P<sup>31</sup> Labs</span>
-          <span class="footer-legal">Georgia 501(c)(3) · Forming</span>
+          <span class="footer-legal">Georgia 501(c)(3) · Determined May 2026</span>
         </div>
         <span class="footer-tagline">The only stable isotope.</span>
       </div>
@@ -233,12 +223,11 @@ limitations under the License.</code></pre>
         — The geometry protects the signal.
       </p>
       <p class="footer-sponsor">
-        P31 Labs is fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499). Donations are tax-deductible to the extent permitted by law.
+        P31 Labs, Inc. is a Georgia 501(c)(3) public charity (EIN: 42-1888158). Determination received May 2026. Donations are tax-deductible to the extent permitted by law.
       </p>
     </div>
   </footer>
 
   <script src="../main.js"></script>
-  <!-- No extra JS needed for legal page -->
 </body>
 </html>
