@@ -8,6 +8,10 @@
   <script>window.location.replace('/docs/');</script>
 </head>
 <body>
-  <p>Redirecting to <a href="/docs/">Documentation</a>…</p>
+  <!-- Skip to content link for accessibility -->
+  <a href="#redirect-link" class="skip-link" style="position:absolute;top:-40px;left:0;background:#25897d;color:#fff;padding:8px 16px;text-decoration:none;font-family:system-ui,sans-serif;font-size:12px;z-index:10000;">Skip to redirect link</a>
+  <style>.skip-link:focus{top:0!important;}</style>
+
+  <p id="redirect-link">Redirecting to <a href="/docs/">Documentation</a>…</p>
 </body>
 </html>

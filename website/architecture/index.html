@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>P31 Sierpiński Architecture · Fractal Agent Topology</title>
   <meta name="description" content="The fractal agent topology of the P31 Tandem. Four vertices, six edges, four faces, one mesh.">
-  
+  <meta name="theme-color" content="#050510">
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
   
   <!-- Element Theme System -->
   <script src="../element-themes.js" defer></script>
@@ -397,6 +400,10 @@
   </style>
 </head>
 <body>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;background:var(--phosphorus);color:var(--void);padding:8px 16px;text-decoration:none;font-family:var(--font-mono);font-size:12px;z-index:10000;transition:top 0.2s;">Skip to content</a>
+  <style>.skip-link:focus{top:0!important;}</style>
+
   <div class="header">
     <div class="header-label">Sierpiński Architecture · P31 Tandem</div>
     <h1>Fractal Agent Topology</h1>
@@ -421,7 +428,7 @@
           </div>
           <div class="kernel-line rule-zero">
             <span class="kernel-line-number">02</span>
-            RULE ZERO: Kids first. Bash (9) and Willow (6) are every checkpoint.
+            RULE ZERO: Kids first. S.J. and W.J. are every checkpoint.
           </div>
           <div class="kernel-line">
             <span class="kernel-line-number">03</span>
@@ -868,5 +875,20 @@
     // Initial gasket draw
     drawGasket();
   </script>
+
+  <!-- Legal Footer -->
+  <footer style="margin-top:4rem;padding:2rem;border-top:1px solid var(--void-border);font-family:var(--font-mono);font-size:12px;color:var(--white-muted);text-align:center;">
+    <div style="margin-bottom:1rem;">
+      P31 Labs, Inc. · Georgia 501(c)(3) · EIN 42-1888158 · Determination May 2026
+    </div>
+    <div style="display:flex;justify-content:center;gap:1rem;margin-bottom:1rem;">
+      <a href="https://p31ca.org" style="color:var(--calcium);text-decoration:none;">p31ca.org</a>
+      <a href="https://github.com/p31labs" style="color:var(--calcium);text-decoration:none;">GitHub</a>
+      <a href="/legal/" style="color:var(--calcium);text-decoration:none;">Legal</a>
+    </div>
+    <div style="font-style:italic;opacity:0.6;">
+      Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| where ⟨ψᵢ|ψⱼ⟩ = (dδᵢⱼ + 1)/(d + 1)
+    </div>
+  </footer>
 </body>
 </html>

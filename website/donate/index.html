@@ -6,46 +6,24 @@
 <title>Donate — P31 Labs</title>
 <meta name="description" content="Support open-source cognitive prosthetics for neurodivergent families.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../styles.css">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg-void: #050810;
-  --bg-deep: #080c16;
-  --bg-panel: #0a1018;
-  --phosphor: #ff9944;
-  --phosphor-dim: #cc6622;
-  --mesh-blue: #44aaff;
-  --forge-green: #44ffaa;
-  --shield-red: #ff4466;
-  --text-primary: #c8ccd4;
-  --text-dim: #5a6678;
-  --text-bright: #e8ecf2;
-  --border-subtle: #141e2a;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Fira Code', monospace;
-}
+/* Donation page specific styles — inherits design tokens from ../styles.css */
 
 html { scroll-behavior: smooth; }
 body {
-  font-family: var(--serif);
-  background: var(--bg-void);
-  color: var(--text-primary);
+  font-family: var(--font-body);
+  background: var(--void);
+  color: var(--ink);
   line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
 }
 
 .reveal {
@@ -70,19 +48,19 @@ body::after {
   align-items: center;
 }
 .nav-brand {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 3px;
-  color: var(--text-dim);
+  color: var(--muted);
   text-decoration: none;
   transition: color 0.3s;
 }
-.nav-brand:hover { color: var(--phosphor); }
+.nav-brand:hover { color: var(--p31-teal); }
 .nav-back {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: var(--muted);
   text-decoration: none;
   opacity: 0.5;
   transition: opacity 0.3s;
@@ -94,23 +72,23 @@ body::after {
   text-align: center;
 }
 .hero h1 {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 300;
-  color: var(--text-bright);
+  color: var(--ink);
   line-height: 1.2;
   margin-bottom: 20px;
   letter-spacing: -0.3px;
 }
 .hero h1 em {
   font-style: italic;
-  color: var(--phosphor);
+  color: var(--p31-teal);
 }
 .hero-sub {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.1rem;
-  font-weight: 300;
-  color: var(--text-dim);
+  font-weight: 400;
+  color: var(--muted);
   max-width: 480px;
   margin: 0 auto;
   line-height: 1.8;
@@ -127,7 +105,7 @@ body::after {
 }
 
 .tier-card {
-  background: var(--bg-panel);
+  background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: 6px;
   padding: 28px 24px;
@@ -139,12 +117,12 @@ body::after {
   color: inherit;
 }
 .tier-card:hover {
-  border-color: var(--phosphor-dim);
+  border-color: var(--p31-coral);
   transform: translateY(-2px);
 }
 .tier-card.featured {
-  border-color: rgba(255, 153, 68, 0.25);
-  background: rgba(255, 153, 68, 0.03);
+  border-color: rgba(37, 137, 125, 0.25);
+  background: rgba(37, 137, 125, 0.03);
 }
 .tier-card.loading {
   opacity: 0.5;
@@ -152,38 +130,38 @@ body::after {
 }
 
 .tier-amount {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 2.4rem;
   font-weight: 300;
-  color: var(--text-bright);
+  color: var(--ink);
   margin-bottom: 4px;
 }
 .tier-amount .dollar {
   font-size: 1.4rem;
-  color: var(--text-dim);
+  color: var(--muted);
   vertical-align: top;
   position: relative;
   top: 6px;
 }
 .tier-name {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 3px;
-  color: var(--phosphor-dim);
+  color: var(--p31-coral);
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 .tier-desc {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--text-dim);
+  font-weight: 400;
+  color: var(--muted);
   line-height: 1.6;
 }
 .tier-love {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 9px;
-  color: var(--phosphor);
+  color: var(--p31-teal);
   margin-top: 14px;
   letter-spacing: 1px;
 }
@@ -196,16 +174,16 @@ body::after {
   margin-top: 12px;
 }
 .custom-input .dollar-sign {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.6rem;
-  color: var(--text-dim);
+  color: var(--muted);
 }
 .custom-input input {
   background: transparent;
   border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  color: var(--text-bright);
-  font-family: var(--serif);
+  color: var(--ink);
+  font-family: var(--font-body);
   font-size: 1.6rem;
   font-weight: 300;
   width: 100px;
@@ -214,18 +192,18 @@ body::after {
   outline: none;
   transition: border-color 0.3s;
 }
-.custom-input input:focus { border-color: var(--phosphor-dim); }
-.custom-input input::placeholder { color: var(--text-dim); opacity: 0.4; }
+.custom-input input:focus { border-color: var(--p31-coral); }
+.custom-input input::placeholder { color: var(--muted); opacity: 0.4; }
 
 .funds {
   padding: 40px 0 60px;
   border-top: 1px solid var(--border-subtle);
 }
 .funds h2 {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 300;
-  color: var(--text-bright);
+  color: var(--ink);
   margin-bottom: 28px;
   text-align: center;
 }
@@ -243,17 +221,17 @@ body::after {
   flex-shrink: 0; margin-top: 8px; transform: rotate(45deg);
 }
 .fund-text h3 {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 2px;
-  color: var(--text-primary);
+  color: var(--ink);
   margin-bottom: 4px;
 }
 .fund-text p {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--text-dim);
+  font-weight: 400;
+  color: var(--muted);
   line-height: 1.6;
 }
 
@@ -263,15 +241,15 @@ body::after {
   text-align: center;
 }
 .trust-text {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.05rem;
-  font-weight: 300;
-  color: var(--text-dim);
+  font-weight: 400;
+  color: var(--muted);
   max-width: 500px;
   margin: 0 auto;
   line-height: 1.8;
 }
-.trust-text strong { color: var(--text-primary); font-weight: 400; }
+.trust-text strong { color: var(--ink); font-weight: 500; }
 .trust-links {
   margin-top: 24px;
   display: flex;
@@ -280,28 +258,28 @@ body::after {
   flex-wrap: wrap;
 }
 .trust-links a {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: var(--muted);
   text-decoration: none;
   opacity: 0.6;
   transition: opacity 0.3s, color 0.3s;
 }
-.trust-links a:hover { opacity: 1; color: var(--phosphor); }
+.trust-links a:hover { opacity: 1; color: var(--p31-teal); }
 
 .posner { padding: 60px 0; text-align: center; }
 .posner-quote {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.3rem;
   font-weight: 300;
   font-style: italic;
-  color: var(--text-dim);
+  color: var(--muted);
   max-width: 400px;
   margin: 0 auto;
   line-height: 1.6;
 }
-.posner-quote em { color: var(--phosphor); font-style: italic; }
+.posner-quote em { color: var(--p31-teal); font-style: italic; }
 
 .site-footer {
   margin-top: auto;
@@ -310,40 +288,39 @@ body::after {
   text-align: center;
 }
 .footer-id {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 3px;
-  color: var(--text-dim);
+  color: var(--muted);
   margin-bottom: 8px;
 }
 .footer-sub {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-style: italic;
-  color: var(--text-dim);
+  color: var(--muted);
   opacity: 0.3;
 }
 
-/* Thank you banner */
 .thanks-banner {
-  background: rgba(255, 153, 68, 0.08);
-  border: 1px solid rgba(255, 153, 68, 0.2);
+  background: rgba(37, 137, 125, 0.08);
+  border: 1px solid rgba(37, 137, 125, 0.2);
   border-radius: 6px;
   padding: 20px;
   text-align: center;
   margin-bottom: 30px;
 }
 .thanks-banner h2 {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 300;
-  color: var(--phosphor);
+  color: var(--p31-teal);
   margin-bottom: 6px;
 }
 .thanks-banner p {
-  font-family: var(--serif);
+  font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--text-dim);
+  color: var(--muted);
 }
 
 @media (max-width: 480px) {
@@ -354,13 +331,33 @@ body::after {
 </style>
 </head>
 <body>
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="skip-link">Skip to content</a>
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--p31-teal);
+  color: var(--void);
+  padding: 8px 16px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  z-index: 10000;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+</style>
 
 <nav class="nav">
   <a href="https://phosphorus31.org" class="nav-brand">P31 LABS</a>
   <a href="https://phosphorus31.org" class="nav-back">&larr; ECOSYSTEM</a>
 </nav>
 
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="container reveal">
     <div id="thanks-banner" style="display:none;" class="thanks-banner">
       <h2>Thank you.</h2>
@@ -417,7 +414,7 @@ body::after {
         </div>
         <div class="custom-input" onclick="event.stopPropagation()">
           <span class="dollar-sign">$</span>
-          <input type="number" id="custom-amount" min="1" placeholder="__" />
+          <input type="number" id="custom-amount" min="1" placeholder="__" aria-label="Custom donation amount in dollars" />
         </div>
         <div class="tier-love">+10 L.O.V.E. per dollar</div>
       </div>
@@ -432,7 +429,7 @@ body::after {
     <div class="fund-grid">
 
       <div class="fund-item reveal reveal-delay-1">
-        <div class="fund-icon" style="background: var(--phosphor);"></div>
+        <div class="fund-icon" style="background: var(--p31-teal);"></div>
         <div class="fund-text">
           <h3>INFRASTRUCTURE</h3>
           <p>Cloudflare Workers, KV storage, domain renewals. The relay layer that keeps multiplayer alive.</p>
@@ -440,7 +437,7 @@ body::after {
       </div>
 
       <div class="fund-item reveal reveal-delay-2">
-        <div class="fund-icon" style="background: var(--mesh-blue);"></div>
+        <div class="fund-icon" style="background: var(--p31-cyan);"></div>
         <div class="fund-text">
           <h3>TEST HARDWARE</h3>
           <p>Android tablets for device testing. Our target users have budget hardware — every feature must work there first.</p>
@@ -448,7 +445,7 @@ body::after {
       </div>
 
       <div class="fund-item reveal reveal-delay-1">
-        <div class="fund-icon" style="background: var(--forge-green);"></div>
+        <div class="fund-icon" style="background: var(--p31-coral);"></div>
         <div class="fund-text">
           <h3>NODE ONE PROTOTYPE</h3>
           <p>ESP32-S3 development boards, DRV2605L haptic drivers, LoRa radios. The hardware that makes the Totem real.</p>
@@ -456,7 +453,7 @@ body::after {
       </div>
 
       <div class="fund-item reveal reveal-delay-2">
-        <div class="fund-icon" style="background: var(--shield-red);"></div>
+        <div class="fund-icon" style="background: var(--ink);"></div>
         <div class="fund-text">
           <h3>LEGAL & COMPLIANCE</h3>
           <p>501(c)(3) filing fees, WCAG accessibility audits, COPPA compliance review. The cage needs legal walls too.</p>
@@ -477,7 +474,7 @@ body::after {
     </p>
     <div class="trust-links">
       <a href="https://github.com/p31labs" target="_blank" rel="noopener">GITHUB</a>
-      <a href="https://doi.org/10.5281/zenodo.18627420" target="_blank" rel="noopener">ZENODO DOI</a>
+      <a href="https://zenodo.org/search?q=creators.name:%22Johnson%2C%20William%20R.%22&l=list&p=1&s=25&sort=newest" target="_blank" rel="noopener">ZENODO (22)</a>
       <a href="https://orcid.org/0009-0002-2492-9079" target="_blank" rel="noopener">ORCID</a>
       <a href="https://p31ca.org" target="_blank" rel="noopener">LIVE DEPLOY</a>
     </div>
@@ -496,36 +493,73 @@ body::after {
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-id">P31 LABS &middot; OPEN SOURCE</div>
-    <div class="footer-sub">Structure protects fragile things.</div>
+    <div class="footer-id">P31 LABS &middot; GEORGIA 501(c)(3) &middot; EIN 42-1888158</div>
+    <div class="footer-sub">Tax-deductible donations · Determination received May 2026</div>
   </div>
 </footer>
 
 <script>
 const WORKER = 'https://stripe-donate.trimtab-signal.workers.dev';
 
-// Show thank-you if returning from Stripe
+// Generate unique idempotency key for each session
+function generateIdempotencyKey() {
+  const timestamp = Date.now().toString(36);
+  const random = Math.random().toString(36).substring(2, 10);
+  return `p31-donate-${timestamp}-${random}`;
+}
+
+// Simple error logging to glass-box compatible endpoint
+function logError(context, error, details = {}) {
+  const errorPayload = {
+    schema: 'p31.donationError/1.0.0',
+    timestamp: new Date().toISOString(),
+    context,
+    message: error?.message || String(error),
+    userAgent: navigator.userAgent,
+    ...details
+  };
+  
+  // Log to console in development
+  if (location.hostname === 'localhost' || location.search.includes('debug=1')) {
+    console.error('[P31 Donation Error]', errorPayload);
+  }
+  
+  // In production, you could send to a logging endpoint
+  // fetch('/api/log', { method: 'POST', body: JSON.stringify(errorPayload) });
+}
+
 if (new URLSearchParams(location.search).has('thanks')) {
   document.getElementById('thanks-banner').style.display = 'block';
 }
 
 async function donate(amount, el) {
   el.classList.add('loading');
+  const idempotencyKey = generateIdempotencyKey();
+  
   try {
     const res = await fetch(WORKER, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount }),
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-Idempotency-Key': idempotencyKey
+      },
+      body: JSON.stringify({ amount, idempotencyKey }),
     });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+    
     const data = await res.json();
     if (data.url) {
       window.location.href = data.url;
     } else {
-      alert('Could not create checkout session. Please try again.');
-      el.classList.remove('loading');
+      throw new Error('No checkout URL returned');
     }
   } catch (e) {
-    alert('Connection error. Please try again.');
+    logError('donate', e, { amount, idempotencyKey });
+    alert('Could not process donation. Please try again or contact support.');
     el.classList.remove('loading');
   }
 }
@@ -535,14 +569,13 @@ function donateCustom(el) {
   const amount = parseFloat(input.value);
   if (!amount || amount < 1) {
     input.focus();
-    input.style.borderColor = 'var(--shield-red)';
+    input.style.borderColor = 'var(--p31-coral)';
     setTimeout(() => input.style.borderColor = '', 1000);
     return;
   }
   donate(amount, el);
 }
 
-// Reveal animations
 document.addEventListener('DOMContentLoaded', () => {
   const els = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver((entries) => {
