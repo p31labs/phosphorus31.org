@@ -1,47 +1,13 @@
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-Comment: P31 Labs Security <security@p31ca.org>
-Comment: Ed25519 + Curve25519 — expires 2028-05-04
-Comment: OPERATOR ACTION REQUIRED: Replace this placeholder with a real key.
-Comment: Generate with: gpg --full-gen-key (Ed25519, 2-year expiry)
-Comment: Then upload to: keys.openpgp.org
-Comment:
-Comment: PLACEHOLDER — NOT A REAL KEY
 
-xsBNBGYyBwYBCACt3P31LabsSecurityKeyPlaceholderForReplacementOnly
-P31LaunchPhaseKeyStubAuDHDOperatorMustReplaceWithRealEd25519Key
-ThisIsNotAValidPGPKeyItIsAPlaceholderForTheSecurityPortalPage
-ReplaceWithOutputOfGpgFullGenKeyBeforeGoingLiveOnPhosphorus31Org
-KeyIDWillBeAssignedByGPGAfterGenerationUploadToKeysOpenpgpOrg
+mDMEafjtgxYJKwYBBAHaRw8BAQdAtjBV8iON1fcCdVkvH+qFiWIPsNHndRKM1jYq
+rbiZsz+0G3AzMSAobmljZSkgPHdpbGxAcDMxY2Eub3JnPoiQBBMWCgA4FiEEuMDO
+jl4PhXTE3bzB5iFxZkgK61IFAmn47YMCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgEC
+F4AACgkQ5iFxZkgK61LyjwD/Q8snJkrWXSGeH8SXxOQP7jApsPzjtSKMgQmBpzTF
+C2kBAIYFowsn/CK6bMopBL4ezbI3ogEC9RyYC5zB15uZGH4FuDgEafjtgxIKKwYB
+BAGXVQEFAQEHQPf5gvraU4rRTbNqk1rlTK8iYEAvvDHob89d2Gr//btfAwEIB4h4
+BBgWCgAgFiEEuMDOjl4PhXTE3bzB5iFxZkgK61IFAmn47YMCGwwACgkQ5iFxZkgK
+61IPCQD/SThCKpIBaBcuZbF/0sPzxxV0My24AgiMteyXmISbcEIA/iR5KQYxpKMq
+S3uRsnCkvv5RTCmIXVJSe0p0dwgUrP0P
+=ZIA8
 -----END PGP PUBLIC KEY BLOCK-----
-
-===
-
-P31 Labs Security — Key Information
-====================================
-
-Email:       security@p31ca.org
-Key type:    Ed25519 (signing) + Curve25519 (encryption)
-Created:     2026-05-04
-Expires:     2028-05-04
-Program:     https://phosphorus31.org/security/
-Policy:      https://phosphorus31.org/security/policy.txt
-
-OPERATOR ACTION REQUIRED
---------------------------
-This file is a placeholder. To publish a real PGP key:
-
-  1. gpg --full-gen-key
-     → Key type: ECC (Ed25519)
-     → UID: P31 Labs Security <security@p31ca.org>
-     → Expire: 2y
-
-  2. gpg --armor --export security@p31ca.org > pgp-key.txt
-
-  3. gpg --keyserver keys.openpgp.org --send-keys <KEY-ID>
-
-  4. Update p31-constants.json → security.pgpFingerprint
-     Run: npm run apply:constants && npm run verify:constants
-
-  5. Replace this file and commit to phosphorus31.org repo.
-
-Π₁(d) = (1/d)|ψᵢ⟩⟨ψᵢ| — 31P Larmor in Earth field: 863 Hz
